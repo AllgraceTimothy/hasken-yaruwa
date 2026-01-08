@@ -1,0 +1,558 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Application Submitted - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+">
+    <div class="scale-in" style="
+        width: 100%;
+        text-align: center;
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        padding: 4rem 2rem;
+        position: relative;
+        overflow: hidden;
+    ">
+        <!-- Decorative Elements -->
+        <div style="
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background-color: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+        "></div>
+        <div style="
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(0, 103, 71, 0.1);
+            border-radius: 50%;
+        "></div>
+        
+        <!-- Success Icon -->
+        <div style="
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+            color: #FFD700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 3rem;
+            box-shadow: 0 4px 12px rgba(0, 103, 71, 0.2);
+            animation: scaleIn 0.6s ease-out;
+        ">
+            ✓
+        </div>
+        
+        <!-- Main Message -->
+        <h1 style="
+            color: #006747;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        ">
+            Application Submitted Successfully!
+        </h1>
+        
+        <p style="
+            color: #2F4F4F;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        ">
+            Thank you for taking this important step towards your educational journey. 
+            Your application has been received and will be reviewed by our team.
+        </p>
+        
+        <!-- Confirmation Details -->
+        <div style="
+            background-color: #F8F9FA;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            border-left: 4px solid #FFD700;
+            text-align: left;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        ">
+            <div style="
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            ">
+                <div style="
+                    background-color: #006747;
+                    color: #FFD700;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                    font-size: 1.2rem;
+                ">📋</div>
+                <div>
+                    <h3 style="color: #006747; margin: 0 0 0.3rem 0; font-size: 1.2rem;">
+                        Application Received
+                    </h3>
+                    <p style="color: #2F4F4F; margin: 0; font-size: 0.9rem;">
+                        Your application ID: <strong style="color: #006747;">#{{ application_id|default:"2024-001" }}</strong>
+                    </p>
+                </div>
+            </div>
+            
+            <div style="
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 1rem;
+            ">
+                <div style="
+                    background-color: #E6E6FA;
+                    color: #006747;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 0.8rem;
+                    font-weight: bold;
+                ">1</div>
+                <span style="color: #2F4F4F; font-size: 0.95rem;">
+                    Application under review (2-3 weeks)
+                </span>
+            </div>
+            
+            <div style="
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 1rem;
+            ">
+                <div style="
+                    background-color: #E6E6FA;
+                    color: #006747;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 0.8rem;
+                    font-weight: bold;
+                ">2</div>
+                <span style="color: #2F4F4F; font-size: 0.95rem;">
+                    Interview & verification (if needed)
+                </span>
+            </div>
+            
+            <div style="
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            ">
+                <div style="
+                    background-color: #E6E6FA;
+                    color: #006747;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 0.8rem;
+                    font-weight: bold;
+                ">3</div>
+                <span style="color: #2F4F4F; font-size: 0.95rem;">
+                    Final decision & notification
+                </span>
+            </div>
+        </div>
+        
+        <!-- What Happens Next -->
+        <div class="fade-in" style="
+            background-color: #E6E6FA;
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            text-align: left;
+        ">
+            <h3 style="
+                color: #006747;
+                font-size: 1.4rem;
+                margin-bottom: 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+            ">
+                <span style="color: #FFD700;">📬</span> What Happens Next
+            </h3>
+            
+            <div style="margin-bottom: 1.5rem;">
+                <p style="
+                    color: #2F4F4F;
+                    margin-bottom: 1rem;
+                    line-height: 1.6;
+                ">
+                    Our team will carefully review your application. You can expect:
+                </p>
+                
+                <ul style="
+                    color: #2F4F4F;
+                    line-height: 1.8;
+                    padding-left: 1.2rem;
+                    margin: 0;
+                ">
+                    <li style="margin-bottom: 0.8rem;">
+                        <strong style="color: #006747;">Email confirmation:</strong> 
+                        Check your email (including spam folder) for application receipt
+                    </li>
+                    <li style="margin-bottom: 0.8rem;">
+                        <strong style="color: #006747;">Review timeline:</strong> 
+                        Application review typically takes 2-3 weeks
+                    </li>
+                    <li style="margin-bottom: 0.8rem;">
+                        <strong style="color: #006747;">Contact:</strong> 
+                        We will contact you or your parent/guardian if more information is needed
+                    </li>
+                    <li>
+                        <strong style="color: #006747;">Notification:</strong> 
+                        You'll receive a decision via email and phone call
+                    </li>
+                </ul>
+            </div>
+            
+            <div style="
+                background-color: white;
+                padding: 1.5rem;
+                border-radius: 8px;
+                border-left: 4px solid #006747;
+                margin-top: 1.5rem;
+            ">
+                <p style="
+                    color: #2F4F4F;
+                    margin: 0;
+                    font-style: italic;
+                    line-height: 1.6;
+                ">
+                    <strong style="color: #006747;">Note:</strong> 
+                    Please ensure the contact information provided in your application 
+                    is accurate and regularly checked.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div style="
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        ">
+            <a href="{% url 'home' %}" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.8rem;
+                background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 103, 71, 0.3)';" 
+            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <span>Return to Home</span>
+                <span>🏠</span>
+            </a>
+            
+            <a href="{% url 'apply' %}" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.8rem;
+                background-color: white;
+                color: #006747;
+                border: 2px solid #E6E6FA;
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.borderColor='#006747'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.borderColor='#E6E6FA'; this.style.transform='translateY(0)';">
+                <span>Submit Another Application</span>
+                <span>📝</span>
+            </a>
+        </div>
+        
+        <!-- Contact Information -->
+        <div style="
+            padding-top: 2rem;
+            border-top: 2px solid #E6E6FA;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        ">
+            <p style="
+                color: #2F4F4F;
+                margin-bottom: 1.5rem;
+                font-size: 1.1rem;
+                font-weight: 600;
+            ">
+                Questions about your application?
+            </p>
+            
+            <div style="
+                display: flex;
+                gap: 2rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            ">
+                <a href="mailto:applications@haskenyaruwa.org" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    color: #006747;
+                    text-decoration: none;
+                    font-weight: 600;
+                    transition: color 0.3s ease;
+                " onmouseover="this.style.color='#00563a';" onmouseout="this.style.color='#006747';">
+                    <span>📧</span>
+                    <span>applications@haskenyaruwa.org</span>
+                </a>
+                
+                <span style="color: #E6E6FA;">|</span>
+                
+                <a href="tel:+2348001234567" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    color: #006747;
+                    text-decoration: none;
+                    font-weight: 600;
+                    transition: color 0.3s ease;
+                " onmouseover="this.style.color='#00563a';" onmouseout="this.style.color='#006747';">
+                    <span>📞</span>
+                    <span>+234 800 123 4567</span>
+                </a>
+            </div>
+            
+            <p style="
+                color: #2F4F4F;
+                font-size: 0.9rem;
+                margin-top: 1.5rem;
+                opacity: 0.8;
+                font-style: italic;
+            ">
+                Please reference your application ID when contacting us.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Animations -->
+<style>
+    @keyframes scaleIn {
+        from {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .success-icon {
+        animation: scaleIn 0.6s ease-out;
+    }
+    
+    .content-fade {
+        animation: fadeInUp 0.8s ease-out 0.3s both;
+    }
+    
+    /* Print Styles */
+    @media print {
+        .no-print {
+            display: none;
+        }
+        
+        .success-container {
+            box-shadow: none;
+            border: 1px solid #ddd;
+        }
+        
+        .action-buttons {
+            display: none;
+        }
+    }
+    
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        .success-container {
+            padding: 2rem 1rem;
+        }
+        
+        h1 {
+            font-size: 2rem !important;
+        }
+        
+        .action-buttons {
+            flex-direction: column;
+        }
+        
+        .action-buttons a {
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .contact-info {
+            flex-direction: column;
+            gap: 1rem !important;
+        }
+        
+        .contact-info span:not(:last-child) {
+            display: none;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        h1 {
+            font-size: 1.7rem !important;
+        }
+        
+        .confirmation-box {
+            padding: 1.5rem !important;
+        }
+        
+        .next-steps {
+            padding: 1.5rem !important;
+        }
+    }
+</style>
+
+<!-- Auto-redirect after 30 seconds (optional) -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set up auto-redirect after 30 seconds
+        setTimeout(function() {
+            const redirectBtn = document.createElement('button');
+            redirectBtn.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: #006747;
+                color: white;
+                border: none;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 100;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            `;
+            redirectBtn.innerHTML = 'Auto-redirecting... <span id="countdown">5</span>s';
+            document.body.appendChild(redirectBtn);
+            
+            let countdown = 5;
+            const countdownEl = document.getElementById('countdown');
+            const countdownInterval = setInterval(function() {
+                countdown--;
+                countdownEl.textContent = countdown;
+                
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    window.location.href = "{% url 'home' %}";
+                }
+            }, 1000);
+            
+            // Allow user to cancel auto-redirect
+            redirectBtn.addEventListener('click', function() {
+                clearInterval(countdownInterval);
+                document.body.removeChild(redirectBtn);
+            });
+        }, 30000); // 30 seconds
+        
+        // Add animation delays for content
+        const animatedElements = document.querySelectorAll('.fade-in');
+        animatedElements.forEach((element, index) => {
+            element.style.animationDelay = `${index * 0.2}s`;
+        });
+        
+        // Print application confirmation
+        const printBtn = document.createElement('a');
+        printBtn.href = '#';
+        printBtn.innerHTML = '🖨️ Print Confirmation';
+        printBtn.style.cssText = `
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #006747;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            border: 2px solid #E6E6FA;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        `;
+        printBtn.addEventListener('mouseover', function() {
+            this.style.borderColor = '#006747';
+            this.style.backgroundColor = '#F8F9FA';
+        });
+        printBtn.addEventListener('mouseout', function() {
+            this.style.borderColor = '#E6E6FA';
+            this.style.backgroundColor = 'transparent';
+        });
+        printBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.print();
+        });
+        
+        // Add print button after action buttons
+        const actionButtons = document.querySelector('.action-buttons');
+        if (actionButtons) {
+            actionButtons.parentNode.insertBefore(printBtn, actionButtons.nextSibling);
+        }
+    });
+</script>
+{% endblock %}

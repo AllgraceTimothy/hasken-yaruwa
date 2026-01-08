@@ -1,0 +1,1227 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Become a Mentor - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 80vh;
+">
+    <!-- Mentor Hero Section -->
+    <div class="fade-in" style="
+        text-align: center;
+        margin-bottom: 3rem;
+    ">
+        <div style="
+            background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+            padding: 4rem 2rem;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        ">
+            <!-- Decorative elements -->
+            <div style="
+                position: absolute;
+                top: -50px;
+                right: -50px;
+                width: 200px;
+                height: 200px;
+                background-color: rgba(255, 215, 0, 0.1);
+                border-radius: 50%;
+            "></div>
+            <div style="
+                position: absolute;
+                bottom: -30px;
+                left: -30px;
+                width: 150px;
+                height: 150px;
+                background-color: rgba(230, 230, 250, 0.1);
+                border-radius: 50%;
+            "></div>
+            
+            <h1 style="
+                font-size: 3rem;
+                margin-bottom: 1rem;
+                line-height: 1.2;
+                position: relative;
+                z-index: 1;
+            ">
+                Become a <span style="color: #FFD700;">Mentor</span>
+            </h1>
+            <p style="
+                font-size: 1.3rem;
+                max-width: 800px;
+                margin: 0 auto 2rem;
+                line-height: 1.6;
+                position: relative;
+                z-index: 1;
+                opacity: 0.9;
+            ">
+                Guide, inspire, and empower the next generation of Nigerian women leaders
+            </p>
+            
+            <div style="
+                display: inline-flex;
+                align-items: center;
+                gap: 1rem;
+                background-color: rgba(255, 255, 255, 0.1);
+                padding: 1rem 2rem;
+                border-radius: 50px;
+                backdrop-filter: blur(10px);
+                position: relative;
+                z-index: 1;
+            ">
+                <div style="
+                    width: 40px;
+                    height: 40px;
+                    background-color: #FFD700;
+                    color: #006747;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                ">✨</div>
+                <span style="font-weight: 600;">Transform lives through mentorship</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why Mentor Section -->
+    <div class="fade-in" style="
+        margin-bottom: 3rem;
+    ">
+        <div style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        ">
+            <div class="slide-in-left">
+                <div style="
+                    background-color: #E6E6FA;
+                    padding: 3rem;
+                    border-radius: 12px;
+                    height: 100%;
+                ">
+                    <h2 style="
+                        color: #006747;
+                        font-size: 2rem;
+                        margin-bottom: 1.5rem;
+                        line-height: 1.3;
+                    ">
+                        Your Guidance Can Change a Life
+                    </h2>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div style="
+                            display: flex;
+                            align-items: flex-start;
+                            gap: 1rem;
+                            margin-bottom: 1.5rem;
+                        ">
+                            <div style="
+                                background-color: #006747;
+                                color: #FFD700;
+                                min-width: 40px;
+                                height: 40px;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-weight: bold;
+                                font-size: 1.2rem;
+                            ">💡</div>
+                            <div>
+                                <h4 style="
+                                    color: #006747;
+                                    margin: 0 0 0.5rem 0;
+                                    font-size: 1.2rem;
+                                ">Share Your Experience</h4>
+                                <p style="
+                                    color: #2F4F4F;
+                                    margin: 0;
+                                    line-height: 1.6;
+                                ">
+                                    Guide girls through educational challenges and career possibilities
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div style="
+                            display: flex;
+                            align-items: flex-start;
+                            gap: 1rem;
+                            margin-bottom: 1.5rem;
+                        ">
+                            <div style="
+                                background-color: #FFD700;
+                                color: #006747;
+                                min-width: 40px;
+                                height: 40px;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-weight: bold;
+                                font-size: 1.2rem;
+                            ">❤️</div>
+                            <div>
+                                <h4 style="
+                                    color: #006747;
+                                    margin: 0 0 0.5rem 0;
+                                    font-size: 1.2rem;
+                                ">Build Confidence</h4>
+                                <p style="
+                                    color: #2F4F4F;
+                                    margin: 0;
+                                    line-height: 1.6;
+                                ">
+                                    Help girls believe in themselves and their potential
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div style="
+                            display: flex;
+                            align-items: flex-start;
+                            gap: 1rem;
+                        ">
+                            <div style="
+                                background-color: #006747;
+                                color: #FFD700;
+                                min-width: 40px;
+                                height: 40px;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-weight: bold;
+                                font-size: 1.2rem;
+                            ">🌱</div>
+                            <div>
+                                <h4 style="
+                                    color: #006747;
+                                    margin: 0 0 0.5rem 0;
+                                    font-size: 1.2rem;
+                                ">Shape Futures</h4>
+                                <p style="
+                                    color: #2F4F4F;
+                                    margin: 0;
+                                    line-height: 1.6;
+                                ">
+                                    Make a lasting impact on individual lives and communities
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="
+                        background-color: white;
+                        padding: 1.5rem;
+                        border-radius: 8px;
+                        border-left: 4px solid #FFD700;
+                    ">
+                        <p style="
+                            color: #2F4F4F;
+                            margin: 0;
+                            line-height: 1.6;
+                            font-style: italic;
+                        ">
+                            "Being a mentor isn't just about giving advice; it's about opening doors 
+                            to possibilities these girls never knew existed."
+                        </p>
+                        <p style="
+                            color: #006747;
+                            margin: 1rem 0 0 0;
+                            font-weight: 600;
+                        ">
+                            — Dr. Aisha Bello, Mentor since 2021
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mentor Benefits -->
+            <div class="slide-in-right">
+                <div style="
+                    background-color: white;
+                    padding: 3rem;
+                    border-radius: 12px;
+                    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+                    height: 100%;
+                ">
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.8rem;
+                        margin-bottom: 2rem;
+                        text-align: center;
+                    ">
+                        Why Become a Mentor?
+                    </h3>
+                    
+                    <div style="
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                        gap: 1.5rem;
+                        margin-bottom: 2rem;
+                    ">
+                        <div style="
+                            text-align: center;
+                            padding: 1.5rem;
+                            background-color: #FFF9E6;
+                            border-radius: 8px;
+                        ">
+                            <div style="
+                                font-size: 2.5rem;
+                                color: #006747;
+                                margin-bottom: 0.8rem;
+                            ">🤝</div>
+                            <div style="
+                                color: #006747;
+                                font-weight: 600;
+                                margin-bottom: 0.5rem;
+                            ">Flexible Hours</div>
+                            <p style="
+                                color: #2F4F4F;
+                                font-size: 0.9rem;
+                                margin: 0;
+                            ">Commitment that fits your schedule</p>
+                        </div>
+                        
+                        <div style="
+                            text-align: center;
+                            padding: 1.5rem;
+                            background-color: #E6F0FA;
+                            border-radius: 8px;
+                        ">
+                            <div style="
+                                font-size: 2.5rem;
+                                color: #006747;
+                                margin-bottom: 0.8rem;
+                            ">📚</div>
+                            <div style="
+                                color: #006747;
+                                font-weight: 600;
+                                margin-bottom: 0.5rem;
+                            ">Training Provided</div>
+                            <p style="
+                                color: #2F4F4F;
+                                font-size: 0.9rem;
+                                margin: 0;
+                            ">Complete mentor training program</p>
+                        </div>
+                        
+                        <div style="
+                            text-align: center;
+                            padding: 1.5rem;
+                            background-color: #F0E6FA;
+                            border-radius: 8px;
+                        ">
+                            <div style="
+                                font-size: 2.5rem;
+                                color: #006747;
+                                margin-bottom: 0.8rem;
+                            ">🌟</div>
+                            <div style="
+                                color: #006747;
+                                font-weight: 600;
+                                margin-bottom: 0.5rem;
+                            ">Make an Impact</div>
+                            <p style="
+                                color: #2F4F4F;
+                                font-size: 0.9rem;
+                                margin: 0;
+                            ">Directly change a girl's life</p>
+                        </div>
+                        
+                        <div style="
+                            text-align: center;
+                            padding: 1.5rem;
+                            background-color: #E6FAF0;
+                            border-radius: 8px;
+                        ">
+                            <div style="
+                                font-size: 2.5rem;
+                                color: #006747;
+                                margin-bottom: 0.8rem;
+                            ">🌍</div>
+                            <div style="
+                                color: #006747;
+                                font-weight: 600;
+                                margin-bottom: 0.5rem;
+                            ">Join Community</div>
+                            <p style="
+                                color: #2F4F4F;
+                                font-size: 0.9rem;
+                                margin: 0;
+                            ">Network of passionate professionals</p>
+                        </div>
+                    </div>
+                    
+                    <div style="
+                        background-color: #E6E6FA;
+                        padding: 1.5rem;
+                        border-radius: 8px;
+                        text-align: center;
+                    ">
+                        <p style="
+                            color: #006747;
+                            margin: 0;
+                            font-weight: 600;
+                            font-size: 1.1rem;
+                        ">
+                            Time Commitment: Just 2-4 hours per month
+                        </p>
+                        <p style="
+                            color: #2F4F4F;
+                            margin: 0.5rem 0 0 0;
+                            font-size: 0.9rem;
+                        ">
+                            Virtual or in-person mentorship options available
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mentor Application Form -->
+    <div class="scale-in" style="
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        padding: 3rem;
+        margin-bottom: 3rem;
+    ">
+        <div style="
+            text-align: center;
+            margin-bottom: 3rem;
+        ">
+            <h2 style="
+                color: #006747;
+                font-size: 2.2rem;
+                margin-bottom: 1rem;
+            ">
+                Mentor Application Form
+            </h2>
+            <p style="
+                color: #2F4F4F;
+                font-size: 1.1rem;
+                max-width: 700px;
+                margin: 0 auto;
+                line-height: 1.6;
+            ">
+                Complete this form to start your journey as a Hasken Yaruwa mentor. 
+                We'll review your application and contact you within 5-7 business days.
+            </p>
+        </div>
+        
+        <form method="post" id="mentorForm">
+            {% csrf_token %}
+            
+            <!-- Personal Information -->
+            <div style="margin-bottom: 3rem;">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    margin-bottom: 2rem;
+                    padding-bottom: 1rem;
+                    border-bottom: 2px solid #E6E6FA;
+                ">
+                    <div style="
+                        background-color: #006747;
+                        color: #FFD700;
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                    ">👤</div>
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.5rem;
+                        margin: 0;
+                    ">
+                        Your Information
+                    </h3>
+                </div>
+                
+                <div style="
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 2rem;
+                    margin-bottom: 2rem;
+                ">
+                    <!-- Full Name -->
+                    <div>
+                        <label for="{{ form.full_name.id_for_label }}" style="
+                            display: block;
+                            color: #006747;
+                            font-weight: 600;
+                            margin-bottom: 0.5rem;
+                        ">
+                            Full Name
+                            <span style="color: #FF6B6B;">*</span>
+                        </label>
+                        {% if form.full_name.errors %}
+                        <div style="
+                            color: #FF6B6B;
+                            background-color: #FFE6E6;
+                            padding: 0.8rem;
+                            border-radius: 6px;
+                            margin-bottom: 0.5rem;
+                            font-size: 0.9rem;
+                        ">
+                            {{ form.full_name.errors }}
+                        </div>
+                        {% endif %}
+                        {{ form.full_name }}
+                        <p style="
+                            color: #2F4F4F;
+                            font-size: 0.9rem;
+                            margin-top: 0.5rem;
+                            opacity: 0.7;
+                        ">
+                            Your full legal name
+                        </p>
+                    </div>
+                    
+                    <!-- Email -->
+                    <div>
+                        <label for="{{ form.email.id_for_label }}" style="
+                            display: block;
+                            color: #006747;
+                            font-weight: 600;
+                            margin-bottom: 0.5rem;
+                        ">
+                            Email Address
+                            <span style="color: #FF6B6B;">*</span>
+                        </label>
+                        {% if form.email.errors %}
+                        <div style="
+                            color: #FF6B6B;
+                            background-color: #FFE6E6;
+                            padding: 0.8rem;
+                            border-radius: 6px;
+                            margin-bottom: 0.5rem;
+                            font-size: 0.9rem;
+                        ">
+                            {{ form.email.errors }}
+                        </div>
+                        {% endif %}
+                        {{ form.email }}
+                        <p style="
+                            color: #2F4F4F;
+                            font-size: 0.9rem;
+                            margin-top: 0.5rem;
+                            opacity: 0.7;
+                        ">
+                            We'll send important updates to this email
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Phone -->
+                <div>
+                    <label for="{{ form.phone.id_for_label }}" style="
+                        display: block;
+                        color: #006747;
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                    ">
+                        Phone Number
+                        <span style="color: #FF6B6B;">*</span>
+                    </label>
+                    {% if form.phone.errors %}
+                    <div style="
+                        color: #FF6B6B;
+                        background-color: #FFE6E6;
+                        padding: 0.8rem;
+                        border-radius: 6px;
+                        margin-bottom: 0.5rem;
+                        font-size: 0.9rem;
+                    ">
+                        {{ form.phone.errors }}
+                    </div>
+                    {% endif %}
+                    {{ form.phone }}
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 0.9rem;
+                        margin-top: 0.5rem;
+                        opacity: 0.7;
+                    ">
+                        Include country code (e.g., +234 for Nigeria)
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Background Information -->
+            <div style="margin-bottom: 3rem;">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    margin-bottom: 2rem;
+                    padding-bottom: 1rem;
+                    border-bottom: 2px solid #E6E6FA;
+                ">
+                    <div style="
+                        background-color: #FFD700;
+                        color: #006747;
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                    ">💼</div>
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.5rem;
+                        margin: 0;
+                    ">
+                        Your Background
+                    </h3>
+                </div>
+                
+                <!-- Background Field -->
+                <div style="margin-bottom: 2rem;">
+                    <label for="{{ form.background.id_for_label }}" style="
+                        display: block;
+                        color: #006747;
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                        font-size: 1.1rem;
+                    ">
+                        Professional/Educational Background
+                        <span style="color: #FF6B6B;">*</span>
+                    </label>
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 0.9rem;
+                        margin-bottom: 1rem;
+                        opacity: 0.7;
+                    ">
+                        Tell us about your career, education, and areas of expertise
+                    </p>
+                    {% if form.background.errors %}
+                    <div style="
+                        color: #FF6B6B;
+                        background-color: #FFE6E6;
+                        padding: 0.8rem;
+                        border-radius: 6px;
+                        margin-bottom: 0.5rem;
+                        font-size: 0.9rem;
+                    ">
+                        {{ form.background.errors }}
+                    </div>
+                    {% endif %}
+                    {{ form.background }}
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-top: 0.5rem;
+                    ">
+                        <p style="
+                            color: #2F4F4F;
+                            font-size: 0.8rem;
+                            opacity: 0.7;
+                            margin: 0;
+                        ">
+                            What industry do you work in? What's your educational background?
+                        </p>
+                        <div id="backgroundCount" style="
+                            color: #2F4F4F;
+                            font-size: 0.8rem;
+                            opacity: 0.7;
+                        ">
+                            0 characters
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Motivation Section -->
+            <div style="margin-bottom: 3rem;">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    margin-bottom: 2rem;
+                    padding-bottom: 1rem;
+                    border-bottom: 2px solid #E6E6FA;
+                ">
+                    <div style="
+                        background-color: #006747;
+                        color: #FFD700;
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                    ">🌟</div>
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.5rem;
+                        margin: 0;
+                    ">
+                        Your Motivation
+                    </h3>
+                </div>
+                
+                <!-- Motivation Field -->
+                <div>
+                    <label for="{{ form.motivation.id_for_label }}" style="
+                        display: block;
+                        color: #006747;
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                        font-size: 1.1rem;
+                    ">
+                        Why do you want to become a mentor?
+                        <span style="color: #FF6B6B;">*</span>
+                    </label>
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 0.9rem;
+                        margin-bottom: 1rem;
+                        opacity: 0.7;
+                    ">
+                        Share what inspires you to mentor young girls and what you hope to achieve
+                    </p>
+                    {% if form.motivation.errors %}
+                    <div style="
+                        color: #FF6B6B;
+                        background-color: #FFE6E6;
+                        padding: 0.8rem;
+                        border-radius: 6px;
+                        margin-bottom: 0.5rem;
+                        font-size: 0.9rem;
+                    ">
+                        {{ form.motivation.errors }}
+                    </div>
+                    {% endif %}
+                    {{ form.motivation }}
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-top: 0.5rem;
+                    ">
+                        <p style="
+                            color: #2F4F4F;
+                            font-size: 0.8rem;
+                            opacity: 0.7;
+                            margin: 0;
+                        ">
+                            This helps us match you with the right mentee
+                        </p>
+                        <div id="motivationCount" style="
+                            color: #2F4F4F;
+                            font-size: 0.8rem;
+                            opacity: 0.7;
+                        ">
+                            0 characters
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Form Submission -->
+            <div style="
+                padding-top: 2rem;
+                border-top: 2px solid #E6E6FA;
+                text-align: center;
+            ">
+                <div style="
+                    background-color: #FFF9E6;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    margin-bottom: 2rem;
+                    border-left: 4px solid #FFD700;
+                ">
+                    <p style="
+                        color: #2F4F4F;
+                        margin: 0;
+                        line-height: 1.6;
+                    ">
+                        <strong style="color: #006747;">Important:</strong> 
+                        After submitting your application, our team will review it and contact you for 
+                        an orientation session. All mentors undergo a background check and complete 
+                        our training program before being matched with a mentee.
+                    </p>
+                </div>
+                
+                <div style="
+                    display: flex;
+                    justify-content: center;
+                    gap: 1.5rem;
+                    flex-wrap: wrap;
+                ">
+                    <button type="submit" style="
+                        background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                        color: white;
+                        border: none;
+                        padding: 1.2rem 3.5rem;
+                        border-radius: 8px;
+                        font-size: 1.1rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.8rem;
+                    " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 103, 71, 0.3)';" 
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <span>Submit Mentor Application</span>
+                        <span style="font-size: 1.2rem;">→</span>
+                    </button>
+                    
+                    <button type="reset" style="
+                        background-color: white;
+                        color: #006747;
+                        border: 2px solid #E6E6FA;
+                        padding: 1.2rem 2.5rem;
+                        border-radius: 8px;
+                        font-size: 1.1rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    " onmouseover="this.style.borderColor='#006747'; this.style.transform='translateY(-2px)';" 
+                    onmouseout="this.style.borderColor='#E6E6FA'; this.style.transform='translateY(0)';">
+                        Clear Form
+                    </button>
+                </div>
+                
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 0.9rem;
+                    margin-top: 1.5rem;
+                    opacity: 0.7;
+                ">
+                    Questions about mentoring? <a href="#" style="color: #006747; text-decoration: none; font-weight: 600;">Read our FAQ</a>
+                </p>
+            </div>
+        </form>
+    </div>
+
+    <!-- Mentor Testimonials -->
+    <div class="fade-in" style="
+        background-color: #E6E6FA;
+        border-radius: 12px;
+        padding: 4rem 2rem;
+        text-align: center;
+    ">
+        <h2 style="
+            color: #006747;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        ">
+            Hear From Our Mentors
+        </h2>
+        <p style="
+            color: #2F4F4F;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        ">
+            Discover the rewarding experience of mentoring through the stories of our volunteers
+        </p>
+        
+        <div style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        ">
+            <div style="
+                background-color: white;
+                padding: 2.5rem;
+                border-radius: 12px;
+                text-align: left;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            ">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 1.5rem;
+                    margin-bottom: 1.5rem;
+                ">
+                    <div style="
+                        width: 70px;
+                        height: 70px;
+                        background-color: #006747;
+                        color: #FFD700;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 2rem;
+                        font-weight: bold;
+                    ">A</div>
+                    <div>
+                        <h4 style="
+                            color: #006747;
+                            margin: 0 0 0.3rem 0;
+                            font-size: 1.2rem;
+                        ">Dr. Adebola Johnson</h4>
+                        <p style="
+                            color: #2F4F4F;
+                            margin: 0;
+                            font-size: 0.9rem;
+                            opacity: 0.7;
+                        ">Medical Doctor, Mentor for 2 years</p>
+                    </div>
+                </div>
+                <p style="
+                    color: #2F4F4F;
+                    line-height: 1.6;
+                    font-style: italic;
+                    margin-bottom: 1.5rem;
+                ">
+                    "Mentoring through Hasken Yaruwa has been one of the most fulfilling experiences 
+                    of my career. Seeing my mentee grow in confidence and set ambitious goals for 
+                    herself is incredibly rewarding."
+                </p>
+                <div style="
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 0.5rem;
+                ">
+                    <span style="
+                        background-color: #FFF9E6;
+                        color: #006747;
+                        padding: 0.3rem 0.8rem;
+                        border-radius: 15px;
+                        font-size: 0.8rem;
+                        font-weight: 600;
+                    ">Medical Career</span>
+                    <span style="
+                        background-color: #E6F0FA;
+                        color: #006747;
+                        padding: 0.3rem 0.8rem;
+                        border-radius: 15px;
+                        font-size: 0.8rem;
+                        font-weight: 600;
+                    ">Confidence Building</span>
+                </div>
+            </div>
+            
+            <div style="
+                background-color: white;
+                padding: 2.5rem;
+                border-radius: 12px;
+                text-align: left;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            ">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 1.5rem;
+                    margin-bottom: 1.5rem;
+                ">
+                    <div style="
+                        width: 70px;
+                        height: 70px;
+                        background-color: #FFD700;
+                        color: #006747;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 2rem;
+                        font-weight: bold;
+                    ">C</div>
+                    <div>
+                        <h4 style="
+                            color: #006747;
+                            margin: 0 0 0.3rem 0;
+                            font-size: 1.2rem;
+                        ">Chinedu Okoro</h4>
+                        <p style="
+                            color: #2F4F4F;
+                            margin: 0;
+                            font-size: 0.9rem;
+                            opacity: 0.7;
+                        ">Software Engineer, Mentor for 1 year</p>
+                    </div>
+                </div>
+                <p style="
+                    color: #2F4F4F;
+                    line-height: 1.6;
+                    font-style: italic;
+                    margin-bottom: 1.5rem;
+                ">
+                    "As a mentor, I get to introduce girls to the world of technology and show them 
+                    that STEM careers are accessible to them. It's about planting seeds for the future."
+                </p>
+                <div style="
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 0.5rem;
+                ">
+                    <span style="
+                        background-color: #FFF9E6;
+                        color: #006747;
+                        padding: 0.3rem 0.8rem;
+                        border-radius: 15px;
+                        font-size: 0.8rem;
+                        font-weight: 600;
+                    ">Technology</span>
+                    <span style="
+                        background-color: #E6F0FA;
+                        color: #006747;
+                        padding: 0.3rem 0.8rem;
+                        border-radius: 15px;
+                        font-size: 0.8rem;
+                        font-weight: 600;
+                    ">STEM Education</span>
+                </div>
+            </div>
+            
+            <div style="
+                background-color: white;
+                padding: 2.5rem;
+                border-radius: 12px;
+                text-align: left;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            ">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 1.5rem;
+                    margin-bottom: 1.5rem;
+                ">
+                    <div style="
+                        width: 70px;
+                        height: 70px;
+                        background-color: #006747;
+                        color: #FFD700;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 2rem;
+                        font-weight: bold;
+                    ">F</div>
+                    <div>
+                        <h4 style="
+                            color: #006747;
+                            margin: 0 0 0.3rem 0;
+                            font-size: 1.2rem;
+                        ">Fatima Yusuf</h4>
+                        <p style="
+                            color: #2F4F4F;
+                            margin: 0;
+                            font-size: 0.9rem;
+                            opacity: 0.7;
+                        ">Business Owner, Mentor for 3 years</p>
+                    </div>
+                </div>
+                <p style="
+                    color: #2F4F4F;
+                    line-height: 1.6;
+                    font-style: italic;
+                    margin-bottom: 1.5rem;
+                ">
+                    "Mentoring has given me perspective on my own journey. Helping a young girl 
+                    navigate challenges reminds me of the importance of community and support."
+                </p>
+                <div style="
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 0.5rem;
+                ">
+                    <span style="
+                        background-color: #FFF9E6;
+                        color: #006747;
+                        padding: 0.3rem 0.8rem;
+                        border-radius: 15px;
+                        font-size: 0.8rem;
+                        font-weight: 600;
+                    ">Entrepreneurship</span>
+                    <span style="
+                        background-color: #E6F0FA;
+                        color: #006747;
+                        padding: 0.3rem 0.8rem;
+                        border-radius: 15px;
+                        font-size: 0.8rem;
+                        font-weight: 600;
+                    ">Leadership</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 3rem;">
+            <a href="#" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.8rem;
+                background-color: #FFD700;
+                color: #006747;
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#e6c200'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.backgroundColor='#FFD700'; this.style.transform='translateY(0)';">
+                <span>View More Mentor Stories</span>
+                <span>→</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Custom CSS for Form Styling -->
+<style>
+    /* Form Input Styling */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid #E6E6FA;
+        border-radius: 8px;
+        font-size: 1rem;
+        color: #2F4F4F;
+        background-color: white;
+        transition: all 0.3s ease;
+        font-family: inherit;
+    }
+    
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #006747;
+        box-shadow: 0 0 0 3px rgba(0, 103, 71, 0.1);
+    }
+    
+    textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+    
+    /* Character Counter Animation */
+    .char-counter {
+        transition: color 0.3s ease;
+    }
+</style>
+
+<!-- Character Counter Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const backgroundField = document.querySelector('textarea[name="background"]');
+        const motivationField = document.querySelector('textarea[name="motivation"]');
+        const backgroundCount = document.getElementById('backgroundCount');
+        const motivationCount = document.getElementById('motivationCount');
+        
+        // Background character counter
+        if (backgroundField && backgroundCount) {
+            backgroundField.addEventListener('input', function() {
+                const length = this.value.length;
+                backgroundCount.textContent = length + ' characters';
+                
+                // Change color based on length
+                if (length < 50) {
+                    backgroundCount.style.color = '#FF6B6B';
+                } else if (length < 200) {
+                    backgroundCount.style.color = '#FFD700';
+                } else {
+                    backgroundCount.style.color = '#006747';
+                }
+            });
+            
+            // Trigger initial count
+            backgroundField.dispatchEvent(new Event('input'));
+        }
+        
+        // Motivation character counter
+        if (motivationField && motivationCount) {
+            motivationField.addEventListener('input', function() {
+                const length = this.value.length;
+                motivationCount.textContent = length + ' characters';
+                
+                // Change color based on length
+                if (length < 100) {
+                    motivationCount.style.color = '#FF6B6B';
+                } else if (length < 300) {
+                    motivationCount.style.color = '#FFD700';
+                } else {
+                    motivationCount.style.color = '#006747';
+                }
+            });
+            
+            // Trigger initial count
+            motivationField.dispatchEvent(new Event('input'));
+        }
+        
+        // Form validation
+        const form = document.getElementById('mentorForm');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                let isValid = true;
+                const requiredFields = form.querySelectorAll('[required]');
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = '#FF6B6B';
+                    } else {
+                        field.style.borderColor = '#E6E6FA';
+                    }
+                });
+                
+                // Email validation
+                const emailField = form.querySelector('input[type="email"]');
+                if (emailField && emailField.value) {
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(emailField.value)) {
+                        isValid = false;
+                        emailField.style.borderColor = '#FF6B6B';
+                        alert('Please enter a valid email address');
+                    }
+                }
+                
+                if (!isValid) {
+                    e.preventDefault();
+                    alert('Please fill in all required fields correctly');
+                }
+            });
+        }
+        
+        // Phone number formatting
+        const phoneField = document.querySelector('input[name="phone"]');
+        if (phoneField) {
+            phoneField.addEventListener('input', function() {
+                let value = this.value.replace(/\D/g, '');
+                
+                // Add + if it starts with numbers
+                if (value && !this.value.startsWith('+')) {
+                    this.value = '+' + value;
+                } else if (!value && this.value === '+') {
+                    this.value = '';
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

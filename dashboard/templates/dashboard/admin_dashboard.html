@@ -1,0 +1,825 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Admin Dashboard - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+">
+    <!-- Dashboard Header -->
+    <div class="fade-in" style="
+        margin-bottom: 3rem;
+    ">
+        <h1 style="
+            color: #006747;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        ">
+            <span style="
+                background-color: #006747;
+                color: #FFD700;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+            ">⚡</span>
+            Admin Dashboard
+        </h1>
+        <p style="
+            color: #2F4F4F;
+            font-size: 1.1rem;
+        ">
+            Welcome to the Hasken Yaruwa administration panel. Manage applications, mentors, and monitor impact.
+        </p>
+    </div>
+
+    <!-- Quick Stats Overview -->
+    <div class="fade-in" style="
+        margin-bottom: 2rem;
+    ">
+        <h3 style="
+            color: #006747;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #E6E6FA;
+        ">
+            Quick Overview
+        </h3>
+        <div style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        ">
+            <div style="
+                background-color: white;
+                padding: 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                border-left: 4px solid #006747;
+            ">
+                <div style="
+                    font-size: 2rem;
+                    font-weight: bold;
+                    color: #006747;
+                    margin-bottom: 0.5rem;
+                ">{{ pending_applications }}</div>
+                <p style="color: #2F4F4F; margin: 0;">Pending Applications</p>
+            </div>
+            <div style="
+                background-color: white;
+                padding: 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                border-left: 4px solid #FFD700;
+            ">
+                <div style="
+                    font-size: 2rem;
+                    font-weight: bold;
+                    color: #006747;
+                    margin-bottom: 0.5rem;
+                ">{{ pending_mentors }}</div>
+                <p style="color: #2F4F4F; margin: 0;">Pending Mentors</p>
+            </div>
+            <div style="
+                background-color: white;
+                padding: 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                border-left: 4px solid #E6E6FA;
+            ">
+                <div style="
+                    font-size: 2rem;
+                    font-weight: bold;
+                    color: #006747;
+                    margin-bottom: 0.5rem;
+                ">{{ approved_students }}</div>
+                <p style="color: #2F4F4F; margin: 0;">Active Students</p>
+            </div>
+            <div style="
+                background-color: white;
+                padding: 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                border-left: 4px solid #2F4F4F;
+            ">
+                <div style="
+                    font-size: 2rem;
+                    font-weight: bold;
+                    color: #006747;
+                    margin-bottom: 0.5rem;
+                ">{{ total_support }}</div>
+                <p style="color: #2F4F4F; margin: 0;">Support Mobilized</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Content -->
+    <div style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    ">
+        <!-- Left Column: Urgent Actions -->
+        <div class="slide-in-left">
+            <div style="
+                background-color: white;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                overflow: hidden;
+            ">
+                <div style="
+                    background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                    padding: 1.5rem;
+                    color: white;
+                ">
+                    <h3 style="
+                        margin: 0;
+                        font-size: 1.4rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.8rem;
+                    ">
+                        <span style="color: #FFD700;">⚠️</span> Urgent Actions Required
+                    </h3>
+                </div>
+                
+                <div style="padding: 1.5rem;">
+                    <!-- Pending Applications Card -->
+                    <div style="
+                        background-color: #FFF9E6;
+                        border-radius: 8px;
+                        padding: 1.5rem;
+                        margin-bottom: 1.5rem;
+                        border-left: 4px solid #FFD700;
+                    ">
+                        <div style="
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin-bottom: 1rem;
+                        ">
+                            <h4 style="
+                                color: #006747;
+                                margin: 0;
+                                font-size: 1.2rem;
+                            ">
+                                Pending Student Applications
+                            </h4>
+                            <span style="
+                                background-color: #FFD700;
+                                color: #006747;
+                                padding: 0.3rem 0.8rem;
+                                border-radius: 20px;
+                                font-size: 0.9rem;
+                                font-weight: bold;
+                            ">
+                                {{ pending_applications }} waiting
+                            </span>
+                        </div>
+                        <p style="
+                            color: #2F4F4F;
+                            margin-bottom: 1rem;
+                            font-size: 0.95rem;
+                        ">
+                            New applications from girls seeking educational support. Review and process these applications promptly.
+                        </p>
+                        <a href="{% url 'review_applications' %}" style="
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            background-color: #006747;
+                            color: white;
+                            padding: 0.8rem 1.5rem;
+                            border-radius: 6px;
+                            text-decoration: none;
+                            font-weight: 600;
+                            transition: all 0.3s ease;
+                        " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+                        onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                            <span>Review Applications</span>
+                            <span>→</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Pending Mentors Card -->
+                    <div style="
+                        background-color: #E6F0FA;
+                        border-radius: 8px;
+                        padding: 1.5rem;
+                        border-left: 4px solid #006747;
+                    ">
+                        <div style="
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin-bottom: 1rem;
+                        ">
+                            <h4 style="
+                                color: #006747;
+                                margin: 0;
+                                font-size: 1.2rem;
+                            ">
+                                Pending Mentor Applications
+                            </h4>
+                            <span style="
+                                background-color: #006747;
+                                color: white;
+                                padding: 0.3rem 0.8rem;
+                                border-radius: 20px;
+                                font-size: 0.9rem;
+                                font-weight: bold;
+                            ">
+                                {{ pending_mentors }} waiting
+                            </span>
+                        </div>
+                        <p style="
+                            color: #2F4F4F;
+                            margin-bottom: 1rem;
+                            font-size: 0.95rem;
+                        ">
+                            Professionals interested in mentoring our students. Review their profiles and qualifications.
+                        </p>
+                        <a href="{% url 'review_mentors' %}" style="
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            background-color: #FFD700;
+                            color: #2F4F4F;
+                            padding: 0.8rem 1.5rem;
+                            border-radius: 6px;
+                            text-decoration: none;
+                            font-weight: 600;
+                            transition: all 0.3s ease;
+                        " onmouseover="this.style.backgroundColor='#e6c200'; this.style.transform='translateY(-2px)';" 
+                        onmouseout="this.style.backgroundColor='#FFD700'; this.style.transform='translateY(0)';">
+                            <span>Review Mentors</span>
+                            <span>→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="scale-in" style="
+                background-color: white;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                padding: 2rem;
+                margin-top: 2rem;
+            ">
+                <h3 style="
+                    color: #006747;
+                    font-size: 1.4rem;
+                    margin-bottom: 1.5rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.8rem;
+                ">
+                    <span style="color: #FFD700;">⚡</span> Quick Actions
+                </h3>
+                
+                <div style="
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 1rem;
+                ">
+                    <a href="#" style="
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: #E6E6FA;
+                        padding: 1.5rem;
+                        border-radius: 8px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        text-align: center;
+                    " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';" 
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div style="
+                            font-size: 2rem;
+                            margin-bottom: 0.8rem;
+                            color: #006747;
+                        ">📝</div>
+                        <span style="
+                            color: #006747;
+                            font-weight: 600;
+                            font-size: 0.95rem;
+                        ">Add New Student</span>
+                    </a>
+                    
+                    <a href="#" style="
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: #FFF9E6;
+                        padding: 1.5rem;
+                        border-radius: 8px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        text-align: center;
+                    " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';" 
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div style="
+                            font-size: 2rem;
+                            margin-bottom: 0.8rem;
+                            color: #006747;
+                        ">📊</div>
+                        <span style="
+                            color: #006747;
+                            font-weight: 600;
+                            font-size: 0.95rem;
+                        ">Generate Report</span>
+                    </a>
+                    
+                    <a href="#" style="
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: #E6F0FA;
+                        padding: 1.5rem;
+                        border-radius: 8px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        text-align: center;
+                    " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';" 
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div style="
+                            font-size: 2rem;
+                            margin-bottom: 0.8rem;
+                            color: #006747;
+                        ">👥</div>
+                        <span style="
+                            color: #006747;
+                            font-weight: 600;
+                            font-size: 0.95rem;
+                        ">Manage Users</span>
+                    </a>
+                    
+                    <a href="#" style="
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: #F0E6FA;
+                        padding: 1.5rem;
+                        border-radius: 8px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        text-align: center;
+                    " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';" 
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div style="
+                            font-size: 2rem;
+                            margin-bottom: 0.8rem;
+                            color: #006747;
+                        ">⚙️</div>
+                        <span style="
+                            color: #006747;
+                            font-weight: 600;
+                            font-size: 0.95rem;
+                        ">Settings</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Stats and Analytics -->
+        <div class="slide-in-right">
+            <!-- Impact Statistics -->
+            <div style="
+                background-color: white;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                padding: 2rem;
+                margin-bottom: 2rem;
+            ">
+                <h3 style="
+                    color: #006747;
+                    font-size: 1.4rem;
+                    margin-bottom: 1.5rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.8rem;
+                ">
+                    <span style="color: #FFD700;">📈</span> Impact Overview
+                </h3>
+                
+                <div style="
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 1.5rem;
+                ">
+                    <div style="
+                        text-align: center;
+                        padding: 1.5rem;
+                        background-color: #F8F9FA;
+                        border-radius: 8px;
+                    ">
+                        <div style="
+                            font-size: 2.5rem;
+                            font-weight: bold;
+                            color: #006747;
+                            margin-bottom: 0.5rem;
+                        ">{{ approved_students }}</div>
+                        <div style="
+                            color: #2F4F4F;
+                            font-weight: 600;
+                            font-size: 0.9rem;
+                            margin-bottom: 0.5rem;
+                        ">Active Students</div>
+                        <div style="
+                            font-size: 0.8rem;
+                            color: #006747;
+                            background-color: #E6F0FA;
+                            padding: 0.3rem 0.6rem;
+                            border-radius: 4px;
+                            display: inline-block;
+                        ">↑ 12% this month</div>
+                    </div>
+                    
+                    <div style="
+                        text-align: center;
+                        padding: 1.5rem;
+                        background-color: #F8F9FA;
+                        border-radius: 8px;
+                    ">
+                        <div style="
+                            font-size: 2.5rem;
+                            font-weight: bold;
+                            color: #006747;
+                            margin-bottom: 0.5rem;
+                        ">{{ total_support }}</div>
+                        <div style="
+                            color: #2F4F4F;
+                            font-weight: 600;
+                            font-size: 0.9rem;
+                            margin-bottom: 0.5rem;
+                        ">Support Mobilized</div>
+                        <div style="
+                            font-size: 0.8rem;
+                            color: #006747;
+                            background-color: #E6F0FA;
+                            padding: 0.3rem 0.6rem;
+                            border-radius: 4px;
+                            display: inline-block;
+                        ">₦{{ total_support|add:"00000" }}</div>
+                    </div>
+                </div>
+                
+                <!-- Progress Visualization -->
+                <div style="margin-top: 2rem;">
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 0.5rem;
+                    ">
+                        <span style="
+                            color: #2F4F4F;
+                            font-size: 0.9rem;
+                        ">Monthly Goal Progress</span>
+                        <span style="
+                            color: #006747;
+                            font-weight: 600;
+                            font-size: 0.9rem;
+                        ">65%</span>
+                    </div>
+                    <div style="
+                        height: 10px;
+                        background-color: #E6E6FA;
+                        border-radius: 5px;
+                        overflow: hidden;
+                    ">
+                        <div style="
+                            height: 100%;
+                            background: linear-gradient(90deg, #006747 0%, #FFD700 100%);
+                            width: 65%;
+                            border-radius: 5px;
+                        "></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="scale-in" style="
+                background-color: white;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                padding: 2rem;
+            ">
+                <h3 style="
+                    color: #006747;
+                    font-size: 1.4rem;
+                    margin-bottom: 1.5rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.8rem;
+                ">
+                    <span style="color: #FFD700;">🔄</span> Recent Activity
+                </h3>
+                
+                <div style="
+                    max-height: 300px;
+                    overflow-y: auto;
+                    padding-right: 0.5rem;
+                ">
+                    <!-- Activity Item -->
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        padding: 1rem;
+                        background-color: #F8F9FA;
+                        border-radius: 8px;
+                        margin-bottom: 0.8rem;
+                    ">
+                        <div style="
+                            background-color: #006747;
+                            color: white;
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.2rem;
+                        ">👤</div>
+                        <div style="flex: 1;">
+                            <div style="
+                                color: #006747;
+                                font-weight: 600;
+                                font-size: 0.95rem;
+                            ">New application received</div>
+                            <div style="
+                                color: #2F4F4F;
+                                font-size: 0.85rem;
+                            ">Amina Ibrahim from Kano State</div>
+                        </div>
+                        <div style="
+                            color: #2F4F4F;
+                            font-size: 0.8rem;
+                            white-space: nowrap;
+                        ">2 hours ago</div>
+                    </div>
+                    
+                    <!-- Activity Item -->
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        padding: 1rem;
+                        background-color: #F8F9FA;
+                        border-radius: 8px;
+                        margin-bottom: 0.8rem;
+                    ">
+                        <div style="
+                            background-color: #FFD700;
+                            color: #006747;
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.2rem;
+                        ">✅</div>
+                        <div style="flex: 1;">
+                            <div style="
+                                color: #006747;
+                                font-weight: 600;
+                                font-size: 0.95rem;
+                            ">Mentor approved</div>
+                            <div style="
+                                color: #2F4F4F;
+                                font-size: 0.85rem;
+                            ">Dr. Fatima Bello - Medical Professional</div>
+                        </div>
+                        <div style="
+                            color: #2F4F4F;
+                            font-size: 0.8rem;
+                            white-space: nowrap;
+                        ">5 hours ago</div>
+                    </div>
+                    
+                    <!-- Activity Item -->
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        padding: 1rem;
+                        background-color: #F8F9FA;
+                        border-radius: 8px;
+                        margin-bottom: 0.8rem;
+                    ">
+                        <div style="
+                            background-color: #E6E6FA;
+                            color: #006747;
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.2rem;
+                        ">💰</div>
+                        <div style="flex: 1;">
+                            <div style="
+                                color: #006747;
+                                font-weight: 600;
+                                font-size: 0.95rem;
+                            ">Donation received</div>
+                            <div style="
+                                color: #2F4F4F;
+                                font-size: 0.85rem;
+                            ">₦250,000 from Corporate Sponsor</div>
+                        </div>
+                        <div style="
+                            color: #2F4F4F;
+                            font-size: 0.8rem;
+                            white-space: nowrap;
+                        ">1 day ago</div>
+                    </div>
+                    
+                    <!-- Activity Item -->
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        padding: 1rem;
+                        background-color: #F8F9FA;
+                        border-radius: 8px;
+                        margin-bottom: 0.8rem;
+                    ">
+                        <div style="
+                            background-color: #2F4F4F;
+                            color: white;
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.2rem;
+                        ">📚</div>
+                        <div style="flex: 1;">
+                            <div style="
+                                color: #006747;
+                                font-weight: 600;
+                                font-size: 0.95rem;
+                            ">Scholarship distributed</div>
+                            <div style="
+                                color: #2F4F4F;
+                                font-size: 0.85rem;
+                            ">To 15 students in Lagos State</div>
+                        </div>
+                        <div style="
+                            color: #2F4F4F;
+                            font-size: 0.8rem;
+                            white-space: nowrap;
+                        ">2 days ago</div>
+                    </div>
+                    
+                    <!-- Activity Item -->
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        padding: 1rem;
+                        background-color: #F8F9FA;
+                        border-radius: 8px;
+                    ">
+                        <div style="
+                            background-color: #006747;
+                            color: #FFD700;
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.2rem;
+                        ">🎓</div>
+                        <div style="flex: 1;">
+                            <div style="
+                                color: #006747;
+                                font-weight: 600;
+                                font-size: 0.95rem;
+                            ">Student milestone</div>
+                            <div style="
+                                color: #2F4F4F;
+                                font-size: 0.85rem;
+                            ">Chioma Adeyemi graduated secondary school</div>
+                        </div>
+                        <div style="
+                            color: #2F4F4F;
+                            font-size: 0.8rem;
+                            white-space: nowrap;
+                        ">3 days ago</div>
+                    </div>
+                </div>
+                
+                <a href="#" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    color: #006747;
+                    text-decoration: none;
+                    font-weight: 600;
+                    margin-top: 1rem;
+                    font-size: 0.9rem;
+                    transition: color 0.3s ease;
+                " onmouseover="this.style.color='#00563a';" onmouseout="this.style.color='#006747';">
+                    <span>View all activity</span>
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Status Bar -->
+    <div class="fade-in" style="
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        padding: 1.5rem;
+        margin-top: 2rem;
+        border-left: 4px solid #006747;
+    ">
+        <div style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        ">
+            <div style="
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            ">
+                <div style="
+                    width: 12px;
+                    height: 12px;
+                    background-color: #4CAF50;
+                    border-radius: 50%;
+                    animation: pulse 2s infinite;
+                "></div>
+                <span style="
+                    color: #006747;
+                    font-weight: 600;
+                ">System Status: All systems operational</span>
+            </div>
+            <div style="
+                color: #2F4F4F;
+                font-size: 0.9rem;
+            ">
+                Last updated: {% now "F j, Y, g:i a" %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+        }
+        70% {
+            box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+        }
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: #006747;
+        border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: #00563a;
+    }
+</style>
+{% endblock %}

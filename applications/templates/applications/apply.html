@@ -1,0 +1,900 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Apply for Support - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 80vh;
+">
+    <!-- Application Hero Section -->
+    <div class="fade-in" style="
+        text-align: center;
+        margin-bottom: 3rem;
+    ">
+        <div style="
+            background: linear-gradient(135deg, #E6E6FA 0%, #f0f0ff 100%);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        ">
+            <h1 style="
+                color: #006747;
+                font-size: 2.8rem;
+                margin-bottom: 1rem;
+                line-height: 1.2;
+            ">
+                Apply for Education Support
+            </h1>
+            <p style="
+                color: #2F4F4F;
+                font-size: 1.2rem;
+                max-width: 800px;
+                margin: 0 auto 2rem;
+                line-height: 1.6;
+            ">
+                Take the first step towards your educational dreams. We're here to help you overcome 
+                barriers and achieve your full potential.
+            </p>
+            
+            <div style="
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+                margin-top: 2rem;
+            ">
+                <div style="
+                    background-color: white;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    min-width: 200px;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                ">
+                    <div style="
+                        font-size: 2.5rem;
+                        color: #FFD700;
+                        margin-bottom: 0.5rem;
+                    ">🎓</div>
+                    <div style="
+                        color: #006747;
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                    ">Full Scholarships</div>
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 0.9rem;
+                        margin: 0;
+                    ">Tuition, books & supplies</p>
+                </div>
+                
+                <div style="
+                    background-color: white;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    min-width: 200px;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                ">
+                    <div style="
+                        font-size: 2.5rem;
+                        color: #FFD700;
+                        margin-bottom: 0.5rem;
+                    ">🚌</div>
+                    <div style="
+                        color: #006747;
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                    ">Transport Support</div>
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 0.9rem;
+                        margin: 0;
+                    ">Safe travel to school</p>
+                </div>
+                
+                <div style="
+                    background-color: white;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    min-width: 200px;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                ">
+                    <div style="
+                        font-size: 2.5rem;
+                        color: #FFD700;
+                        margin-bottom: 0.5rem;
+                    ">👥</div>
+                    <div style="
+                        color: #006747;
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                    ">Mentorship</div>
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 0.9rem;
+                        margin: 0;
+                    ">Guidance & support</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Progress -->
+    <div class="fade-in" style="
+        margin-bottom: 3rem;
+    ">
+        <div style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        ">
+            <h2 style="
+                color: #006747;
+                font-size: 1.8rem;
+                margin: 0;
+            ">
+                Application Form
+            </h2>
+            <div style="
+                background-color: #E6E6FA;
+                padding: 0.5rem 1.5rem;
+                border-radius: 20px;
+                color: #006747;
+                font-weight: 600;
+                font-size: 0.9rem;
+            ">
+                Step 1 of 1
+            </div>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div style="
+            height: 8px;
+            background-color: #E6E6FA;
+            border-radius: 4px;
+            margin-bottom: 3rem;
+            overflow: hidden;
+        ">
+            <div style="
+                height: 100%;
+                background: linear-gradient(90deg, #006747 0%, #FFD700 100%);
+                width: 100%;
+                border-radius: 4px;
+                transition: width 0.5s ease;
+            "></div>
+        </div>
+    </div>
+
+    <!-- Application Form -->
+    <div class="scale-in" style="
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        padding: 3rem;
+        margin-bottom: 3rem;
+    ">
+        <form method="post" id="applicationForm">
+            {% csrf_token %}
+            
+            <!-- Personal Information Section -->
+            <div style="margin-bottom: 3rem;">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    margin-bottom: 2rem;
+                    padding-bottom: 1rem;
+                    border-bottom: 2px solid #E6E6FA;
+                ">
+                    <div style="
+                        background-color: #006747;
+                        color: #FFD700;
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                    ">1</div>
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.5rem;
+                        margin: 0;
+                    ">
+                        Personal Information
+                    </h3>
+                </div>
+                
+                <!-- Full Name -->
+                <div style="margin-bottom: 2rem;">
+                    <label for="{{ form.full_name.id_for_label }}" style="
+                        display: block;
+                        color: #006747;
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                        font-size: 1.1rem;
+                    ">
+                        Full Name
+                        <span style="color: #FF6B6B;">*</span>
+                    </label>
+                    {% if form.full_name.errors %}
+                    <div style="
+                        color: #FF6B6B;
+                        background-color: #FFE6E6;
+                        padding: 0.8rem;
+                        border-radius: 6px;
+                        margin-bottom: 0.5rem;
+                        font-size: 0.9rem;
+                    ">
+                        {{ form.full_name.errors }}
+                    </div>
+                    {% endif %}
+                    {{ form.full_name }}
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 0.9rem;
+                        margin-top: 0.5rem;
+                        opacity: 0.7;
+                    ">
+                        Enter your full legal name as it appears on official documents
+                    </p>
+                </div>
+                
+                <div style="
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 2rem;
+                    margin-bottom: 2rem;
+                ">
+                    <!-- Age -->
+                    <div>
+                        <label for="{{ form.age.id_for_label }}" style="
+                            display: block;
+                            color: #006747;
+                            font-weight: 600;
+                            margin-bottom: 0.5rem;
+                        ">
+                            Age
+                            <span style="color: #FF6B6B;">*</span>
+                        </label>
+                        {% if form.age.errors %}
+                        <div style="
+                            color: #FF6B6B;
+                            background-color: #FFE6E6;
+                            padding: 0.8rem;
+                            border-radius: 6px;
+                            margin-bottom: 0.5rem;
+                            font-size: 0.9rem;
+                        ">
+                            {{ form.age.errors }}
+                        </div>
+                        {% endif %}
+                        {{ form.age }}
+                    </div>
+                    
+                    <!-- Location -->
+                    <div>
+                        <label for="{{ form.location.id_for_label }}" style="
+                            display: block;
+                            color: #006747;
+                            font-weight: 600;
+                            margin-bottom: 0.5rem;
+                        ">
+                            Location (State/LGA)
+                            <span style="color: #FF6B6B;">*</span>
+                        </label>
+                        {% if form.location.errors %}
+                        <div style="
+                            color: #FF6B6B;
+                            background-color: #FFE6E6;
+                            padding: 0.8rem;
+                            border-radius: 6px;
+                            margin-bottom: 0.5rem;
+                            font-size: 0.9rem;
+                        ">
+                            {{ form.location.errors }}
+                        </div>
+                        {% endif %}
+                        {{ form.location }}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- School Information Section -->
+            <div style="margin-bottom: 3rem;">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    margin-bottom: 2rem;
+                    padding-bottom: 1rem;
+                    border-bottom: 2px solid #E6E6FA;
+                ">
+                    <div style="
+                        background-color: #006747;
+                        color: #FFD700;
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                    ">2</div>
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.5rem;
+                        margin: 0;
+                    ">
+                        School Information
+                    </h3>
+                </div>
+                
+                <!-- School Name -->
+                <div style="margin-bottom: 2rem;">
+                    <label for="{{ form.school_name.id_for_label }}" style="
+                        display: block;
+                        color: #006747;
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                        font-size: 1.1rem;
+                    ">
+                        School Name
+                        <span style="color: #FF6B6B;">*</span>
+                    </label>
+                    {% if form.school_name.errors %}
+                    <div style="
+                        color: #FF6B6B;
+                        background-color: #FFE6E6;
+                        padding: 0.8rem;
+                        border-radius: 6px;
+                        margin-bottom: 0.5rem;
+                        font-size: 0.9rem;
+                    ">
+                        {{ form.school_name.errors }}
+                    </div>
+                    {% endif %}
+                    {{ form.school_name }}
+                </div>
+            </div>
+            
+            <!-- Parent/Guardian Information -->
+            <div style="margin-bottom: 3rem;">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    margin-bottom: 2rem;
+                    padding-bottom: 1rem;
+                    border-bottom: 2px solid #E6E6FA;
+                ">
+                    <div style="
+                        background-color: #006747;
+                        color: #FFD700;
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                    ">3</div>
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.5rem;
+                        margin: 0;
+                    ">
+                        Parent/Guardian Information
+                    </h3>
+                </div>
+                
+                <div style="
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 2rem;
+                ">
+                    <!-- Parent Name -->
+                    <div>
+                        <label for="{{ form.parent_name.id_for_label }}" style="
+                            display: block;
+                            color: #006747;
+                            font-weight: 600;
+                            margin-bottom: 0.5rem;
+                        ">
+                            Parent/Guardian Name
+                            <span style="color: #FF6B6B;">*</span>
+                        </label>
+                        {% if form.parent_name.errors %}
+                        <div style="
+                            color: #FF6B6B;
+                            background-color: #FFE6E6;
+                            padding: 0.8rem;
+                            border-radius: 6px;
+                            margin-bottom: 0.5rem;
+                            font-size: 0.9rem;
+                        ">
+                            {{ form.parent_name.errors }}
+                        </div>
+                        {% endif %}
+                        {{ form.parent_name }}
+                    </div>
+                    
+                    <!-- Parent Contact -->
+                    <div>
+                        <label for="{{ form.parent_contact.id_for_label }}" style="
+                            display: block;
+                            color: #006747;
+                            font-weight: 600;
+                            margin-bottom: 0.5rem;
+                        ">
+                            Contact Number
+                            <span style="color: #FF6B6B;">*</span>
+                        </label>
+                        {% if form.parent_contact.errors %}
+                        <div style="
+                            color: #FF6B6B;
+                            background-color: #FFE6E6;
+                            padding: 0.8rem;
+                            border-radius: 6px;
+                            margin-bottom: 0.5rem;
+                            font-size: 0.9rem;
+                        ">
+                            {{ form.parent_contact.errors }}
+                        </div>
+                        {% endif %}
+                        {{ form.parent_contact }}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Challenges & Story Section -->
+            <div style="margin-bottom: 3rem;">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    margin-bottom: 2rem;
+                    padding-bottom: 1rem;
+                    border-bottom: 2px solid #E6E6FA;
+                ">
+                    <div style="
+                        background-color: #006747;
+                        color: #FFD700;
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                    ">4</div>
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.5rem;
+                        margin: 0;
+                    ">
+                        Your Story & Challenges
+                    </h3>
+                </div>
+                
+                <!-- Main Challenge -->
+                <div style="margin-bottom: 2rem;">
+                    <label for="{{ form.main_challenge.id_for_label }}" style="
+                        display: block;
+                        color: #006747;
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                        font-size: 1.1rem;
+                    ">
+                        Main Challenge Facing Your Education
+                        <span style="color: #FF6B6B;">*</span>
+                    </label>
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 0.9rem;
+                        margin-bottom: 1rem;
+                        opacity: 0.7;
+                    ">
+                        Please select the primary challenge that affects your ability to continue school
+                    </p>
+                    {% if form.main_challenge.errors %}
+                    <div style="
+                        color: #FF6B6B;
+                        background-color: #FFE6E6;
+                        padding: 0.8rem;
+                        border-radius: 6px;
+                        margin-bottom: 0.5rem;
+                        font-size: 0.9rem;
+                    ">
+                        {{ form.main_challenge.errors }}
+                    </div>
+                    {% endif %}
+                    {{ form.main_challenge }}
+                </div>
+                
+                <!-- Personal Story -->
+                <div>
+                    <label for="{{ form.personal_story.id_for_label }}" style="
+                        display: block;
+                        color: #006747;
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                        font-size: 1.1rem;
+                    ">
+                        Your Personal Story
+                        <span style="color: #FF6B6B;">*</span>
+                    </label>
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 0.9rem;
+                        margin-bottom: 1rem;
+                        opacity: 0.7;
+                    ">
+                        Tell us about yourself, your educational journey, and why you need support. 
+                        (Minimum 200 characters)
+                    </p>
+                    {% if form.personal_story.errors %}
+                    <div style="
+                        color: #FF6B6B;
+                        background-color: #FFE6E6;
+                        padding: 0.8rem;
+                        border-radius: 6px;
+                        margin-bottom: 0.5rem;
+                        font-size: 0.9rem;
+                    ">
+                        {{ form.personal_story.errors }}
+                    </div>
+                    {% endif %}
+                    {{ form.personal_story }}
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-top: 0.5rem;
+                    ">
+                        <p style="
+                            color: #2F4F4F;
+                            font-size: 0.8rem;
+                            opacity: 0.7;
+                            margin: 0;
+                        ">
+                            We keep all information confidential
+                        </p>
+                        <div id="charCount" style="
+                            color: #2F4F4F;
+                            font-size: 0.8rem;
+                            opacity: 0.7;
+                        ">
+                            0 characters
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Form Submission -->
+            <div style="
+                padding-top: 2rem;
+                border-top: 2px solid #E6E6FA;
+                text-align: center;
+            ">
+                <div style="
+                    background-color: #FFF9E6;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    margin-bottom: 2rem;
+                    border-left: 4px solid #FFD700;
+                ">
+                    <p style="
+                        color: #2F4F4F;
+                        margin: 0;
+                        line-height: 1.6;
+                    ">
+                        <strong style="color: #006747;">Important:</strong> 
+                        By submitting this application, you confirm that all information provided is accurate. 
+                        Our team will review your application within 2-3 weeks and contact you via the provided 
+                        parent/guardian contact number.
+                    </p>
+                </div>
+                
+                <div style="
+                    display: flex;
+                    justify-content: center;
+                    gap: 1rem;
+                    flex-wrap: wrap;
+                ">
+                    <button type="submit" style="
+                        background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                        color: white;
+                        border: none;
+                        padding: 1.2rem 3rem;
+                        border-radius: 8px;
+                        font-size: 1.1rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.8rem;
+                    " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 103, 71, 0.3)';" 
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <span>Submit Application</span>
+                        <span>→</span>
+                    </button>
+                    
+                    <button type="reset" style="
+                        background-color: white;
+                        color: #006747;
+                        border: 2px solid #E6E6FA;
+                        padding: 1.2rem 2rem;
+                        border-radius: 8px;
+                        font-size: 1.1rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    " onmouseover="this.style.borderColor='#006747'; this.style.transform='translateY(-2px)';" 
+                    onmouseout="this.style.borderColor='#E6E6FA'; this.style.transform='translateY(0)';">
+                        Clear Form
+                    </button>
+                </div>
+                
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 0.9rem;
+                    margin-top: 1.5rem;
+                    opacity: 0.7;
+                ">
+                    Have questions? <a href="#" style="color: #006747; text-decoration: none; font-weight: 600;">Contact our support team</a>
+                </p>
+            </div>
+        </form>
+    </div>
+
+    <!-- Success Stories Section -->
+    <div class="fade-in" style="
+        background-color: #E6E6FA;
+        border-radius: 12px;
+        padding: 3rem;
+        margin-top: 3rem;
+        text-align: center;
+    ">
+        <h3 style="
+            color: #006747;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        ">
+            Success Stories
+        </h3>
+        <p style="
+            color: #2F4F4F;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        ">
+            See how Hasken Yaruwa has transformed the lives of girls just like you
+        </p>
+        
+        <div style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        ">
+            <div style="
+                background-color: white;
+                padding: 2rem;
+                border-radius: 8px;
+                text-align: center;
+            ">
+                <div style="
+                    width: 80px;
+                    height: 80px;
+                    background-color: #006747;
+                    color: #FFD700;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2rem;
+                    margin: 0 auto 1rem;
+                ">👩‍🎓</div>
+                <p style="
+                    color: #2F4F4F;
+                    font-style: italic;
+                    line-height: 1.6;
+                    margin-bottom: 1rem;
+                ">
+                    "Thanks to Hasken Yaruwa, I'm the first girl in my family to graduate secondary school."
+                </p>
+                <div style="
+                    color: #006747;
+                    font-weight: 600;
+                ">Amina, 17</div>
+            </div>
+            
+            <div style="
+                background-color: white;
+                padding: 2rem;
+                border-radius: 8px;
+                text-align: center;
+            ">
+                <div style="
+                    width: 80px;
+                    height: 80px;
+                    background-color: #006747;
+                    color: #FFD700;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2rem;
+                    margin: 0 auto 1rem;
+                ">🚌</div>
+                <p style="
+                    color: #2F4F4F;
+                    font-style: italic;
+                    line-height: 1.6;
+                    margin-bottom: 1rem;
+                ">
+                    "The transportation support made it possible for me to attend school safely every day."
+                </p>
+                <div style="
+                    color: #006747;
+                    font-weight: 600;
+                ">Chinwe, 16</div>
+            </div>
+            
+            <div style="
+                background-color: white;
+                padding: 2rem;
+                border-radius: 8px;
+                text-align: center;
+            ">
+                <div style="
+                    width: 80px;
+                    height: 80px;
+                    background-color: #006747;
+                    color: #FFD700;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2rem;
+                    margin: 0 auto 1rem;
+                ">👩‍⚕️</div>
+                <p style="
+                    color: #2F4F4F;
+                    font-style: italic;
+                    line-height: 1.6;
+                    margin-bottom: 1rem;
+                ">
+                    "My mentor inspired me to pursue medicine. I'm now studying to become a doctor."
+                </p>
+                <div style="
+                    color: #006747;
+                    font-weight: 600;
+                ">Fatima, 19</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom CSS for Form Styling -->
+<style>
+    /* Form Input Styling */
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid #E6E6FA;
+        border-radius: 8px;
+        font-size: 1rem;
+        color: #2F4F4F;
+        background-color: white;
+        transition: all 0.3s ease;
+        font-family: inherit;
+    }
+    
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    select:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #006747;
+        box-shadow: 0 0 0 3px rgba(0, 103, 71, 0.1);
+    }
+    
+    textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+    
+    select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23006747' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 12px;
+        padding-right: 2.5rem;
+    }
+    
+    /* Form Field Groups */
+    .form-group {
+        margin-bottom: 2rem;
+    }
+    
+    /* Error State */
+    .error input,
+    .error select,
+    .error textarea {
+        border-color: #FF6B6B;
+    }
+    
+    /* Success State */
+    .success input,
+    .success select,
+    .success textarea {
+        border-color: #4CAF50;
+    }
+</style>
+
+<!-- Character Counter Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const textarea = document.querySelector('textarea[name="personal_story"]');
+        const charCount = document.getElementById('charCount');
+        
+        if (textarea && charCount) {
+            // Update character count on input
+            textarea.addEventListener('input', function() {
+                const length = this.value.length;
+                charCount.textContent = length + ' characters';
+                
+                // Change color based on length
+                if (length < 200) {
+                    charCount.style.color = '#FF6B6B';
+                } else if (length < 500) {
+                    charCount.style.color = '#FFD700';
+                } else {
+                    charCount.style.color = '#006747';
+                }
+            });
+            
+            // Trigger input event to update count on page load
+            textarea.dispatchEvent(new Event('input'));
+        }
+        
+        // Form validation
+        const form = document.getElementById('applicationForm');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                let isValid = true;
+                const requiredFields = form.querySelectorAll('[required]');
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = '#FF6B6B';
+                    } else {
+                        field.style.borderColor = '#E6E6FA';
+                    }
+                });
+                
+                if (!isValid) {
+                    e.preventDefault();
+                    alert('Please fill in all required fields marked with *');
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

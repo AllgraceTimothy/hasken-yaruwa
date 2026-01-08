@@ -1,0 +1,1095 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Support the Mission - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 80vh;
+">
+    <!-- Hero Support Section -->
+    <div class="fade-in" style="
+        text-align: center;
+        margin-bottom: 4rem;
+    ">
+        <div style="
+            background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+            padding: 4rem 2rem;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        ">
+            <!-- Decorative elements -->
+            <div style="
+                position: absolute;
+                top: -50px;
+                left: -50px;
+                width: 200px;
+                height: 200px;
+                background-color: rgba(255, 215, 0, 0.1);
+                border-radius: 50%;
+            "></div>
+            <div style="
+                position: absolute;
+                bottom: -30px;
+                right: -30px;
+                width: 150px;
+                height: 150px;
+                background-color: rgba(230, 230, 250, 0.1);
+                border-radius: 50%;
+            "></div>
+            
+            <h1 style="
+                font-size: 3rem;
+                margin-bottom: 1rem;
+                line-height: 1.2;
+                position: relative;
+                z-index: 1;
+            ">
+                Support <span style="color: #FFD700;">Girls' Education</span>
+            </h1>
+            <p style="
+                font-size: 1.3rem;
+                max-width: 800px;
+                margin: 0 auto 2rem;
+                line-height: 1.6;
+                position: relative;
+                z-index: 1;
+                opacity: 0.9;
+            ">
+                Join us in lighting the path for young Nigerian women to stay in school 
+                and achieve their dreams
+            </p>
+            
+            <div style="
+                display: inline-flex;
+                align-items: center;
+                gap: 1rem;
+                background-color: rgba(255, 255, 255, 0.1);
+                padding: 1rem 2rem;
+                border-radius: 50px;
+                backdrop-filter: blur(10px);
+                position: relative;
+                z-index: 1;
+            ">
+                <div style="
+                    width: 40px;
+                    height: 40px;
+                    background-color: #FFD700;
+                    color: #006747;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                    font-size: 1.2rem;
+                ">💫</div>
+                <span style="font-weight: 600; font-size: 1.1rem;">
+                    Every contribution makes a lasting impact
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Impact Statistics -->
+    <div class="fade-in" style="
+        margin-bottom: 4rem;
+    ">
+        <div style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        ">
+            <div style="
+                background-color: white;
+                padding: 2.5rem;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                text-align: center;
+                border-top: 5px solid #006747;
+            ">
+                <div style="
+                    font-size: 3rem;
+                    color: #006747;
+                    font-weight: bold;
+                    margin-bottom: 1rem;
+                ">
+                    {{ total_support }}
+                </div>
+                <h3 style="
+                    color: #2F4F4F;
+                    font-size: 1.3rem;
+                    margin-bottom: 0.5rem;
+                ">
+                    Resources Mobilized
+                </h3>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 0.9rem;
+                    opacity: 0.8;
+                    margin: 0;
+                ">
+                    Total support raised to date
+                </p>
+            </div>
+            
+            <div style="
+                background-color: white;
+                padding: 2.5rem;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                text-align: center;
+                border-top: 5px solid #FFD700;
+            ">
+                <div style="
+                    font-size: 3rem;
+                    color: #006747;
+                    font-weight: bold;
+                    margin-bottom: 1rem;
+                ">
+                    100%
+                </div>
+                <h3 style="
+                    color: #2F4F4F;
+                    font-size: 1.3rem;
+                    margin-bottom: 0.5rem;
+                ">
+                    Direct Impact
+                </h3>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 0.9rem;
+                    opacity: 0.8;
+                    margin: 0;
+                ">
+                    All funds go directly to girls' education
+                </p>
+            </div>
+            
+            <div style="
+                background-color: white;
+                padding: 2.5rem;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                text-align: center;
+                border-top: 5px solid #E6E6FA;
+            ">
+                <div style="
+                    font-size: 3rem;
+                    color: #006747;
+                    font-weight: bold;
+                    margin-bottom: 1rem;
+                ">
+                    42% → 68%
+                </div>
+                <h3 style="
+                    color: #2F4F4F;
+                    font-size: 1.3rem;
+                    margin-bottom: 0.5rem;
+                ">
+                    Goal Progress
+                </h3>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 0.9rem;
+                    opacity: 0.8;
+                    margin: 0;
+                ">
+                    Girls completing secondary school
+                </p>
+            </div>
+            
+            <div style="
+                background-color: white;
+                padding: 2.5rem;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                text-align: center;
+                border-top: 5px solid #2F4F4F;
+            ">
+                <div style="
+                    font-size: 3rem;
+                    color: #006747;
+                    font-weight: bold;
+                    margin-bottom: 1rem;
+                ">
+                    500+
+                </div>
+                <h3 style="
+                    color: #2F4F4F;
+                    font-size: 1.3rem;
+                    margin-bottom: 0.5rem;
+                ">
+                    Lives Impacted
+                </h3>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 0.9rem;
+                    opacity: 0.8;
+                    margin: 0;
+                ">
+                    Girls supported since inception
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- How Support Helps -->
+    <div class="slide-in-left" style="
+        background-color: #E6E6FA;
+        padding: 4rem;
+        border-radius: 12px;
+        margin-bottom: 4rem;
+    ">
+        <h2 style="
+            color: #006747;
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        ">
+            How Your Support Helps
+        </h2>
+        
+        <p style="
+            color: #2F4F4F;
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        ">
+            Hasken Yaruwa supports girls to stay in school by removing
+            financial, social, and logistical barriers. All support is pooled 
+            and used where it is needed most, ensuring fairness, transparency, 
+            and sustainability.
+        </p>
+        
+        <div style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        ">
+            <div style="
+                background-color: white;
+                padding: 2rem;
+                border-radius: 8px;
+                text-align: center;
+            ">
+                <div style="
+                    font-size: 2.5rem;
+                    color: #006747;
+                    margin-bottom: 1rem;
+                ">💰</div>
+                <h4 style="
+                    color: #006747;
+                    font-size: 1.3rem;
+                    margin-bottom: 1rem;
+                ">
+                    School Fees & Tuition
+                </h4>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 0.95rem;
+                    line-height: 1.6;
+                    margin: 0;
+                ">
+                    Covering tuition, examination fees, and school levies
+                </p>
+            </div>
+            
+            <div style="
+                background-color: white;
+                padding: 2rem;
+                border-radius: 8px;
+                text-align: center;
+            ">
+                <div style="
+                    font-size: 2.5rem;
+                    color: #006747;
+                    margin-bottom: 1rem;
+                ">🚌</div>
+                <h4 style="
+                    color: #006747;
+                    font-size: 1.3rem;
+                    margin-bottom: 1rem;
+                ">
+                    Safe Transportation
+                </h4>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 0.95rem;
+                    line-height: 1.6;
+                    margin: 0;
+                ">
+                    Providing safe travel to and from school
+                </p>
+            </div>
+            
+            <div style="
+                background-color: white;
+                padding: 2rem;
+                border-radius: 8px;
+                text-align: center;
+            ">
+                <div style="
+                    font-size: 2.5rem;
+                    color: #006747;
+                    margin-bottom: 1rem;
+                ">📚</div>
+                <h4 style="
+                    color: #006747;
+                    font-size: 1.3rem;
+                    margin-bottom: 1rem;
+                ">
+                    Learning Materials
+                </h4>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 0.95rem;
+                    line-height: 1.6;
+                    margin: 0;
+                ">
+                    Books, uniforms, stationery, and educational tools
+                </p>
+            </div>
+            
+            <div style="
+                background-color: white;
+                padding: 2rem;
+                border-radius: 8px;
+                text-align: center;
+            ">
+                <div style="
+                    font-size: 2.5rem;
+                    color: #006747;
+                    margin-bottom: 1rem;
+                ">👥</div>
+                <h4 style="
+                    color: #006747;
+                    font-size: 1.3rem;
+                    margin-bottom: 1rem;
+                ">
+                    Mentorship Programs
+                </h4>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 0.95rem;
+                    line-height: 1.6;
+                    margin: 0;
+                ">
+                    Training mentors and organizing empowerment sessions
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Banking Information -->
+    <div class="scale-in" style="
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        padding: 4rem;
+        margin-bottom: 4rem;
+    ">
+        <h2 style="
+            color: #006747;
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        ">
+            Make a Direct Contribution
+        </h2>
+        
+        <p style="
+            color: #2F4F4F;
+            font-size: 1.1rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        ">
+            Support our mission by making a direct bank transfer. Every contribution, 
+            no matter the size, helps keep girls in school.
+        </p>
+        
+        <div style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        ">
+            <!-- Nigerian Bank Account -->
+            <div style="
+                background-color: #FFF9E6;
+                padding: 2.5rem;
+                border-radius: 12px;
+                border-left: 4px solid #FFD700;
+            ">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    margin-bottom: 2rem;
+                ">
+                    <div style="
+                        background-color: #006747;
+                        color: #FFD700;
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                    ">🇳🇬</div>
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.6rem;
+                        margin: 0;
+                    ">
+                        Nigerian Naira Account
+                    </h3>
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 1rem;
+                    ">
+                        <span style="
+                            color: #2F4F4F;
+                            font-weight: 600;
+                        ">Bank Name:</span>
+                        <span style="
+                            color: #006747;
+                            font-weight: 600;
+                        ">Guaranty Trust Bank (GTBank)</span>
+                    </div>
+                    
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 1rem;
+                    ">
+                        <span style="
+                            color: #2F4F4F;
+                            font-weight: 600;
+                        ">Account Name:</span>
+                        <span style="
+                            color: #006747;
+                            font-weight: 600;
+                        ">Hasken Yaruwa Foundation</span>
+                    </div>
+                    
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 1rem;
+                    ">
+                        <span style="
+                            color: #2F4F4F;
+                            font-weight: 600;
+                        ">Account Number:</span>
+                        <span style="
+                            color: #006747;
+                            font-weight: 600;
+                            font-family: monospace;
+                            font-size: 1.1rem;
+                        ">0123456789</span>
+                    </div>
+                    
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                    ">
+                        <span style="
+                            color: #2F4F4F;
+                            font-weight: 600;
+                        ">Currency:</span>
+                        <span style="
+                            color: #006747;
+                            font-weight: 600;
+                        ">NGN (Naira)</span>
+                    </div>
+                </div>
+                
+                <button onclick="copyToClipboard('0123456789')" style="
+                    width: 100%;
+                    background-color: #006747;
+                    color: white;
+                    border: none;
+                    padding: 1rem;
+                    border-radius: 6px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.5rem;
+                " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+                onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                    <span>Copy Account Number</span>
+                    <span>📋</span>
+                </button>
+            </div>
+            
+            <!-- International Bank Account -->
+            <div style="
+                background-color: #E6F0FA;
+                padding: 2.5rem;
+                border-radius: 12px;
+                border-left: 4px solid #006747;
+            ">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    margin-bottom: 2rem;
+                ">
+                    <div style="
+                        background-color: #FFD700;
+                        color: #006747;
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                    ">🌍</div>
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.6rem;
+                        margin: 0;
+                    ">
+                        International USD Account
+                    </h3>
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 1rem;
+                    ">
+                        <span style="
+                            color: #2F4F4F;
+                            font-weight: 600;
+                        ">Bank Name:</span>
+                        <span style="
+                            color: #006747;
+                            font-weight: 600;
+                        ">Standard Chartered Bank</span>
+                    </div>
+                    
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 1rem;
+                    ">
+                        <span style="
+                            color: #2F4F4F;
+                            font-weight: 600;
+                        ">Account Name:</span>
+                        <span style="
+                            color: #006747;
+                            font-weight: 600;
+                        ">Hasken Yaruwa Foundation</span>
+                    </div>
+                    
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 1rem;
+                    ">
+                        <span style="
+                            color: #2F4F4F;
+                            font-weight: 600;
+                        ">Account Number:</span>
+                        <span style="
+                            color: #006747;
+                            font-weight: 600;
+                            font-family: monospace;
+                            font-size: 1.1rem;
+                        ">US9876543210</span>
+                    </div>
+                    
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 1rem;
+                    ">
+                        <span style="
+                            color: #2F4F4F;
+                            font-weight: 600;
+                        ">SWIFT/BIC Code:</span>
+                        <span style="
+                            color: #006747;
+                            font-weight: 600;
+                            font-family: monospace;
+                        ">SCBLNGLAXXX</span>
+                    </div>
+                    
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 1rem;
+                    ">
+                        <span style="
+                            color: #2F4F4F;
+                            font-weight: 600;
+                        ">IBAN:</span>
+                        <span style="
+                            color: #006747;
+                            font-weight: 600;
+                            font-family: monospace;
+                            font-size: 0.95rem;
+                        ">NG02SCBL0000009876543210</span>
+                    </div>
+                    
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                    ">
+                        <span style="
+                            color: #2F4F4F;
+                            font-weight: 600;
+                        ">Currency:</span>
+                        <span style="
+                            color: #006747;
+                            font-weight: 600;
+                        ">USD (US Dollars)</span>
+                    </div>
+                </div>
+                
+                <button onclick="copyToClipboard('US9876543210')" style="
+                    width: 100%;
+                    background-color: #FFD700;
+                    color: #006747;
+                    border: none;
+                    padding: 1rem;
+                    border-radius: 6px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.5rem;
+                " onmouseover="this.style.backgroundColor='#e6c200'; this.style.transform='translateY(-2px)';" 
+                onmouseout="this.style.backgroundColor='#FFD700'; this.style.transform='translateY(0)';">
+                    <span>Copy Account Number</span>
+                    <span>📋</span>
+                </button>
+            </div>
+        </div>
+        
+        <div style="
+            margin-top: 3rem;
+            padding: 2rem;
+            background-color: #F8F9FA;
+            border-radius: 8px;
+            text-align: center;
+        ">
+            <p style="
+                color: #2F4F4F;
+                margin: 0;
+                line-height: 1.6;
+            ">
+                <strong style="color: #006747;">Note:</strong> 
+                Please include "Education Support" as the payment reference. 
+                We'll send a receipt to your email within 48 hours of receiving your donation.
+            </p>
+        </div>
+    </div>
+
+    <!-- Other Ways to Support -->
+    <div class="slide-in-right" style="
+        background-color: #E6E6FA;
+        padding: 4rem;
+        border-radius: 12px;
+        margin-bottom: 4rem;
+    ">
+        <h2 style="
+            color: #006747;
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        ">
+            Other Ways to Support
+        </h2>
+        
+        <div style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        ">
+            <div style="
+                background-color: white;
+                padding: 2.5rem;
+                border-radius: 8px;
+                text-align: center;
+            ">
+                <div style="
+                    font-size: 3rem;
+                    color: #006747;
+                    margin-bottom: 1.5rem;
+                ">🏢</div>
+                <h4 style="
+                    color: #006747;
+                    font-size: 1.4rem;
+                    margin-bottom: 1rem;
+                ">
+                    Corporate Partnerships
+                </h4>
+                <p style="
+                    color: #2F4F4F;
+                    line-height: 1.6;
+                    margin-bottom: 1.5rem;
+                ">
+                    Align your organization with our mission through sponsorships, 
+                    employee matching programs, or cause-related marketing.
+                </p>
+                <a href="mailto:partnerships@haskenyaruwa.org" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    background-color: #006747;
+                    color: white;
+                    padding: 0.8rem 1.5rem;
+                    border-radius: 6px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+                onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                    <span>Contact Partnerships</span>
+                    <span>→</span>
+                </a>
+            </div>
+            
+            <div style="
+                background-color: white;
+                padding: 2.5rem;
+                border-radius: 8px;
+                text-align: center;
+            ">
+                <div style="
+                    font-size: 3rem;
+                    color: #006747;
+                    margin-bottom: 1.5rem;
+                ">🎁</div>
+                <h4 style="
+                    color: #006747;
+                    font-size: 1.4rem;
+                    margin-bottom: 1rem;
+                ">
+                    In-Kind Donations
+                </h4>
+                <p style="
+                    color: #2F4F4F;
+                    line-height: 1.6;
+                    margin-bottom: 1.5rem;
+                ">
+                    Donate educational materials, books, uniforms, or technology 
+                    that directly supports girls' learning.
+                </p>
+                <div style="
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 0.5rem;
+                    justify-content: center;
+                ">
+                    <span style="
+                        background-color: #FFF9E6;
+                        color: #006747;
+                        padding: 0.3rem 0.8rem;
+                        border-radius: 15px;
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                    ">Books</span>
+                    <span style="
+                        background-color: #E6F0FA;
+                        color: #006747;
+                        padding: 0.3rem 0.8rem;
+                        border-radius: 15px;
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                    ">Uniforms</span>
+                    <span style="
+                        background-color: #F0E6FA;
+                        color: #006747;
+                        padding: 0.3rem 0.8rem;
+                        border-radius: 15px;
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                    ">Laptops</span>
+                </div>
+            </div>
+            
+            <div style="
+                background-color: white;
+                padding: 2.5rem;
+                border-radius: 8px;
+                text-align: center;
+            ">
+                <div style="
+                    font-size: 3rem;
+                    color: #006747;
+                    margin-bottom: 1.5rem;
+                ">🤝</div>
+                <h4 style="
+                    color: #006747;
+                    font-size: 1.4rem;
+                    margin-bottom: 1rem;
+                ">
+                    Volunteer & Advocate
+                </h4>
+                <p style="
+                    color: #2F4F4F;
+                    line-height: 1.6;
+                    margin-bottom: 1.5rem;
+                ">
+                    Share our mission with your network, volunteer your skills, 
+                    or organize fundraising events in your community.
+                </p>
+                <a href="#" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    background-color: #FFD700;
+                    color: #006747;
+                    padding: 0.8rem 1.5rem;
+                    border-radius: 6px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.backgroundColor='#e6c200'; this.style.transform='translateY(-2px)';" 
+                onmouseout="this.style.backgroundColor='#FFD700'; this.style.transform='translateY(0)';">
+                    <span>Volunteer Opportunities</span>
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="fade-in" style="
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        padding: 4rem;
+        text-align: center;
+    ">
+        <h2 style="
+            color: #006747;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        ">
+            Need Help Making a Donation?
+        </h2>
+        <p style="
+            color: #2F4F4F;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        ">
+            Our team is here to assist you with any questions about supporting our mission
+        </p>
+        
+        <div style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        ">
+            <div style="
+                padding: 2rem;
+                background-color: #F8F9FA;
+                border-radius: 8px;
+            ">
+                <div style="
+                    font-size: 2.5rem;
+                    color: #006747;
+                    margin-bottom: 1rem;
+                ">📧</div>
+                <h4 style="
+                    color: #006747;
+                    font-size: 1.3rem;
+                    margin-bottom: 0.5rem;
+                ">
+                    Email
+                </h4>
+                <a href="mailto:support@haskenyaruwa.org" style="
+                    color: #2F4F4F;
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 1.1rem;
+                    word-break: break-all;
+                ">
+                    support@haskenyaruwa.org
+                </a>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 0.9rem;
+                    opacity: 0.8;
+                    margin: 0.5rem 0 0 0;
+                ">
+                    For donation inquiries
+                </p>
+            </div>
+            
+            <div style="
+                padding: 2rem;
+                background-color: #F8F9FA;
+                border-radius: 8px;
+            ">
+                <div style="
+                    font-size: 2.5rem;
+                    color: #006747;
+                    margin-bottom: 1rem;
+                ">📞</div>
+                <h4 style="
+                    color: #006747;
+                    font-size: 1.3rem;
+                    margin-bottom: 0.5rem;
+                ">
+                    Phone
+                </h4>
+                <div style="
+                    color: #2F4F4F;
+                    font-weight: 600;
+                    font-size: 1.1rem;
+                ">
+                    +234 800 123 4567
+                </div>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 0.9rem;
+                    opacity: 0.8;
+                    margin: 0.5rem 0 0 0;
+                ">
+                    Monday - Friday, 9AM - 5PM WAT
+                </p>
+            </div>
+            
+            <div style="
+                padding: 2rem;
+                background-color: #F8F9FA;
+                border-radius: 8px;
+            ">
+                <div style="
+                    font-size: 2.5rem;
+                    color: #006747;
+                    margin-bottom: 1rem;
+                ">📍</div>
+                <h4 style="
+                    color: #006747;
+                    font-size: 1.3rem;
+                    margin-bottom: 0.5rem;
+                ">
+                    Office Address
+                </h4>
+                <div style="
+                    color: #2F4F4F;
+                    font-weight: 600;
+                    font-size: 1rem;
+                ">
+                    Hasken Yaruwa Foundation<br>
+                    123 Education Avenue<br>
+                    Abuja, Nigeria
+                </div>
+            </div>
+        </div>
+        
+        <div style="
+            background-color: #FFF9E6;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 0 auto;
+            border-left: 4px solid #FFD700;
+        ">
+            <p style="
+                color: #2F4F4F;
+                margin: 0;
+                line-height: 1.6;
+            ">
+                <strong style="color: #006747;">Transparency Promise:</strong> 
+                We publish annual reports detailing how every Naira and Dollar is spent. 
+                Download our <a href="#" style="color: #006747; text-decoration: none; font-weight: 600;">latest impact report</a> 
+                to see the difference your support makes.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Copy to Clipboard Script -->
+<script>
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function() {
+            // Show success message
+            const button = event.target.closest('button');
+            const originalText = button.innerHTML;
+            
+            button.innerHTML = '<span>Copied!</span> <span>✅</span>';
+            button.style.backgroundColor = '#4CAF50';
+            
+            setTimeout(function() {
+                button.innerHTML = originalText;
+                if (button.textContent.includes('NGN')) {
+                    button.style.backgroundColor = '#006747';
+                } else {
+                    button.style.backgroundColor = '#FFD700';
+                }
+            }, 2000);
+            
+        }).catch(function(err) {
+            alert('Failed to copy text: ' + err);
+        });
+    }
+    
+    // Add click handlers for all copy buttons
+    document.addEventListener('DOMContentLoaded', function() {
+        // You can add additional initialization here if needed
+    });
+</script>
+
+<!-- Print-friendly banking info styles -->
+<style>
+    @media print {
+        .no-print {
+            display: none;
+        }
+        
+        button {
+            display: none;
+        }
+        
+        body {
+            color: #000;
+            background: #fff;
+        }
+        
+        .bank-info {
+            break-inside: avoid;
+        }
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .banking-section {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}

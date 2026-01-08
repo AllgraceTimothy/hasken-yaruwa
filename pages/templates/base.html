@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hasken Yaruwa - Empowering Girls' Education{% endblock %}</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2F4F4F; /* Slate Grey for body text */
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #006747; /* Deep Emerald */
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .logo h1 {
+            font-size: 1.6rem;
+            color: #FFD700; /* Warm Gold */
+            font-weight: 700;
+        }
+        
+        .logo-icon {
+            font-size: 1.8rem;
+            color: #FFD700;
+        }
+        
+        /* Desktop Navigation */
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .desktop-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            margin-right: 1rem;
+        }
+        
+        .desktop-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+        
+        .desktop-nav a:hover {
+            color: #FFD700;
+        }
+        
+        .desktop-nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #FFD700;
+            transition: width 0.3s ease;
+        }
+        
+        .desktop-nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Mobile Navigation Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #006747;
+            z-index: 999;
+            padding: 2rem;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-nav.active {
+            transform: translateX(0);
+        }
+        
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .mobile-nav-header h2 {
+            color: #FFD700;
+            font-size: 1.5rem;
+        }
+        
+        .mobile-close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        
+        .mobile-nav ul {
+            list-style: none;
+        }
+        
+        .mobile-nav li {
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1rem;
+        }
+        
+        .mobile-nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: block;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+        
+        .mobile-nav a:hover {
+            color: #FFD700;
+        }
+        
+        .mobile-nav .btn {
+            margin-top: 1rem;
+            width: 100%;
+            text-align: center;
+        }
+        
+        /* User Role Badge */
+        .user-badge {
+            background-color: #FFD700;
+            color: #006747;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+            display: inline-block;
+        }
+        
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 2rem 0;
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #006747;
+            color: white;
+            padding: 3rem 1rem;
+            margin-top: auto;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: #FFD700;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .highlight-gold {
+            color: #FFD700;
+            font-weight: bold;
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 0.95rem;
+        }
+        
+        .primary {
+            background: #006747;
+            color: white;
+        }
+        
+        .primary:hover {
+            background: #00563a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 103, 71, 0.2);
+        }
+        
+        .secondary {
+            background: #FFD700;
+            color: #2F4F4F;
+        }
+        
+        .secondary:hover {
+            background: #e6c200;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+        }
+        
+        .outline {
+            background: transparent;
+            border: 2px solid #006747;
+            color: #006747;
+        }
+        
+        .outline:hover {
+            background: #006747;
+            color: white;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .logo h1 {
+                font-size: 1.4rem;
+            }
+            
+            .logo-icon {
+                font-size: 1.5rem;
+            }
+            
+            .mobile-nav {
+                display: block;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .footer-links a {
+                padding: 0.5rem 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+            
+            .btn {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            main {
+                padding: 1.5rem 0;
+            }
+        }
+        
+        /* Active Link Style */
+        .active-link {
+            color: #FFD700 !important;
+        }
+        
+        .active-link::after {
+            width: 100% !important;
+        }
+        
+        /* Skip to Main Content - Accessibility */
+        .skip-to-main {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #FFD700;
+            color: #006747;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            font-weight: 600;
+            z-index: 1001;
+        }
+        
+        .skip-to-main:focus {
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to Main Content (Accessibility) -->
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+    
+    <header>
+        <div class="header-container">
+            <nav>
+                <div class="logo">
+                    <span class="logo-icon">✨</span>
+                    <h1><a href="{% url 'home' %}">Hasken Yaruwa</a></h1>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="desktop-nav">
+                    <ul>
+                        <li><a href="{% url 'home' %}" {% if request.path == '/' %}class="active-link"{% endif %}>Home</a></li>
+                        <li><a href="{% url 'about' %}" {% if 'about' in request.path %}class="active-link"{% endif %}>About</a></li>
+
+                        <li><a href="{% url 'support' %}" {% if 'support' in request.path %}class="active-link"{% endif %}>Support</a></li>
+                        
+                        {% if user.is_authenticated and user.role == 'admin' %}
+                            <li><a href="{% url 'admin_dashboard' %}" {% if 'dashboard' in request.path %}class="active-link"{% endif %}>Admin Dashboard</a></li>
+                        {% else %}
+                        <li><a href="{% url 'apply' %}" {% if 'apply' in request.path %}class="active-link"{% endif %}>Apply</a></li>
+                        <li><a href="{% url 'mentor_signup' %}" {% if 'mentor' in request.path %}class="active-link"{% endif %}>Become a Mentor</a></li>
+                        {% endif %}
+                    </ul>
+                    
+                    {% if user.is_authenticated %}
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="font-size: 0.9rem; color: #FFD700;">
+                                {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}
+                                {% if user.role == 'admin' %}<span class="user-badge">Admin</span>{% endif %}
+                            </span>
+                            <a href="{% url 'logout' %}" class="btn outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Logout</a>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn primary" style="padding: 0.5rem 1.5rem; font-size: 0.85rem;">Login</a>
+                    {% endif %}
+                </div>
+                
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" aria-label="Open menu">
+                    ☰
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <h2>Hasken Yaruwa</h2>
+            <button class="mobile-close-btn" aria-label="Close menu">×</button>
+        </div>
+        
+        <ul>
+            <li><a href="{% url 'home' %}" {% if request.path == '/' %}class="active-link"{% endif %}>Home</a></li>
+            <li><a href="{% url 'about' %}" {% if 'about' in request.path %}class="active-link"{% endif %}>About Us</a></li>
+            <li><a href="{% url 'apply' %}" {% if 'apply' in request.path %}class="active-link"{% endif %}>Apply for Support</a></li>
+            <li><a href="{% url 'mentor_signup' %}" {% if 'mentor' in request.path %}class="active-link"{% endif %}>Become a Mentor</a></li>
+            <li><a href="{% url 'support' %}" {% if 'support' in request.path %}class="active-link"{% endif %}>Support the Mission</a></li>
+            
+            {% if user.is_authenticated and user.role == 'admin' %}
+                <li><a href="{% url 'admin_dashboard' %}" {% if 'dashboard' in request.path %}class="active-link"{% endif %}>Admin Dashboard</a></li>
+            {% endif %}
+            
+            {% if user.is_authenticated %}
+                <li style="border-bottom: none; margin-top: 2rem;">
+                    <div style="margin-bottom: 1rem;">
+                        <p style="color: #FFD700; margin-bottom: 0.5rem;">
+                            Signed in as <strong>{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}</strong>
+                        </p>
+                        {% if user.role == 'admin' %}
+                            <span class="user-badge">Administrator</span>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'logout' %}" class="btn outline" style="width: 100%; text-align: center;">Logout</a>
+                </li>
+            {% else %}
+                <li style="border-bottom: none; margin-top: 2rem;">
+                    <a href="{% url 'login' %}" class="btn primary" style="width: 100%; text-align: center;">Login to Account</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <main id="main-content">
+        <div class="main-container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div>
+                    <h3 style="color: #FFD700; margin-bottom: 1rem; font-size: 1.5rem;">Hasken Yaruwa</h3>
+                    <p style="opacity: 0.9; max-width: 600px; margin: 0 auto;">Lighting the path for girls to stay in school and achieve their dreams.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="{% url 'home' %}">Home</a>
+                    <a href="{% url 'about' %}">About</a>
+                    <a href="{% url 'apply' %}">Apply</a>
+                    <a href="{% url 'mentor_signup' %}">Mentor</a>
+                    <a href="{% url 'support' %}">Support</a>
+                    <a href="{% url 'login' %}">Login</a>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© {% now "Y" %} Hasken Yaruwa Foundation. All rights reserved.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.8rem;">Empowering young Nigerian women through education</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const mobileCloseBtn = document.querySelector('.mobile-close-btn');
+            const mobileNav = document.getElementById('mobileNav');
+            
+            // Open mobile menu
+            mobileMenuToggle.addEventListener('click', function() {
+                mobileNav.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            // Close mobile menu
+            mobileCloseBtn.addEventListener('click', function() {
+                mobileNav.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            // Close mobile menu when clicking on a link
+            const mobileLinks = mobileNav.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileNav.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+            
+            // Close mobile menu when clicking outside
+            mobileNav.addEventListener('click', function(e) {
+                if (e.target === mobileNav) {
+                    mobileNav.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // Scroll Animation Functionality
+            const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // Set active links based on current page
+            function setActiveLinks() {
+                const currentPath = window.location.pathname;
+                const links = document.querySelectorAll('a[href]');
+                
+                links.forEach(link => {
+                    const linkPath = new URL(link.href).pathname;
+                    if (linkPath === currentPath || 
+                        (currentPath.includes(linkPath) && linkPath !== '/')) {
+                        link.classList.add('active-link');
+                    }
+                });
+            }
+            
+            // Call on page load
+            setActiveLinks();
+            
+            // Add keyboard navigation for accessibility
+            document.addEventListener('keydown', function(e) {
+                // Close mobile menu with Escape key
+                if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
+                    mobileNav.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+                
+                // Trap focus in mobile menu
+                if (mobileNav.classList.contains('active')) {
+                    const focusableElements = mobileNav.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
+                    const firstFocusable = focusableElements[0];
+                    const lastFocusable = focusableElements[focusableElements.length - 1];
+                    
+                    if (e.key === 'Tab') {
+                        if (e.shiftKey) {
+                            if (document.activeElement === firstFocusable) {
+                                lastFocusable.focus();
+                                e.preventDefault();
+                            }
+                        } else {
+                            if (document.activeElement === lastFocusable) {
+                                firstFocusable.focus();
+                                e.preventDefault();
+                            }
+                        }
+                    }
+                }
+            });
+        });
+        
+        // Sticky header on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+    </script>
+</body>
+</html>

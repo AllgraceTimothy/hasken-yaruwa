@@ -1,0 +1,907 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About Us - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+    <!-- Hero Banner -->
+    <section class="about-hero" style="
+        background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+        padding: 5rem 1rem;
+        text-align: center;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    ">
+        <!-- Space for hero image -->
+        <div style="
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, #006747 100%);
+            z-index: 1;
+        ">
+            <!-- Image placeholder - replace with actual image -->
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMQqpCyGJRwjc-3ZK_tCbjAJH3MKW58jbOHQ&s" alt="Girls in classroom" style="width:100%; height:100%; object-fit:cover;">
+            <div style="
+                width: 100%;
+                height: 100%;
+                background-color: rgba(255, 215, 0, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #FFD700;
+                font-style: italic;
+            ">
+            </div>
+        </div>
+        
+        <div class="fade-in" style="
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            text-align: left;
+        ">
+            <h1 style="
+                font-size: 3.2rem;
+                color: #FFD700;
+                margin-bottom: 1.5rem;
+                line-height: 1.2;
+            ">
+                Lighting the Path to Education
+            </h1>
+            <p style="
+                font-size: 1.4rem;
+                line-height: 1.6;
+                margin-bottom: 2rem;
+                max-width: 600px;
+            ">
+                "Hasken Yaruwa" is a Hausa word which translates to "The Light of our Sisters". <br>
+                Our aim is to transform lives through education, empowerment, and community engagement for young Nigerian women.
+            </p>
+        </div>
+    </section>
+
+    <!-- Our Mission Section -->
+    <section style="
+        padding: 5rem 1rem;
+        background-color: white;
+    ">
+        <div style="
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        ">
+            <!-- Mission Text -->
+            <div class="slide-in-left">
+                <div style="
+                    background-color: #E6E6FA;
+                    padding: 3rem;
+                    border-radius: 12px;
+                    position: relative;
+                ">
+                    <div style="
+                        position: absolute;
+                        top: -20px;
+                        left: 40px;
+                        background-color: #006747;
+                        color: #FFD700;
+                        padding: 0.8rem 2rem;
+                        border-radius: 30px;
+                        font-weight: bold;
+                        font-size: 1.1rem;
+                    ">
+                        Our Mission
+                    </div>
+                    
+                    <h2 style="
+                        color: #006747;
+                        font-size: 1.8rem;
+                        margin-bottom: 1.5rem;
+                        margin-top: 1rem;
+                    ">
+                        To empower young Nigerian women through simple, accessible, and affordable education that helps them gain skills, confidence, and opportunities for a better life.
+                    </h2>
+                    
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 1.5rem;
+                        margin-top: 2rem;
+                        padding-top: 2rem;
+                        border-top: 2px solid #FFD700;
+                    ">
+                        <div style="
+                            width: 60px;
+                            height: 60px;
+                            background-color: #006747;
+                            color: #FFD700;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.5rem;
+                            font-weight: bold;
+                        ">✓</div>
+                        <p style="
+                            color: #2F4F4F;
+                            font-size: 1.1rem;
+                            line-height: 1.7;
+                        ">
+                            We provide simple, accessible, and affordable education to young Nigerian women. Our mission is to bridge the opportunity gap by equipping girls with the skills and confidence they need to break cycles of poverty and lead their communities.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mission Image -->
+            <div class="slide-in-right">
+                <div style="
+                    background-color: #f8f9fa;
+                    border-radius: 12px;
+                    padding: 2rem;
+                    height: 100%;
+                    min-height: 400px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 2px dashed #006747;
+                ">
+                    <!-- Image placeholder -->
+                    <img src="data:image/jpeg;base64,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" alt="Empowered girls" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
+                    <div style="text-align: center; color: #2F4F4F;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Problem Section -->
+    <section style="
+        padding: 5rem 1rem;
+        background-color: #f8f9fa;
+    ">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div class="fade-in" style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="
+                    color: #006747;
+                    font-size: 2.5rem;
+                    margin-bottom: 1rem;
+                ">
+                    The Challenge We Face
+                </h2>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 1.2rem;
+                    max-width: 800px;
+                    margin: 0 auto;
+                ">
+                    Understanding the barriers to girls' education in Nigeria
+                </p>
+            </div>
+            
+            <div style="
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+                margin-bottom: 3rem;
+            ">
+                <!-- Problem Text -->
+                <div class="slide-in-left">
+                    <div style="
+                        background-color: white;
+                        padding: 2.5rem;
+                        border-radius: 12px;
+                        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+                        height: 100%;
+                    ">
+                        <h3 style="
+                            color: #006747;
+                            font-size: 1.8rem;
+                            margin-bottom: 1.5rem;
+                            border-left: 4px solid #FFD700;
+                            padding-left: 1rem;
+                        ">
+                            Problem Statement
+                        </h3>
+                        
+                        <p style="
+                            color: #2F4F4F;
+                            font-size: 1.1rem;
+                            line-height: 1.8;
+                            margin-bottom: 1.5rem;
+                        ">
+                            In Nigeria, women and young girls face a significant challenge in accessing quality education, which limits their chances of gaining economic independence and possible leadership positions in the future.
+                        </p>
+                        
+                        <p style="
+                            color: #2F4F4F;
+                            font-size: 1.1rem;
+                            line-height: 1.8;
+                            margin-bottom: 1.5rem;
+                        ">
+                            This problem primarily affects those living in rural areas with limited access to educational facilities, as well as those who face cultural, religious, or financial barriers which prevent them from pursuing higher education.
+                        </p>
+                        
+                        <p style="
+                            color: #2F4F4F;
+                            font-size: 1.1rem;
+                            line-height: 1.8;
+                        ">
+                            This is a significant issue because, through education, women gain greater control over their lives and in turn a wider access to jobs, and so the overall state of economic development improves, and gender inequality diminishes. Failure to address the issue may lead to continued poverty cycles and underrepresentation of females in leadership and skilled professions.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Statistics & Images -->
+                <div class="slide-in-right">
+                    <div style="
+                        background-color: #006747;
+                        padding: 2.5rem;
+                        border-radius: 12px;
+                        color: white;
+                        height: 100%;
+                    ">
+                        <div style="text-align: center; margin-bottom: 2rem;">
+                            <div style="
+                                font-size: 4rem;
+                                font-weight: bold;
+                                color: #FFD700;
+                                margin-bottom: 0.5rem;
+                            ">42%</div>
+                            <p style="font-size: 1.2rem;">of girls complete secondary school</p>
+                            <div style="
+                                height: 10px;
+                                background: linear-gradient(90deg, #FFD700 42%, rgba(255, 215, 0, 0.3) 58%);
+                                margin: 1.5rem 0;
+                                border-radius: 5px;
+                            "></div>
+                            <div style="
+                                font-size: 4rem;
+                                font-weight: bold;
+                                color: #FFD700;
+                                margin-bottom: 0.5rem;
+                            ">58%</div>
+                            <p style="font-size: 1.2rem;">of boys complete secondary school</p>
+                        </div>
+                        
+                        <div style="
+                            background-color: rgba(255, 255, 255, 0.1);
+                            padding: 1.5rem;
+                            border-radius: 8px;
+                            margin-top: 2rem;
+                        ">
+                            <p style="
+                                font-size: 1.1rem;
+                                line-height: 1.7;
+                                font-style: italic;
+                            ">
+                                "This disparity in access can be attributed to cultural norms which prioritise boys' education over girls', as well as a lack of supportive policies that promote female education."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Problem Images Grid -->
+            <div class="fade-in" style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 2rem;
+                margin-top: 3rem;
+            ">
+                <div style="
+                    background-color: #E6E6FA;
+                    border-radius: 8px;
+                    padding: 2rem;
+                    text-align: center;
+                    min-height: 250px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                ">
+                    <!-- Image placeholder -->
+                    <!-- <img src="{% static 'images/rural-education.jpg' %}" alt="Rural education" style="width:100%; height:150px; object-fit:cover; border-radius:8px; margin-bottom:1rem;"> -->
+                    <div style="font-size: 3rem; color: #006747; margin-bottom: 1rem;">🏘️</div>
+                    <h4 style="color: #006747; margin-bottom: 0.5rem;">Rural Access</h4>
+                    <p style="color: #2F4F4F; font-size: 0.95rem;">Limited educational facilities in remote areas</p>
+                </div>
+                
+                <div style="
+                    background-color: #FFF9E6;
+                    border-radius: 8px;
+                    padding: 2rem;
+                    text-align: center;
+                    min-height: 250px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                ">
+                    <!-- Image placeholder -->
+                    <!-- <img src="{% static 'images/cultural-barriers.jpg' %}" alt="Cultural barriers" style="width:100%; height:150px; object-fit:cover; border-radius:8px; margin-bottom:1rem;"> -->
+                    <div style="font-size: 3rem; color: #006747; margin-bottom: 1rem;">🌍</div>
+                    <h4 style="color: #006747; margin-bottom: 0.5rem;">Cultural Barriers</h4>
+                    <p style="color: #2F4F4F; font-size: 0.95rem;">Norms prioritizing boys' education</p>
+                </div>
+                
+                <div style="
+                    background-color: #E6F0FA;
+                    border-radius: 8px;
+                    padding: 2rem;
+                    text-align: center;
+                    min-height: 250px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                ">
+                    <!-- Image placeholder -->
+                    <!-- <img src="{% static 'images/financial-barriers.jpg' %}" alt="Financial barriers" style="width:100%; height:150px; object-fit:cover; border-radius:8px; margin-bottom:1rem;"> -->
+                    <div style="font-size: 3rem; color: #006747; margin-bottom: 1rem;">💰</div>
+                    <h4 style="color: #006747; margin-bottom: 0.5rem;">Financial Constraints</h4>
+                    <p style="color: #2F4F4F; font-size: 0.95rem;">Tuition, transportation, and hidden costs</p>
+                </div>
+                
+                <div style="
+                    background-color: #F0E6FA;
+                    border-radius: 8px;
+                    padding: 2rem;
+                    text-align: center;
+                    min-height: 250px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                ">
+                    <!-- Image placeholder -->
+                    <!-- <img src="{% static 'images/early-marriage.jpg' %}" alt="Early marriage" style="width:100%; height:150px; object-fit:cover; border-radius:8px; margin-bottom:1rem;"> -->
+                    <div style="font-size: 3rem; color: #006747; margin-bottom: 1rem;">💒</div>
+                    <h4 style="color: #006747; margin-bottom: 0.5rem;">Early Marriage Pressure</h4>
+                    <p style="color: #2F4F4F; font-size: 0.95rem;">Education taking a backseat to marriage</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Solution Section -->
+    <section style="
+        padding: 5rem 1rem;
+        background-color: white;
+    ">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div class="fade-in" style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="
+                    color: #006747;
+                    font-size: 2.5rem;
+                    margin-bottom: 1rem;
+                ">
+                    Our Holistic Solution
+                </h2>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 1.2rem;
+                    max-width: 800px;
+                    margin: 0 auto;
+                ">
+                    A comprehensive approach to removing barriers and creating sustainable change
+                </p>
+            </div>
+            
+            <!-- Solution Intro -->
+            <div class="slide-in-left" style="
+                background: linear-gradient(135deg, #E6E6FA 0%, #f0f0ff 100%);
+                padding: 3rem;
+                border-radius: 12px;
+                margin-bottom: 3rem;
+            ">
+                <p style="
+                    font-size: 1.3rem;
+                    color: #006747;
+                    line-height: 1.7;
+                    text-align: center;
+                    font-weight: 500;
+                ">
+                    "Our solution is to create a unified support program/platform designed to increase girls' independence and reduce gender inequality through a foundation. We plan to provide rural girls with the financial aid, mentorship, transportation support, and parental engagement they need to stay in school, focusing on removing the everyday barriers the girls face."
+                </p>
+            </div>
+            
+            <!-- Solution Components -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <!-- Scholarship Program -->
+                <div class="scale-in" style="
+                    background-color: white;
+                    padding: 2.5rem;
+                    border-radius: 12px;
+                    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+                    border-top: 5px solid #006747;
+                ">
+                    <div style="
+                        background-color: #006747;
+                        color: #FFD700;
+                        width: 60px;
+                        height: 60px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.5rem;
+                        margin-bottom: 1.5rem;
+                    ">🎓</div>
+                    
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.6rem;
+                        margin-bottom: 1rem;
+                    ">Scholarship Program</h3>
+                    
+                    <p style="
+                        color: #2F4F4F;
+                        line-height: 1.7;
+                        margin-bottom: 1.5rem;
+                    ">
+                        Designed to bridge the financial gaps that generally keep girls out of school. By providing fully funded academic support which enables girls to enrol, this allows them to compete on an equal footing with their peers.
+                    </p>
+                    
+                    <ul style="
+                        color: #2F4F4F;
+                        line-height: 1.7;
+                        padding-left: 1.2rem;
+                    ">
+                        <li style="margin-bottom: 0.5rem;">Full tuition coverage</li>
+                        <li style="margin-bottom: 0.5rem;">Transportation support</li>
+                        <li style="margin-bottom: 0.5rem;">Educational materials and resources</li>
+                        <li>Uniforms and necessary supplies</li>
+                    </ul>
+                    
+                    <!-- Image placeholder -->
+                    <div style="
+                        margin-top: 1.5rem;
+                        background-color: #f8f9fa;
+                        border-radius: 8px;
+                        padding: 1.5rem;
+                        text-align: center;
+                        min-height: 150px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    ">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC68WTLPi8pvwfbWnJ3mqI1QSllh1_a-qcYA&s" alt="Scholarship award ceremony" style="width:100%; height:100%; object-fit:cover; border-radius:6px;">
+                    </div>
+                </div>
+                
+                <!-- Mentorship Program -->
+                <div class="scale-in" style="
+                    background-color: white;
+                    padding: 2.5rem;
+                    border-radius: 12px;
+                    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+                    border-top: 5px solid #FFD700;
+                ">
+                    <div style="
+                        background-color: #FFD700;
+                        color: #006747;
+                        width: 60px;
+                        height: 60px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.5rem;
+                        margin-bottom: 1.5rem;
+                    ">👥</div>
+                    
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.6rem;
+                        margin-bottom: 1rem;
+                    ">Community Mentorship</h3>
+                    
+                    <p style="
+                        color: #2F4F4F;
+                        line-height: 1.7;
+                        margin-bottom: 1.5rem;
+                    ">
+                        Not just to the girls we are aiding, but to other members of the community as well as their parents. This mentorship will prioritise helping the girls to unlearn their predisposition attitude toward life as well as marriage.
+                    </p>
+                    
+                    <ul style="
+                        color: #2F4F4F;
+                        line-height: 1.7;
+                        padding-left: 1.2rem;
+                    ">
+                        <li style="margin-bottom: 0.5rem;">Peer-to-peer mentoring programs</li>
+                        <li style="margin-bottom: 0.5rem;">Professional women mentorship</li>
+                        <li style="margin-bottom: 0.5rem;">Parental engagement sessions</li>
+                        <li>Empowerment workshops and flyers</li>
+                    </ul>
+                    
+                    <!-- Image placeholder -->
+                    <div style="
+                        margin-top: 1.5rem;
+                        background-color: #f8f9fa;
+                        border-radius: 8px;
+                        padding: 1.5rem;
+                        text-align: center;
+                        min-height: 150px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    ">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP1N2INP7K3DFhZRcvHdYm_ppmwaAfwDtNuA&s" alt="Mentorship session" style="width:100%; height:100%; object-fit:cover; border-radius:6px;">
+                    </div>
+                </div>
+                
+                <!-- Community Implementation -->
+                <div class="scale-in" style="
+                    background-color: white;
+                    padding: 2.5rem;
+                    border-radius: 12px;
+                    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+                    border-top: 5px solid #E6E6FA;
+                ">
+                    <div style="
+                        background-color: #006747;
+                        color: #FFD700;
+                        width: 60px;
+                        height: 60px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.5rem;
+                        margin-bottom: 1.5rem;
+                    ">🤝</div>
+                    
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.6rem;
+                        margin-bottom: 1rem;
+                    ">Community Implementation</h3>
+                    
+                    <p style="
+                        color: #2F4F4F;
+                        line-height: 1.7;
+                        margin-bottom: 1.5rem;
+                    ">
+                        This foundation will be implemented by all members of the community: the local government, as well as external donations will be used to collect and distribute the scholarships.
+                    </p>
+                    
+                    <ul style="
+                        color: #2F4F4F;
+                        line-height: 1.7;
+                        padding-left: 1.2rem;
+                    ">
+                        <li style="margin-bottom: 0.5rem;">Local government partnerships</li>
+                        <li style="margin-bottom: 0.5rem;">Community volunteer networks</li>
+                        <li style="margin-bottom: 0.5rem;">Digital outreach through radio/TV</li>
+                        <li>Direct community engagement programs</li>
+                    </ul>
+                    
+                    <!-- Image placeholder -->
+                    <div style="
+                        margin-top: 1.5rem;
+                        background-color: #f8f9fa;
+                        border-radius: 8px;
+                        padding: 1.5rem;
+                        text-align: center;
+                        min-height: 150px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    ">
+                        <img src="data:image/jpeg;base64,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" alt="Community outreach" style="width:100%; height:100%; object-fit:cover; border-radius:6px;">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Benefits Section -->
+            <div class="fade-in" style="
+                background-color: #006747;
+                padding: 3rem;
+                border-radius: 12px;
+                margin-top: 4rem;
+                color: white;
+            ">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+                    <div>
+                        <h3 style="
+                            color: #FFD700;
+                            font-size: 2rem;
+                            margin-bottom: 1.5rem;
+                        ">
+                            Community Benefits
+                        </h3>
+                        
+                        <p style="
+                            line-height: 1.7;
+                            margin-bottom: 1.5rem;
+                        ">
+                            The entire community benefits from this solution. The young girls benefit from receiving education, and the potential to earn money from a career in the future. This money they earn can be used to support their families back home and economically grow their communities.
+                        </p>
+                        
+                        <div style="
+                            background-color: rgba(255, 215, 0, 0.1);
+                            padding: 1.5rem;
+                            border-radius: 8px;
+                            border-left: 4px solid #FFD700;
+                        ">
+                            <p style="
+                                font-size: 1.1rem;
+                                font-style: italic;
+                                line-height: 1.6;
+                            ">
+                                "Education is a right each girl deserves. The disadvantage of the community they were born into is not a good enough reason for them to lack this right."
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <!-- Benefits Image placeholder -->
+                        <div style="
+                            background-color: rgba(255, 255, 255, 0.1);
+                            border-radius: 8px;
+                            padding: 2rem;
+                            min-height: 300px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-direction: column;
+                        ">
+                            <img src="data:image/jpeg;base64,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" alt="Community benefits" style="width:100%; height:100%; object-fit:cover; border-radius:6px;">
+                            <p style="font-style: italic; text-align: center;">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Unique Selling Point -->
+            <div class="slide-in-right" style="
+                background-color: #FFF9E6;
+                padding: 3rem;
+                border-radius: 12px;
+                margin-top: 3rem;
+                position: relative;
+            ">
+                <div style="
+                    position: absolute;
+                    top: -15px;
+                    left: 40px;
+                    background-color: #006747;
+                    color: #FFD700;
+                    padding: 0.5rem 1.5rem;
+                    border-radius: 30px;
+                    font-weight: bold;
+                    font-size: 1rem;
+                ">
+                    Our Unique Value
+                </div>
+                
+                <h3 style="
+                    color: #006747;
+                    font-size: 1.8rem;
+                    margin-bottom: 1.5rem;
+                    margin-top: 1rem;
+                ">
+                    The Ripple Effect of Investment
+                </h3>
+                
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                    <div>
+                        <p style="
+                            color: #2F4F4F;
+                            line-height: 1.7;
+                            margin-bottom: 1.5rem;
+                        ">
+                            The unique selling point is the intrinsic gain earned for the girls and the extrinsic gain of the return on investments. Though the return on investments will not be felt immediately, its impact will be more substantial than the investment itself.
+                        </p>
+                        
+                        <p style="
+                            color: #2F4F4F;
+                            line-height: 1.7;
+                            font-weight: 500;
+                        ">
+                            The returns that can be invested back into the community from potential careers in the future is a large motivator in providing this solution.
+                        </p>
+                    </div>
+                    
+                    <div style="
+                        background-color: #006747;
+                        color: white;
+                        padding: 2rem;
+                        border-radius: 8px;
+                        text-align: center;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                    ">
+                        <div style="font-size: 3rem; color: #FFD700; margin-bottom: 1rem;">📈</div>
+                        <p style="font-size: 1.1rem; font-weight: bold;">Sustainable Return on Investment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Implementation Strategy -->
+    <section style="
+        padding: 5rem 1rem;
+        background-color: #f8f9fa;
+    ">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div class="fade-in" style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="
+                    color: #006747;
+                    font-size: 2.5rem;
+                    margin-bottom: 1rem;
+                ">
+                    Implementation Strategy
+                </h2>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 1.2rem;
+                    max-width: 800px;
+                    margin: 0 auto;
+                ">
+                    How we bring our solution to communities across Nigeria
+                </p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div class="slide-in-left" style="
+                    background-color: white;
+                    padding: 2rem;
+                    border-radius: 12px;
+                    text-align: center;
+                    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                ">
+                    <div style="
+                        background-color: #E6E6FA;
+                        width: 80px;
+                        height: 80px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0 auto 1.5rem;
+                        font-size: 2rem;
+                        color: #006747;
+                    ">📻</div>
+                    <h4 style="color: #006747; margin-bottom: 1rem;">Media Outreach</h4>
+                    <p style="color: #2F4F4F;">Advertisements through radio and television to raise awareness</p>
+                </div>
+                
+                <div class="fade-in" style="
+                    background-color: white;
+                    padding: 2rem;
+                    border-radius: 12px;
+                    text-align: center;
+                    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                ">
+                    <div style="
+                        background-color: #FFF9E6;
+                        width: 80px;
+                        height: 80px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0 auto 1.5rem;
+                        font-size: 2rem;
+                        color: #006747;
+                    ">👣</div>
+                    <h4 style="color: #006747; margin-bottom: 1rem;">Direct Engagement</h4>
+                    <p style="color: #2F4F4F;">Community outreach programs and direct interaction with families</p>
+                </div>
+                
+                <div class="fade-in" style="
+                    background-color: white;
+                    padding: 2rem;
+                    border-radius: 12px;
+                    text-align: center;
+                    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                ">
+                    <div style="
+                        background-color: #E6F0FA;
+                        width: 80px;
+                        height: 80px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0 auto 1.5rem;
+                        font-size: 2rem;
+                        color: #006747;
+                    ">🏫</div>
+                    <h4 style="color: #006747; margin-bottom: 1rem;">School Partnerships</h4>
+                    <p style="color: #2F4F4F;">Direct scholarship distribution through local schools and governments</p>
+                </div>
+                
+                <div class="slide-in-right" style="
+                    background-color: white;
+                    padding: 2rem;
+                    border-radius: 12px;
+                    text-align: center;
+                    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                ">
+                    <div style="
+                        background-color: #F0E6FA;
+                        width: 80px;
+                        height: 80px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0 auto 1.5rem;
+                        font-size: 2rem;
+                        color: #006747;
+                    ">🌐</div>
+                    <h4 style="color: #006747; margin-bottom: 1rem;">Digital Expansion</h4>
+                    <p style="color: #2F4F4F;">Mentorship programs broadcast through television and internet to reach multiple communities</p>
+                </div>
+            </div>
+            
+            <!-- Implementation Image -->
+            <div class="fade-in" style="
+                margin-top: 4rem;
+                background-color: #006747;
+                padding: 3rem;
+                border-radius: 12px;
+                color: white;
+                text-align: center;
+            ">
+                <h3 style="
+                    color: #FFD700;
+                    font-size: 1.8rem;
+                    margin-bottom: 1.5rem;
+                ">
+                    Join Our Movement
+                </h3>
+                
+                <div style="
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 3rem;
+                    align-items: center;
+                ">
+                    <div>
+                        <p style="
+                            line-height: 1.7;
+                            margin-bottom: 1.5rem;
+                        ">
+                            We believe that if young girls see their peers actively advocating for receiving an education, they will be incentivised to pursue one as well. Furthermore, young female working professionals can also join these mentorship sessions to show insight into the possible future opportunities these girls can receive if they go to school.
+                        </p>
+                        
+                        <a href="#" class="btn secondary" style="
+                            font-size: 1.1rem;
+                            padding: 1rem 2rem;
+                        ">Get Involved Today</a>
+                    </div>
+                    
+                    <!-- Final Image placeholder -->
+                    <div style="
+                        background-color: rgba(255, 255, 255, 0.1);
+                        border-radius: 8px;
+                        padding: 2rem;
+                        min-height: 250px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    ">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8lCK965-YNVZ3Hm8FRocW--ECdJtHxVpY_Q&s" alt="Join our movement" style="width:100%; height:100%; object-fit:cover; border-radius:6px;">
+                        <div style="text-align: center;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

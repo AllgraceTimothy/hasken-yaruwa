@@ -1,0 +1,859 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Mentor Application Received - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+">
+    <div class="scale-in" style="
+        width: 100%;
+        text-align: center;
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        padding: 4rem 2rem;
+        position: relative;
+        overflow: hidden;
+    ">
+        <!-- Decorative Elements -->
+        <div style="
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 120px;
+            height: 120px;
+            background-color: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+            z-index: 0;
+        "></div>
+        <div style="
+            position: absolute;
+            bottom: -25px;
+            left: -25px;
+            width: 90px;
+            height: 90px;
+            background-color: rgba(0, 103, 71, 0.08);
+            border-radius: 50%;
+            z-index: 0;
+        "></div>
+        
+        <!-- Success Icon with Mentoring Symbol -->
+        <div style="
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #FFD700 0%, #e6c200 100%);
+            color: #006747;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 3rem;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.25);
+            animation: bounceIn 0.8s ease-out;
+            position: relative;
+            z-index: 1;
+        ">
+            👥
+        </div>
+        
+        <!-- Main Message -->
+        <h1 style="
+            color: #006747;
+            font-size: 2.4rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.2;
+            position: relative;
+            z-index: 1;
+        ">
+            Thank You for Your Mentorship Application!
+        </h1>
+        
+        <div class="fade-in" style="animation-delay: 0.2s;">
+            <p style="
+                color: #2F4F4F;
+                font-size: 1.2rem;
+                line-height: 1.6;
+                margin-bottom: 2.5rem;
+                max-width: 650px;
+                margin-left: auto;
+                margin-right: auto;
+                position: relative;
+                z-index: 1;
+            ">
+                Your commitment to empowering young Nigerian women is inspiring. 
+                We've received your mentorship application and are excited about 
+                the possibility of you joining our community of change-makers.
+            </p>
+        </div>
+        
+        <!-- Confirmation & Next Steps Card -->
+        <div class="fade-in" style="
+            background: linear-gradient(135deg, #E6E6FA 0%, #f0f0ff 100%);
+            padding: 2.5rem;
+            border-radius: 14px;
+            margin-bottom: 2.5rem;
+            border-left: 5px solid #FFD700;
+            text-align: left;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+            animation-delay: 0.4s;
+        ">
+            <div style="
+                display: flex;
+                align-items: flex-start;
+                gap: 1.2rem;
+                margin-bottom: 1.8rem;
+            ">
+                <div style="
+                    background-color: #006747;
+                    color: #FFD700;
+                    min-width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                    font-size: 1.4rem;
+                    flex-shrink: 0;
+                ">📋</div>
+                <div>
+                    <h3 style="color: #006747; margin: 0 0 0.5rem 0; font-size: 1.4rem;">
+                        Application Details
+                    </h3>
+                    <p style="color: #2F4F4F; margin: 0; line-height: 1.6;">
+                        <strong>Application ID:</strong> 
+                        <span style="color: #006747; font-weight: 600; font-family: monospace; font-size: 1.1rem;">
+                            #MENTOR-{{ mentor_id|default:"2024-001" }}
+                        </span>
+                        <br>
+                        <strong>Submitted:</strong> {% now "F j, Y" %}
+                    </p>
+                </div>
+            </div>
+            
+            <div style="
+                background-color: rgba(255, 255, 255, 0.7);
+                padding: 1.8rem;
+                border-radius: 10px;
+                margin-top: 1.5rem;
+            ">
+                <h4 style="
+                    color: #006747;
+                    font-size: 1.2rem;
+                    margin-bottom: 1.2rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.7rem;
+                ">
+                    <span style="color: #FFD700;">📅</span> Review Process Timeline
+                </h4>
+                
+                <div style="
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 1.5rem;
+                    margin-bottom: 1.5rem;
+                ">
+                    <div style="text-align: center;">
+                        <div style="
+                            width: 60px;
+                            height: 60px;
+                            background-color: white;
+                            border: 3px solid #006747;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-weight: bold;
+                            color: #006747;
+                            font-size: 1.4rem;
+                            margin: 0 auto 0.8rem;
+                        ">1</div>
+                        <p style="color: #006747; font-weight: 600; margin: 0 0 0.3rem 0; font-size: 1rem;">
+                            Application Review
+                        </p>
+                        <p style="color: #2F4F4F; font-size: 0.85rem; margin: 0; line-height: 1.4;">
+                            5-7 business days
+                        </p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="
+                            width: 60px;
+                            height: 60px;
+                            background-color: white;
+                            border: 3px solid #006747;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-weight: bold;
+                            color: #006747;
+                            font-size: 1.4rem;
+                            margin: 0 auto 0.8rem;
+                        ">2</div>
+                        <p style="color: #006747; font-weight: 600; margin: 0 0 0.3rem 0; font-size: 1rem;">
+                            Interview Call
+                        </p>
+                        <p style="color: #2F4F4F; font-size: 0.85rem; margin: 0; line-height: 1.4;">
+                            Virtual or in-person
+                        </p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="
+                            width: 60px;
+                            height: 60px;
+                            background-color: white;
+                            border: 3px solid #006747;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-weight: bold;
+                            color: #006747;
+                            font-size: 1.4rem;
+                            margin: 0 auto 0.8rem;
+                        ">3</div>
+                        <p style="color: #006747; font-weight: 600; margin: 0 0 0.3rem 0; font-size: 1rem;">
+                            Training & Onboarding
+                        </p>
+                        <p style="color: #2F4F4F; font-size: 0.85rem; margin: 0; line-height: 1.4;">
+                            Complete mentor training
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="
+                    background-color: rgba(255, 215, 0, 0.1);
+                    padding: 1.2rem;
+                    border-radius: 8px;
+                    border-left: 4px solid #FFD700;
+                    margin-top: 1.5rem;
+                ">
+                    <p style="
+                        color: #2F4F4F;
+                        margin: 0;
+                        font-size: 0.95rem;
+                        line-height: 1.5;
+                    ">
+                        <strong style="color: #006747;">Important:</strong> 
+                        We'll contact you at the email and phone number provided in your application. 
+                        Please ensure these details are accurate and regularly checked.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- What to Expect Section -->
+        <div class="fade-in" style="
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            border: 2px solid #E6E6FA;
+            text-align: left;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+            animation-delay: 0.6s;
+        ">
+            <h3 style="
+                color: #006747;
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+            ">
+                <span style="
+                    background-color: #006747;
+                    color: #FFD700;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.2rem;
+                ">💌</span>
+                What to Expect Next
+            </h3>
+            
+            <div style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            ">
+                <div style="
+                    background-color: #F8F9FA;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                ">
+                    <div style="
+                        font-size: 2rem;
+                        color: #006747;
+                        margin-bottom: 0.8rem;
+                    ">📧</div>
+                    <h4 style="
+                        color: #006747;
+                        font-size: 1.1rem;
+                        margin-bottom: 0.5rem;
+                    ">Email Confirmation</h4>
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 0.9rem;
+                        margin: 0;
+                        line-height: 1.5;
+                    ">
+                        Check your inbox (including spam) for application receipt
+                    </p>
+                </div>
+                
+                <div style="
+                    background-color: #F8F9FA;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                ">
+                    <div style="
+                        font-size: 2rem;
+                        color: #006747;
+                        margin-bottom: 0.8rem;
+                    ">📞</div>
+                    <h4 style="
+                        color: #006747;
+                        font-size: 1.1rem;
+                        margin-bottom: 0.5rem;
+                    ">Interview Call</h4>
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 0.9rem;
+                        margin: 0;
+                        line-height: 1.5;
+                    ">
+                        15-20 minute call to discuss your background and interests
+                    </p>
+                </div>
+                
+                <div style="
+                    background-color: #F8F9FA;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                ">
+                    <div style="
+                        font-size: 2rem;
+                        color: #006747;
+                        margin-bottom: 0.8rem;
+                    ">🎓</div>
+                    <h4 style="
+                        color: #006747;
+                        font-size: 1.1rem;
+                        margin-bottom: 0.5rem;
+                    ">Training Materials</h4>
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 0.9rem;
+                        margin: 0;
+                        line-height: 1.5;
+                    ">
+                        Access to our comprehensive mentor training program
+                    </p>
+                </div>
+            </div>
+            
+            <div style="
+                background-color: #E6F0FA;
+                padding: 1.5rem;
+                border-radius: 8px;
+                text-align: center;
+                border: 1px solid rgba(0, 103, 71, 0.1);
+            ">
+                <p style="
+                    color: #006747;
+                    margin: 0;
+                    font-weight: 600;
+                    font-size: 1.05rem;
+                ">
+                    ⏰ Time Commitment: 2-4 hours per month
+                </p>
+                <p style="
+                    color: #2F4F4F;
+                    margin: 0.5rem 0 0 0;
+                    font-size: 0.9rem;
+                ">
+                    Flexible scheduling to accommodate your availability
+                </p>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="fade-in" style="
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+            animation-delay: 0.8s;
+        ">
+            <a href="{% url 'home' %}" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.8rem;
+                background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                color: white;
+                padding: 1.2rem 2.5rem;
+                border-radius: 10px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 1.05rem;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 12px rgba(0, 103, 71, 0.2);
+            " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 20px rgba(0, 103, 71, 0.3)';" 
+            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0, 103, 71, 0.2)';">
+                <span>Return to Home</span>
+                <span style="font-size: 1.2rem;">→</span>
+            </a>
+            
+            <a href="{% url 'mentor_signup' %}" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.8rem;
+                background-color: white;
+                color: #006747;
+                border: 2px solid #E6E6FA;
+                padding: 1.2rem 2.5rem;
+                border-radius: 10px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 1.05rem;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.borderColor='#006747'; this.style.backgroundColor='#F8F9FA'; this.style.transform='translateY(-3px)';" 
+            onmouseout="this.style.borderColor='#E6E6FA'; this.style.backgroundColor='white'; this.style.transform='translateY(0)';">
+                <span>Refer a Fellow Mentor</span>
+                <span>👥</span>
+            </a>
+            
+            <button onclick="window.print()" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.8rem;
+                background-color: #FFD700;
+                color: #006747;
+                border: none;
+                padding: 1.2rem 2.5rem;
+                border-radius: 10px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 1.05rem;
+                transition: all 0.3s ease;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+            " onmouseover="this.style.backgroundColor='#e6c200'; this.style.transform='translateY(-3px)';" 
+            onmouseout="this.style.backgroundColor='#FFD700'; this.style.transform='translateY(0)';">
+                <span>Print Confirmation</span>
+                <span>🖨️</span>
+            </button>
+        </div>
+        
+        <!-- Contact & Resources Section -->
+        <div class="fade-in" style="
+            padding-top: 2.5rem;
+            border-top: 2px solid #E6E6FA;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+            animation-delay: 1s;
+        ">
+            <h3 style="
+                color: #006747;
+                font-size: 1.4rem;
+                margin-bottom: 1.5rem;
+                text-align: center;
+            ">
+                Resources & Contact
+            </h3>
+            
+            <div style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            ">
+                <div style="text-align: center;">
+                    <div style="
+                        font-size: 2.5rem;
+                        color: #006747;
+                        margin-bottom: 0.8rem;
+                    ">📚</div>
+                    <a href="#" style="
+                        color: #006747;
+                        text-decoration: none;
+                        font-weight: 600;
+                        transition: color 0.3s ease;
+                        display: block;
+                        margin-bottom: 0.5rem;
+                    " onmouseover="this.style.color='#00563a';" onmouseout="this.style.color='#006747';">
+                        Mentor Handbook
+                    </a>
+                    <p style="color: #2F4F4F; font-size: 0.9rem; margin: 0; opacity: 0.8;">
+                        Learn about our approach
+                    </p>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div style="
+                        font-size: 2.5rem;
+                        color: #006747;
+                        margin-bottom: 0.8rem;
+                    ">❓</div>
+                    <a href="#" style="
+                        color: #006747;
+                        text-decoration: none;
+                        font-weight: 600;
+                        transition: color 0.3s ease;
+                        display: block;
+                        margin-bottom: 0.5rem;
+                    " onmouseover="this.style.color='#00563a';" onmouseout="this.style.color='#006747';">
+                        FAQ & Support
+                    </a>
+                    <p style="color: #2F4F4F; font-size: 0.9rem; margin: 0; opacity: 0.8;">
+                        Common questions answered
+                    </p>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div style="
+                        font-size: 2.5rem;
+                        color: #006747;
+                        margin-bottom: 0.8rem;
+                    ">📧</div>
+                    <a href="mailto:mentors@haskenyaruwa.org" style="
+                        color: #006747;
+                        text-decoration: none;
+                        font-weight: 600;
+                        transition: color 0.3s ease;
+                        display: block;
+                        margin-bottom: 0.5rem;
+                    " onmouseover="this.style.color='#00563a';" onmouseout="this.style.color='#006747';">
+                        mentors@haskenyaruwa.org
+                    </a>
+                    <p style="color: #2F4F4F; font-size: 0.9rem; margin: 0; opacity: 0.8;">
+                        Mentor-specific inquiries
+                    </p>
+                </div>
+            </div>
+            
+            <div style="
+                background-color: #F8F9FA;
+                padding: 1.5rem;
+                border-radius: 8px;
+                text-align: center;
+                margin-top: 2rem;
+            ">
+                <p style="
+                    color: #2F4F4F;
+                    margin: 0;
+                    font-size: 0.95rem;
+                    line-height: 1.5;
+                ">
+                    <strong style="color: #006747;">Thank you again for your commitment to empowering girls!</strong> 
+                    Your decision to mentor can change lives and inspire generations.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Animations -->
+<style>
+    @keyframes bounceIn {
+        0% {
+            opacity: 0;
+            transform: scale(0.3);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        70% {
+            transform: scale(0.9);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .fade-in {
+        opacity: 0;
+        animation: fadeInUp 0.8s ease-out forwards;
+    }
+    
+    /* Print Styles */
+    @media print {
+        .no-print {
+            display: none;
+        }
+        
+        .success-container {
+            box-shadow: none;
+            border: 1px solid #ddd;
+            padding: 2rem !important;
+        }
+        
+        .action-buttons {
+            display: none;
+        }
+        
+        h1 {
+            font-size: 1.8rem !important;
+        }
+    }
+    
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        .success-container {
+            padding: 2.5rem 1.5rem !important;
+        }
+        
+        h1 {
+            font-size: 2rem !important;
+        }
+        
+        .action-buttons {
+            flex-direction: column;
+            gap: 1rem !important;
+        }
+        
+        .action-buttons a,
+        .action-buttons button {
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .confirmation-card {
+            padding: 1.8rem !important;
+        }
+        
+        .timeline-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1rem !important;
+        }
+        
+        .resources-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        h1 {
+            font-size: 1.7rem !important;
+        }
+        
+        .success-container {
+            padding: 2rem 1rem !important;
+        }
+        
+        .success-icon {
+            width: 80px !important;
+            height: 80px !important;
+            font-size: 2.5rem !important;
+        }
+    }
+</style>
+
+<!-- Interactive Elements Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add staggered animation delays
+        const fadeElements = document.querySelectorAll('.fade-in');
+        fadeElements.forEach((element, index) => {
+            element.style.animationDelay = `${index * 0.2}s`;
+        });
+        
+        // Auto-redirect after 45 seconds (optional)
+        setTimeout(function() {
+            const redirectNotification = document.createElement('div');
+            redirectNotification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: #006747;
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                z-index: 100;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                max-width: 350px;
+                animation: slideInUp 0.3s ease-out;
+            `;
+            
+            redirectNotification.innerHTML = `
+                <div style="flex-shrink: 0; font-size: 1.5rem;">⏰</div>
+                <div>
+                    <div style="font-weight: 600; margin-bottom: 0.3rem;">Returning to homepage in</div>
+                    <div style="font-size: 1.2rem; font-weight: bold; color: #FFD700;" id="mentorCountdown">15</div>
+                </div>
+                <button id="cancelRedirect" style="
+                    background: none;
+                    border: 1px solid rgba(255,255,255,0.3);
+                    color: white;
+                    padding: 0.5rem 1rem;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-left: auto;
+                    flex-shrink: 0;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.backgroundColor='rgba(255,255,255,0.1)';" 
+                onmouseout="this.style.backgroundColor='transparent';">Stay</button>
+            `;
+            
+            document.body.appendChild(redirectNotification);
+            
+            let countdown = 15;
+            const countdownEl = document.getElementById('mentorCountdown');
+            const redirectInterval = setInterval(function() {
+                countdown--;
+                countdownEl.textContent = countdown;
+                
+                if (countdown <= 0) {
+                    clearInterval(redirectInterval);
+                    window.location.href = "{% url 'home' %}";
+                }
+            }, 1000);
+            
+            // Cancel redirect
+            document.getElementById('cancelRedirect').addEventListener('click', function() {
+                clearInterval(redirectInterval);
+                redirectNotification.style.animation = 'fadeOut 0.3s ease-out forwards';
+                setTimeout(() => {
+                    document.body.removeChild(redirectNotification);
+                }, 300);
+            });
+            
+            // Auto-remove notification after 20 seconds if not clicked
+            setTimeout(() => {
+                if (document.body.contains(redirectNotification)) {
+                    redirectNotification.style.animation = 'fadeOut 0.3s ease-out forwards';
+                    setTimeout(() => {
+                        if (document.body.contains(redirectNotification)) {
+                            document.body.removeChild(redirectNotification);
+                        }
+                    }, 300);
+                }
+            }, 20000);
+            
+        }, 45000); // 45 seconds
+        
+        // Add CSS for animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInUp {
+                from {
+                    transform: translateY(100px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes fadeOut {
+                from {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Email confirmation simulation
+        const emailBtn = document.createElement('button');
+        emailBtn.innerHTML = '📧 Send Email Confirmation';
+        emailBtn.style.cssText = `
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background-color: #E6E6FA;
+            color: #006747;
+            border: 2px solid #E6E6FA;
+            padding: 1rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        `;
+        emailBtn.addEventListener('mouseover', function() {
+            this.style.backgroundColor = '#d9d9f0';
+            this.style.borderColor = '#006747';
+        });
+        emailBtn.addEventListener('mouseout', function() {
+            this.style.backgroundColor = '#E6E6FA';
+            this.style.borderColor = '#E6E6FA';
+        });
+        emailBtn.addEventListener('click', function() {
+            this.innerHTML = '📧 Sending...';
+            this.disabled = true;
+            
+            setTimeout(() => {
+                this.innerHTML = '📧 ✓ Confirmation Sent!';
+                this.style.backgroundColor = '#4CAF50';
+                this.style.color = 'white';
+                this.style.borderColor = '#4CAF50';
+                
+                setTimeout(() => {
+                    this.style.opacity = '0.7';
+                }, 1500);
+            }, 1500);
+        });
+        
+        // Add email button after print button
+        const actionButtons = document.querySelector('.action-buttons');
+        if (actionButtons) {
+            const emailContainer = document.createElement('div');
+            emailContainer.style.cssText = 'width: 100%; text-align: center; margin-top: 1rem;';
+            emailContainer.appendChild(emailBtn);
+            actionButtons.parentNode.insertBefore(emailContainer, actionButtons.nextSibling);
+        }
+    });
+</script>
+{% endblock %}

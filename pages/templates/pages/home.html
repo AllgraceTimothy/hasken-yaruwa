@@ -1,0 +1,350 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Hasken Yaruwa – Sister's Light{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero" style="
+        background: linear-gradient(135deg, #E6E6FA 0%, #f0f0ff 100%);
+        padding: 4rem 1rem;
+        text-align: center;
+    ">
+        <div class="fade-in" style="max-width: 800px; margin: 0 auto;">
+            <h2 style="
+                font-size: 2.5rem;
+                color: #006747;
+                margin-bottom: 1.5rem;
+            ">Lighting the Path for Girls to Stay in School</h2>
+            <p style="
+                font-size: 1.2rem;
+                color: #2F4F4F;
+                margin-bottom: 2rem;
+                max-width: 700px;
+                margin-left: auto;
+                margin-right: auto;
+            ">
+                Many girls leave school due to poverty, distance, and pressure to marry early.
+                Hasken Yaruwa exists to remove those barriers and keep hope alive.
+            </p>
+
+            <div class="cta-buttons fade-in" style="animation-delay: 0.3s;">
+                <a href="{% url 'apply' %}" class="btn primary" style="margin-right: 1rem;">Apply for Support</a>
+                <a href="{% url 'mentor_signup' %}" class="btn secondary">Become a Mentor</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section style="
+        padding: 4rem 1rem;
+        background-color: white;
+        max-width: 1200px;
+        margin: 0 auto;
+    ">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <h2 class="fade-in" style="
+                color: #006747;
+                font-size: 2.2rem;
+                margin-bottom: 1.5rem;
+                border-left: 4px solid #FFD700;
+                padding-left: 1rem;
+            ">1. Our Mission</h2>
+            
+            <div class="slide-in-left" style="
+                background-color: #E6E6FA;
+                padding: 2.5rem;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            ">
+                <p style="
+                    font-size: 1.4rem;
+                    font-weight: 500;
+                    color: #006747;
+                    margin-bottom: 1.5rem;
+                    font-style: italic;
+                ">
+                    To empower young Nigerian women through simple, accessible, and affordable education 
+                    that helps them gain skills, confidence, and opportunities for a better life.
+                </p>
+                
+                <p style="color: #2F4F4F; font-size: 1.1rem; line-height: 1.8;">
+                    We provide simple, accessible, and affordable education to young Nigerian women. 
+                    Our mission is to bridge the opportunity gap by equipping girls with the skills 
+                    and confidence they need to break cycles of poverty and lead their communities.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenge Section -->
+    <section style="
+        padding: 4rem 1rem;
+        background-color: #f8f9fa;
+    ">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <h2 class="slide-in-right" style="
+                color: #006747;
+                font-size: 2.2rem;
+                margin-bottom: 1.5rem;
+                border-left: 4px solid #FFD700;
+                padding-left: 1rem;
+            ">2. The Challenge</h2>
+            
+            <div style="
+                background-color: white;
+                padding: 2.5rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            ">
+                <h3 class="fade-in" style="
+                    color: #2F4F4F;
+                    font-size: 1.5rem;
+                    margin-bottom: 1rem;
+                ">The Education Gap</h3>
+                
+                <div class="fade-in" style="
+                    display: inline-block;
+                    background: linear-gradient(135deg, #006747, #00563a);
+                    color: white;
+                    padding: 1rem 1.5rem;
+                    border-radius: 8px;
+                    margin-bottom: 1.5rem;
+                ">
+                    <div style="font-size: 3rem; font-weight: bold;">42%</div>
+                    <div style="font-size: 1.1rem;">of girls complete secondary school vs <span class="highlight-gold">58% of boys</span></div>
+                </div>
+                
+                <p class="slide-in-left" style="
+                    color: #2F4F4F;
+                    font-size: 1.1rem;
+                    line-height: 1.8;
+                    margin-bottom: 1.5rem;
+                ">
+                    Deep-rooted cultural norms and financial barriers often force education to take 
+                    a backseat to early marriage. Without intervention, these girls remain trapped 
+                    in cycles of poverty, denied the right to economic independence and leadership roles.
+                </p>
+                
+                <div class="scale-in" style="
+                    background-color: #FFF9E6;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    border-left: 4px solid #FFD700;
+                    margin-top: 1.5rem;
+                ">
+                    <p style="
+                        font-size: 1.2rem;
+                        color: #006747;
+                        font-weight: 500;
+                        margin: 0;
+                    ">
+                        We believe a girl's background should never determine her future.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section style="
+        padding: 4rem 1rem;
+        background-color: white;
+        max-width: 1200px;
+        margin: 0 auto;
+    ">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <h2 class="fade-in" style="
+                color: #006747;
+                font-size: 2.2rem;
+                margin-bottom: 1.5rem;
+                border-left: 4px solid #FFD700;
+                padding-left: 1rem;
+            ">3. Our Solution</h2>
+            
+            <div class="scale-in" style="
+                background: linear-gradient(135deg, #E6E6FA 0%, #f0f0ff 100%);
+                padding: 2.5rem;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            ">
+                <h3 style="
+                    color: #006747;
+                    font-size: 1.6rem;
+                    margin-bottom: 1.5rem;
+                ">A Holistic Approach to Change</h3>
+                
+                <p style="color: #2F4F4F; font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
+                    We don't just provide books; we remove the barriers to staying in school. 
+                    Our foundation creates a unified support system through:
+                </p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                    <div class="slide-in-left" style="
+                        background-color: white;
+                        padding: 1.8rem;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                    ">
+                        <div style="
+                            background-color: #006747;
+                            color: #FFD700;
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-weight: bold;
+                            font-size: 1.2rem;
+                            margin-bottom: 1rem;
+                        ">✓</div>
+                        <h4 style="
+                            color: #006747;
+                            font-size: 1.3rem;
+                            margin-bottom: 0.8rem;
+                        ">Full Scholarships</h4>
+                        <p style="color: #2F4F4F;">Covering tuition and hidden costs like transportation.</p>
+                    </div>
+                    
+                    <div class="fade-in" style="
+                        background-color: white;
+                        padding: 1.8rem;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                    ">
+                        <div style="
+                            background-color: #006747;
+                            color: #FFD700;
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-weight: bold;
+                            font-size: 1.2rem;
+                            margin-bottom: 1rem;
+                        ">✓</div>
+                        <h4 style="
+                            color: #006747;
+                            font-size: 1.3rem;
+                            margin-bottom: 0.8rem;
+                        ">Community Mentorship</h4>
+                        <p style="color: #2F4F4F;">Connecting students with working professionals and peers to shift mindsets and prioritize education.</p>
+                    </div>
+                    
+                    <div class="slide-in-right" style="
+                        background-color: white;
+                        padding: 1.8rem;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                    ">
+                        <div style="
+                            background-color: #006747;
+                            color: #FFD700;
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-weight: bold;
+                            font-size: 1.2rem;
+                            margin-bottom: 1rem;
+                        ">✓</div>
+                        <h4 style="
+                            color: #006747;
+                            font-size: 1.3rem;
+                            margin-bottom: 0.8rem;
+                        ">Local Engagement</h4>
+                        <p style="color: #2F4F4F;">Partnering with governments and families to ensure long-term, sustainable impact for the entire community.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section style="
+        padding: 4rem 1rem;
+        background-color: #006747;
+        color: white;
+        text-align: center;
+    ">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <h2 class="fade-in" style="
+                font-size: 2.2rem;
+                margin-bottom: 3rem;
+                color: #FFD700;
+            ">Our Impact So Far</h2>
+
+            <div class="stats" style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 2rem;
+            ">
+                <div class="scale-in" style="
+                    background-color: rgba(255, 255, 255, 0.1);
+                    padding: 2rem;
+                    border-radius: 8px;
+                    backdrop-filter: blur(10px);
+                ">
+                    <strong style="
+                        display: block;
+                        font-size: 3rem;
+                        color: #FFD700;
+                        margin-bottom: 0.5rem;
+                    ">{{ total_students }}</strong>
+                    <span style="font-size: 1.1rem;">Girls Supported</span>
+                </div>
+                <div class="scale-in" style="
+                    background-color: rgba(255, 255, 255, 0.1);
+                    padding: 2rem;
+                    border-radius: 8px;
+                    backdrop-filter: blur(10px);
+                ">
+                    <strong style="
+                        display: block;
+                        font-size: 3rem;
+                        color: #FFD700;
+                        margin-bottom: 0.5rem;
+                    ">{{ total_support }}</strong>
+                    <span style="font-size: 1.1rem;">Resources Mobilized</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section style="
+        padding: 4rem 1rem;
+        background-color: #E6E6FA;
+        text-align: center;
+    ">
+        <div style="max-width: 700px; margin: 0 auto;">
+            <div class="fade-in">
+                <h3 style="
+                    color: #006747;
+                    font-size: 2rem;
+                    margin-bottom: 1.5rem;
+                ">Support the Mission</h3>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 1.2rem;
+                    margin-bottom: 2rem;
+                    line-height: 1.7;
+                ">
+                    Your contribution helps keep girls learning, safe, and hopeful. 
+                    Join us in lighting the path to education and empowerment.
+                </p>
+                <a href="#" class="btn primary" style="
+                    font-size: 1.1rem;
+                    padding: 1rem 2.5rem;
+                ">Support a Girl</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
