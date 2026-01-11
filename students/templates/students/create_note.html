@@ -1,0 +1,1068 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Submit Update - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+">
+    <div style="width: 100%;">
+        <!-- Header -->
+        <div class="fade-in" style="
+            text-align: center;
+            margin-bottom: 2.5rem;
+        ">
+            <a href="{% url 'student_dashboard' %}" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: #006747;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+                border-radius: 6px;
+                background-color: #F8F9FA;
+                transition: all 0.3s ease;
+                margin-bottom: 2rem;
+            " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.transform='translateY(0)';">
+                ← Back to Dashboard
+            </a>
+            
+            <div style="
+                width: 70px;
+                height: 70px;
+                background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                color: #FFD700;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+                font-weight: bold;
+                margin: 0 auto 1.5rem;
+                box-shadow: 0 4px 12px rgba(0, 103, 71, 0.2);
+            ">
+                📝
+            </div>
+            
+            <h1 style="
+                color: #006747;
+                font-size: 2.2rem;
+                margin-bottom: 0.5rem;
+            ">
+                Submit an Update
+            </h1>
+            <p style="
+                color: #2F4F4F;
+                font-size: 1.1rem;
+                opacity: 0.9;
+                max-width: 600px;
+                margin: 0 auto;
+                line-height: 1.5;
+            ">
+                Share your progress, challenges, or achievements with your mentor
+            </p>
+        </div>
+
+        <!-- Submit Update Card -->
+        <div class="scale-in" style="
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            border-top: 5px solid #006747;
+        ">
+            <form method="post" id="submitUpdateForm">
+                {% csrf_token %}
+                
+                <!-- Form Header -->
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.8rem;
+                    margin-bottom: 2rem;
+                    padding-bottom: 1.5rem;
+                    border-bottom: 2px solid #E6E6FA;
+                ">
+                    <div style="
+                        background-color: #FFD700;
+                        color: #006747;
+                        width: 44px;
+                        height: 44px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.3rem;
+                        font-weight: bold;
+                    ">✏️</div>
+                    <h2 style="
+                        color: #006747;
+                        font-size: 1.6rem;
+                        margin: 0;
+                    ">
+                        Share Your Update
+                    </h2>
+                </div>
+                
+                <!-- Form Errors -->
+                {% if form.errors %}
+                <div style="
+                    background-color: #FFE6E6;
+                    color: #D32F2F;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    margin-bottom: 2rem;
+                    border-left: 4px solid #D32F2F;
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 0.8rem;
+                    ">
+                        <div style="
+                            font-size: 1.3rem;
+                            flex-shrink: 0;
+                        ">⚠️</div>
+                        <div style="flex: 1;">
+                            <div style="
+                                font-weight: 600;
+                                margin-bottom: 0.5rem;
+                            ">Please correct the following:</div>
+                            <ul style="
+                                margin: 0;
+                                padding-left: 1.2rem;
+                                font-size: 0.9rem;
+                                line-height: 1.5;
+                            ">
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                                {% for error in form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Update Type Dropdown -->
+                <div style="margin-bottom: 2rem;">
+                    <label for="{{ form.note_type.id_for_label }}" style="
+                        display: block;
+                        color: #006747;
+                        font-weight: 600;
+                        margin-bottom: 0.8rem;
+                        font-size: 1.1rem;
+                    ">
+                        <span style="color: #FFD700;">🏷️</span>
+                        What type of update is this?
+                    </label>
+                    
+                    <!-- Custom Styled Select Dropdown -->
+                    <div style="position: relative;">
+                        <select 
+                            id="{{ form.note_type.id_for_label }}"
+                            name="{{ form.note_type.name }}"
+                            style="
+                                width: 100%;
+                                padding: 1rem 1.2rem;
+                                border: 2px solid #E6E6FA;
+                                border-radius: 8px;
+                                font-size: 1rem;
+                                color: #2F4F4F;
+                                background-color: white;
+                                transition: all 0.3s ease;
+                                appearance: none;
+                                cursor: pointer;
+                                background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23006747" viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>');
+                                background-repeat: no-repeat;
+                                background-position: right 1rem center;
+                                background-size: 16px;
+                                box-sizing: border-box;
+                            "
+                            onfocus="this.style.borderColor='#006747'; this.style.boxShadow='0 0 0 3px rgba(0, 103, 71, 0.1)';"
+                            onblur="this.style.borderColor='#E6E6FA'; this.style.boxShadow='none';"
+                            onchange="updateUpdateTypeIcon(this)">
+                            
+                            <!-- Default placeholder option -->
+                            <option value="" disabled {% if not form.note_type.value %}selected{% endif %}>
+                                Select an update type...
+                            </option>
+                            
+                            <!-- Dynamically generate options from form field choices -->
+                            {% for value, label in form.note_type.field.choices %}
+                                {% if value %}  <!-- Skip empty value if any -->
+                                    <option value="{{ value }}" 
+                                            {% if form.note_type.value|stringformat:"s" == value|stringformat:"s" %}selected{% endif %}
+                                            data-icon="{% if value == 'progress' %}📈{% elif value == 'achievement' %}🏆{% elif value == 'challenge' %}⚠️{% elif value == 'question' %}❓{% else %}📝{% endif %}"
+                                            data-description="{% if value == 'progress' %}Share your learning progress{% elif value == 'achievement' %}Celebrate a success or milestone{% elif value == 'challenge' %}Share a difficulty you're facing{% elif value == 'question' %}Ask a question to your mentor{% else %}General update or reflection{% endif %}">
+                                        {{ label }}
+                                    </option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        
+                        <!-- Custom dropdown icon -->
+                        <div style="
+                            position: absolute;
+                            right: 1rem;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            pointer-events: none;
+                            color: #006747;
+                            font-size: 1.2rem;
+                            font-weight: bold;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 30px;
+                            height: 30px;
+                            border-radius: 4px;
+                            background-color: #F0F8F0;
+                        " id="updateTypeIcon">
+                            {% if form.note_type.value %}
+                                {% if form.note_type.value == 'progress' %}📈
+                                {% elif form.note_type.value == 'achievement' %}🏆
+                                {% elif form.note_type.value == 'challenge' %}⚠️
+                                {% elif form.note_type.value == 'question' %}❓
+                                {% else %}📝{% endif %}
+                            {% else %}
+                                📝
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Description area that updates based on selection -->
+                    <div id="updateTypeDescription" style="
+                        background-color: #F8F9FA;
+                        padding: 1rem;
+                        border-radius: 6px;
+                        margin-top: 0.8rem;
+                        border-left: 3px solid #006747;
+                        display: none;
+                    ">
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                        ">
+                            <span id="descriptionIcon" style="
+                                color: #006747;
+                                font-size: 1.2rem;
+                            ">📝</span>
+                            <span id="descriptionText" style="
+                                color: #2F4F4F;
+                                font-size: 0.9rem;
+                                font-weight: 500;
+                            ">
+                                Select an update type to see description
+                            </span>
+                        </div>
+                    </div>
+                    
+                    {% if form.note_type.help_text %}
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 0.9rem;
+                        margin-top: 0.5rem;
+                        opacity: 0.7;
+                    ">
+                        {{ form.note_type.help_text }}
+                    </p>
+                    {% endif %}
+                </div>
+                
+                <!-- Update Content -->
+                <div style="margin-bottom: 2rem;">
+                    <label for="{{ form.content.id_for_label }}" style="
+                        display: block;
+                        color: #006747;
+                        font-weight: 600;
+                        margin-bottom: 0.8rem;
+                        font-size: 1.1rem;
+                    ">
+                        <span style="color: #FFD700;">📄</span>
+                        Your Update Details
+                    </label>
+                    
+                    <div style="position: relative;">
+                        <textarea id="{{ form.content.id_for_label }}" 
+                                  name="{{ form.content.name }}"
+                                  rows="8"
+                                  placeholder="Describe your update in detail. Be specific about what you've accomplished, what challenges you're facing, or what questions you have. Your mentor will use this information to provide better guidance."
+                                  style="
+                                    width: 100%;
+                                    padding: 1.2rem;
+                                    border: 2px solid #E6E6FA;
+                                    border-radius: 8px;
+                                    font-size: 1rem;
+                                    color: #2F4F4F;
+                                    background-color: white;
+                                    transition: all 0.3s ease;
+                                    font-family: inherit;
+                                    resize: vertical;
+                                    box-sizing: border-box;
+                                  "
+                                  onfocus="this.style.borderColor='#006747'; this.style.boxShadow='0 0 0 3px rgba(0, 103, 71, 0.1)';"
+                                  onblur="this.style.borderColor='#E6E6FA'; this.style.boxShadow='none';">{{ form.content.value|default:'' }}</textarea>
+                        
+                        <!-- Writing Tips Button -->
+                        <button type="button" 
+                                onclick="showWritingTips()"
+                                style="
+                                    position: absolute;
+                                    right: 12px;
+                                    bottom: 12px;
+                                    background-color: #FFD700;
+                                    color: #006747;
+                                    border: none;
+                                    padding: 0.5rem 0.8rem;
+                                    border-radius: 4px;
+                                    font-size: 0.8rem;
+                                    font-weight: 600;
+                                    cursor: pointer;
+                                    transition: all 0.3s ease;
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 0.3rem;
+                                "
+                                onmouseover="this.style.backgroundColor='#e6c200'; this.style.transform='translateY(-1px)';"
+                                onmouseout="this.style.backgroundColor='#FFD700'; this.style.transform='translateY(0)';">
+                            <span>💡</span>
+                            Writing Tips
+                        </button>
+                    </div>
+                    
+                    <!-- Character Counter -->
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-top: 0.5rem;
+                    ">
+                        <p style="
+                            color: #2F4F4F;
+                            font-size: 0.85rem;
+                            margin: 0;
+                            opacity: 0.7;
+                        ">
+                            {{ form.content.help_text }}
+                        </p>
+                        <div id="charCounter" style="
+                            color: #2F4F4F;
+                            font-size: 0.85rem;
+                            font-weight: 500;
+                        ">
+                            0/2000 characters
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tips & Guidelines -->
+                <div style="
+                    background-color: #FFF9E6;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    margin-bottom: 2rem;
+                    border-left: 4px solid #FFD700;
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 0.8rem;
+                        margin-bottom: 1rem;
+                    ">
+                        <div style="
+                            background-color: #FFD700;
+                            color: #006747;
+                            width: 32px;
+                            height: 32px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1rem;
+                            font-weight: bold;
+                            flex-shrink: 0;
+                        ">💡</div>
+                        <div>
+                            <h4 style="
+                                color: #006747;
+                                font-size: 1.1rem;
+                                margin: 0 0 0.5rem 0;
+                            ">
+                                Writing Effective Updates
+                            </h4>
+                            <ul style="
+                                color: #2F4F4F;
+                                margin: 0;
+                                padding-left: 1.2rem;
+                                font-size: 0.9rem;
+                                line-height: 1.5;
+                            ">
+                                <li>Be specific and provide concrete examples</li>
+                                <li>Focus on what you learned, not just what you did</li>
+                                <li>Mention any challenges and how you approached them</li>
+                                <li>Include questions you'd like your mentor to address</li>
+                                <li>Share your goals and next steps</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mentor Information -->
+                {% if student.mentor %}
+                <div style="
+                    background-color: #F8F9FA;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    margin-bottom: 2rem;
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                    ">
+                        <div style="
+                            width: 50px;
+                            height: 50px;
+                            background-color: #E6F0FA;
+                            color: #006747;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.5rem;
+                            font-weight: bold;
+                        ">
+                            {{ student.mentor.user.full_name|slice:":1"|upper }}
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="
+                                color: #006747;
+                                font-weight: 600;
+                                font-size: 1.1rem;
+                                margin-bottom: 0.2rem;
+                            ">
+                                This update will be sent to your mentor
+                            </div>
+                            <div style="
+                                color: #2F4F4F;
+                                font-size: 0.95rem;
+                            ">
+                                <strong>{{ student.mentor.user.full_name }}</strong> will receive and review your update
+                            </div>
+                        </div>
+                        <div style="
+                            background-color: #E6F0FA;
+                            color: #006747;
+                            padding: 0.5rem 1rem;
+                            border-radius: 6px;
+                            font-size: 0.9rem;
+                            font-weight: 600;
+                        ">
+                            👨‍🏫 Your Mentor
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Form Actions -->
+                <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 1.5rem;
+                    flex-wrap: wrap;
+                    padding-top: 1.5rem;
+                    border-top: 1px solid #E6E6FA;
+                ">
+                    <a href="{% url 'student_dashboard' %}" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        background-color: #F8F9FA;
+                        color: #006747;
+                        border: 2px solid #E6E6FA;
+                        padding: 0.8rem 1.5rem;
+                        border-radius: 8px;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                    " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.borderColor='#006747';" 
+                    onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.borderColor='#E6E6FA';">
+                        <span>←</span>
+                        Cancel
+                    </a>
+                    
+                    <button type="submit" 
+                            style="
+                                display: inline-flex;
+                                align-items: center;
+                                gap: 0.8rem;
+                                background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                                color: white;
+                                border: none;
+                                padding: 0.9rem 2.5rem;
+                                border-radius: 8px;
+                                font-size: 1.1rem;
+                                font-weight: 600;
+                                cursor: pointer;
+                                transition: all 0.3s ease;
+                            " >
+                        Submit Update
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Quick Examples (Collapsible) -->
+        <div class="fade-in" style="
+            margin-top: 2rem;
+        ">
+            <button onclick="toggleExamples()" 
+                    style="
+                        width: 100%;
+                        background-color: #F8F9FA;
+                        color: #006747;
+                        border: 2px solid #E6E6FA;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0.5rem;
+                    "
+                    onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.borderColor='#006747';"
+                    onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.borderColor='#E6E6FA';">
+                <span>📚</span>
+                View Example Updates
+                <span id="examplesArrow">▼</span>
+            </button>
+            
+            <div id="examplesSection" style="
+                display: none;
+                background-color: white;
+                border-radius: 8px;
+                padding: 1.5rem;
+                margin-top: 1rem;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                border: 1px solid #E6E6FA;
+            ">
+                <h4 style="
+                    color: #006747;
+                    font-size: 1.1rem;
+                    margin-bottom: 1rem;
+                ">
+                    Example Updates for Inspiration
+                </h4>
+                
+                <div style="
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                    gap: 1rem;
+                ">
+                    <div style="
+                        background-color: #F0F8F0;
+                        padding: 1rem;
+                        border-radius: 6px;
+                        border-left: 4px solid #006747;
+                    ">
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            margin-bottom: 0.5rem;
+                        ">
+                            <span style="color: #006747; font-size: 1.2rem;">📈</span>
+                            <strong style="color: #006747;">Progress Update</strong>
+                        </div>
+                        <p style="
+                            color: #2F4F4F;
+                            font-size: 0.9rem;
+                            margin: 0;
+                            line-height: 1.5;
+                        ">
+                            "This week I completed the Python basics course and built my first small project - a calculator. I'm starting to understand functions better, but I'm still struggling with error handling."
+                        </p>
+                    </div>
+                    
+                    <div style="
+                        background-color: #FFF9E6;
+                        padding: 1rem;
+                        border-radius: 6px;
+                        border-left: 4px solid #FFD700;
+                    ">
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            margin-bottom: 0.5rem;
+                        ">
+                            <span style="color: #006747; font-size: 1.2rem;">🏆</span>
+                            <strong style="color: #006747;">Achievement Update</strong>
+                        </div>
+                        <p style="
+                            color: #2F4F4F;
+                            font-size: 0.9rem;
+                            margin: 0;
+                            line-height: 1.5;
+                        ">
+                            "I successfully presented my science project to the class and received positive feedback! I was nervous but prepared well. Next, I want to improve my public speaking skills."
+                        </p>
+                    </div>
+                    
+                    <div style="
+                        background-color: #FFE6E6;
+                        padding: 1rem;
+                        border-radius: 6px;
+                        border-left: 4px solid #D32F2F;
+                    ">
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            margin-bottom: 0.5rem;
+                        ">
+                            <span style="color: #006747; font-size: 1.2rem;">⚠️</span>
+                            <strong style="color: #006747;">Challenge Update</strong>
+                        </div>
+                        <p style="
+                            color: #2F4F4F;
+                            font-size: 0.9rem;
+                            margin: 0;
+                            line-height: 1.5;
+                        ">
+                            "I'm having difficulty understanding algebra concepts, especially quadratic equations. I've tried watching videos but still get confused. Could we go over this in our next session?"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Enhanced Functionality -->
+<script>
+    // Style Django form fields on load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Character counter for textarea
+        const textarea = document.querySelector('textarea[name="content"]');
+        const charCounter = document.getElementById('charCounter');
+        
+        if (textarea && charCounter) {
+            // Update counter on load
+            updateCharCounter();
+            
+            // Update counter on input
+            textarea.addEventListener('input', updateCharCounter);
+            
+            function updateCharCounter() {
+                const length = textarea.value.length;
+                const maxLength = 2000;
+                charCounter.textContent = `${length}/${maxLength} characters`;
+                
+                // Color coding
+                if (length > maxLength * 0.9) {
+                    charCounter.style.color = '#D32F2F';
+                    charCounter.style.fontWeight = 'bold';
+                } else if (length > maxLength * 0.7) {
+                    charCounter.style.color = '#FFA000';
+                    charCounter.style.fontWeight = '600';
+                } else {
+                    charCounter.style.color = '#2F4F4F';
+                    charCounter.style.fontWeight = '500';
+                }
+                
+                // Auto-expand textarea
+                textarea.style.height = 'auto';
+                textarea.style.height = (textarea.scrollHeight) + 'px';
+            }
+        }
+        
+        // Initialize update type icon and description on page load
+        updateUpdateTypeIcon(document.getElementById('{{ form.note_type.id_for_label }}'));
+        
+        // Auto-save draft
+        let autoSaveTimer;
+        if (textarea) {
+            textarea.addEventListener('input', function() {
+                clearTimeout(autoSaveTimer);
+                autoSaveTimer = setTimeout(function() {
+                    // Save draft to localStorage
+                    const formData = {
+                        content: textarea.value,
+                        note_type: document.getElementById('{{ form.note_type.id_for_label }}')?.value
+                    };
+                    
+                    localStorage.setItem('updateDraft', JSON.stringify(formData));
+                    
+                    // Show draft saved indicator
+                    showToast('Draft saved', 'info');
+                }, 2000);
+            });
+        }
+        
+        // Load draft on page load
+        const savedDraft = localStorage.getItem('updateDraft');
+        if (savedDraft) {
+            if (confirm('You have a saved draft. Would you like to load it?')) {
+                const draft = JSON.parse(savedDraft);
+                if (textarea) textarea.value = draft.content || '';
+                
+                // Restore note type
+                const select = document.getElementById('{{ form.note_type.id_for_label }}');
+                if (select && draft.note_type) {
+                    select.value = draft.note_type;
+                    updateUpdateTypeIcon(select);
+                }
+                
+                showToast('Draft loaded', 'success');
+            }
+        }
+        
+        // Clear draft on successful submission
+        document.getElementById('submitUpdateForm').addEventListener('submit', function() {
+            localStorage.removeItem('updateDraft');
+        });
+    });
+    
+    // Update update type icon and description based on selection
+    function updateUpdateTypeIcon(selectElement) {
+        const iconElement = document.getElementById('updateTypeIcon');
+        const descriptionElement = document.getElementById('updateTypeDescription');
+        const descriptionIcon = document.getElementById('descriptionIcon');
+        const descriptionText = document.getElementById('descriptionText');
+        
+        if (!iconElement || !descriptionElement) return;
+        
+        const selectedOption = selectElement.options[selectElement.selectedIndex];
+        if (selectedOption && selectedOption.value) {
+            // Get the icon from data-icon attribute
+            const icon = selectedOption.getAttribute('data-icon') || '📝';
+            iconElement.textContent = icon;
+            
+            // Get description from data-description attribute
+            const description = selectedOption.getAttribute('data-description') || 'Select an update type to see description';
+            
+            // Update description section
+            descriptionIcon.textContent = icon;
+            descriptionText.textContent = description;
+            descriptionElement.style.display = 'block';
+            
+            // Add visual feedback for selection
+            selectElement.style.borderColor = '#006747';
+            selectElement.style.backgroundColor = '#F8F9FA';
+            
+            // Change icon background color based on selection
+            iconElement.style.backgroundColor = '#F0F8F0';
+            iconElement.style.color = '#006747';
+        } else {
+            // Default icon for placeholder
+            iconElement.textContent = '📝';
+            selectElement.style.borderColor = '#E6E6FA';
+            selectElement.style.backgroundColor = 'white';
+            iconElement.style.backgroundColor = '#F0F8F0';
+            iconElement.style.color = '#006747';
+            descriptionElement.style.display = 'none';
+        }
+    }
+    
+    // Toggle examples section
+    function toggleExamples() {
+        const examplesSection = document.getElementById('examplesSection');
+        const examplesArrow = document.getElementById('examplesArrow');
+        
+        if (examplesSection.style.display === 'none' || !examplesSection.style.display) {
+            examplesSection.style.display = 'block';
+            examplesArrow.textContent = '▲';
+        } else {
+            examplesSection.style.display = 'none';
+            examplesArrow.textContent = '▼';
+        }
+    }
+    
+    // Show writing tips
+    function showWritingTips() {
+        const tips = [
+            "✨ Start with a clear summary of your update",
+            "📚 Mention specific resources or materials you used",
+            "🎯 Describe what you accomplished this week",
+            "🤔 Share challenges and how you tried to solve them",
+            "❓ Ask specific questions for your mentor",
+            "🎯 Set clear goals for the next period",
+            "📊 Include numbers or metrics when possible",
+            "💭 Reflect on what you learned, not just what you did"
+        ];
+        
+        alert("Writing Tips for Effective Updates:\n\n" + tips.join('\n'));
+    }
+    
+    // Form validation
+    function validateUpdateForm() {
+        const contentField = document.querySelector('textarea[name="content"]');
+        const noteTypeField = document.getElementById('{{ form.note_type.id_for_label }}');
+        
+        let errors = [];
+        
+        // Check note type
+        if (!noteTypeField || !noteTypeField.value) {
+            errors.push('Please select an update type');
+        }
+        
+        // Check content
+        if (!contentField.value.trim()) {
+            errors.push('Please describe your update');
+        } else if (contentField.value.trim().length < 20) {
+            errors.push('Please provide more details (at least 20 characters)');
+        } else if (contentField.value.length > 2000) {
+            errors.push('Update exceeds maximum length of 2000 characters');
+        }
+        
+        if (errors.length > 0) {
+            alert('Please fix the following:\n\n' + errors.join('\n'));
+            return false;
+        }
+        
+        // Show loading state
+        const submitBtn = document.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<span>⏳</span> Submitting...';
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = '0.7';
+        
+        // Show confirmation for long updates
+        if (contentField.value.length > 500) {
+            if (!confirm('You\'ve written a detailed update. Ready to submit?')) {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                return false;
+            }
+        }
+        
+        // Success message
+        showToast('Update submitted successfully!', 'success');
+        
+        return true;
+    }
+    
+    // Toast notification function
+    function showToast(message, type = 'info') {
+        const toast = document.createElement('div');
+        toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: ${type === 'success' ? '#006747' : type === 'error' ? '#D32F2F' : '#FFD700'};
+            color: ${type === 'success' || type === 'error' ? 'white' : '#006747'};
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        `;
+        
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // Ctrl/Cmd + Enter to submit
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            e.preventDefault();
+            document.querySelector('button[type="submit"]').click();
+        }
+        
+        // Escape to cancel
+        if (e.key === 'Escape') {
+            if (confirm('Cancel this update? Any unsaved changes will be lost.')) {
+                window.location.href = "{% url 'student_dashboard' %}";
+            }
+        }
+        
+        // Ctrl/Cmd + D to clear draft
+        if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
+            e.preventDefault();
+            if (confirm('Clear your draft?')) {
+                localStorage.removeItem('updateDraft');
+                document.querySelector('textarea[name="content"]').value = '';
+                showToast('Draft cleared', 'info');
+            }
+        }
+        
+        // Ctrl/Cmd + T for writing tips
+        if ((e.ctrlKey || e.metaKey) && e.key === 't') {
+            e.preventDefault();
+            showWritingTips();
+        }
+    });
+</script>
+
+<style>
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .update-form-card {
+            padding: 1.5rem !important;
+        }
+        
+        .update-type-grid {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .form-actions {
+            flex-direction: column;
+        }
+        
+        .form-actions a,
+        .form-actions button {
+            width: 100%;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .examples-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .page-header h1 {
+            font-size: 1.8rem !important;
+        }
+        
+        .update-type-option {
+            padding: 1rem !important;
+        }
+        
+        .writing-tips-btn {
+            position: relative !important;
+            margin-top: 0.5rem;
+            width: 100%;
+        }
+        
+        .mentor-info {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem !important;
+        }
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.5s ease-out;
+    }
+    
+    @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    
+    .scale-in {
+        animation: scaleIn 0.4s ease-out;
+    }
+    
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+    
+    /* Custom dropdown styling */
+    select::-ms-expand {
+        display: none;
+    }
+    
+    select:focus {
+        outline: none;
+    }
+    
+    select:hover {
+        border-color: #006747;
+        background-color: #F8F9FA;
+    }
+    
+    /* Loading animation for submit button */
+    @keyframes submitPulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+    }
+    
+    button[type="submit"]:disabled {
+        animation: submitPulse 1.5s infinite;
+    }
+    
+    /* Auto-expand textarea */
+    textarea {
+        min-height: 150px;
+        transition: height 0.2s ease;
+    }
+    
+    /* Focus styles for accessibility */
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: none;
+    }
+    
+    /* Print styles */
+    @media print {
+        .form-actions,
+        .examples-section,
+        .writing-tips-btn {
+            display: none !important;
+        }
+        
+        .update-form-card {
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+            page-break-inside: avoid;
+        }
+        
+        textarea {
+            border: 1px solid #ddd !important;
+            min-height: 300px;
+        }
+    }
+</style>
+{% endblock %}

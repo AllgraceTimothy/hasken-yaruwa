@@ -1,0 +1,894 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Add Note - {{ student.user.full_name }} - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 80vh;
+">
+    <!-- Page Header -->
+    <div class="fade-in" style="
+        margin-bottom: 2rem;
+    ">
+        <div style="
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        ">
+            <a href="{% url 'mentor_student_detail' student.id %}" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: #006747;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+                border-radius: 6px;
+                background-color: #F8F9FA;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.transform='translateY(-1px)';" 
+            onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.transform='translateY(0)';">
+                ← Back to Student
+            </a>
+            
+            <div style="flex: 1; min-width: 300px;">
+                <h1 style="
+                    color: #006747;
+                    font-size: 2rem;
+                    margin-bottom: 0.5rem;
+                ">
+                    Add Note
+                </h1>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 1rem;
+                    opacity: 0.9;
+                ">
+                    Add a new note for {{ student.user.full_name }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Info Card -->
+    <div class="fade-in" style="
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border-left: 4px solid #006747;
+    ">
+        <div style="
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        ">
+            <div style="
+                width: 50px;
+                height: 50px;
+                background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                color: #FFD700;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                font-weight: bold;
+                flex-shrink: 0;
+            ">
+                {{ student.user.full_name|slice:":1"|upper }}
+            </div>
+            <div style="flex: 1;">
+                <h3 style="
+                    color: #006747;
+                    font-size: 1.3rem;
+                    margin-bottom: 0.3rem;
+                ">
+                    {{ student.user.full_name }}
+                </h3>
+                <div style="
+                    display: flex;
+                    gap: 1rem;
+                    flex-wrap: wrap;
+                ">
+                    <span style="
+                        color: #2F4F4F;
+                        font-size: 0.9rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.3rem;
+                    ">
+                        <span style="color: #006747;">📧</span>
+                        {{ student.user.email }}
+                    </span>
+                    {% if student.mentor %}
+                    <span style="
+                        color: #2F4F4F;
+                        font-size: 0.9rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.3rem;
+                    ">
+                        <span style="color: #006747;">👨‍🏫</span>
+                        Mentor: {{ student.mentor.user.full_name }}
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Note Form -->
+    <div class="scale-in" style="
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        padding: 2.5rem;
+        border-top: 5px solid #FFD700;
+    ">
+        <form method="post" id="addNoteForm">
+            {% csrf_token %}
+            
+            <!-- Form Header -->
+            <div style="
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+                margin-bottom: 2rem;
+                padding-bottom: 1.5rem;
+                border-bottom: 2px solid #E6E6FA;
+            ">
+                <div style="
+                    background-color: #006747;
+                    color: #FFD700;
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.3rem;
+                    font-weight: bold;
+                ">📝</div>
+                <h2 style="
+                    color: #006747;
+                    font-size: 1.6rem;
+                    margin: 0;
+                ">
+                    New Note Details
+                </h2>
+            </div>
+            
+            <!-- Form Errors -->
+            {% if form.errors %}
+            <div style="
+                background-color: #FFE6E6;
+                color: #D32F2F;
+                padding: 1.5rem;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+                border-left: 4px solid #D32F2F;
+            ">
+                <div style="
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 0.8rem;
+                ">
+                    <div style="
+                        font-size: 1.3rem;
+                        flex-shrink: 0;
+                    ">⚠️</div>
+                    <div style="flex: 1;">
+                        <div style="
+                            font-weight: 600;
+                            margin-bottom: 0.5rem;
+                        ">Please correct the following:</div>
+                        <ul style="
+                            margin: 0;
+                            padding-left: 1.2rem;
+                            font-size: 0.9rem;
+                            line-height: 1.5;
+                        ">
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                            {% for error in form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Note Type Dropdown -->
+            <div style="margin-bottom: 2rem;">
+                <label for="{{ form.note_type.id_for_label }}" style="
+                    display: block;
+                    color: #006747;
+                    font-weight: 600;
+                    margin-bottom: 0.8rem;
+                    font-size: 1.1rem;
+                ">
+                    <span style="color: #FFD700;">🏷️</span>
+                    Note Type
+                </label>
+                
+                <!-- Custom Styled Select Dropdown -->
+                <div style="position: relative;">
+                    <select 
+                        id="{{ form.note_type.id_for_label }}"
+                        name="{{ form.note_type.name }}"
+                        style="
+                            width: 100%;
+                            padding: 1rem 1.2rem;
+                            border: 2px solid #E6E6FA;
+                            border-radius: 8px;
+                            font-size: 1rem;
+                            color: #2F4F4F;
+                            background-color: white;
+                            transition: all 0.3s ease;
+                            appearance: none;
+                            cursor: pointer;
+                            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23006747" viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>');
+                            background-repeat: no-repeat;
+                            background-position: right 1rem center;
+                            background-size: 16px;
+                            box-sizing: border-box;
+                        "
+                        onfocus="this.style.borderColor='#006747'; this.style.boxShadow='0 0 0 3px rgba(0, 103, 71, 0.1)';"
+                        onblur="this.style.borderColor='#E6E6FA'; this.style.boxShadow='none';"
+                        onchange="updateNoteTypeIcon(this)">
+                        
+                        <!-- Default placeholder option -->
+                        <option value="" disabled {% if not form.note_type.value %}selected{% endif %}>
+                            Select a note type...
+                        </option>
+                        
+                        <!-- Dynamically generate options from form field choices -->
+                        {% for value, label in form.note_type.field.choices %}
+                            {% if value %}  <!-- Skip empty value if any -->
+                                <option value="{{ value }}" 
+                                        {% if form.note_type.value|stringformat:"s" == value|stringformat:"s" %}selected{% endif %}
+                                        data-icon="{{ value|slice:':1' }}">
+                                    {{ label }}
+                                </option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    
+                    <!-- Custom dropdown icon -->
+                    <div style="
+                        position: absolute;
+                        right: 1rem;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        pointer-events: none;
+                        color: #006747;
+                        font-size: 1.2rem;
+                        font-weight: bold;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 4px;
+                        background-color: #F0F8F0;
+                    " id="noteTypeIcon">
+                        {% if form.note_type.value %}
+                            {{ form.note_type.value|slice:":1"|default:"📝" }}
+                        {% else %}
+                            📝
+                        {% endif %}
+                    </div>
+                </div>
+                
+                {% if form.note_type.help_text %}
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 0.9rem;
+                    margin-top: 0.5rem;
+                    opacity: 0.7;
+                ">
+                    {{ form.note_type.help_text }}
+                </p>
+                {% endif %}
+            </div>
+            
+            <!-- Note Content -->
+            <div style="margin-bottom: 2rem;">
+                <label for="{{ form.content.id_for_label }}" style="
+                    display: block;
+                    color: #006747;
+                    font-weight: 600;
+                    margin-bottom: 0.8rem;
+                    font-size: 1.1rem;
+                ">
+                    <span style="color: #FFD700;">📄</span>
+                    Note Content
+                </label>
+                
+                <textarea id="{{ form.content.id_for_label }}" 
+                          name="{{ form.content.name }}"
+                          rows="6"
+                          placeholder="Enter your note here... Be specific and constructive."
+                          style="
+                            width: 100%;
+                            padding: 1.2rem;
+                            border: 2px solid #E6E6FA;
+                            border-radius: 8px;
+                            font-size: 1rem;
+                            color: #2F4F4F;
+                            background-color: white;
+                            transition: all 0.3s ease;
+                            font-family: inherit;
+                            resize: vertical;
+                            box-sizing: border-box;
+                          "
+                          onfocus="this.style.borderColor='#006747'; this.style.boxShadow='0 0 0 3px rgba(0, 103, 71, 0.1)';"
+                          onblur="this.style.borderColor='#E6E6FA'; this.style.boxShadow='none';">{{ form.content.value|default:'' }}</textarea>
+                
+                <!-- Character Counter -->
+                <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-top: 0.5rem;
+                ">
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 0.85rem;
+                        margin: 0;
+                        opacity: 0.7;
+                    ">
+                        {{ form.content.help_text }}
+                    </p>
+                    <div id="charCounter" style="
+                        color: #2F4F4F;
+                        font-size: 0.85rem;
+                        font-weight: 500;
+                    ">
+                        0/5000 characters
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Visibility Setting -->
+            <div style="
+                background-color: #F8F9FA;
+                padding: 1.5rem;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+            ">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    cursor: pointer;
+                " onclick="document.getElementById('{{ form.is_visible_to_student.id_for_label }}').click();">
+                    <div style="position: relative;">
+                        <input type="checkbox" 
+                               id="{{ form.is_visible_to_student.id_for_label }}"
+                               name="{{ form.is_visible_to_student.name }}"
+                               {% if form.is_visible_to_student.value %}checked{% endif %}
+                               style="
+                                    width: 20px;
+                                    height: 20px;
+                                    margin: 0;
+                                    cursor: pointer;
+                                    accent-color: #006747;
+                               ">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="{{ form.is_visible_to_student.id_for_label }}" style="
+                            color: #006747;
+                            font-weight: 600;
+                            font-size: 1.1rem;
+                            margin-bottom: 0.3rem;
+                            cursor: pointer;
+                            display: block;
+                        ">
+                            <span style="color: #FFD700;">👁️</span>
+                            Visible to Student
+                        </label>
+                        <p style="
+                            color: #2F4F4F;
+                            font-size: 0.9rem;
+                            margin: 0;
+                            line-height: 1.5;
+                        ">
+                            When checked, the student will be able to see this note in their profile.
+                            Uncheck for private mentor-only notes.
+                        </p>
+                    </div>
+                    
+                    <div style="
+                        padding: 0.5rem 1rem;
+                        border-radius: 6px;
+                        font-size: 0.9rem;
+                        font-weight: 600;
+                        background-color: {% if form.is_visible_to_student.value %}#E6F0FA{% else %}#FFF9E6{% endif %};
+                        color: {% if form.is_visible_to_student.value %}#006747{% else %}#FFA000{% endif %};
+                        transition: all 0.3s ease;
+                    ">
+                        {% if form.is_visible_to_student.value %}
+                        <div style="display: flex; align-items: center; gap: 0.3rem;">
+                            <span>✓</span> Public
+                        </div>
+                        {% else %}
+                        <div style="display: flex; align-items: center; gap: 0.3rem;">
+                            <span>🔒</span> Private
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tips Section -->
+            <div style="
+                background-color: #FFF9E6;
+                padding: 1.5rem;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+                border-left: 4px solid #FFD700;
+            ">
+                <div style="
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 0.8rem;
+                ">
+                    <div style="
+                        background-color: #FFD700;
+                        color: #006747;
+                        width: 32px;
+                        height: 32px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1rem;
+                        font-weight: bold;
+                        flex-shrink: 0;
+                    ">💡</div>
+                    <div>
+                        <h4 style="
+                            color: #006747;
+                            font-size: 1.1rem;
+                            margin: 0 0 0.5rem 0;
+                        ">
+                            Writing Effective Notes
+                        </h4>
+                        <ul style="
+                            color: #2F4F4F;
+                            margin: 0;
+                            padding-left: 1.2rem;
+                            font-size: 0.9rem;
+                            line-height: 1.5;
+                        ">
+                            <li>Be specific and provide concrete examples</li>
+                            <li>Focus on growth and improvement opportunities</li>
+                            <li>Balance constructive feedback with positive reinforcement</li>
+                            <li>Note key achievements and milestones</li>
+                            <li>Document any important conversations or decisions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Form Actions -->
+            <div style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 1.5rem;
+                flex-wrap: wrap;
+                padding-top: 1.5rem;
+                border-top: 1px solid #E6E6FA;
+            ">
+                <a href="{% url 'mentor_student_detail' student.id %}" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    background-color: #F8F9FA;
+                    color: #006747;
+                    border: 2px solid #E6E6FA;
+                    padding: 0.8rem 1.5rem;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    text-decoration: none;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.borderColor='#006747';" 
+                onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.borderColor='#E6E6FA';">
+                    <span>←</span>
+                    Cancel
+                </a>
+                
+                <button type="submit" 
+                        style="
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 0.8rem;
+                            background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                            color: white;
+                            border: none;
+                            padding: 0.9rem 2rem;
+                            border-radius: 8px;
+                            font-size: 1.1rem;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                        " >
+                    <span>💾</span>
+                    Save Note
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript for Enhanced Functionality -->
+<script>
+    // Style Django form fields on load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Character counter for textarea
+        const textarea = document.querySelector('textarea[name="content"]');
+        const charCounter = document.getElementById('charCounter');
+        
+        if (textarea && charCounter) {
+            // Update counter on load
+            updateCharCounter();
+            
+            // Update counter on input
+            textarea.addEventListener('input', updateCharCounter);
+            
+            function updateCharCounter() {
+                const length = textarea.value.length;
+                const maxLength = 5000;
+                charCounter.textContent = `${length}/${maxLength} characters`;
+                
+                // Color coding
+                if (length > maxLength * 0.9) {
+                    charCounter.style.color = '#D32F2F';
+                    charCounter.style.fontWeight = 'bold';
+                } else if (length > maxLength * 0.7) {
+                    charCounter.style.color = '#FFA000';
+                    charCounter.style.fontWeight = '600';
+                } else {
+                    charCounter.style.color = '#2F4F4F';
+                    charCounter.style.fontWeight = '500';
+                }
+            }
+        }
+        
+        // Initialize note type icon on page load
+        updateNoteTypeIcon(document.getElementById('{{ form.note_type.id_for_label }}'));
+        
+        // Toggle visibility indicator
+        const visibilityCheckbox = document.getElementById('{{ form.is_visible_to_student.id_for_label }}');
+        const visibilityIndicator = visibilityCheckbox?.parentElement?.parentElement?.querySelector('div:last-child');
+        
+        if (visibilityCheckbox && visibilityIndicator) {
+            visibilityCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    visibilityIndicator.innerHTML = '<div style="display: flex; align-items: center; gap: 0.3rem;"><span>✓</span> Public</div>';
+                    visibilityIndicator.style.backgroundColor = '#E6F0FA';
+                    visibilityIndicator.style.color = '#006747';
+                } else {
+                    visibilityIndicator.innerHTML = '<div style="display: flex; align-items: center; gap: 0.3rem;"><span>🔒</span> Private</div>';
+                    visibilityIndicator.style.backgroundColor = '#FFF9E6';
+                    visibilityIndicator.style.color = '#FFA000';
+                }
+            });
+        }
+    });
+    
+    // Update note type icon based on selection
+    function updateNoteTypeIcon(selectElement) {
+        const iconElement = document.getElementById('noteTypeIcon');
+        if (!iconElement) return;
+        
+        const selectedOption = selectElement.options[selectElement.selectedIndex];
+        if (selectedOption && selectedOption.value) {
+            // Get the icon from data-icon attribute or use the first character
+            const icon = selectedOption.getAttribute('data-icon') || selectedOption.value.charAt(0);
+            iconElement.textContent = icon;
+            
+            // Add visual feedback for selection
+            selectElement.style.borderColor = '#006747';
+            selectElement.style.backgroundColor = '#F8F9FA';
+            
+            // Change icon background color based on selection
+            iconElement.style.backgroundColor = '#F0F8F0';
+            iconElement.style.color = '#006747';
+        } else {
+            // Default icon for placeholder
+            iconElement.textContent = '📝';
+            selectElement.style.borderColor = '#E6E6FA';
+            selectElement.style.backgroundColor = 'white';
+            iconElement.style.backgroundColor = '#F0F8F0';
+            iconElement.style.color = '#006747';
+        }
+    }
+    
+    // Form validation
+    function validateNoteForm() {
+        const contentField = document.querySelector('textarea[name="content"]');
+        const noteTypeField = document.getElementById('{{ form.note_type.id_for_label }}');
+        
+        let errors = [];
+        
+        // Check note type
+        if (!noteTypeField || !noteTypeField.value) {
+            errors.push('Please select a note type');
+        }
+        
+        // Check content
+        if (!contentField.value.trim()) {
+            errors.push('Please enter note content');
+        } else if (contentField.value.trim().length < 10) {
+            errors.push('Note content should be at least 10 characters');
+        } else if (contentField.value.length > 5000) {
+            errors.push('Note content exceeds maximum length of 5000 characters');
+        }
+        
+        if (errors.length > 0) {
+            alert('Please fix the following errors:\n\n' + errors.join('\n'));
+            return false;
+        }
+        
+        // Show loading state
+        const submitBtn = document.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<span>⏳</span> Saving...';
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = '0.7';
+        
+        // Allow form submission
+        setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = '1';
+        }, 2000);
+        
+        return true;
+    }
+    
+    // Auto-save draft (optional)
+    let autoSaveTimer;
+    const contentField = document.querySelector('textarea[name="content"]');
+    
+    if (contentField) {
+        contentField.addEventListener('input', function() {
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(function() {
+                // Save draft to localStorage
+                const formData = {
+                    content: contentField.value,
+                    note_type: document.getElementById('{{ form.note_type.id_for_label }}')?.value,
+                    is_visible: document.getElementById('{{ form.is_visible_to_student.id_for_label }}')?.checked
+                };
+                
+                localStorage.setItem('noteDraft_{{ student.id }}', JSON.stringify(formData));
+                
+                // Show draft saved indicator
+                showToast('Draft saved locally', 'info');
+            }, 2000);
+        });
+    }
+    
+    // Load draft on page load
+    window.addEventListener('load', function() {
+        const savedDraft = localStorage.getItem('noteDraft_{{ student.id }}');
+        if (savedDraft) {
+            if (confirm('You have a saved draft. Would you like to load it?')) {
+                const draft = JSON.parse(savedDraft);
+                if (contentField) contentField.value = draft.content || '';
+                
+                // Restore note type
+                const select = document.getElementById('{{ form.note_type.id_for_label }}');
+                if (select && draft.note_type) {
+                    select.value = draft.note_type;
+                    updateNoteTypeIcon(select);
+                }
+                
+                // Restore visibility
+                const checkbox = document.getElementById('{{ form.is_visible_to_student.id_for_label }}');
+                if (checkbox && draft.is_visible !== undefined) {
+                    checkbox.checked = draft.is_visible;
+                    checkbox.dispatchEvent(new Event('change'));
+                }
+                
+                showToast('Draft loaded', 'success');
+            }
+        }
+    });
+    
+    // Clear draft on successful submission
+    document.getElementById('addNoteForm').addEventListener('submit', function() {
+        localStorage.removeItem('noteDraft_{{ student.id }}');
+    });
+    
+    // Toast notification function
+    function showToast(message, type = 'info') {
+        const toast = document.createElement('div');
+        toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: ${type === 'success' ? '#006747' : type === 'error' ? '#D32F2F' : '#FFD700'};
+            color: ${type === 'success' || type === 'error' ? 'white' : '#006747'};
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        `;
+        
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // Ctrl/Cmd + S to save
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+            e.preventDefault();
+            document.querySelector('button[type="submit"]').click();
+        }
+        
+        // Escape to cancel
+        if (e.key === 'Escape') {
+            if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
+                window.location.href = "{% url 'mentor_student_detail' student.id %}";
+            }
+        }
+    });
+</script>
+
+<style>
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .page-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem !important;
+        }
+        
+        .student-info-card {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem !important;
+        }
+        
+        .note-type-grid {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .form-actions {
+            flex-direction: column;
+        }
+        
+        .form-actions a,
+        .form-actions button {
+            width: 100%;
+            text-align: center;
+            justify-content: center;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .add-note-card {
+            padding: 1.5rem !important;
+        }
+        
+        h1 {
+            font-size: 1.6rem !important;
+        }
+        
+        h2 {
+            font-size: 1.4rem !important;
+        }
+        
+        .tips-section {
+            padding: 1rem !important;
+        }
+        
+        .tips-section ul {
+            padding-left: 1rem !important;
+        }
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.5s ease-out;
+    }
+    
+    @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    
+    .scale-in {
+        animation: scaleIn 0.4s ease-out;
+    }
+    
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+    
+    /* Custom dropdown styling */
+    select::-ms-expand {
+        display: none;
+    }
+    
+    select:focus {
+        outline: none;
+    }
+    
+    select:hover {
+        border-color: #006747;
+        background-color: #F8F9FA;
+    }
+    
+    /* Loading animation for submit button */
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+    }
+    
+    button[type="submit"]:disabled {
+        animation: pulse 1.5s infinite;
+    }
+    
+    /* Focus styles for accessibility */
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: none;
+    }
+    
+    /* Print styles */
+    @media print {
+        .form-actions,
+        .tips-section,
+        .student-info-card {
+            display: none !important;
+        }
+        
+        .add-note-card {
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+            page-break-inside: avoid;
+        }
+    }
+</style>
+{% endblock %}

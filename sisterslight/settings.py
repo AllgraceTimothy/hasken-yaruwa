@@ -19,8 +19,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-secret')
-DEBUG = os.environ.get('DEBUG') == 'True'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'unsafe-secret')
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -31,6 +31,23 @@ AUTH_USER_MODEL = 'accounts.User'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = 'campulseke@gmail.com'
+EMAIL_HOST_PASSWORD = 'cexu wazy nhwf mmyw'
+
+DEFAULT_FROM_EMAIL = 'Hasken Yaruwa <campulseke@gmail.com>'
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -46,6 +63,7 @@ INSTALLED_APPS = [
     'pages',
     'mentors',
     'dashboard',
+    'notes',
 ]
 
 MIDDLEWARE = [

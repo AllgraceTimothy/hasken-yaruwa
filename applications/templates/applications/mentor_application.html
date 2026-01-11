@@ -1,0 +1,977 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Apply as a Mentor - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section style="
+        background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+        padding: 3rem 1rem;
+        text-align: center;
+        color: white;
+    ">
+        <div class="fade-in" style="max-width: 800px; margin: 0 auto;">
+            <h1 style="
+                font-size: 2.5rem;
+                color: #FFD700;
+                margin-bottom: 1rem;
+                line-height: 1.2;
+            ">
+                Become a Mentor
+            </h1>
+            <p style="
+                font-size: 1.2rem;
+                line-height: 1.6;
+                margin-bottom: 1rem;
+                color: #D2B48C;
+            ">
+                Guide the next generation of young Nigerian women. Share your knowledge, experience, and journey to help girls stay in school and achieve their dreams.
+            </p>
+            <div style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: rgba(255, 255, 255, 0.1);
+                padding: 0.5rem 1.5rem;
+                border-radius: 50px;
+                margin-top: 1rem;
+                border: 1px solid rgba(255, 215, 0, 0.3);
+            ">
+                <span style="color: #FFD700;">👥</span>
+                <span style="font-weight: 600; font-size: 0.95rem;">Join our community of mentors</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form Section -->
+    <section style="padding: 4rem 1rem; background-color: #FAF9F6;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="fade-in" style="
+                background-color: white;
+                padding: 2.5rem;
+                border-radius: 12px;
+                box-shadow: 0 8px 30px rgba(139, 69, 19, 0.1);
+                border: 1px solid rgba(139, 69, 19, 0.1);
+            ">
+                <div style="
+                    background: linear-gradient(135deg, #FFF9E6 0%, #EFEBE9 100%);
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    margin-bottom: 2rem;
+                    border-left: 4px solid #8B4513;
+                ">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <span style="color: #8B4513; font-size: 1.5rem;">💡</span>
+                        <div>
+                            <p style="
+                                font-size: 1rem;
+                                color: #5D4037;
+                                margin: 0;
+                                line-height: 1.5;
+                            ">
+                                <strong>Mentorship Commitment:</strong> As a mentor, you'll be matched with a student for weekly virtual sessions, providing guidance, encouragement, and sharing your educational and professional journey.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <form method="post" id="mentorApplicationForm" style="display: grid; gap: 2rem;">
+                    {% csrf_token %}
+                    
+                    {% if form.errors %}
+                    <div style="
+                        background-color: #FFEBEE;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        border-left: 4px solid #D32F2F;
+                        margin-bottom: 1.5rem;
+                    ">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <span style="color: #D32F2F;">⚠️</span>
+                            <strong style="color: #5D4037;">Please correct the errors below:</strong>
+                        </div>
+                        <ul style="color: #5D4037; margin: 0; padding-left: 1.5rem;">
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <li>{{ field.label }}: {{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                            {% for error in form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    <!-- Personal Information Section -->
+                    <div class="form-section slide-in-left">
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.75rem;
+                            margin-bottom: 1.5rem;
+                            padding-bottom: 0.75rem;
+                            border-bottom: 2px solid #E8F5E9;
+                        ">
+                            <div style="
+                                background-color: #8B4513;
+                                color: white;
+                                width: 36px;
+                                height: 36px;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-weight: bold;
+                                font-size: 0.9rem;
+                            ">1</div>
+                            <h3 style="
+                                color: #2F4F4F;
+                                font-size: 1.3rem;
+                                margin: 0;
+                            ">Personal Information</h3>
+                        </div>
+
+                        <div style="display: grid; gap: 1.5rem;">
+                            <!-- Full Name -->
+                            <div class="form-group">
+                                <label for="{{ form.full_name.id_for_label }}" style="
+                                    display: block;
+                                    color: #2F4F4F;
+                                    font-weight: 600;
+                                    margin-bottom: 0.5rem;
+                                    font-size: 0.95rem;
+                                ">
+                                    Full Name *
+                                </label>
+                                {{ form.full_name }}
+                                <div style="margin-top: 0.25rem;">
+                                    <small style="color: #8B4513; font-size: 0.85rem;">
+                                        Please enter your full legal name
+                                    </small>
+                                </div>
+                            </div>
+
+                            <!-- Contact Information -->
+                            <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+                                <div class="form-group">
+                                    <label for="{{ form.email.id_for_label }}" style="
+                                        display: block;
+                                        color: #2F4F4F;
+                                        font-weight: 600;
+                                        margin-bottom: 0.5rem;
+                                        font-size: 0.95rem;
+                                    ">
+                                        Email Address *
+                                    </label>
+                                    {{ form.email }}
+                                    <div style="margin-top: 0.25rem;">
+                                        <small style="color: #8B4513; font-size: 0.85rem;">
+                                            We'll use this for all communication
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ form.phone_no.id_for_label }}" style="
+                                        display: block;
+                                        color: #2F4F4F;
+                                        font-weight: 600;
+                                        margin-bottom: 0.5rem;
+                                        font-size: 0.95rem;
+                                    ">
+                                        Phone Number *
+                                    </label>
+                                    {{ form.phone_no }}
+                                    <div style="margin-top: 0.25rem;">
+                                        <small style="color: #8B4513; font-size: 0.85rem;">
+                                            Include country code (e.g., +234 123 456 7890)
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Background & Experience -->
+                    <div class="form-section slide-in-right">
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.75rem;
+                            margin-bottom: 1.5rem;
+                            padding-bottom: 0.75rem;
+                            border-bottom: 2px solid #E8F5E9;
+                        ">
+                            <div style="
+                                background-color: #8B4513;
+                                color: white;
+                                width: 36px;
+                                height: 36px;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-weight: bold;
+                                font-size: 0.9rem;
+                            ">2</div>
+                            <h3 style="
+                                color: #2F4F4F;
+                                font-size: 1.3rem;
+                                margin: 0;
+                            ">Background & Experience</h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.background.id_for_label }}" style="
+                                display: block;
+                                color: #2F4F4F;
+                                font-weight: 600;
+                                margin-bottom: 0.5rem;
+                                font-size: 0.95rem;
+                            ">
+                                Professional/Educational Background *
+                            </label>
+                            {{ form.background }}
+                            <div style="margin-top: 0.25rem;">
+                                <small style="color: #8B4513; font-size: 0.85rem;">
+                                    Tell us about your career, education, and any relevant experience. What field do you work in? What was your educational journey like?
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Motivation & Commitment -->
+                    <div class="form-section slide-in-left">
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.75rem;
+                            margin-bottom: 1.5rem;
+                            padding-bottom: 0.75rem;
+                            border-bottom: 2px solid #E8F5E9;
+                        ">
+                            <div style="
+                                background-color: #8B4513;
+                                color: white;
+                                width: 36px;
+                                height: 36px;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-weight: bold;
+                                font-size: 0.9rem;
+                            ">3</div>
+                            <h3 style="
+                                color: #2F4F4F;
+                                font-size: 1.3rem;
+                                margin: 0;
+                            ">Motivation & Commitment</h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.motivation.id_for_label }}" style="
+                                display: block;
+                                color: #2F4F4F;
+                                font-weight: 600;
+                                margin-bottom: 0.5rem;
+                                font-size: 0.95rem;
+                            ">
+                                Why do you want to be a mentor? *
+                            </label>
+                            {{ form.motivation }}
+                            <div style="margin-top: 0.25rem;">
+                                <small style="color: #8B4513; font-size: 0.85rem;">
+                                    Share what drives you to mentor young girls. What do you hope to achieve through this mentorship?
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mentor Expectations -->
+                    <div class="fade-in" style="
+                        background: linear-gradient(135deg, #E8F5E9 0%, #EFEBE9 100%);
+                        padding: 2rem;
+                        border-radius: 8px;
+                        border: 1px solid #D7CCC8;
+                    ">
+                        <h4 style="
+                            color: #2F4F4F;
+                            font-size: 1.2rem;
+                            margin-bottom: 1rem;
+                            text-align: center;
+                        ">
+                            Mentor Expectations & Commitment
+                        </h4>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div style="text-align: center;">
+                                <div style="
+                                    background-color: white;
+                                    width: 60px;
+                                    height: 60px;
+                                    border-radius: 50%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    margin: 0 auto 1rem;
+                                    font-size: 1.5rem;
+                                    color: #8B4513;
+                                    border: 2px solid #D7CCC8;
+                                ">⏰</div>
+                                <p style="
+                                    color: #5D4037;
+                                    font-size: 0.9rem;
+                                    margin: 0;
+                                    font-weight: 500;
+                                ">
+                                    <strong>Time Commitment:</strong> 2-3 hours per week
+                                </p>
+                            </div>
+                            
+                            <div style="text-align: center;">
+                                <div style="
+                                    background-color: white;
+                                    width: 60px;
+                                    height: 60px;
+                                    border-radius: 50%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    margin: 0 auto 1rem;
+                                    font-size: 1.5rem;
+                                    color: #8B4513;
+                                    border: 2px solid #D7CCC8;
+                                ">💬</div>
+                                <p style="
+                                    color: #5D4037;
+                                    font-size: 0.9rem;
+                                    margin: 0;
+                                    font-weight: 500;
+                                ">
+                                    <strong>Communication:</strong> Weekly virtual sessions
+                                </p>
+                            </div>
+                            
+                            <div style="text-align: center;">
+                                <div style="
+                                    background-color: white;
+                                    width: 60px;
+                                    height: 60px;
+                                    border-radius: 50%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    margin: 0 auto 1rem;
+                                    font-size: 1.5rem;
+                                    color: #8B4513;
+                                    border: 2px solid #D7CCC8;
+                                ">📅</div>
+                                <p style="
+                                    color: #5D4037;
+                                    font-size: 0.9rem;
+                                    margin: 0;
+                                    font-weight: 500;
+                                ">
+                                    <strong>Duration:</strong> Minimum 6-month commitment
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div style="
+                            background-color: rgba(139, 69, 19, 0.05);
+                            padding: 1rem;
+                            border-radius: 6px;
+                            text-align: center;
+                        ">
+                            <p style="
+                                color: #5D4037;
+                                font-size: 0.9rem;
+                                margin: 0;
+                                line-height: 1.5;
+                            ">
+                                <strong>Note:</strong> Selected mentors will undergo a brief orientation and background check. We provide training materials and ongoing support throughout your mentorship journey.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Submit Section -->
+                    <div class="fade-in" style="
+                        background: linear-gradient(135deg, #8B4513 0%, #654321 100%);
+                        padding: 2rem;
+                        border-radius: 8px;
+                        margin-top: 2rem;
+                        text-align: center;
+                        color: white;
+                    ">
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+                            <span style="color: #FFD700; font-size: 1.5rem;">✨</span>
+                            <p style="
+                                font-size: 1.1rem;
+                                margin: 0;
+                                font-weight: 500;
+                                color: #FFD700;
+                            ">
+                                Your mentorship can change a girl's life forever
+                            </p>
+                        </div>
+                        
+                        <button type="submit" style="
+                            background: linear-gradient(135deg, #FFD700 0%, #C8A951 100%);
+                            color: #2F4F4F;
+                            border: none;
+                            padding: 1rem 3rem;
+                            font-size: 1.1rem;
+                            font-weight: 600;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 0.75rem;
+                        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(255, 215, 0, 0.3)';" 
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(255, 215, 0, 0.2)';">
+                            <span>Submit Mentor Application</span>
+                            <span style="font-size: 1.2rem;">→</span>
+                        </button>
+                        
+                        <p style="
+                            color: #D2B48C;
+                            font-size: 0.9rem;
+                            margin-top: 1rem;
+                            line-height: 1.5;
+                        ">
+                            By submitting this application, you agree to our 
+                            <a href="#" style="color: #FFD700; text-decoration: none; font-weight: 600;">Mentor Agreement</a> 
+                            and consent to a background check as part of our screening process.
+                        </p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Benefits of Being a Mentor -->
+            <div class="fade-in" style="
+                background-color: white;
+                padding: 2.5rem;
+                border-radius: 12px;
+                margin-top: 3rem;
+                box-shadow: 0 8px 30px rgba(139, 69, 19, 0.1);
+                border: 1px solid rgba(139, 69, 19, 0.1);
+            ">
+                <h3 style="
+                    color: #2F4F4F;
+                    font-size: 1.5rem;
+                    margin-bottom: 1.5rem;
+                    border-left: 4px solid #8B4513;
+                    padding-left: 1rem;
+                ">
+                    Why Become a Mentor?
+                </h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                    <div style="
+                        background-color: #FAF9F6;
+                        padding: 1.5rem;
+                        border-radius: 8px;
+                        text-align: center;
+                        border: 1px solid #D7CCC8;
+                    ">
+                        <div style="
+                            background-color: #E8F5E9;
+                            width: 70px;
+                            height: 70px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 0 auto 1rem;
+                            font-size: 1.8rem;
+                            color: #8B4513;
+                        ">❤️</div>
+                        <h4 style="color: #2F4F4F; margin-bottom: 0.5rem;">Make a Real Impact</h4>
+                        <p class="small-text">Directly contribute to a girl's educational success and future opportunities</p>
+                    </div>
+                    
+                    <div style="
+                        background-color: #FAF9F6;
+                        padding: 1.5rem;
+                        border-radius: 8px;
+                        text-align: center;
+                        border: 1px solid #D7CCC8;
+                    ">
+                        <div style="
+                            background-color: #FFF9E6;
+                            width: 70px;
+                            height: 70px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 0 auto 1rem;
+                            font-size: 1.8rem;
+                            color: #8B4513;
+                        ">🌱</div>
+                        <h4 style="color: #2F4F4F; margin-bottom: 0.5rem;">Develop Leadership Skills</h4>
+                        <p class="small-text">Enhance your communication, coaching, and leadership abilities</p>
+                    </div>
+                    
+                    <div style="
+                        background-color: #FAF9F6;
+                        padding: 1.5rem;
+                        border-radius: 8px;
+                        text-align: center;
+                        border: 1px solid #D7CCC8;
+                    ">
+                        <div style="
+                            background-color: #E6F0FA;
+                            width: 70px;
+                            height: 70px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 0 auto 1rem;
+                            font-size: 1.8rem;
+                            color: #8B4513;
+                        ">🤝</div>
+                        <h4 style="color: #2F4F4F; margin-bottom: 0.5rem;">Join a Community</h4>
+                        <p class="small-text">Connect with other professionals committed to girls' education</p>
+                    </div>
+                    
+                    <div style="
+                        background-color: #FAF9F6;
+                        padding: 1.5rem;
+                        border-radius: 8px;
+                        text-align: center;
+                        border: 1px solid #D7CCC8;
+                    ">
+                        <div style="
+                            background-color: #F0E6FA;
+                            width: 70px;
+                            height: 70px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 0 auto 1rem;
+                            font-size: 1.8rem;
+                            color: #8B4513;
+                        ">🎯</div>
+                        <h4 style="color: #2F4F4F; margin-bottom: 0.5rem;">Personal Growth</h4>
+                        <p class="small-text">Gain new perspectives and satisfaction from helping others succeed</p>
+                    </div>
+                </div>
+                
+                <div style="
+                    background-color: #FFF9E6;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    margin-top: 2rem;
+                    border-left: 4px solid #FFD700;
+                ">
+                    <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                        <span style="color: #C8A951; font-size: 1.5rem;">💬</span>
+                        <div>
+                            <p style="
+                                color: #5D4037;
+                                margin: 0 0 0.5rem 0;
+                                font-weight: 600;
+                            ">
+                                Have Questions About Mentoring?
+                            </p>
+                            <p style="color: #5D4037; margin: 0; font-size: 0.95rem;">
+                                Contact our mentorship coordinator at 
+                                <a href="mailto:mentors@haskenyaruwa.org" style="color: #8B4513; text-decoration: none; font-weight: 600;">
+                                    mentors@haskenyaruwa.org
+                                </a>
+                                or attend our monthly virtual information session
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Styling and Mobile Responsiveness -->
+    <style>
+        /* Form input styling */
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            font-size: 1rem;
+            border: 2px solid #D7CCC8;
+            border-radius: 4px;
+            background-color: white;
+            color: #2F4F4F;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="tel"]:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #8B4513;
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.5;
+        }
+
+        /* Form section styling */
+        .form-section {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(139, 69, 19, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-section:hover {
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.08);
+        }
+
+        /* Error styling */
+        .form-group input.error,
+        .form-group textarea.error,
+        .form-group select.error {
+            border-color: #D32F2F;
+            background-color: #FFEBEE;
+        }
+
+        .error-message {
+            color: #D32F2F;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        /* Small text styling */
+        .small-text {
+            font-size: 0.875rem;
+            color: #5D4037;
+            line-height: 1.5;
+        }
+
+        /* Animation delays */
+        .slide-in-left { animation-delay: 0.2s; }
+        .slide-in-right { animation-delay: 0.4s; }
+        .scale-in { animation-delay: 0.6s; }
+
+        /* Mobile responsive design */
+        @media (max-width: 768px) {
+            /* Hero section */
+            section:first-child h1 {
+                font-size: 2rem !important;
+            }
+            
+            section:first-child p {
+                font-size: 1.1rem !important;
+                padding: 0 1rem;
+            }
+
+            /* Form container */
+            section:last-child > div > div:first-child {
+                padding: 1.5rem !important;
+            }
+
+            /* Form sections */
+            .form-section {
+                padding: 1.5rem !important;
+            }
+
+            .form-section h3 {
+                font-size: 1.2rem !important;
+            }
+
+            /* Form inputs */
+            .form-group input[type="text"],
+            .form-group input[type="email"],
+            .form-group input[type="tel"],
+            .form-group textarea {
+                padding: 0.75rem 0.875rem;
+                font-size: 0.95rem;
+            }
+
+            .form-group textarea {
+                min-height: 100px;
+            }
+
+            /* Grid layouts */
+            .form-section > div:last-child {
+                gap: 1.25rem !important;
+            }
+
+            /* Mentor expectations grid */
+            .mentor-expectations-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+
+            /* Submit section */
+            section:last-child > div > div:first-child > div:nth-last-child(2) {
+                padding: 1.5rem !important;
+            }
+
+            button[type="submit"] {
+                width: 100%;
+                padding: 0.875rem 2rem !important;
+                font-size: 1rem !important;
+            }
+
+            /* Benefits section */
+            section:last-child > div > div:last-child {
+                padding: 1.5rem !important;
+                margin-top: 2rem !important;
+            }
+
+            section:last-child > div > div:last-child > div:first-child {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+
+            /* Help section */
+            section:last-child > div > div:last-child > div:last-child {
+                padding: 1.25rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Further mobile optimizations */
+            section:first-child h1 {
+                font-size: 1.75rem !important;
+            }
+            
+            .form-section h3 {
+                font-size: 1.1rem !important;
+            }
+            
+            .form-group label {
+                font-size: 0.9rem !important;
+            }
+            
+            small {
+                font-size: 0.8rem !important;
+            }
+            
+            button[type="submit"] {
+                font-size: 0.95rem !important;
+                padding: 0.75rem 1.5rem !important;
+            }
+            
+            /* Mentor expectations icons */
+            .mentor-expectations-grid > div > div:first-child {
+                width: 50px !important;
+                height: 50px !important;
+                font-size: 1.3rem !important;
+            }
+            
+            .mentor-expectations-grid p {
+                font-size: 0.85rem !important;
+            }
+        }
+
+        /* Tablet adjustments */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            section:last-child > div > div:first-child {
+                padding: 2rem !important;
+            }
+            
+            .form-section {
+                padding: 1.75rem !important;
+            }
+            
+            section:last-child > div > div:last-child > div:first-child {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            
+            .mentor-expectations-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+
+        /* Desktop hover effects */
+        @media (hover: hover) and (min-width: 769px) {
+            .form-group input[type="text"]:hover,
+            .form-group input[type="email"]:hover,
+            .form-group input[type="tel"]:hover,
+            .form-group textarea:hover {
+                border-color: #8B4513;
+            }
+            
+            .form-section:hover {
+                transform: translateY(-2px);
+            }
+            
+            .benefit-card:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 6px 20px rgba(139, 69, 19, 0.12) !important;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            button, 
+            .form-section:hover,
+            section:first-child > div > div:last-child {
+                display: none !important;
+            }
+            
+            .form-group input[type="text"],
+            .form-group input[type="email"],
+            .form-group input[type="tel"],
+            .form-group textarea {
+                border: 1px solid #ccc !important;
+                background: transparent !important;
+            }
+            
+            section:last-child > div > div:last-child {
+                page-break-before: always;
+            }
+        }
+
+        /* Accessibility improvements */
+        .form-group input:focus-visible,
+        .form-group textarea:focus-visible,
+        .form-group select:focus-visible {
+            outline: 3px solid #8B4513;
+            outline-offset: 2px;
+        }
+
+        button:focus-visible {
+            outline: 3px solid #FFD700;
+            outline-offset: 2px;
+        }
+
+        /* Required field indicator */
+        .form-group label[for*="id_"]:after {
+            content: " *";
+            color: #D32F2F;
+        }
+
+        /* Custom styling for mentor-specific elements */
+        .benefit-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .mentor-expectations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+    </style>
+
+    <!-- Form validation script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('mentorApplicationForm');
+            const submitButton = form.querySelector('button[type="submit"]');
+            
+            // Add loading state to submit button
+            form.addEventListener('submit', function(e) {
+                submitButton.innerHTML = '<span>Submitting...</span><span>⌛</span>';
+                submitButton.disabled = true;
+                submitButton.style.opacity = '0.7';
+                submitButton.style.cursor = 'not-allowed';
+            });
+            
+            // Add input validation styling
+            const inputs = form.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (this.value.trim() === '') {
+                        this.classList.add('error');
+                    } else {
+                        this.classList.remove('error');
+                    }
+                });
+                
+                input.addEventListener('input', function() {
+                    if (this.value.trim() !== '') {
+                        this.classList.remove('error');
+                    }
+                });
+            });
+            
+            // Phone number formatting
+            const phoneInput = document.getElementById('{{ form.phone_no.id_for_label }}');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function(e) {
+                    let value = this.value.replace(/\D/g, '');
+                    
+                    // Format as +XXX XXX XXX XXXX
+                    if (value.length > 0) {
+                        value = '+' + value;
+                        if (value.length > 4) {
+                            value = value.substring(0, 4) + ' ' + value.substring(4);
+                        }
+                        if (value.length > 8) {
+                            value = value.substring(0, 8) + ' ' + value.substring(8);
+                        }
+                        if (value.length > 12) {
+                            value = value.substring(0, 12) + ' ' + value.substring(12);
+                        }
+                        if (value.length > 17) {
+                            value = value.substring(0, 17);
+                        }
+                    }
+                    
+                    this.value = value;
+                });
+            }
+            
+            // Character counter for text areas
+            const backgroundTextarea = document.getElementById('{{ form.background.id_for_label }}');
+            const motivationTextarea = document.getElementById('{{ form.motivation.id_for_label }}');
+            
+            function createCounter(textarea, minWords = 50) {
+                const counter = document.createElement('div');
+                counter.className = 'char-counter';
+                counter.style.fontSize = '0.85rem';
+                counter.style.color = '#8B4513';
+                counter.style.marginTop = '0.25rem';
+                counter.style.textAlign = 'right';
+                counter.innerHTML = '0 words';
+                
+                textarea.parentNode.appendChild(counter);
+                
+                textarea.addEventListener('input', function() {
+                    const words = this.value.trim().split(/\s+/).filter(word => word.length > 0);
+                    const wordCount = words.length;
+                    counter.textContent = wordCount + ' words';
+                    
+                    if (wordCount < minWords) {
+                        counter.style.color = '#D32F2F';
+                        counter.innerHTML = wordCount + ' words (minimum ' + minWords + ' words)';
+                    } else {
+                        counter.style.color = '#8B4513';
+                    }
+                });
+            }
+            
+            if (backgroundTextarea) createCounter(backgroundTextarea, 50);
+            if (motivationTextarea) createCounter(motivationTextarea, 30);
+            
+            // Add benefit card hover effects
+            const benefitCards = document.querySelectorAll('[style*="background-color: #FAF9F6;"]');
+            benefitCards.forEach(card => {
+                card.classList.add('benefit-card');
+            });
+        });
+    </script>
+{% endblock %}

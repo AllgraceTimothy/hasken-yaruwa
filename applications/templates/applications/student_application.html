@@ -1,0 +1,864 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Apply for Student Support - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section style="
+        background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+        padding: 3rem 1rem;
+        text-align: center;
+        color: white;
+    ">
+        <div class="fade-in" style="max-width: 800px; margin: 0 auto;">
+            <h1 style="
+                font-size: 2.5rem;
+                color: #FFD700;
+                margin-bottom: 1rem;
+                line-height: 1.2;
+            ">
+                Apply for Student Support
+            </h1>
+            <p style="
+                font-size: 1.2rem;
+                line-height: 1.6;
+                margin-bottom: 1rem;
+                color: #D2B48C;
+            ">
+                Take the first step towards a brighter future. Apply for our scholarship program and join our community of empowered young women.
+            </p>
+            <div style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: rgba(255, 255, 255, 0.1);
+                padding: 0.5rem 1.5rem;
+                border-radius: 50px;
+                margin-top: 1rem;
+                border: 1px solid rgba(255, 215, 0, 0.3);
+            ">
+                <span style="color: #FFD700;">📝</span>
+                <span style="font-weight: 600; font-size: 0.95rem;">Complete your application</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form Section -->
+    <section style="padding: 4rem 1rem; background-color: #FAF9F6;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="fade-in" style="
+                background-color: white;
+                padding: 2.5rem;
+                border-radius: 12px;
+                box-shadow: 0 8px 30px rgba(139, 69, 19, 0.1);
+                border: 1px solid rgba(139, 69, 19, 0.1);
+            ">
+                <div style="
+                    background: linear-gradient(135deg, #E8F5E9 0%, #EFEBE9 100%);
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    margin-bottom: 2rem;
+                    border-left: 4px solid #8B4513;
+                ">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <span style="color: #8B4513; font-size: 1.5rem;">💡</span>
+                        <div>
+                            <p style="
+                                font-size: 1rem;
+                                color: #5D4037;
+                                margin: 0;
+                                line-height: 1.5;
+                            ">
+                                <strong>Before you apply:</strong> Please ensure all information is accurate and complete. 
+                                Our team will review your application and contact you within 2-3 weeks.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <form method="post" id="studentApplicationForm" style="display: grid; gap: 2rem;">
+                    {% csrf_token %}
+                    
+                    {% if form.errors %}
+                    <div style="
+                        background-color: #FFEBEE;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        border-left: 4px solid #D32F2F;
+                        margin-bottom: 1.5rem;
+                    ">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <span style="color: #D32F2F;">⚠️</span>
+                            <strong style="color: #5D4037;">Please correct the errors below:</strong>
+                        </div>
+                        <ul style="color: #5D4037; margin: 0; padding-left: 1.5rem;">
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <li>{{ field.label }}: {{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                            {% for error in form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    <!-- Personal Information Section -->
+                    <div class="form-section slide-in-left">
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.75rem;
+                            margin-bottom: 1.5rem;
+                            padding-bottom: 0.75rem;
+                            border-bottom: 2px solid #E8F5E9;
+                        ">
+                            <div style="
+                                background-color: #006747;
+                                color: #FFD700;
+                                width: 36px;
+                                height: 36px;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-weight: bold;
+                                font-size: 0.9rem;
+                            ">1</div>
+                            <h3 style="
+                                color: #2F4F4F;
+                                font-size: 1.3rem;
+                                margin: 0;
+                            ">Personal Information</h3>
+                        </div>
+
+                        <div style="display: grid; gap: 1.5rem;">
+                            <!-- Full Name -->
+                            <div class="form-group">
+                                <label for="{{ form.full_name.id_for_label }}" style="
+                                    display: block;
+                                    color: #2F4F4F;
+                                    font-weight: 600;
+                                    margin-bottom: 0.5rem;
+                                    font-size: 0.95rem;
+                                ">
+                                    Full Name *
+                                </label>
+                                {{ form.full_name }}
+                                <div style="margin-top: 0.25rem;">
+                                    <small style="color: #8B4513; font-size: 0.85rem;">
+                                        Please enter your full legal name as it appears on official documents
+                                    </small>
+                                </div>
+                            </div>
+
+                            <!-- Email and Age -->
+                            <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+                                <div class="form-group">
+                                    <label for="{{ form.email.id_for_label }}" style="
+                                        display: block;
+                                        color: #2F4F4F;
+                                        font-weight: 600;
+                                        margin-bottom: 0.5rem;
+                                        font-size: 0.95rem;
+                                    ">
+                                        Email Address *
+                                    </label>
+                                    {{ form.email }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ form.age.id_for_label }}" style="
+                                        display: block;
+                                        color: #2F4F4F;
+                                        font-weight: 600;
+                                        margin-bottom: 0.5rem;
+                                        font-size: 0.95rem;
+                                    ">
+                                        Age *
+                                    </label>
+                                    {{ form.age }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- School Information Section -->
+                    <div class="form-section slide-in-right">
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.75rem;
+                            margin-bottom: 1.5rem;
+                            padding-bottom: 0.75rem;
+                            border-bottom: 2px solid #E8F5E9;
+                        ">
+                            <div style="
+                                background-color: #006747;
+                                color: #FFD700;
+                                width: 36px;
+                                height: 36px;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-weight: bold;
+                                font-size: 0.9rem;
+                            ">2</div>
+                            <h3 style="
+                                color: #2F4F4F;
+                                font-size: 1.3rem;
+                                margin: 0;
+                            ">School Information</h3>
+                        </div>
+
+                        <div style="display: grid; gap: 1.5rem;">
+                            <div class="form-group">
+                                <label for="{{ form.school_name.id_for_label }}" style="
+                                    display: block;
+                                    color: #2F4F4F;
+                                    font-weight: 600;
+                                    margin-bottom: 0.5rem;
+                                    font-size: 0.95rem;
+                                ">
+                                    School Name *
+                                </label>
+                                {{ form.school_name }}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="{{ form.location.id_for_label }}" style="
+                                    display: block;
+                                    color: #2F4F4F;
+                                    font-weight: 600;
+                                    margin-bottom: 0.5rem;
+                                    font-size: 0.95rem;
+                                ">
+                                    Location (City/Town) *
+                                </label>
+                                {{ form.location }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Parent/Guardian Information -->
+                    <div class="form-section slide-in-left">
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.75rem;
+                            margin-bottom: 1.5rem;
+                            padding-bottom: 0.75rem;
+                            border-bottom: 2px solid #E8F5E9;
+                        ">
+                            <div style="
+                                background-color: #006747;
+                                color: #FFD700;
+                                width: 36px;
+                                height: 36px;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-weight: bold;
+                                font-size: 0.9rem;
+                            ">3</div>
+                            <h3 style="
+                                color: #2F4F4F;
+                                font-size: 1.3rem;
+                                margin: 0;
+                            ">Parent/Guardian Information</h3>
+                        </div>
+
+                        <div style="display: grid; gap: 1.5rem;">
+                            <div class="form-group">
+                                <label for="{{ form.parent_name.id_for_label }}" style="
+                                    display: block;
+                                    color: #2F4F4F;
+                                    font-weight: 600;
+                                    margin-bottom: 0.5rem;
+                                    font-size: 0.95rem;
+                                ">
+                                    Parent/Guardian Name *
+                                </label>
+                                {{ form.parent_name }}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="{{ form.parent_contact.id_for_label }}" style="
+                                    display: block;
+                                    color: #2F4F4F;
+                                    font-weight: 600;
+                                    margin-bottom: 0.5rem;
+                                    font-size: 0.95rem;
+                                ">
+                                    Parent/Guardian Contact (Phone/Email) *
+                                </label>
+                                {{ form.parent_contact }}
+                                <div style="margin-top: 0.25rem;">
+                                    <small style="color: #8B4513; font-size: 0.85rem;">
+                                        Please provide a phone number or email where we can reach your parent/guardian
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Your Story Section -->
+                    <div class="form-section slide-in-right">
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.75rem;
+                            margin-bottom: 1.5rem;
+                            padding-bottom: 0.75rem;
+                            border-bottom: 2px solid #E8F5E9;
+                        ">
+                            <div style="
+                                background-color: #006747;
+                                color: #FFD700;
+                                width: 36px;
+                                height: 36px;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-weight: bold;
+                                font-size: 0.9rem;
+                            ">4</div>
+                            <h3 style="
+                                color: #2F4F4F;
+                                font-size: 1.3rem;
+                                margin: 0;
+                            ">Your Story</h3>
+                        </div>
+
+                        <div style="display: grid; gap: 1.5rem;">
+                            <div class="form-group">
+                                <label for="{{ form.main_challenge.id_for_label }}" style="
+                                    display: block;
+                                    color: #2F4F4F;
+                                    font-weight: 600;
+                                    margin-bottom: 0.5rem;
+                                    font-size: 0.95rem;
+                                ">
+                                    Main Challenge *
+                                </label>
+                                {{ form.main_challenge }}
+                                <div style="margin-top: 0.25rem;">
+                                    <small style="color: #8B4513; font-size: 0.85rem;">
+                                        Please describe the main barrier preventing you from continuing your education
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="{{ form.personal_story.id_for_label }}" style="
+                                    display: block;
+                                    color: #2F4F4F;
+                                    font-weight: 600;
+                                    margin-bottom: 0.5rem;
+                                    font-size: 0.95rem;
+                                ">
+                                    Personal Story *
+                                </label>
+                                {{ form.personal_story }}
+                                <div style="margin-top: 0.25rem;">
+                                    <small style="color: #8B4513; font-size: 0.85rem;">
+                                        Share your educational journey and why this support is important to you (minimum 100 words)
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Section -->
+                    <div class="fade-in" style="
+                        background: linear-gradient(135deg, #E8F5E9 0%, #EFEBE9 100%);
+                        padding: 2rem;
+                        border-radius: 8px;
+                        margin-top: 2rem;
+                        text-align: center;
+                        border: 1px solid #D7CCC8;
+                    ">
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+                            <span style="color: #8B4513; font-size: 1.5rem;">✨</span>
+                            <p style="
+                                font-size: 1.1rem;
+                                color: #2F4F4F;
+                                margin: 0;
+                                font-weight: 500;
+                            ">
+                                Your application brings you one step closer to achieving your dreams
+                            </p>
+                        </div>
+                        
+                        <button type="submit" style="
+                            background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                            color: white;
+                            border: none;
+                            padding: 1rem 3rem;
+                            font-size: 1.1rem;
+                            font-weight: 600;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            box-shadow: 0 4px 12px rgba(0, 103, 71, 0.2);
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 0.75rem;
+                        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(0, 103, 71, 0.3)';" 
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0, 103, 71, 0.2)';">
+                            <span>Submit Application</span>
+                            <span style="font-size: 1.2rem;">→</span>
+                        </button>
+                        
+                        <p style="
+                            color: #5D4037;
+                            font-size: 0.9rem;
+                            margin-top: 1rem;
+                            line-height: 1.5;
+                        ">
+                            By submitting this application, you agree to our 
+                            <a href="#" style="color: #8B4513; text-decoration: none; font-weight: 600;">Terms of Service</a> 
+                            and confirm that all information provided is accurate.
+                        </p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Additional Information -->
+            <div class="fade-in" style="
+                background-color: white;
+                padding: 2.5rem;
+                border-radius: 12px;
+                margin-top: 3rem;
+                box-shadow: 0 8px 30px rgba(139, 69, 19, 0.1);
+                border: 1px solid rgba(139, 69, 19, 0.1);
+            ">
+                <h3 style="
+                    color: #2F4F4F;
+                    font-size: 1.5rem;
+                    margin-bottom: 1.5rem;
+                    border-left: 4px solid #8B4513;
+                    padding-left: 1rem;
+                ">
+                    What Happens Next?
+                </h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                    <div style="text-align: center;">
+                        <div style="
+                            background-color: #E8F5E9;
+                            width: 70px;
+                            height: 70px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 0 auto 1rem;
+                            font-size: 1.8rem;
+                            color: #8B4513;
+                        ">📧</div>
+                        <h4 style="color: #2F4F4F; margin-bottom: 0.5rem;">Application Review</h4>
+                        <p class="small-text">Our team reviews all applications within 2-3 weeks</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="
+                            background-color: #FFF9E6;
+                            width: 70px;
+                            height: 70px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 0 auto 1rem;
+                            font-size: 1.8rem;
+                            color: #8B4513;
+                        ">📞</div>
+                        <h4 style="color: #2F4F4F; margin-bottom: 0.5rem;">Interview Process</h4>
+                        <p class="small-text">Selected candidates will be contacted for a virtual interview</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="
+                            background-color: #E6F0FA;
+                            width: 70px;
+                            height: 70px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 0 auto 1rem;
+                            font-size: 1.8rem;
+                            color: #8B4513;
+                        ">✅</div>
+                        <h4 style="color: #2F4F4F; margin-bottom: 0.5rem;">Final Selection</h4>
+                        <p class="small-text">Successful applicants will receive scholarship offers</p>
+                    </div>
+                </div>
+                
+                <div style="
+                    background-color: #FFF9E6;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    margin-top: 2rem;
+                    border-left: 4px solid #FFD700;
+                ">
+                    <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                        <span style="color: #C8A951; font-size: 1.5rem;">💡</span>
+                        <div>
+                            <p style="
+                                color: #5D4037;
+                                margin: 0 0 0.5rem 0;
+                                font-weight: 600;
+                            ">
+                                Need Help with Your Application?
+                            </p>
+                            <p style="color: #5D4037; margin: 0; font-size: 0.95rem;">
+                                Contact our support team at 
+                                <a href="mailto:support@haskenyaruwa.org" style="color: #8B4513; text-decoration: none; font-weight: 600;">
+                                    support@haskenyaruwa.org
+                                </a>
+                                or call +234 123 456 7890
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Styling and Mobile Responsiveness -->
+    <style>
+        /* Form input styling */
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="number"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            font-size: 1rem;
+            border: 2px solid #D7CCC8;
+            border-radius: 4px;
+            background-color: white;
+            color: #2F4F4F;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="number"]:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #8B4513;
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.5;
+        }
+
+        .form-group input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .form-group input[type="number"]::-webkit-outer-spin-button,
+        .form-group input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Form section styling */
+        .form-section {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(139, 69, 19, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-section:hover {
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.08);
+        }
+
+        /* Error styling */
+        .form-group input.error,
+        .form-group textarea.error,
+        .form-group select.error {
+            border-color: #D32F2F;
+            background-color: #FFEBEE;
+        }
+
+        .error-message {
+            color: #D32F2F;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        /* Small text styling */
+        .small-text {
+            font-size: 0.875rem;
+            color: #5D4037;
+            line-height: 1.5;
+        }
+
+        /* Animation delays */
+        .slide-in-left { animation-delay: 0.2s; }
+        .slide-in-right { animation-delay: 0.4s; }
+        .scale-in { animation-delay: 0.6s; }
+
+        /* Mobile responsive design */
+        @media (max-width: 768px) {
+            /* Hero section */
+            section:first-child h1 {
+                font-size: 2rem !important;
+            }
+            
+            section:first-child p {
+                font-size: 1.1rem !important;
+                padding: 0 1rem;
+            }
+
+            /* Form container */
+            section:last-child > div > div:first-child {
+                padding: 1.5rem !important;
+            }
+
+            /* Form sections */
+            .form-section {
+                padding: 1.5rem !important;
+            }
+
+            .form-section h3 {
+                font-size: 1.2rem !important;
+            }
+
+            /* Form inputs */
+            .form-group input[type="text"],
+            .form-group input[type="email"],
+            .form-group input[type="number"],
+            .form-group textarea,
+            .form-group select {
+                padding: 0.75rem 0.875rem;
+                font-size: 0.95rem;
+            }
+
+            .form-group textarea {
+                min-height: 100px;
+            }
+
+            /* Grid layouts */
+            .form-section > div:last-child {
+                gap: 1.25rem !important;
+            }
+
+            /* Submit section */
+            section:last-child > div > div:first-child > div:last-child {
+                padding: 1.5rem !important;
+            }
+
+            button[type="submit"] {
+                width: 100%;
+                padding: 0.875rem 2rem !important;
+                font-size: 1rem !important;
+            }
+
+            /* Additional info section */
+            section:last-child > div > div:last-child {
+                padding: 1.5rem !important;
+                margin-top: 2rem !important;
+            }
+
+            section:last-child > div > div:last-child > div:first-child {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+
+            /* Help section */
+            section:last-child > div > div:last-child > div:last-child {
+                padding: 1.25rem !important;
+            }
+
+            /* What happens next icons */
+            section:last-child > div > div:last-child > div:first-child > div {
+                padding: 1rem !important;
+            }
+
+            section:last-child > div > div:last-child > div:first-child > div > div:first-child {
+                width: 60px !important;
+                height: 60px !important;
+                font-size: 1.5rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Further mobile optimizations */
+            section:first-child h1 {
+                font-size: 1.75rem !important;
+            }
+            
+            .form-section h3 {
+                font-size: 1.1rem !important;
+            }
+            
+            .form-group label {
+                font-size: 0.9rem !important;
+            }
+            
+            small {
+                font-size: 0.8rem !important;
+            }
+            
+            button[type="submit"] {
+                font-size: 0.95rem !important;
+                padding: 0.75rem 1.5rem !important;
+            }
+        }
+
+        /* Tablet adjustments */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            section:last-child > div > div:first-child {
+                padding: 2rem !important;
+            }
+            
+            .form-section {
+                padding: 1.75rem !important;
+            }
+            
+            section:last-child > div > div:last-child > div:first-child {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+
+        /* Desktop hover effects */
+        @media (hover: hover) and (min-width: 769px) {
+            .form-group input[type="text"]:hover,
+            .form-group input[type="email"]:hover,
+            .form-group input[type="number"]:hover,
+            .form-group textarea:hover,
+            .form-group select:hover {
+                border-color: #8B4513;
+            }
+            
+            .form-section:hover {
+                transform: translateY(-2px);
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            button, 
+            .form-section:hover,
+            section:first-child > div > div:last-child {
+                display: none !important;
+            }
+            
+            .form-group input[type="text"],
+            .form-group input[type="email"],
+            .form-group input[type="number"],
+            .form-group textarea,
+            .form-group select {
+                border: 1px solid #ccc !important;
+                background: transparent !important;
+            }
+            
+            section:last-child > div > div:last-child {
+                page-break-before: always;
+            }
+        }
+
+        /* Accessibility improvements */
+        .form-group input:focus-visible,
+        .form-group textarea:focus-visible,
+        .form-group select:focus-visible {
+            outline: 3px solid #8B4513;
+            outline-offset: 2px;
+        }
+
+        button:focus-visible {
+            outline: 3px solid #FFD700;
+            outline-offset: 2px;
+        }
+
+        /* Required field indicator */
+        .form-group label[for*="id_"]:after {
+            content: " *";
+            color: #D32F2F;
+        }
+    </style>
+
+    <!-- Form validation script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('studentApplicationForm');
+            const submitButton = form.querySelector('button[type="submit"]');
+            
+            // Add loading state to submit button
+            form.addEventListener('submit', function(e) {
+                submitButton.innerHTML = '<span>Submitting...</span><span>⌛</span>';
+                submitButton.disabled = true;
+                submitButton.style.opacity = '0.7';
+                submitButton.style.cursor = 'not-allowed';
+            });
+            
+            // Add input validation styling
+            const inputs = form.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (this.value.trim() === '') {
+                        this.classList.add('error');
+                    } else {
+                        this.classList.remove('error');
+                    }
+                });
+                
+                input.addEventListener('input', function() {
+                    if (this.value.trim() !== '') {
+                        this.classList.remove('error');
+                    }
+                });
+            });
+            
+            // Character counter for text areas
+            const storyTextarea = document.getElementById('{{ form.personal_story.id_for_label }}');
+            const challengeTextarea = document.getElementById('{{ form.main_challenge.id_for_label }}');
+            
+            function createCounter(textarea) {
+                const counter = document.createElement('div');
+                counter.className = 'char-counter';
+                counter.style.fontSize = '0.85rem';
+                counter.style.color = '#8B4513';
+                counter.style.marginTop = '0.25rem';
+                counter.style.textAlign = 'right';
+                counter.innerHTML = '0 characters';
+                
+                textarea.parentNode.appendChild(counter);
+                
+                textarea.addEventListener('input', function() {
+                    const length = this.value.length;
+                    counter.textContent = length + ' characters';
+                    
+                    if (length < 100 && this.id.includes('personal_story')) {
+                        counter.style.color = '#D32F2F';
+                    } else {
+                        counter.style.color = '#8B4513';
+                    }
+                });
+            }
+            
+            if (storyTextarea) createCounter(storyTextarea);
+            if (challengeTextarea) createCounter(challengeTextarea);
+        });
+    </script>
+{% endblock %}

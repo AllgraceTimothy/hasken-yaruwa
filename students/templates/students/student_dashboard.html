@@ -1,0 +1,1430 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My Dashboard - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 80vh;
+">
+    <!-- Welcome Header -->
+    <div class="fade-in" style="
+        background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+        border-radius: 16px;
+        padding: 2.5rem;
+        margin-bottom: 2.5rem;
+        color: white;
+        box-shadow: 0 8px 24px rgba(0, 103, 71, 0.2);
+        position: relative;
+        overflow: hidden;
+    ">
+        <div style="
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+        "></div>
+        <div style="
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 50%;
+        "></div>
+        
+        <div style="position: relative; z-index: 1;">
+            <div style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                margin-bottom: 1.5rem;
+            ">
+                <div>
+                    <h1 style="
+                        font-size: 2.2rem;
+                        margin-bottom: 0.5rem;
+                        color: #FFD700;
+                    ">
+                        🎓 Student Dashboard
+                    </h1>
+                    <p style="
+                        font-size: 1.1rem;
+                        opacity: 0.9;
+                        margin: 0;
+                    ">
+                        Welcome back, <strong>{{ student.user.full_name }}</strong>
+                    </p>
+                </div>
+                
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.8rem;
+                    background-color: rgba(255, 255, 255, 0.1);
+                    padding: 0.8rem 1.2rem;
+                    border-radius: 10px;
+                    backdrop-filter: blur(10px);
+                ">
+                    <div style="
+                        width: 40px;
+                        height: 40px;
+                        background-color: #FFD700;
+                        color: #006747;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.2rem;
+                        font-weight: bold;
+                    ">
+                        {{ student.user.full_name|slice:":1"|upper }}
+                    </div>
+                    <div>
+                        <div style="font-size: 0.9rem; opacity: 0.8;">Student ID</div>
+                        <div style="font-weight: 600; color: #FFD700;">#{{ student.id|default:"0000" }}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+                margin-top: 2rem;
+            ">
+                <div style="
+                    background-color: rgba(255, 255, 255, 0.15);
+                    padding: 1.5rem;
+                    border-radius: 12px;
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.transform='translateY(-5px)'; this.style.backgroundColor='rgba(255, 255, 255, 0.2)';" 
+                onmouseout="this.style.transform='translateY(0)'; this.style.backgroundColor='rgba(255, 255, 255, 0.15)';">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        margin-bottom: 1rem;
+                    ">
+                        <div style="
+                            width: 50px;
+                            height: 50px;
+                            background-color: #FFD700;
+                            color: #006747;
+                            border-radius: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.5rem;
+                            font-weight: bold;
+                        ">
+                            📝
+                        </div>
+                        <div>
+                            <div style="
+                                font-size: 0.9rem;
+                                opacity: 0.8;
+                            ">
+                                My Updates
+                            </div>
+                            <div style="
+                                font-size: 2.2rem;
+                                font-weight: bold;
+                                color: #FFD700;
+                            ">
+                                {{ notes|length }}
+                            </div>
+                        </div>
+                    </div>
+                    <p style="
+                        margin: 0;
+                        font-size: 0.9rem;
+                        opacity: 0.9;
+                    ">
+                        Updates shared with mentor
+                    </p>
+                </div>
+                
+                <div style="
+                    background-color: rgba(255, 255, 255, 0.15);
+                    padding: 1.5rem;
+                    border-radius: 12px;
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.transform='translateY(-5px)'; this.style.backgroundColor='rgba(255, 255, 255, 0.2)';" 
+                onmouseout="this.style.transform='translateY(0)'; this.style.backgroundColor='rgba(255, 255, 255, 0.15)';">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        margin-bottom: 1rem;
+                    ">
+                        <div style="
+                            width: 50px;
+                            height: 50px;
+                            background-color: #FFD700;
+                            color: #006747;
+                            border-radius: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.5rem;
+                            font-weight: bold;
+                        ">
+                            👨‍🏫
+                        </div>
+                        <div>
+                            <div style="
+                                font-size: 0.9rem;
+                                opacity: 0.8;
+                            ">
+                                Mentor Feedback
+                            </div>
+                            <div style="
+                                font-size: 2.2rem;
+                                font-weight: bold;
+                                color: #FFD700;
+                            ">
+                                {{ mentor_notes_count|default:"0" }}
+                            </div>
+                        </div>
+                    </div>
+                    <p style="
+                        margin: 0;
+                        font-size: 0.9rem;
+                        opacity: 0.9;
+                    ">
+                        Notes from your mentor
+                    </p>
+                </div>
+                
+                <div style="
+                    background-color: rgba(255, 255, 255, 0.15);
+                    padding: 1.5rem;
+                    border-radius: 12px;
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.transform='translateY(-5px)'; this.style.backgroundColor='rgba(255, 255, 255, 0.2)';" 
+                onmouseout="this.style.transform='translateY(0)'; this.style.backgroundColor='rgba(255, 255, 255, 0.15)';">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        margin-bottom: 1rem;
+                    ">
+                        <div style="
+                            width: 50px;
+                            height: 50px;
+                            background-color: #FFD700;
+                            color: #006747;
+                            border-radius: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.5rem;
+                            font-weight: bold;
+                        ">
+                            📅
+                        </div>
+                        <div>
+                            <div style="
+                                font-size: 0.9rem;
+                                opacity: 0.8;
+                            ">
+                                Next Session
+                            </div>
+                            <div style="
+                                font-size: 1.5rem;
+                                font-weight: bold;
+                                color: #FFD700;
+                            ">
+                                {% if next_session %}
+                                    {{ next_session.date|date:"M d" }}
+                                {% else %}
+                                    Not Set
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <p style="
+                        margin: 0;
+                        font-size: 0.9rem;
+                        opacity: 0.9;
+                    ">
+                        {% if next_session %}
+                            With {{ mentor.user.full_name }}
+                        {% else %}
+                            Schedule a session
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="scale-in" style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    ">
+        <!-- Left Column: Mentor & Updates -->
+        <div style="display: flex; flex-direction: column; gap: 2rem;">
+            <!-- My Mentor Card -->
+            <div style="
+                background-color: white;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                padding: 2rem;
+                border-top: 5px solid #FFD700;
+                flex: 1;
+            ">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.8rem;
+                    margin-bottom: 1.5rem;
+                ">
+                    <div style="
+                        background-color: #FFD700;
+                        color: #006747;
+                        width: 44px;
+                        height: 44px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.3rem;
+                        font-weight: bold;
+                    ">👨‍🏫</div>
+                    <h2 style="
+                        color: #006747;
+                        font-size: 1.6rem;
+                        margin: 0;
+                    ">
+                        My Mentor
+                    </h2>
+                </div>
+                
+                {% if mentor %}
+                <div style="
+                    background-color: #F8F9FA;
+                    padding: 1.5rem;
+                    border-radius: 10px;
+                    margin-bottom: 1.5rem;
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 1.2rem;
+                        margin-bottom: 1rem;
+                    ">
+                        <div style="
+                            width: 70px;
+                            height: 70px;
+                            background-color: #E6F0FA;
+                            color: #006747;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 2rem;
+                            font-weight: bold;
+                        ">
+                            {{ mentor.user.full_name|slice:":1"|upper }}
+                        </div>
+                        <div style="flex: 1;">
+                            <h3 style="
+                                color: #006747;
+                                font-size: 1.4rem;
+                                margin-bottom: 0.3rem;
+                            ">
+                                {{ mentor.user.full_name }}
+                            </h3>
+                            <p style="
+                                color: #2F4F4F;
+                                font-size: 0.95rem;
+                                margin: 0;
+                                opacity: 0.8;
+                            ">
+                                Your assigned mentor
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div style="
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 1rem;
+                        margin-top: 1.5rem;
+                    ">
+                        <div style="
+                            background-color: white;
+                            padding: 1rem;
+                            border-radius: 8px;
+                            text-align: center;
+                        ">
+                            <div style="
+                                color: #006747;
+                                font-weight: 600;
+                                font-size: 0.9rem;
+                                margin-bottom: 0.5rem;
+                            ">
+                                <span style="color: #FFD700;">📧</span> Email
+                            </div>
+                            <a href="mailto:{{ mentor.user.email }}" style="
+                                color: #006747;
+                                text-decoration: none;
+                                font-size: 0.9rem;
+                                font-weight: 500;
+                                word-break: break-word;
+                            " onmouseover="this.style.textDecoration='underline';" 
+                            onmouseout="this.style.textDecoration='none';">
+                                {{ mentor.user.email }}
+                            </a>
+                        </div>
+                        
+                        <div style="
+                            background-color: white;
+                            padding: 1rem;
+                            border-radius: 8px;
+                            text-align: center;
+                        ">
+                            <div style="
+                                color: #006747;
+                                font-weight: 600;
+                                font-size: 0.9rem;
+                                margin-bottom: 0.5rem;
+                            ">
+                                <span style="color: #FFD700;">⏱️</span> Mentoring Since
+                            </div>
+                            <div style="
+                                color: #2F4F4F;
+                                font-size: 0.9rem;
+                                font-weight: 500;
+                            ">
+                                {{ student.enrollment_date|date:"M Y" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div style="
+                    display: flex;
+                    gap: 1rem;
+                    flex-wrap: wrap;
+                ">
+                    <a href="mailto:{{ mentor.user.email }}" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        background-color: #006747;
+                        color: white;
+                        padding: 0.7rem 1.2rem;
+                        border-radius: 8px;
+                        text-decoration: none;
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                        transition: all 0.3s ease;
+                        flex: 1;
+                        min-width: 150px;
+                        justify-content: center;
+                    " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+                    onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                        <span>✉️</span>
+                        Message Mentor
+                    </a>
+                    
+                    <a href="#" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        background-color: #FFD700;
+                        color: #006747;
+                        padding: 0.7rem 1.2rem;
+                        border-radius: 8px;
+                        text-decoration: none;
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                        transition: all 0.3s ease;
+                        flex: 1;
+                        min-width: 150px;
+                        justify-content: center;
+                    " onmouseover="this.style.backgroundColor='#e6c200'; this.style.transform='translateY(-2px)';" 
+                    onmouseout="this.style.backgroundColor='#FFD700'; this.style.transform='translateY(0)';">
+                        <span>📅</span>
+                        Schedule Session
+                    </a>
+                </div>
+                {% else %}
+                <!-- No Mentor State -->
+                <div style="
+                    text-align: center;
+                    padding: 3rem 2rem;
+                ">
+                    <div style="
+                        font-size: 4rem;
+                        color: #E6E6FA;
+                        margin-bottom: 1.5rem;
+                    ">👨‍🏫</div>
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.6rem;
+                        margin-bottom: 0.8rem;
+                    ">
+                        No Mentor Assigned Yet
+                    </h3>
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 1rem;
+                        margin-bottom: 2rem;
+                        line-height: 1.6;
+                    ">
+                        You don't have a mentor assigned yet. Administrators are working to match you with the perfect mentor based on your goals and interests.
+                    </p>
+                    <div style="
+                        background-color: #FFF9E6;
+                        padding: 1.5rem;
+                        border-radius: 8px;
+                        border-left: 4px solid #FFD700;
+                    ">
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.8rem;
+                            margin-bottom: 0.8rem;
+                        ">
+                            <div style="
+                                background-color: #FFD700;
+                                color: #006747;
+                                width: 30px;
+                                height: 30px;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-weight: bold;
+                                font-size: 0.9rem;
+                            ">💡</div>
+                            <p style="color: #2F4F4F; margin: 0; font-weight: 600;">
+                                What you can do in the meantime:
+                            </p>
+                        </div>
+                        <ul style="
+                            color: #2F4F4F;
+                            margin: 0;
+                            padding-left: 1.2rem;
+                            font-size: 0.9rem;
+                            line-height: 1.6;
+                        ">
+                            <li>Submit updates about your progress</li>
+                            <li>Explore learning resources</li>
+                            <li>Review your goals and interests</li>
+                            <li>Complete any assigned materials</li>
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Submit Update Card -->
+            <div style="
+                background-color: white;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                padding: 2rem;
+                border-top: 5px solid #006747;
+            ">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.8rem;
+                    margin-bottom: 1.5rem;
+                ">
+                    <div style="
+                        background-color: #006747;
+                        color: #FFD700;
+                        width: 44px;
+                        height: 44px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.3rem;
+                        font-weight: bold;
+                    ">📝</div>
+                    <h2 style="
+                        color: #006747;
+                        font-size: 1.6rem;
+                        margin: 0;
+                    ">
+                        Share Your Progress
+                    </h2>
+                </div>
+                
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 1rem;
+                    line-height: 1.6;
+                    margin-bottom: 1.5rem;
+                ">
+                    Keep your mentor updated on your journey. Share your achievements, challenges, questions, or progress.
+                </p>
+                
+                <a href="{% url 'create_student_note' %}" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.8rem;
+                    background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                    color: white;
+                    padding: 1rem 2rem;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 1.1rem;
+                    transition: all 0.3s ease;
+                    width: 100%;
+                    justify-content: center;
+                " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 103, 71, 0.3)';" 
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                    <span>+</span>
+                    Submit an Update
+                </a>
+                
+                <div style="
+                    margin-top: 1.5rem;
+                    padding-top: 1.5rem;
+                    border-top: 1px solid #E6E6FA;
+                ">
+                    <h4 style="
+                        color: #006747;
+                        font-size: 1.1rem;
+                        margin-bottom: 0.8rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    ">
+                        <span style="color: #FFD700;">💡</span>
+                        Update Ideas
+                    </h4>
+                    <ul style="
+                        color: #2F4F4F;
+                        margin: 0;
+                        padding-left: 1.2rem;
+                        font-size: 0.9rem;
+                        line-height: 1.6;
+                    ">
+                        <li>What you learned this week</li>
+                        <li>Challenges you're facing</li>
+                        <li>Goals you've achieved</li>
+                        <li>Questions for your mentor</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Column: Recent Updates -->
+        <div style="
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 2rem;
+            border-top: 5px solid #006747;
+            display: flex;
+            flex-direction: column;
+        ">
+            <div style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 1.5rem;
+                flex-wrap: wrap;
+                gap: 1rem;
+            ">
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <div style="
+                        background-color: #006747;
+                        color: #FFD700;
+                        width: 44px;
+                        height: 44px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.3rem;
+                        font-weight: bold;
+                    ">📋</div>
+                    <h2 style="
+                        color: #006747;
+                        font-size: 1.6rem;
+                        margin: 0;
+                    ">
+                        Recent Updates
+                    </h2>
+                </div>
+                
+                {% if notes %}
+                <div style="
+                    background-color: #E6F0FA;
+                    color: #006747;
+                    padding: 0.5rem 1rem;
+                    border-radius: 20px;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                ">
+                    <span>{{ notes|length }}</span>
+                    Update{{ notes|length|pluralize }}
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Updates Content -->
+            <div style="flex: 1; overflow-y: auto; padding-right: 0.5rem;">
+                {% if notes %}
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    {% for note in notes %}
+                    <div style="
+                        background-color: #F8F9FA;
+                        border-radius: 10px;
+                        padding: 1.5rem;
+                        border-left: 4px solid 
+                            {% if note.note_type == 'progress' %}#006747
+                            {% elif note.note_type == 'achievement' %}#FFD700
+                            {% elif note.note_type == 'challenge' %}#D32F2F
+                            {% elif note.note_type == 'question' %}#2196F3
+                            {% else %}#E6E6FA{% endif %};
+                        transition: all 0.3s ease;
+                    " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';" 
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <!-- Update Header -->
+                        <div style="
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: flex-start;
+                            margin-bottom: 1rem;
+                            flex-wrap: wrap;
+                            gap: 0.8rem;
+                        ">
+                            <div>
+                                <div style="
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 0.8rem;
+                                    margin-bottom: 0.5rem;
+                                ">
+                                    <span style="
+                                        background-color: 
+                                            {% if note.note_type == 'progress' %}#E6F0FA
+                                            {% elif note.note_type == 'achievement' %}#FFF9E6
+                                            {% elif note.note_type == 'challenge' %}#FFE6E6
+                                            {% elif note.note_type == 'question' %}#E3F2FD
+                                            {% else %}#F8F9FA{% endif %};
+                                        color: 
+                                            {% if note.note_type == 'progress' %}#006747
+                                            {% elif note.note_type == 'achievement' %}#FFA000
+                                            {% elif note.note_type == 'challenge' %}#D32F2F
+                                            {% elif note.note_type == 'question' %}#2196F3
+                                            {% else %}#2F4F4F{% endif %};
+                                        padding: 0.3rem 0.8rem;
+                                        border-radius: 20px;
+                                        font-size: 0.85rem;
+                                        font-weight: 600;
+                                        display: inline-flex;
+                                        align-items: center;
+                                        gap: 0.3rem;
+                                    ">
+                                        <span>
+                                            {% if note.note_type == 'progress' %}📈
+                                            {% elif note.note_type == 'achievement' %}🏆
+                                            {% elif note.note_type == 'challenge' %}⚠️
+                                            {% elif note.note_type == 'question' %}❓
+                                            {% else %}📝{% endif %}
+                                        </span>
+                                        {{ note.get_note_type_display }}
+                                    </span>
+                                    
+                                    {% if note.author != student.user %}
+                                    <span style="
+                                        background-color: #E6E6FA;
+                                        color: #006747;
+                                        padding: 0.2rem 0.6rem;
+                                        border-radius: 4px;
+                                        font-size: 0.75rem;
+                                        font-weight: 600;
+                                        display: inline-flex;
+                                        align-items: center;
+                                        gap: 0.2rem;
+                                    ">
+                                        <span>👨‍🏫</span>
+                                        From Mentor
+                                    </span>
+                                    {% endif %}
+                                </div>
+                                
+                                {% if note.title %}
+                                <h3 style="
+                                    color: #006747;
+                                    font-size: 1.2rem;
+                                    margin: 0;
+                                    font-weight: 600;
+                                ">
+                                    {{ note.title }}
+                                </h3>
+                                {% endif %}
+                            </div>
+                            
+                            <div style="
+                                text-align: right;
+                                min-width: 100px;
+                            ">
+                                <div style="
+                                    color: #2F4F4F;
+                                    font-size: 0.85rem;
+                                    font-weight: 600;
+                                    margin-bottom: 0.2rem;
+                                ">
+                                    {{ note.created_at|date:"M d, Y" }}
+                                </div>
+                                <div style="
+                                    color: #2F4F4F;
+                                    font-size: 0.8rem;
+                                    opacity: 0.8;
+                                ">
+                                    {{ note.created_at|time:"g:i A" }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Update Content -->
+                        <div style="
+                            color: #2F4F4F;
+                            line-height: 1.6;
+                            margin-bottom: 1.2rem;
+                            font-size: 0.95rem;
+                        ">
+                            {{ note.content|truncatewords:50 }}
+                            {% if note.content|wordcount > 50 %}
+                            <span style="
+                                color: #006747;
+                                font-weight: 600;
+                                cursor: pointer;
+                                margin-left: 0.3rem;
+                            " onclick="expandNote({{ note.id }})">
+                                Read more
+                            </span>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Update Footer -->
+                        <div style="
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding-top: 1rem;
+                            border-top: 1px solid #E6E6FA;
+                            flex-wrap: wrap;
+                            gap: 1rem;
+                        ">
+                            <div style="
+                                display: flex;
+                                align-items: center;
+                                gap: 0.8rem;
+                            ">
+                                <div style="
+                                    width: 32px;
+                                    height: 32px;
+                                    background-color: #E6E6FA;
+                                    color: #006747;
+                                    border-radius: 50%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    font-size: 0.9rem;
+                                    font-weight: bold;
+                                ">
+                                    {{ note.author.full_name|slice:":1"|upper }}
+                                </div>
+                                <div>
+                                    <div style="
+                                        color: #006747;
+                                        font-weight: 600;
+                                        font-size: 0.9rem;
+                                    ">
+                                        {{ note.author.full_name }}
+                                    </div>
+                                    <div style="
+                                        color: #2F4F4F;
+                                        font-size: 0.8rem;
+                                        opacity: 0.8;
+                                    ">
+                                        {% if note.author == student.user %}
+                                        You
+                                        {% else %}
+                                        Your Mentor
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {% if note.author == student.user %}
+                            <button onclick="editMyNote('{{ note.id }}')" style="
+                                background-color: #F8F9FA;
+                                color: #006747;
+                                border: 1px solid #E6E6FA;
+                                padding: 0.4rem 0.8rem;
+                                border-radius: 4px;
+                                font-size: 0.8rem;
+                                font-weight: 600;
+                                cursor: pointer;
+                                transition: all 0.3s ease;
+                            " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.borderColor='#006747';" 
+                            onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.borderColor='#E6E6FA';">
+                                Edit
+                            </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <!-- Empty State -->
+                <div style="
+                    text-align: center;
+                    padding: 3rem 2rem;
+                ">
+                    <div style="
+                        font-size: 4rem;
+                        color: #E6E6FA;
+                        margin-bottom: 1.5rem;
+                    ">📝</div>
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.6rem;
+                        margin-bottom: 0.8rem;
+                    ">
+                        No Updates Yet
+                    </h3>
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 1rem;
+                        margin-bottom: 2rem;
+                        line-height: 1.6;
+                    ">
+                        You haven't shared any updates yet. Start by sharing your progress, achievements, or questions with your mentor.
+                    </p>
+                    <a href="{% url 'create_student_note' %}" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.8rem;
+                        background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                        color: white;
+                        padding: 0.9rem 2rem;
+                        border-radius: 8px;
+                        text-decoration: none;
+                        font-weight: 600;
+                        font-size: 1.1rem;
+                        transition: all 0.3s ease;
+                    " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 103, 71, 0.3)';" 
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <span>+</span>
+                        Share Your First Update
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- View All Updates -->
+            {% if notes|length > 5 %}
+            <div style="
+                text-align: center;
+                padding-top: 1.5rem;
+                margin-top: 1.5rem;
+                border-top: 1px solid #E6E6FA;
+            ">
+                <a href="#" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    color: #006747;
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 0.95rem;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.color='#00563a'; this.style.textDecoration='underline';" 
+                onmouseout="this.style.color='#006747'; this.style.textDecoration='none';">
+                    View All Updates
+                    <span>→</span>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+   
+</div>
+
+<!-- JavaScript for Enhanced Functionality -->
+<script>
+    // Initialize dashboard features
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add data attributes to notes for expansion
+        const notes = document.querySelectorAll('.note-item');
+        notes.forEach((note, index) => {
+            note.dataset.noteId = index;
+            note.dataset.expanded = false;
+        });
+        
+        // Check for new updates periodically
+        startUpdateCheck();
+        
+        // Welcome message for first visit
+        if (!localStorage.getItem('studentDashboardVisited')) {
+            setTimeout(() => {
+                showWelcomeMessage();
+                localStorage.setItem('studentDashboardVisited', 'true');
+            }, 1000);
+        }
+        
+        // Update last visit time
+        localStorage.setItem('lastDashboardVisit', new Date().toISOString());
+    });
+    
+    // Expand note to full content
+    function expandNote(noteId) {
+        const noteElement = document.querySelector(`[data-note-id="${noteId}"]`);
+        if (noteElement) {
+            const contentElement = noteElement.querySelector('.note-content');
+            if (contentElement) {
+                if (noteElement.dataset.expanded === 'false') {
+                    // Show full content (in real app, this would fetch from server)
+                    contentElement.textContent = "Full content would be loaded here...";
+                    noteElement.querySelector('.read-more').textContent = 'Show less';
+                    noteElement.dataset.expanded = 'true';
+                } else {
+                    // Show truncated content
+                    contentElement.textContent = contentElement.textContent.substring(0, 150) + '...';
+                    noteElement.querySelector('.read-more').textContent = 'Read more';
+                    noteElement.dataset.expanded = 'false';
+                }
+            }
+        }
+    }
+    
+    // Edit student's own note
+    function editMyNote(noteId) {
+        if (confirm('Edit this update?')) {
+            // In a real implementation, this would navigate to an edit page
+            // window.location.href = `/notes/${noteId}/edit/`;
+            alert('Edit functionality would be available in a real implementation.');
+        }
+    }
+    
+    // Check for new updates
+    let updateCheckInterval;
+    
+    function startUpdateCheck(interval = 300000) { // 5 minutes
+        updateCheckInterval = setInterval(() => {
+            if (document.hasFocus()) {
+                // In a real implementation, this would check for new notes
+                // fetch('/api/updates/').then(handleNewUpdates);
+                console.log('Checking for new updates...');
+            }
+        }, interval);
+    }
+    
+    function stopUpdateCheck() {
+        clearInterval(updateCheckInterval);
+    }
+    
+    // Show welcome message
+    function showWelcomeMessage() {
+        const messages = [
+            "🎉 Welcome to your Student Dashboard!",
+            "📚 Your learning journey starts here",
+            "👨‍🏫 Connect with your mentor to maximize your growth",
+            "💡 Share regular updates to get the best guidance",
+            "🎯 Set goals and track your progress"
+        ];
+        
+        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+        
+        const welcomeDiv = document.createElement('div');
+        welcomeDiv.innerHTML = `
+            <div style="
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                color: white;
+                padding: 1.5rem;
+                border-radius: 12px;
+                box-shadow: 0 8px 24px rgba(0, 103, 71, 0.3);
+                z-index: 1000;
+                max-width: 400px;
+                animation: slideIn 0.5s ease;
+            ">
+                <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                    <div style="
+                        background-color: #FFD700;
+                        color: #006747;
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                        flex-shrink: 0;
+                    ">👋</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 1.1rem; margin-bottom: 0.5rem;">
+                            Welcome, {{ student.user.full_name }}!
+                        </div>
+                        <div style="font-size: 0.95rem; opacity: 0.9; line-height: 1.4;">
+                            ${randomMessage}
+                        </div>
+                    </div>
+                </div>
+                <button onclick="this.parentElement.remove()" style="
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                    opacity: 0.7;
+                ">&times;</button>
+            </div>
+        `;
+        
+        document.body.appendChild(welcomeDiv);
+        
+        // Auto-remove after 10 seconds
+        setTimeout(() => {
+            if (welcomeDiv.parentElement) {
+                welcomeDiv.style.animation = 'slideOut 0.5s ease';
+                setTimeout(() => welcomeDiv.remove(), 500);
+            }
+        }, 10000);
+    }
+    
+    // Toast notification
+    function showToast(message, type = 'info') {
+        const toast = document.createElement('div');
+        toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: ${type === 'success' ? '#006747' : type === 'error' ? '#D32F2F' : '#FFD700'};
+            color: ${type === 'success' || type === 'error' ? 'white' : '#006747'};
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        `;
+        
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+    
+    // Export updates
+    function exportMyUpdates() {
+        const updates = document.querySelectorAll('.update-item');
+        let csv = 'Date,Type,Title,Content\n';
+        
+        updates.forEach(update => {
+            const date = update.querySelector('.update-date').textContent;
+            const type = update.querySelector('.update-type').textContent;
+            const title = update.querySelector('.update-title')?.textContent || '';
+            const content = update.querySelector('.update-content').textContent;
+            
+            csv += `"${date}","${type}","${title}","${content.replace(/"/g, '""')}"\n`;
+        });
+        
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `my_updates_${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+    }
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // N to submit new update
+        if (e.key === 'n' && !e.ctrlKey && !e.metaKey) {
+            e.preventDefault();
+            window.location.href = "{% url 'create_student_note' %}";
+        }
+        
+        // M to message mentor (if mentor exists)
+        if (e.key === 'm' && !e.ctrlKey && !e.metaKey && {% if mentor %}true{% else %}false{% endif %}) {
+            e.preventDefault();
+            window.location.href = "mailto:{{ mentor.user.email }}";
+        }
+        
+        // Ctrl/Cmd + E to export
+        if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+            e.preventDefault();
+            exportMyUpdates();
+        }
+        
+        // / to search (if search implemented)
+        if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+            e.preventDefault();
+            const searchInput = document.querySelector('input[type="search"]');
+            if (searchInput) {
+                searchInput.focus();
+            }
+        }
+        
+        // R to refresh
+        if (e.key === 'r' && !e.ctrlKey && !e.metaKey) {
+            e.preventDefault();
+            window.location.reload();
+        }
+    });
+    
+    // Stop checking when page is hidden
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            stopUpdateCheck();
+        } else {
+            startUpdateCheck();
+        }
+    });
+</script>
+
+<style>
+    /* Responsive Styles */
+    @media (max-width: 1024px) {
+        .main-content-grid {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .welcome-header-stats {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+        
+        .quick-links-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .welcome-header {
+            padding: 1.5rem !important;
+        }
+        
+        .welcome-header > div:first-child {
+            flex-direction: column;
+            gap: 1rem !important;
+        }
+        
+        .welcome-header-stats {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .mentor-info-grid {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .mentor-actions {
+            flex-direction: column;
+        }
+        
+        .mentor-actions a {
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .update-header {
+            flex-direction: column;
+            text-align: left;
+            gap: 1rem !important;
+        }
+        
+        .update-footer {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem !important;
+        }
+        
+        .quick-links-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .welcome-header h1 {
+            font-size: 1.8rem !important;
+        }
+        
+        .dashboard-card h2 {
+            font-size: 1.4rem !important;
+        }
+        
+        .update-type-badge {
+            font-size: 0.8rem !important;
+            padding: 0.2rem 0.6rem !important;
+        }
+        
+        .empty-state {
+            padding: 2rem 1rem !important;
+        }
+        
+        .empty-state h3 {
+            font-size: 1.4rem !important;
+        }
+    }
+    
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: #F8F9FA;
+        border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: #E6E6FA;
+        border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: #006747;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.5s ease-out;
+    }
+    
+    @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    
+    .scale-in {
+        animation: scaleIn 0.4s ease-out;
+    }
+    
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+    
+    /* Hover animations */
+    .dashboard-card,
+    .update-card,
+    .quick-link-card {
+        transition: all 0.3s ease;
+    }
+    
+    .dashboard-card:hover,
+    .update-card:hover,
+    .quick-link-card:hover {
+        transform: translateY(-2px);
+    }
+    
+    /* Update card color variations */
+    .update-progress {
+        border-left-color: #006747 !important;
+    }
+    
+    .update-achievement {
+        border-left-color: #FFD700 !important;
+    }
+    
+    .update-challenge {
+        border-left-color: #D32F2F !important;
+    }
+    
+    .update-question {
+        border-left-color: #2196F3 !important;
+    }
+    
+    /* Loading animation */
+    @keyframes shimmer {
+        0% { background-position: -200px 0; }
+        100% { background-position: 200px 0; }
+    }
+    
+    .loading-shimmer {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200px 100%;
+        animation: shimmer 1.5s infinite;
+    }
+    
+    /* Print styles */
+    @media print {
+        .welcome-header,
+        .submit-update-card,
+        .quick-links-grid,
+        .update-footer button {
+            display: none !important;
+        }
+        
+        .main-content-grid {
+            display: block !important;
+        }
+        
+        .dashboard-card {
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+            page-break-inside: avoid;
+        }
+        
+        .updates-container {
+            max-height: none !important;
+            overflow: visible !important;
+        }
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,745 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Active Students - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 80vh;
+">
+    <!-- Page Header -->
+    <div class="fade-in" style="
+        margin-bottom: 2rem;
+    ">
+        <div style="
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        ">
+            <div>
+                <h1 style="
+                    color: #006747;
+                    font-size: 2.2rem;
+                    margin-bottom: 0.5rem;
+                ">
+                    Active Students
+                </h1>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 1.1rem;
+                    opacity: 0.9;
+                ">
+                    Manage and view all students enrolled in the mentorship program
+                </p>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div style="
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
+            ">
+                <div style="
+                    background-color: white;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                    padding: 1.2rem 1.5rem;
+                    min-width: 180px;
+                    border-left: 4px solid #006747;
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 0.8rem;
+                        margin-bottom: 0.5rem;
+                    ">
+                        <div style="
+                            background-color: #E6E6FA;
+                            color: #006747;
+                            width: 36px;
+                            height: 36px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1rem;
+                            font-weight: bold;
+                        ">👥</div>
+                        <h3 style="
+                            color: #006747;
+                            font-size: 1.1rem;
+                            margin: 0;
+                        ">Total Students</h3>
+                    </div>
+                    <p style="
+                        color: #006747;
+                        font-size: 2rem;
+                        font-weight: bold;
+                        margin: 0;
+                        text-align: center;
+                    ">{{ students|length }}</p>
+                </div>
+                
+                <div style="
+                    background-color: white;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                    padding: 1.2rem 1.5rem;
+                    min-width: 180px;
+                    border-left: 4px solid #FFD700;
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 0.8rem;
+                        margin-bottom: 0.5rem;
+                    ">
+                        <div style="
+                            background-color: #FFF9E6;
+                            color: #FFD700;
+                            width: 36px;
+                            height: 36px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1rem;
+                            font-weight: bold;
+                        ">✓</div>
+                        <h3 style="
+                            color: #006747;
+                            font-size: 1.1rem;
+                            margin: 0;
+                        ">With Mentor</h3>
+                    </div>
+                    <p style="
+                        color: #006747;
+                        font-size: 2rem;
+                        font-weight: bold;
+                        margin: 0;
+                        text-align: center;
+                    ">
+                        {% with assigned=students|length|add:"0" %}
+                            {% for student in students %}
+                                {% if student.mentor %}
+                                    {{ forloop.counter }}
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+
+
+    <!-- Students Table -->
+    <div class="scale-in" style="
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        overflow: hidden;
+        margin-bottom: 2rem;
+    ">
+        <div style="
+            background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+            color: white;
+            padding: 1.5rem 1.5rem;
+        ">
+            <div style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 1rem;
+            ">
+                <h2 style="
+                    font-size: 1.4rem;
+                    margin: 0;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.8rem;
+                ">
+                    <span>📚</span>
+                    Student Directory
+                </h2>
+                <div style="
+                    color: #FFD700;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                ">
+                    Showing {{ students|length }} student{{ students|length|pluralize }}
+                </div>
+            </div>
+        </div>
+        
+        <div style="overflow-x: auto;">
+            <table style="
+                width: 100%;
+                border-collapse: collapse;
+            ">
+                <thead>
+                    <tr style="
+                        background-color: #F8F9FA;
+                        border-bottom: 2px solid #E6E6FA;
+                    ">
+                        <th style="
+                            padding: 1.2rem 1.5rem;
+                            text-align: left;
+                            color: #006747;
+                            font-weight: 600;
+                            font-size: 0.95rem;
+                            white-space: nowrap;
+                        ">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span>👤</span>
+                                Student Name
+                            </div>
+                        </th>
+                        <th style="
+                            padding: 1.2rem 1.5rem;
+                            text-align: left;
+                            color: #006747;
+                            font-weight: 600;
+                            font-size: 0.95rem;
+                            white-space: nowrap;
+                        ">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span>📧</span>
+                                Email Address
+                            </div>
+                        </th>
+                        <th style="
+                            padding: 1.2rem 1.5rem;
+                            text-align: left;
+                            color: #006747;
+                            font-weight: 600;
+                            font-size: 0.95rem;
+                            white-space: nowrap;
+                        ">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span>👨‍🏫</span>
+                                Assigned Mentor
+                            </div>
+                        </th>
+                        <th style="
+                            padding: 1.2rem 1.5rem;
+                            text-align: left;
+                            color: #006747;
+                            font-weight: 600;
+                            font-size: 0.95rem;
+                            white-space: nowrap;
+                        ">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span>⚡</span>
+                                Actions
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr style="
+                        border-bottom: 1px solid #E6E6FA;
+                        transition: all 0.3s ease;
+                    " onmouseover="this.style.backgroundColor='#F8F9FA';" 
+                    onmouseout="this.style.backgroundColor='white';">
+                        <td style="
+                            padding: 1.2rem 1.5rem;
+                            color: #2F4F4F;
+                            font-weight: 500;
+                        ">
+                            <div style="display: flex; align-items: center; gap: 0.8rem;">
+                                <div style="
+                                    width: 40px;
+                                    height: 40px;
+                                    background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                                    color: #FFD700;
+                                    border-radius: 50%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    font-size: 1.2rem;
+                                    font-weight: bold;
+                                ">
+                                    {{ student.user.full_name|slice:":1"|upper }}
+                                </div>
+                                <div>
+                                    <div style="
+                                        color: #006747;
+                                        font-weight: 600;
+                                        margin-bottom: 0.2rem;
+                                    ">
+                                        {{ student.user.full_name }}
+                                    </div>
+                                    {% if student.school_name %}
+                                    <div style="
+                                        color: #2F4F4F;
+                                        font-size: 0.85rem;
+                                    ">
+                                        {{ student.school_name }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </td>
+                        <td style="
+                            padding: 1.2rem 1.5rem;
+                            color: #2F4F4F;
+                        ">
+                            <a href="mailto:{{ student.user.email }}" style="
+                                color: #006747;
+                                text-decoration: none;
+                                transition: color 0.3s ease;
+                            " onmouseover="this.style.color='#00563a'; this.style.textDecoration='underline';" 
+                            onmouseout="this.style.color='#006747'; this.style.textDecoration='none';">
+                                {{ student.user.email }}
+                            </a>
+                        </td>
+                        <td style="
+                            padding: 1.2rem 1.5rem;
+                        ">
+                            {% if student.mentor %}
+                            <div style="
+                                background-color: #E6F0FA;
+                                color: #006747;
+                                padding: 0.5rem 0.8rem;
+                                border-radius: 6px;
+                                font-weight: 600;
+                                display: inline-flex;
+                                align-items: center;
+                                gap: 0.5rem;
+                            ">
+                                <span>✓</span>
+                                {{ student.mentor.user.full_name }}
+                            </div>
+                            {% else %}
+                            <div style="
+                                background-color: #FFF9E6;
+                                color: #FFA000;
+                                padding: 0.5rem 0.8rem;
+                                border-radius: 6px;
+                                font-weight: 600;
+                                display: inline-flex;
+                                align-items: center;
+                                gap: 0.5rem;
+                            ">
+                                <span>⏳</span>
+                                Not Assigned
+                            </div>
+                            {% endif %}
+                        </td>
+                        <td style="
+                            padding: 1.2rem 1.5rem;
+                        ">
+                            <div style="
+                                display: flex;
+                                gap: 0.5rem;
+                                flex-wrap: wrap;
+                            ">
+                                <a href="{% url 'student_details' student.id %}" style="
+                                    display: inline-flex;
+                                    align-items: center;
+                                    gap: 0.5rem;
+                                    background-color: #006747;
+                                    color: white;
+                                    padding: 0.5rem 1rem;
+                                    border-radius: 6px;
+                                    text-decoration: none;
+                                    font-weight: 600;
+                                    font-size: 0.9rem;
+                                    transition: all 0.3s ease;
+                                " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+                                onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                                    <span>👁️</span>
+                                    View Details
+                                </a>
+
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" style="
+                            padding: 3rem 1.5rem;
+                            text-align: center;
+                            color: #2F4F4F;
+                        ">
+                            <div style="
+                                font-size: 3rem;
+                                color: #E6E6FA;
+                                margin-bottom: 1rem;
+                            ">📚</div>
+                            <h3 style="
+                                color: #006747;
+                                font-size: 1.4rem;
+                                margin-bottom: 0.5rem;
+                            ">
+                                No Active Students
+                            </h3>
+                            <p style="
+                                color: #2F4F4F;
+                                font-size: 1rem;
+                                margin-bottom: 1.5rem;
+                            ">
+                                There are currently no students enrolled in the program.
+                            </p>
+                            <a href="{% url 'review_students' %}" style="
+                                display: inline-flex;
+                                align-items: center;
+                                gap: 0.5rem;
+                                background-color: #006747;
+                                color: white;
+                                padding: 0.8rem 1.5rem;
+                                border-radius: 8px;
+                                text-decoration: none;
+                                font-weight: 600;
+                                font-size: 1rem;
+                                transition: all 0.3s ease;
+                            " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+                            onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                                <span>➕</span>
+                                Review Applications
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pagination and Export -->
+    {% if students %}
+    <div style="
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    ">
+        <div style="
+            color: #2F4F4F;
+            font-size: 0.95rem;
+        ">
+            Showing 1-{{ students|length }} of {{ students|length }} students
+        </div>
+        
+        <div style="
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        ">
+            <button onclick="exportToCSV()" style="
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                background-color: white;
+                color: #006747;
+                border: 2px solid #E6E6FA;
+                padding: 0.7rem 1.2rem;
+                border-radius: 8px;
+                font-weight: 600;
+                font-size: 0.9rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#F8F9FA'; this.style.borderColor='#006747';" 
+            onmouseout="this.style.backgroundColor='white'; this.style.borderColor='#E6E6FA';">
+                <span>📥</span>
+                Export as CSV
+            </button>
+            
+            <button onclick="printTable()" style="
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                background-color: #006747;
+                color: white;
+                border: none;
+                padding: 0.7rem 1.2rem;
+                border-radius: 8px;
+                font-weight: 600;
+                font-size: 0.9rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                <span>🖨️</span>
+                Print List
+            </button>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- JavaScript for Enhanced Functionality -->
+<script>
+    // Filter functionality
+    function applyFilters() {
+        const searchTerm = document.querySelector('input[type="text"]').value.toLowerCase();
+        const mentorFilter = document.getElementById('mentorFilter').value;
+        const rows = document.querySelectorAll('tbody tr');
+        
+        rows.forEach(row => {
+            if (row.cells.length < 4) return; // Skip empty state row
+            
+            const name = row.cells[0].textContent.toLowerCase();
+            const email = row.cells[1].textContent.toLowerCase();
+            const mentorStatus = row.cells[2].textContent.toLowerCase();
+            let shouldShow = true;
+            
+            // Apply search filter
+            if (searchTerm && !name.includes(searchTerm) && !email.includes(searchTerm)) {
+                shouldShow = false;
+            }
+            
+            // Apply mentor filter
+            if (mentorFilter === 'with_mentor' && mentorStatus.includes('not assigned')) {
+                shouldShow = false;
+            } else if (mentorFilter === 'without_mentor' && !mentorStatus.includes('not assigned')) {
+                shouldShow = false;
+            }
+            
+            row.style.display = shouldShow ? '' : 'none';
+        });
+        
+        // Update count
+        updateVisibleCount();
+    }
+    
+    function resetFilters() {
+        document.querySelector('input[type="text"]').value = '';
+        document.getElementById('mentorFilter').value = 'all';
+        applyFilters();
+    }
+    
+    function updateVisibleCount() {
+        const visibleRows = document.querySelectorAll('tbody tr[style=""]').length;
+        const totalRows = document.querySelectorAll('tbody tr').length;
+        
+        // Update the showing count in the header
+        const countElement = document.querySelector('.student-count');
+        if (countElement) {
+            countElement.textContent = `Showing ${visibleRows} student${visibleRows !== 1 ? 's' : ''}`;
+        }
+    }
+    
+    // Export functionality
+    function exportToCSV() {
+        const rows = document.querySelectorAll('tbody tr:not([style*="none"])');
+        let csv = 'Student Name,Email,Mentor Status,Assigned Mentor\n';
+        
+        rows.forEach(row => {
+            if (row.cells.length === 4) {
+                const name = row.cells[0].querySelector('div > div > div:first-child').textContent.trim();
+                const email = row.cells[1].textContent.trim();
+                const mentorCell = row.cells[2];
+                const mentorStatus = mentorCell.textContent.trim();
+                
+                csv += `"${name}","${email}","${mentorStatus}","${mentorStatus.includes('Not Assigned') ? '' : mentorStatus.replace('✓ ', '')}"\n`;
+            }
+        });
+        
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `students_${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+    }
+    
+    // Print functionality
+    function printTable() {
+        const printContent = document.querySelector('.scale-in').innerHTML;
+        const originalContent = document.body.innerHTML;
+        
+        document.body.innerHTML = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Active Students - Hasken Yaruwa</title>
+                <style>
+                    body { font-family: Arial, sans-serif; padding: 20px; }
+                    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                    th { background-color: #f0f0f0; text-align: left; padding: 10px; }
+                    td { padding: 10px; border-bottom: 1px solid #ddd; }
+                    .print-header { 
+                        background-color: #006747; 
+                        color: white; 
+                        padding: 15px; 
+                        border-radius: 5px;
+                        margin-bottom: 20px;
+                    }
+                    .print-title { 
+                        font-size: 24px; 
+                        margin-bottom: 5px; 
+                    }
+                    .print-date { 
+                        font-size: 12px; 
+                        opacity: 0.9; 
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="print-header">
+                    <div class="print-title">Active Students - Hasken Yaruwa</div>
+                    <div class="print-date">Generated on ${new Date().toLocaleDateString()}</div>
+                </div>
+                ${printContent}
+            </body>
+            </html>
+        `;
+        
+        window.print();
+        document.body.innerHTML = originalContent;
+        window.location.reload();
+    }
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // Ctrl/Cmd + F to focus search
+        if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+            e.preventDefault();
+            document.querySelector('input[type="text"]').focus();
+        }
+        
+        // Ctrl/Cmd + E to export
+        if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+            e.preventDefault();
+            exportToCSV();
+        }
+    });
+    
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add student count element to header if not exists
+        const tableHeader = document.querySelector('.scale-in > div:first-child');
+        if (tableHeader) {
+            const existingCount = tableHeader.querySelector('.student-count');
+            if (!existingCount) {
+                const countDiv = tableHeader.querySelector('div:nth-child(2)');
+                if (countDiv) {
+                    countDiv.innerHTML = `
+                        <div style="color: #FFD700; font-size: 0.9rem; font-weight: 600;" class="student-count">
+                            Showing {{ students|length }} student{{ students|length|pluralize }}
+                        </div>
+                    `;
+                }
+            }
+        }
+    });
+</script>
+
+<style>
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .page-header {
+            flex-direction: column;
+            gap: 1rem !important;
+        }
+        
+        .stats-cards {
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .filter-section {
+            flex-direction: column;
+            gap: 1rem !important;
+        }
+        
+        .filter-section > div {
+            width: 100%;
+            min-width: unset !important;
+        }
+        
+        table {
+            display: block;
+        }
+        
+        th, td {
+            padding: 1rem !important;
+            font-size: 0.9rem !important;
+        }
+        
+        .actions-cell {
+            min-width: 150px;
+        }
+        
+        .export-buttons {
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .export-buttons button {
+            width: 100%;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .page-header h1 {
+            font-size: 1.8rem !important;
+        }
+        
+        .stats-cards > div {
+            min-width: 100% !important;
+        }
+        
+        .student-avatar {
+            display: none;
+        }
+        
+        .student-info {
+            margin-left: 0 !important;
+        }
+        
+        .action-buttons {
+            flex-direction: column;
+        }
+        
+        .action-buttons a {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+    
+    /* Table row hover animation */
+    @keyframes rowHover {
+        from { background-color: white; }
+        to { background-color: #F8F9FA; }
+    }
+    
+    tbody tr {
+        animation: none;
+    }
+    
+    tbody tr:hover {
+        animation: rowHover 0.3s ease forwards;
+    }
+    
+    /* Print styles */
+    @media print {
+        .filter-section,
+        .export-buttons,
+        .action-buttons a:not([href*="student_details"]) {
+            display: none !important;
+        }
+        
+        .scale-in {
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+        }
+        
+        tbody tr {
+            page-break-inside: avoid;
+        }
+    }
+</style>
+{% endblock %}

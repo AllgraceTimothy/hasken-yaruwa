@@ -32,7 +32,7 @@
                 <div style="
                     width: 60px;
                     height: 60px;
-                    background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                    background: linear-gradient(135deg, #006747 0%, #8B4513 100%);
                     color: #FFD700;
                     border-radius: 50%;
                     display: flex;
@@ -44,7 +44,7 @@
             </div>
             
             <h1 style="
-                color: #006747;
+                color: #2F4F4F;
                 font-size: 2.5rem;
                 margin-bottom: 1rem;
                 line-height: 1.2;
@@ -52,7 +52,7 @@
                 Welcome Back
             </h1>
             <p style="
-                color: #2F4F4F;
+                color: #5D4037;
                 font-size: 1.1rem;
                 line-height: 1.6;
                 opacity: 0.9;
@@ -65,14 +65,15 @@
         <div class="scale-in" style="
             background-color: white;
             border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-            padding: 3rem;
+            box-shadow: 0 8px 30px rgba(139, 69, 19, 0.1);
+            padding: 2.5rem;
             margin-bottom: 2rem;
+            border: 1px solid rgba(139, 69, 19, 0.1);
         ">
             {% if messages %}
                 {% for message in messages %}
                 <div style="
-                    background-color: #FFE6E6;
+                    background-color: #FFEBEE;
                     color: #D32F2F;
                     padding: 1rem;
                     border-radius: 8px;
@@ -93,52 +94,52 @@
             <form method="post" id="loginForm">
                 {% csrf_token %}
                 
-                <!-- Username Field -->
+                <!-- Email Field -->
                 <div style="margin-bottom: 2rem;">
-                    <label for="username" style="
+                    <label for="email" style="
                         display: block;
-                        color: #006747;
+                        color: #2F4F4F;
                         font-weight: 600;
                         margin-bottom: 0.5rem;
                         font-size: 1.1rem;
                     ">
-                        Username or Email
-                        <span style="color: #FF6B6B;">*</span>
+                        Email Address
+                        <span style="color: #D32F2F;">*</span>
                     </label>
                     <div style="position: relative;">
                         <input type="text" 
-                               name="username" 
-                               id="username" 
+                               name="email" 
+                               id="email" 
                                required
                                style="
                                     width: 100%;
-                                    padding: 1rem 1rem 1rem 3rem;
-                                    border: 2px solid #E6E6FA;
-                                    border-radius: 8px;
+                                    padding: 0.875rem 1rem 0.875rem 3rem;
+                                    border: 2px solid #D7CCC8;
+                                    border-radius: 4px;
                                     font-size: 1rem;
                                     color: #2F4F4F;
                                     background-color: white;
                                     transition: all 0.3s ease;
                                "
-                               onfocus="this.style.borderColor='#006747'; this.style.boxShadow='0 0 0 3px rgba(0, 103, 71, 0.1)'; document.getElementById('userIcon').style.color='#006747';"
-                               onblur="this.style.borderColor='#E6E6FA'; this.style.boxShadow='none'; document.getElementById('userIcon').style.color='#2F4F4F';">
+                               onfocus="this.style.borderColor='#8B4513'; this.style.boxShadow='0 0 0 3px rgba(139, 69, 19, 0.1)'; document.getElementById('userIcon').style.color='#8B4513';"
+                               onblur="this.style.borderColor='#D7CCC8'; this.style.boxShadow='none'; document.getElementById('userIcon').style.color='#5D4037';">
                         <div id="userIcon" style="
                             position: absolute;
                             left: 1rem;
                             top: 50%;
                             transform: translateY(-50%);
-                            color: #2F4F4F;
+                            color: #5D4037;
                             opacity: 0.7;
                             font-size: 1.2rem;
                         ">👤</div>
                     </div>
                     <p style="
-                        color: #2F4F4F;
+                        color: #5D4037;
                         font-size: 0.9rem;
                         margin-top: 0.5rem;
                         opacity: 0.7;
                     ">
-                        Enter your username or email address
+                        Enter the email address associated with your account
                     </p>
                 </div>
                 
@@ -152,20 +153,20 @@
                     ">
                         <label for="password" style="
                             display: block;
-                            color: #006747;
+                            color: #2F4F4F;
                             font-weight: 600;
                             font-size: 1.1rem;
                         ">
                             Password
-                            <span style="color: #FF6B6B;">*</span>
+                            <span style="color: #D32F2F;">*</span>
                         </label>
                         <a href="#" id="forgotPassword" style="
-                            color: #006747;
+                            color: #8B4513;
                             text-decoration: none;
                             font-size: 0.9rem;
                             font-weight: 600;
                             transition: color 0.3s ease;
-                        " onmouseover="this.style.color='#00563a';" onmouseout="this.style.color='#006747';">
+                        " onmouseover="this.style.color='#654321';" onmouseout="this.style.color='#8B4513';">
                             Forgot Password?
                         </a>
                     </div>
@@ -177,22 +178,22 @@
                                required
                                style="
                                     width: 100%;
-                                    padding: 1rem 3rem 1rem 3rem;
-                                    border: 2px solid #E6E6FA;
-                                    border-radius: 8px;
+                                    padding: 0.875rem 3rem 0.875rem 3rem;
+                                    border: 2px solid #D7CCC8;
+                                    border-radius: 4px;
                                     font-size: 1rem;
                                     color: #2F4F4F;
                                     background-color: white;
                                     transition: all 0.3s ease;
                                "
-                               onfocus="this.style.borderColor='#006747'; this.style.boxShadow='0 0 0 3px rgba(0, 103, 71, 0.1)'; document.getElementById('lockIcon').style.color='#006747';"
-                               onblur="this.style.borderColor='#E6E6FA'; this.style.boxShadow='none'; document.getElementById('lockIcon').style.color='#2F4F4F';">
+                               onfocus="this.style.borderColor='#8B4513'; this.style.boxShadow='0 0 0 3px rgba(139, 69, 19, 0.1)'; document.getElementById('lockIcon').style.color='#8B4513';"
+                               onblur="this.style.borderColor='#D7CCC8'; this.style.boxShadow='none'; document.getElementById('lockIcon').style.color='#5D4037';">
                         <div id="lockIcon" style="
                             position: absolute;
                             left: 1rem;
                             top: 50%;
                             transform: translateY(-50%);
-                            color: #2F4F4F;
+                            color: #5D4037;
                             opacity: 0.7;
                             font-size: 1.2rem;
                         ">🔒</div>
@@ -205,25 +206,25 @@
                                     transform: translateY(-50%);
                                     background: none;
                                     border: none;
-                                    color: #2F4F4F;
+                                    color: #5D4037;
                                     opacity: 0.7;
                                     cursor: pointer;
                                     font-size: 1.2rem;
                                     padding: 0;
                                     transition: color 0.3s ease;
                                 "
-                                onmouseover="this.style.color='#006747';" 
-                                onmouseout="this.style.color='#2F4F4F';">
+                                onmouseover="this.style.color='#8B4513';" 
+                                onmouseout="this.style.color='#5D4037';">
                             👁️
                         </button>
                     </div>
                     <p style="
-                        color: #2F4F4F;
+                        color: #5D4037;
                         font-size: 0.9rem;
                         margin-top: 0.5rem;
                         opacity: 0.7;
                     ">
-                        Enter your password (minimum 8 characters)
+                        Enter your account password
                     </p>
                 </div>
                 
@@ -240,11 +241,11 @@
                            style="
                                 width: 18px;
                                 height: 18px;
-                                accent-color: #006747;
+                                accent-color: #8B4513;
                                 cursor: pointer;
                            ">
                     <label for="remember_me" style="
-                        color: #2F4F4F;
+                        color: #5D4037;
                         font-size: 0.95rem;
                         cursor: pointer;
                     ">
@@ -258,136 +259,97 @@
                     background: linear-gradient(135deg, #006747 0%, #00563a 100%);
                     color: white;
                     border: none;
-                    padding: 1.2rem;
-                    border-radius: 8px;
+                    padding: 1rem;
+                    border-radius: 4px;
                     font-size: 1.1rem;
                     font-weight: 600;
                     cursor: pointer;
                     transition: all 0.3s ease;
-                    display: flex;
+                    display: inline-flex;
                     align-items: center;
                     justify-content: center;
                     gap: 0.8rem;
-                " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 103, 71, 0.3)';" 
-                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                    box-shadow: 0 4px 12px rgba(0, 103, 71, 0.2);
+                " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(0, 103, 71, 0.3)';" 
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0, 103, 71, 0.2)';">
                     <span>Login to Dashboard</span>
                     <span style="font-size: 1.2rem;">→</span>
                 </button>
             </form>
-            
-            <!-- Alternative Login Options -->
-            <div style="
-                margin-top: 2rem;
-                text-align: center;
-            ">
-                <div style="
-                    display: flex;
-                    align-items: center;
-                    margin-bottom: 1.5rem;
-                ">
-                    <div style="
-                        flex: 1;
-                        height: 1px;
-                        background-color: #E6E6FA;
-                    "></div>
-                    <div style="
-                        padding: 0 1rem;
-                        color: #2F4F4F;
-                        font-size: 0.9rem;
-                        opacity: 0.7;
-                    ">or continue with</div>
-                    <div style="
-                        flex: 1;
-                        height: 1px;
-                        background-color: #E6E6FA;
-                    "></div>
-                </div>
-                
-                <div style="
-                    display: flex;
-                    gap: 1rem;
-                    justify-content: center;
-                ">
-                    <button type="button" style="
-                        flex: 1;
-                        background-color: white;
-                        border: 2px solid #E6E6FA;
-                        padding: 1rem;
-                        border-radius: 8px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        gap: 0.5rem;
-                        cursor: pointer;
-                        transition: all 0.3s ease;
-                        font-weight: 600;
-                        color: #2F4F4F;
-                    " onmouseover="this.style.borderColor='#006747'; this.style.transform='translateY(-2px)';" 
-                    onmouseout="this.style.borderColor='#E6E6FA'; this.style.transform='translateY(0)';">
-                        <span style="font-size: 1.2rem;">G</span>
-                        <span>Google</span>
-                    </button>
-                    
-                    <button type="button" style="
-                        flex: 1;
-                        background-color: white;
-                        border: 2px solid #E6E6FA;
-                        padding: 1rem;
-                        border-radius: 8px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        gap: 0.5rem;
-                        cursor: pointer;
-                        transition: all 0.3s ease;
-                        font-weight: 600;
-                        color: #2F4F4F;
-                    " onmouseover="this.style.borderColor='#006747'; this.style.transform='translateY(-2px)';" 
-                    onmouseout="this.style.borderColor='#E6E6FA'; this.style.transform='translateY(0)';">
-                        <span style="font-size: 1.2rem;">f</span>
-                        <span>Facebook</span>
-                    </button>
-                </div>
-            </div>
         </div>
         
-        <!-- Registration Link -->
+        <!-- Information for New Users -->
         <div class="fade-in" style="
             text-align: center;
             padding: 2rem;
-            background-color: #F8F9FA;
+            background-color: #FAF9F6;
             border-radius: 8px;
+            border: 1px solid #D7CCC8;
         ">
             <p style="
                 color: #2F4F4F;
                 margin-bottom: 1rem;
                 font-size: 1rem;
-            ">
-                New to Hasken Yaruwa?
-            </p>
-            <a href="#" style="
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-                background-color: #FFD700;
-                color: #006747;
-                padding: 1rem 2rem;
-                border-radius: 8px;
-                text-decoration: none;
                 font-weight: 600;
-                transition: all 0.3s ease;
-            " onmouseover="this.style.backgroundColor='#e6c200'; this.style.transform='translateY(-2px)';" 
-            onmouseout="this.style.backgroundColor='#FFD700'; this.style.transform='translateY(0)';">
-                <span>Create an Account</span>
-                <span style="font-size: 1.2rem;">→</span>
-            </a>
+            ">
+                Don't have an account yet?
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+                <p style="
+                    color: #5D4037;
+                    font-size: 0.95rem;
+                    margin: 0;
+                    line-height: 1.5;
+                ">
+                    Hasken Yaruwa accounts are created for students, mentors, and administrators through our application process.
+                </p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+                    <a href="{% url 'student_application' %}" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        background-color: #FFD700;
+                        color: #2F4F4F;
+                        padding: 0.75rem 1.5rem;
+                        border-radius: 4px;
+                        text-decoration: none;
+                        font-weight: 600;
+                        transition: all 0.3s ease;
+                        font-size: 0.95rem;
+                        box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+                    " onmouseover="this.style.backgroundColor='#e6c200'; this.style.transform='translateY(-2px)';" 
+                    onmouseout="this.style.backgroundColor='#FFD700'; this.style.transform='translateY(0)';">
+                        <span style="font-size: 1rem;">📚</span>
+                        <span>Apply as Student</span>
+                    </a>
+                    
+                    <a href="{% url 'mentor_application' %}" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        background-color: #8B4513;
+                        color: white;
+                        padding: 0.75rem 1.5rem;
+                        border-radius: 4px;
+                        text-decoration: none;
+                        font-weight: 600;
+                        transition: all 0.3s ease;
+                        font-size: 0.95rem;
+                        box-shadow: 0 2px 8px rgba(139, 69, 19, 0.2);
+                    " onmouseover="this.style.backgroundColor='#654321'; this.style.transform='translateY(-2px)';" 
+                    onmouseout="this.style.backgroundColor='#8B4513'; this.style.transform='translateY(0)';">
+                        <span style="font-size: 1rem;">👥</span>
+                        <span>Apply as Mentor</span>
+                    </a>
+                </div>
+            </div>
         </div>
         
         <!-- Security Information -->
         <div style="
             margin-top: 2rem;
             padding: 1.5rem;
-            background-color: #E6F0FA;
+            background-color: #E8F5E9;
             border-radius: 8px;
             text-align: center;
             border-left: 4px solid #006747;
@@ -404,13 +366,13 @@
                     color: #006747;
                 ">🛡️</div>
                 <span style="
-                    color: #006747;
+                    color: #2F4F4F;
                     font-weight: 600;
                     font-size: 0.95rem;
                 ">Secure Login</span>
             </div>
             <p style="
-                color: #2F4F4F;
+                color: #5D4037;
                 font-size: 0.85rem;
                 margin: 0;
                 line-height: 1.5;
@@ -442,27 +404,26 @@
         if (loginForm) {
             loginForm.addEventListener('submit', function(e) {
                 let isValid = true;
-                const username = document.getElementById('username');
+                const email = document.getElementById('email');
                 const password = document.getElementById('password');
                 
                 // Reset styles
-                username.style.borderColor = '#E6E6FA';
-                password.style.borderColor = '#E6E6FA';
+                email.style.borderColor = '#D7CCC8';
+                password.style.borderColor = '#D7CCC8';
                 
-                // Validate username
-                if (!username.value.trim()) {
+                // Validate email
+                if (!email.value.trim()) {
                     isValid = false;
-                    username.style.borderColor = '#FF6B6B';
+                    email.style.borderColor = '#D32F2F';
+                } else if (!email.value.includes('@')) {
+                    isValid = false;
+                    email.style.borderColor = '#D32F2F';
                 }
                 
                 // Validate password
                 if (!password.value.trim()) {
                     isValid = false;
-                    password.style.borderColor = '#FF6B6B';
-                } else if (password.value.length < 8) {
-                    // Optional: Check minimum length
-                    password.style.borderColor = '#FFD700';
-                    // Don't prevent submission, just show warning
+                    password.style.borderColor = '#D32F2F';
                 }
                 
                 if (!isValid) {
@@ -475,7 +436,7 @@
                         errorDiv.className = 'error-message';
                         errorDiv.innerHTML = `
                             <div style="
-                                background-color: #FFE6E6;
+                                background-color: #FFEBEE;
                                 color: #D32F2F;
                                 padding: 1rem;
                                 border-radius: 8px;
@@ -486,11 +447,18 @@
                                 gap: 0.8rem;
                             ">
                                 <div style="font-size: 1.2rem;">⚠️</div>
-                                <div style="font-weight: 600;">Please fill in all required fields</div>
+                                <div style="font-weight: 600;">Please check your email and password</div>
                             </div>
                         `;
                         loginForm.insertBefore(errorDiv, loginForm.firstChild);
                     }
+                } else {
+                    // Show loading state
+                    const submitButton = loginForm.querySelector('button[type="submit"]');
+                    submitButton.innerHTML = '<span>Logging in...</span><span>⌛</span>';
+                    submitButton.disabled = true;
+                    submitButton.style.opacity = '0.7';
+                    submitButton.style.cursor = 'not-allowed';
                 }
             });
         }
@@ -521,10 +489,11 @@
                     <div style="
                         background-color: white;
                         border-radius: 12px;
-                        padding: 3rem;
+                        padding: 2.5rem;
                         max-width: 500px;
                         width: 100%;
                         box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                        border: 1px solid rgba(139, 69, 19, 0.1);
                     ">
                         <div style="
                             display: flex;
@@ -533,7 +502,7 @@
                             margin-bottom: 2rem;
                         ">
                             <h3 style="
-                                color: #006747;
+                                color: #2F4F4F;
                                 font-size: 1.8rem;
                                 margin: 0;
                             ">Reset Your Password</h3>
@@ -541,14 +510,15 @@
                                 background: none;
                                 border: none;
                                 font-size: 1.5rem;
-                                color: #2F4F4F;
+                                color: #5D4037;
                                 cursor: pointer;
                                 padding: 0.5rem;
-                            ">×</button>
+                                transition: color 0.3s ease;
+                            " onmouseover="this.style.color='#2F4F4F';" onmouseout="this.style.color='#5D4037';">×</button>
                         </div>
                         
                         <p style="
-                            color: #2F4F4F;
+                            color: #5D4037;
                             margin-bottom: 2rem;
                             line-height: 1.6;
                         ">
@@ -558,7 +528,7 @@
                         <div style="margin-bottom: 2rem;">
                             <label style="
                                 display: block;
-                                color: #006747;
+                                color: #2F4F4F;
                                 font-weight: 600;
                                 margin-bottom: 0.5rem;
                             ">Email Address</label>
@@ -566,13 +536,16 @@
                                    id="resetEmail" 
                                    style="
                                         width: 100%;
-                                        padding: 1rem;
-                                        border: 2px solid #E6E6FA;
-                                        border-radius: 8px;
+                                        padding: 0.875rem 1rem;
+                                        border: 2px solid #D7CCC8;
+                                        border-radius: 4px;
                                         font-size: 1rem;
                                         color: #2F4F4F;
+                                        transition: all 0.3s ease;
                                    "
-                                   placeholder="you@example.com">
+                                   placeholder="you@example.com"
+                                   onfocus="this.style.borderColor='#8B4513'; this.style.boxShadow='0 0 0 3px rgba(139, 69, 19, 0.1)';"
+                                   onblur="this.style.borderColor='#D7CCC8'; this.style.boxShadow='none';">
                         </div>
                         
                         <button id="sendResetLink" style="
@@ -580,26 +553,27 @@
                             background: linear-gradient(135deg, #006747 0%, #00563a 100%);
                             color: white;
                             border: none;
-                            padding: 1.2rem;
-                            border-radius: 8px;
+                            padding: 1rem;
+                            border-radius: 4px;
                             font-size: 1.1rem;
                             font-weight: 600;
                             cursor: pointer;
                             transition: all 0.3s ease;
                             margin-bottom: 1rem;
-                        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 103, 71, 0.3)';" 
-                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                            box-shadow: 0 4px 12px rgba(0, 103, 71, 0.2);
+                        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(0, 103, 71, 0.3)';" 
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0, 103, 71, 0.2)';">
                             Send Reset Instructions
                         </button>
                         
                         <p style="
-                            color: #2F4F4F;
+                            color: #5D4037;
                             font-size: 0.9rem;
                             text-align: center;
                             opacity: 0.7;
                             margin: 0;
                         ">
-                            Remember your password? <a href="#" style="color: #006747; text-decoration: none; font-weight: 600;" id="backToLogin">Back to login</a>
+                            Remember your password? <a href="#" style="color: #8B4513; text-decoration: none; font-weight: 600;" id="backToLogin">Back to login</a>
                         </p>
                     </div>
                 `;
@@ -620,12 +594,13 @@
                     const email = document.getElementById('resetEmail').value;
                     if (email && email.includes('@')) {
                         // Simulate sending reset link
-                        this.innerHTML = 'Sending...';
-                        this.disabled = true;
+                        const button = this;
+                        button.innerHTML = 'Sending...';
+                        button.disabled = true;
                         
                         setTimeout(() => {
-                            this.innerHTML = '✓ Link Sent!';
-                            this.style.backgroundColor = '#4CAF50';
+                            button.innerHTML = '✓ Reset Link Sent!';
+                            button.style.background = 'linear-gradient(135deg, #4CAF50 0%, #388E3C 100%)';
                             
                             setTimeout(() => {
                                 closeModal();
@@ -633,7 +608,7 @@
                         }, 1500);
                     } else {
                         const emailField = document.getElementById('resetEmail');
-                        emailField.style.borderColor = '#FF6B6B';
+                        emailField.style.borderColor = '#D32F2F';
                         emailField.focus();
                     }
                 });
@@ -644,71 +619,107 @@
                         closeModal();
                     }
                 });
+                
+                // Focus on reset email field
+                setTimeout(() => {
+                    document.getElementById('resetEmail').focus();
+                }, 300);
             });
         }
         
-        // Auto-focus on username field
-        const usernameField = document.getElementById('username');
-        if (usernameField) {
+        // Auto-focus on email field
+        const emailField = document.getElementById('email');
+        if (emailField) {
             setTimeout(() => {
-                usernameField.focus();
+                emailField.focus();
             }, 300);
         }
     });
 </script>
 
-<!-- Password Strength Indicator (Optional) -->
-<style>
-    .password-strength {
-        height: 4px;
-        background-color: #E6E6FA;
-        border-radius: 2px;
-        margin-top: 0.5rem;
-        overflow: hidden;
-        position: relative;
-    }
-    
-    .password-strength::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 0;
-        background-color: #FFD700;
-        transition: width 0.3s ease, background-color 0.3s ease;
-    }
-    
-    .password-strength.weak::after {
-        width: 33%;
-        background-color: #FF6B6B;
-    }
-    
-    .password-strength.medium::after {
-        width: 66%;
-        background-color: #FFD700;
-    }
-    
-    .password-strength.strong::after {
-        width: 100%;
-        background-color: #4CAF50;
-    }
-</style>
-
 <!-- Responsive Adjustments -->
 <style>
-    @media (max-width: 576px) {
+    @media (max-width: 768px) {
         .login-container {
             padding: 1.5rem;
         }
         
-        .alternative-login {
-            flex-direction: column;
+        .login-header h1 {
+            font-size: 2rem !important;
         }
         
-        .alternative-login button {
-            width: 100%;
+        .login-form {
+            padding: 1.5rem !important;
         }
+        
+        .info-section {
+            padding: 1.5rem !important;
+        }
+        
+        .security-info {
+            padding: 1rem !important;
+        }
+        
+        .application-buttons {
+            flex-direction: column !important;
+            width: 100% !important;
+        }
+        
+        .application-buttons a {
+            width: 100% !important;
+            text-align: center;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .login-header h1 {
+            font-size: 1.8rem !important;
+        }
+        
+        .login-header p {
+            font-size: 1rem !important;
+            padding: 0 1rem;
+        }
+        
+        button[type="submit"] {
+            padding: 0.875rem !important;
+            font-size: 1rem !important;
+        }
+        
+        .application-buttons a {
+            padding: 0.625rem 1rem !important;
+            font-size: 0.9rem !important;
+        }
+    }
+
+    /* Hover effects for desktop */
+    @media (hover: hover) and (min-width: 769px) {
+        input[type="text"]:hover,
+        input[type="email"]:hover,
+        input[type="password"]:hover {
+            border-color: #8B4513;
+        }
+        
+        input[type="checkbox"]:hover {
+            accent-color: #654321;
+        }
+    }
+
+    /* Accessibility improvements */
+    input:focus-visible,
+    button:focus-visible {
+        outline: 3px solid #8B4513;
+        outline-offset: 2px;
+    }
+
+    /* Animation delays */
+    .fade-in { animation-delay: 0.1s; }
+    .scale-in { animation-delay: 0.3s; }
+    
+    /* Remove alternative login options styling */
+    .alternative-login {
+        display: none !important;
     }
 </style>
 {% endblock %}

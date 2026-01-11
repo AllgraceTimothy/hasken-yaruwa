@@ -15,7 +15,7 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #2F4F4F; /* Slate Grey for body text */
+            color: #3C3C3C; /* Slightly darker grey with brown undertone */
             background-color: #f8f9fa;
             display: flex;
             flex-direction: column;
@@ -192,16 +192,29 @@
             text-align: center;
         }
         
-        /* User Role Badge */
+        /* User Role Badges */
         .user-badge {
-            background-color: #FFD700;
-            color: #006747;
             padding: 0.25rem 0.75rem;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
             margin-left: 0.5rem;
             display: inline-block;
+        }
+        
+        .badge-admin {
+            background-color: white;
+            color: #006747;
+        }
+        
+        .badge-mentor {
+            background-color: #8B4513; /* Saddle Brown */
+            color: white;
+        }
+        
+        .badge-student {
+            background-color: #228B22; /* Forest Green */
+            color: white;
         }
         
         /* Main Content */
@@ -214,6 +227,20 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1rem;
+        }
+        
+        /* Brown accent text for small text and links */
+        .text-brown {
+            color: #8B4513; /* Saddle Brown */
+        }
+        
+        a.text-brown:hover {
+            color: #654321; /* Darker brown on hover */
+        }
+        
+        .small-text {
+            font-size: 0.875rem;
+            color: #5D4037; /* Brown Grey */
         }
         
         /* Footer */
@@ -248,7 +275,7 @@
             color: white;
             text-decoration: none;
             opacity: 0.9;
-            transition: opacity 0.3s ease;
+            transition: all 0.3s ease;
         }
         
         .footer-links a:hover {
@@ -262,6 +289,12 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.9rem;
             opacity: 0.8;
+        }
+        
+        .copyright p:last-child {
+            color: #D2B48C; /* Tan color for subtle brown accent */
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
         }
         
         /* Animation Classes */
@@ -360,6 +393,18 @@
             color: white;
         }
         
+        /* Brown accent button */
+        .brown {
+            background: #8B4513;
+            color: white;
+        }
+        
+        .brown:hover {
+            background: #654321;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.2);
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .desktop-nav {
@@ -432,6 +477,21 @@
         .skip-to-main:focus {
             top: 0;
         }
+        
+        /* User info styling */
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        
+        .user-info span {
+            font-size: 0.9rem;
+            color: #FFD700;
+        }
     </style>
 </head>
 <body>
@@ -451,22 +511,34 @@
                     <ul>
                         <li><a href="{% url 'home' %}" {% if request.path == '/' %}class="active-link"{% endif %}>Home</a></li>
                         <li><a href="{% url 'about' %}" {% if 'about' in request.path %}class="active-link"{% endif %}>About</a></li>
-
                         <li><a href="{% url 'support' %}" {% if 'support' in request.path %}class="active-link"{% endif %}>Support</a></li>
                         
-                        {% if user.is_authenticated and user.role == 'admin' %}
-                            <li><a href="{% url 'admin_dashboard' %}" {% if 'dashboard' in request.path %}class="active-link"{% endif %}>Admin Dashboard</a></li>
+                        {% if user.is_authenticated %}
+                            {% if user.role == 'admin' %}
+                                <li><a href="{% url 'admin_dashboard' %}" {% if 'dashboard' in request.path %}class="active-link"{% endif %}>Admin Dashboard</a></li>
+                            {% elif user.role == 'mentor' %}
+                                <li><a href="{% url 'mentor_dashboard' %}" {% if 'dashboard' in request.path %}class="active-link"{% endif %}>Mentor Dashboard</a></li>
+                            {% elif user.role == 'student' %}
+                                <li><a href="{% url 'student_dashboard' %}" {% if 'dashboard' in request.path %}class="active-link"{% endif %}>Student Dashboard</a></li>
+                            {% endif %}
                         {% else %}
-                        <li><a href="{% url 'apply' %}" {% if 'apply' in request.path %}class="active-link"{% endif %}>Apply</a></li>
-                        <li><a href="{% url 'mentor_signup' %}" {% if 'mentor' in request.path %}class="active-link"{% endif %}>Become a Mentor</a></li>
+                            <!-- Show application links only when NOT logged in -->
+                            <li><a href="{% url 'student_application' %}" {% if 'apply' in request.path %}class="active-link"{% endif %}>Apply</a></li>
+                            <li><a href="{% url 'mentor_application' %}" {% if 'mentor' in request.path %}class="active-link"{% endif %}>Become a Mentor</a></li>
                         {% endif %}
                     </ul>
                     
                     {% if user.is_authenticated %}
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <span style="font-size: 0.9rem; color: #FFD700;">
-                                {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}
-                                {% if user.role == 'admin' %}<span class="user-badge">Admin</span>{% endif %}
+                        <div class="user-info">
+                            <span class="small-text">
+                                {% if user.full_name %}{{ user.full_name }}{% else %}{{ user.email }}{% endif %}
+                                {% if user.role == 'admin' %}
+                                    <span class="user-badge badge-admin">Admin</span>
+                                {% elif user.role == 'mentor' %}
+                                    <span class="user-badge badge-mentor">Mentor</span>
+                                {% elif user.role == 'student' %}
+                                    <span class="user-badge badge-student">Student</span>
+                                {% endif %}
                             </span>
                             <a href="{% url 'logout' %}" class="btn outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Logout</a>
                         </div>
@@ -493,22 +565,35 @@
         <ul>
             <li><a href="{% url 'home' %}" {% if request.path == '/' %}class="active-link"{% endif %}>Home</a></li>
             <li><a href="{% url 'about' %}" {% if 'about' in request.path %}class="active-link"{% endif %}>About Us</a></li>
-            <li><a href="{% url 'apply' %}" {% if 'apply' in request.path %}class="active-link"{% endif %}>Apply for Support</a></li>
-            <li><a href="{% url 'mentor_signup' %}" {% if 'mentor' in request.path %}class="active-link"{% endif %}>Become a Mentor</a></li>
-            <li><a href="{% url 'support' %}" {% if 'support' in request.path %}class="active-link"{% endif %}>Support the Mission</a></li>
             
-            {% if user.is_authenticated and user.role == 'admin' %}
-                <li><a href="{% url 'admin_dashboard' %}" {% if 'dashboard' in request.path %}class="active-link"{% endif %}>Admin Dashboard</a></li>
+            {% if user.is_authenticated %}
+                {% if user.role == 'admin' %}
+                    <li><a href="{% url 'admin_dashboard' %}" {% if 'dashboard' in request.path %}class="active-link"{% endif %}>Admin Dashboard</a></li>
+                {% elif user.role == 'mentor' %}
+                    <li><a href="{% url 'mentor_dashboard' %}" {% if 'dashboard' in request.path %}class="active-link"{% endif %}>Mentor Dashboard</a></li>
+                {% elif user.role == 'student' %}
+                    <li><a href="{% url 'student_dashboard' %}" {% if 'dashboard' in request.path %}class="active-link"{% endif %}>Student Dashboard</a></li>
+                {% endif %}
+            {% else %}
+                <!-- Show application links only when NOT logged in -->
+                <li><a href="{% url 'student_application' %}" {% if 'apply' in request.path %}class="active-link"{% endif %}>Apply for Support</a></li>
+                <li><a href="{% url 'mentor_application' %}" {% if 'mentor' in request.path %}class="active-link"{% endif %}>Become a Mentor</a></li>
             {% endif %}
+            
+            <li><a href="{% url 'support' %}" {% if 'support' in request.path %}class="active-link"{% endif %}>Support the Mission</a></li>
             
             {% if user.is_authenticated %}
                 <li style="border-bottom: none; margin-top: 2rem;">
                     <div style="margin-bottom: 1rem;">
                         <p style="color: #FFD700; margin-bottom: 0.5rem;">
-                            Signed in as <strong>{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}</strong>
+                            Signed in as <strong>{% if user.full_name %}{{ user.full_name }}{% else %}{{ user.email }}{% endif %}</strong>
                         </p>
                         {% if user.role == 'admin' %}
-                            <span class="user-badge">Administrator</span>
+                            <span class="user-badge badge-admin">Administrator</span>
+                        {% elif user.role == 'mentor' %}
+                            <span class="user-badge badge-mentor">Mentor</span>
+                        {% elif user.role == 'student' %}
+                            <span class="user-badge badge-student">Student</span>
                         {% endif %}
                     </div>
                     <a href="{% url 'logout' %}" class="btn outline" style="width: 100%; text-align: center;">Logout</a>
@@ -532,22 +617,24 @@
             <div class="footer-content">
                 <div>
                     <h3 style="color: #FFD700; margin-bottom: 1rem; font-size: 1.5rem;">Hasken Yaruwa</h3>
-                    <p style="opacity: 0.9; max-width: 600px; margin: 0 auto;">Lighting the path for girls to stay in school and achieve their dreams.</p>
+                    <p class="small-text" style="max-width: 600px; margin: 0 auto; color: #D2B48C;">Lighting the path for girls to stay in school and achieve their dreams.</p>
                 </div>
                 
                 <div class="footer-links">
                     <a href="{% url 'home' %}">Home</a>
                     <a href="{% url 'about' %}">About</a>
-                    <a href="{% url 'apply' %}">Apply</a>
-                    <a href="{% url 'mentor_signup' %}">Mentor</a>
+                    {% if not user.is_authenticated %}
+                        <a href="{% url 'student_application' %}" class="text-brown">Apply</a>
+                        <a href="{% url 'mentor_application' %}" class="text-brown">Mentor</a>
+                    {% endif %}
                     <a href="{% url 'support' %}">Support</a>
-                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'login' %}" class="text-brown">Login</a>
                 </div>
             </div>
             
             <div class="copyright">
                 <p>© {% now "Y" %} Hasken Yaruwa Foundation. All rights reserved.</p>
-                <p style="margin-top: 0.5rem; font-size: 0.8rem;">Empowering young Nigerian women through education</p>
+                <p class="small-text">Empowering young Nigerian women through education</p>
             </div>
         </div>
     </footer>

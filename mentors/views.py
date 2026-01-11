@@ -1,45 +1,94 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Mentors
-from .forms import MentorForm
 from django.contrib.auth.decorators import login_required
-from accounts.utils import is_admin
 from django.contrib import messages
-
-def mentor_signup(request):
-  if request.method == 'POST':
-    form = MentorForm(request.POST)
-    if form.is_valid():
-      form.save()
-      return redirect('mentor_success')
-  else:
-    form = MentorForm()
-
-  return render(request, 'mentors/signup.html', {'form': form})
-
-def mentor_success(request):
-  return render(request, 'mentors/success.html')
-
-
+from .models import Mentor
+from students.models import Student
+from notes.models import ProgressNote
+from notes.forms import ProgressNoteForm
 
 @login_required
-def review_mentors(request):
-  if not is_admin(request.user):
-    return messages.error(request, 'No entry')
+def mentor_dashboard(request):
+  if request.user.role != 'mentor':
+    messages.error(request, "Access denied.")
+    return redirect('home')
 
-  mentors = Mentors.objects.filter(approved=False)
+  mentor = get_object_or_404(Mentor, user=request.user)
+
+  students = Student.objects.filter(
+    mentor=mentor,
+    is_active=True
+  ).select_related('user')
+
   return render(
     request,
-    'mentors/review_list.html',
-    {'mentors': mentors}
+    'mentors/mentor_dashboard.html',
+    {
+      'mentor': mentor,
+      'students': students,
+      'student_count': students.count()
+    }
   )
 
 @login_required
-def approve_mentor(request, mentor_id):
-  if not is_admin(request.user):
-    return messages.error(request, 'No entry')
+def mentor_student_detail(request, student_id):
+  if request.user.role != 'mentor':
+    messages.error(request, "Unauthorized access.")
+    return redirect('home')
 
-  mentor = get_object_or_404(Mentors, id=mentor_id)
-  mentor.approved = True
-  mentor.save()
+  mentor = get_object_or_404(Mentor, user=request.user)
 
-  return redirect('review_mentors')
+  student = get_object_or_404(
+    Student,
+    id=student_id,
+    mentor=mentor,
+    is_active=True
+  )
+
+  notes = ProgressNote.objects.filter(
+      student=student,
+      author=student.user,
+  ).select_related('author')
+
+  return render(
+    request,
+    'mentors/student_detail.html',
+    {'student': student, 'notes': notes}
+  )
+
+@login_required
+def create_mentor_note(request, student_id):
+  if request.user.role != 'mentor':
+    messages.error(request, "Access denied.")
+    return redirect('home')
+
+  mentor = get_object_or_404(Mentor, user=request.user)
+
+  student = get_object_or_404(
+    Student,
+    id=student_id,
+    mentor=mentor,
+    is_active=True
+  )
+
+  if request.method == 'POST':
+    form = ProgressNoteForm(request.POST)
+    if form.is_valid():
+      note = form.save(commit=False)
+      note.author = request.user
+      note.student = student
+      note.mentor = mentor
+      note.save()
+
+      messages.success(request, "Note added successfully.")
+      return redirect('mentor_student_detail', student_id=student.id)
+  else:
+    form = ProgressNoteForm()
+
+  return render(
+    request,
+    'mentors/create_note.html',
+    {
+      'form': form,
+      'student': student
+    }
+  )

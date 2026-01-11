@@ -6,31 +6,58 @@
 {% block content %}
     <!-- Hero Section -->
     <section class="hero" style="
-        background: linear-gradient(135deg, #E6E6FA 0%, #f0f0ff 100%);
+        background: linear-gradient(135deg, #E8F5E9 0%, #EFEBE9 100%);
         padding: 4rem 1rem;
         text-align: center;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid #D7CCC8;
     ">
-        <div class="fade-in" style="max-width: 800px; margin: 0 auto;">
-            <h2 style="
-                font-size: 2.5rem;
-                color: #006747;
+        <div class="fade-in" style="max-width: 800px; margin: 0 auto; position: relative; z-index: 2;">
+            <div style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: rgba(255, 255, 255, 0.9);
+                padding: 0.5rem 1.5rem;
+                border-radius: 50px;
                 margin-bottom: 1.5rem;
-            ">Lighting the Path for Girls to Stay in School</h2>
+                border: 1px solid rgba(215, 204, 200, 0.3);
+            ">
+                <span style="color: #C8A951;">✨</span>
+                <span style="color: #8B4513; font-weight: 600; font-size: 0.95rem;">Empowering Girls' Education</span>
+            </div>
+            
+            <h1 style="
+                font-size: 2.8rem;
+                color: #2F4F4F;
+                margin-bottom: 1.5rem;
+                line-height: 1.2;
+            ">Lighting the Path for Girls to Stay in School</h1>
             <p style="
                 font-size: 1.2rem;
-                color: #2F4F4F;
+                color: #5D4037;
                 margin-bottom: 2rem;
                 max-width: 700px;
                 margin-left: auto;
                 margin-right: auto;
+                line-height: 1.6;
             ">
                 Many girls leave school due to poverty, distance, and pressure to marry early.
                 Hasken Yaruwa exists to remove those barriers and keep hope alive.
             </p>
 
-            <div class="cta-buttons fade-in" style="animation-delay: 0.3s;">
-                <a href="{% url 'apply' %}" class="btn primary" style="margin-right: 1rem;">Apply for Support</a>
-                <a href="{% url 'mentor_signup' %}" class="btn secondary">Become a Mentor</a>
+            <div class="cta-buttons fade-in" style="animation-delay: 0.3s; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'student_application' %}" class="btn primary" style="min-width: 200px; padding: 1rem 2rem;">Apply for Support</a>
+                    <a href="{% url 'mentor_application' %}" class="btn secondary" style="min-width: 200px; padding: 1rem 2rem;">Become a Mentor</a>
+                {% elif user.role == 'student' %}
+                    <a href="{% url 'student_dashboard' %}" class="btn primary" style="min-width: 200px; padding: 1rem 2rem;">Go to Dashboard</a>
+                {% elif user.role == 'mentor' %}
+                    <a href="{% url 'mentor_dashboard' %}" class="btn primary" style="min-width: 200px; padding: 1rem 2rem;">Go to Dashboard</a>
+                {% elif user.role == 'admin' %}
+                    <a href="{% url 'admin_dashboard' %}" class="btn primary" style="min-width: 200px; padding: 1rem 2rem;">Go to Dashboard</a>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -38,42 +65,62 @@
     <!-- Mission Section -->
     <section style="
         padding: 4rem 1rem;
-        background-color: white;
+        background-color: #FFFFFF;
         max-width: 1200px;
         margin: 0 auto;
     ">
         <div style="max-width: 900px; margin: 0 auto;">
-            <h2 class="fade-in" style="
-                color: #006747;
-                font-size: 2.2rem;
-                margin-bottom: 1.5rem;
-                border-left: 4px solid #FFD700;
-                padding-left: 1rem;
-            ">1. Our Mission</h2>
+            <div class="fade-in" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+                <div style="
+                    background: linear-gradient(135deg, #81C784 0%, #5D4037 100%);
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #FFFFFF;
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                ">1</div>
+                <h2 style="
+                    color: #2F4F4F;
+                    font-size: 2.2rem;
+                    margin: 0;
+                ">Our Mission</h2>
+            </div>
             
             <div class="slide-in-left" style="
-                background-color: #E6E6FA;
+                background: linear-gradient(135deg, rgba(200, 230, 201, 0.3) 0%, rgba(215, 204, 200, 0.3) 100%);
                 padding: 2.5rem;
-                border-radius: 8px;
+                border-radius: 20px;
                 margin-bottom: 2rem;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                box-shadow: 0 8px 30px rgba(139, 69, 19, 0.1);
+                border: 1px solid rgba(139, 69, 19, 0.1);
             ">
                 <p style="
-                    font-size: 1.4rem;
-                    font-weight: 500;
-                    color: #006747;
+                    font-size: 1.5rem;
+                    font-weight: 600;
+                    color: #2F4F4F;
                     margin-bottom: 1.5rem;
-                    font-style: italic;
+                    line-height: 1.4;
                 ">
                     To empower young Nigerian women through simple, accessible, and affordable education 
                     that helps them gain skills, confidence, and opportunities for a better life.
                 </p>
                 
-                <p style="color: #2F4F4F; font-size: 1.1rem; line-height: 1.8;">
-                    We provide simple, accessible, and affordable education to young Nigerian women. 
-                    Our mission is to bridge the opportunity gap by equipping girls with the skills 
-                    and confidence they need to break cycles of poverty and lead their communities.
-                </p>
+                <div style="
+                    background: #FFFFFF;
+                    padding: 1.5rem;
+                    border-radius: 12px;
+                    border-left: 4px solid #FFD700;
+                ">
+                    <p style="color: #5D4037; font-size: 1.1rem; line-height: 1.8; margin: 0;">
+                        We provide simple, accessible, and affordable education to young Nigerian women. 
+                        Our mission is to bridge the opportunity gap by equipping girls with the skills 
+                        and confidence they need to break cycles of poverty and lead their communities.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
@@ -81,46 +128,66 @@
     <!-- Challenge Section -->
     <section style="
         padding: 4rem 1rem;
-        background-color: #f8f9fa;
+        background-color: #FAF9F6;
+        border-top: 1px solid #D7CCC8;
+        border-bottom: 1px solid #D7CCC8;
     ">
         <div style="max-width: 900px; margin: 0 auto;">
-            <h2 class="slide-in-right" style="
-                color: #006747;
-                font-size: 2.2rem;
-                margin-bottom: 1.5rem;
-                border-left: 4px solid #FFD700;
-                padding-left: 1rem;
-            ">2. The Challenge</h2>
+            <div class="slide-in-right" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+                <div style="
+                    background: linear-gradient(135deg, #FFD700 0%, #C8A951 100%);
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #2F4F4F;
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                ">2</div>
+                <h2 style="
+                    color: #2F4F4F;
+                    font-size: 2.2rem;
+                    margin: 0;
+                ">The Challenge</h2>
+            </div>
             
             <div style="
-                background-color: white;
+                background-color: #FFFFFF;
                 padding: 2.5rem;
-                border-radius: 8px;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                border-radius: 20px;
+                box-shadow: 0 8px 30px rgba(139, 69, 19, 0.1);
+                border: 1px solid rgba(139, 69, 19, 0.1);
             ">
                 <h3 class="fade-in" style="
                     color: #2F4F4F;
                     font-size: 1.5rem;
-                    margin-bottom: 1rem;
+                    margin-bottom: 2rem;
                 ">The Education Gap</h3>
                 
                 <div class="fade-in" style="
                     display: inline-block;
-                    background: linear-gradient(135deg, #006747, #00563a);
-                    color: white;
-                    padding: 1rem 1.5rem;
-                    border-radius: 8px;
-                    margin-bottom: 1.5rem;
+                    background: linear-gradient(135deg, #66BB6A, #5D4037);
+                    color: #FFFFFF;
+                    padding: 1.5rem 2rem;
+                    border-radius: 16px;
+                    margin-bottom: 2rem;
+                    box-shadow: 0 4px 20px rgba(102, 187, 106, 0.3);
+                    text-align: center;
                 ">
-                    <div style="font-size: 3rem; font-weight: bold;">42%</div>
-                    <div style="font-size: 1.1rem;">of girls complete secondary school vs <span class="highlight-gold">58% of boys</span></div>
+                    <div style="font-size: 3.5rem; font-weight: bold; line-height: 1;">42%</div>
+                    <div style="font-size: 1.1rem; margin-top: 0.5rem;">
+                        of girls complete secondary school vs 
+                        <span style="color: #FFD700; font-weight: 600;">58% of boys</span>
+                    </div>
                 </div>
                 
                 <p class="slide-in-left" style="
-                    color: #2F4F4F;
+                    color: #5D4037;
                     font-size: 1.1rem;
                     line-height: 1.8;
-                    margin-bottom: 1.5rem;
+                    margin-bottom: 2rem;
                 ">
                     Deep-rooted cultural norms and financial barriers often force education to take 
                     a backseat to early marriage. Without intervention, these girls remain trapped 
@@ -128,20 +195,23 @@
                 </p>
                 
                 <div class="scale-in" style="
-                    background-color: #FFF9E6;
+                    background: linear-gradient(135deg, rgba(255, 213, 79, 0.1) 0%, rgba(200, 169, 81, 0.1) 100%);
                     padding: 1.5rem;
-                    border-radius: 8px;
+                    border-radius: 16px;
                     border-left: 4px solid #FFD700;
-                    margin-top: 1.5rem;
+                    margin-top: 2rem;
                 ">
-                    <p style="
-                        font-size: 1.2rem;
-                        color: #006747;
-                        font-weight: 500;
-                        margin: 0;
-                    ">
-                        We believe a girl's background should never determine her future.
-                    </p>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <span style="color: #C8A951; font-size: 1.5rem;">💡</span>
+                        <p style="
+                            font-size: 1.2rem;
+                            color: #2F4F4F;
+                            font-weight: 600;
+                            margin: 0;
+                        ">
+                            We believe a girl's background should never determine her future.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -150,117 +220,139 @@
     <!-- Solution Section -->
     <section style="
         padding: 4rem 1rem;
-        background-color: white;
+        background-color: #FFFFFF;
         max-width: 1200px;
         margin: 0 auto;
     ">
         <div style="max-width: 900px; margin: 0 auto;">
-            <h2 class="fade-in" style="
-                color: #006747;
-                font-size: 2.2rem;
-                margin-bottom: 1.5rem;
-                border-left: 4px solid #FFD700;
-                padding-left: 1rem;
-            ">3. Our Solution</h2>
+            <div class="fade-in" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+                <div style="
+                    background: linear-gradient(135deg, #C8E6C9 0%, #D7CCC8 100%);
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #2F4F4F;
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                ">3</div>
+                <h2 style="
+                    color: #2F4F4F;
+                    font-size: 2.2rem;
+                    margin: 0;
+                ">Our Solution</h2>
+            </div>
             
             <div class="scale-in" style="
-                background: linear-gradient(135deg, #E6E6FA 0%, #f0f0ff 100%);
+                background: linear-gradient(135deg, rgba(200, 230, 201, 0.2) 0%, rgba(215, 204, 200, 0.2) 100%);
                 padding: 2.5rem;
-                border-radius: 8px;
+                border-radius: 20px;
                 margin-bottom: 2rem;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                box-shadow: 0 8px 30px rgba(139, 69, 19, 0.1);
+                border: 1px solid rgba(139, 69, 19, 0.1);
             ">
                 <h3 style="
-                    color: #006747;
-                    font-size: 1.6rem;
+                    color: #2F4F4F;
+                    font-size: 1.8rem;
                     margin-bottom: 1.5rem;
                 ">A Holistic Approach to Change</h3>
                 
-                <p style="color: #2F4F4F; font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
+                <p style="color: #5D4037; font-size: 1.1rem; line-height: 1.8; margin-bottom: 2.5rem;">
                     We don't just provide books; we remove the barriers to staying in school. 
                     Our foundation creates a unified support system through:
                 </p>
                 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
                     <div class="slide-in-left" style="
-                        background-color: white;
-                        padding: 1.8rem;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                        background-color: #FFFFFF;
+                        padding: 2rem;
+                        border-radius: 16px;
+                        box-shadow: 0 4px 20px rgba(139, 69, 19, 0.1);
+                        border: 1px solid rgba(139, 69, 19, 0.1);
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
                     ">
                         <div style="
-                            background-color: #006747;
-                            color: #FFD700;
-                            width: 50px;
-                            height: 50px;
+                            background: linear-gradient(135deg, #81C784 0%, #4CAF50 100%);
+                            color: #FFFFFF;
+                            width: 60px;
+                            height: 60px;
                             border-radius: 50%;
                             display: flex;
                             align-items: center;
                             justify-content: center;
                             font-weight: bold;
-                            font-size: 1.2rem;
-                            margin-bottom: 1rem;
+                            font-size: 1.3rem;
+                            margin-bottom: 1.5rem;
+                            box-shadow: 0 4px 10px rgba(129, 199, 132, 0.3);
                         ">✓</div>
                         <h4 style="
-                            color: #006747;
-                            font-size: 1.3rem;
-                            margin-bottom: 0.8rem;
+                            color: #2F4F4F;
+                            font-size: 1.4rem;
+                            margin-bottom: 1rem;
                         ">Full Scholarships</h4>
-                        <p style="color: #2F4F4F;">Covering tuition and hidden costs like transportation.</p>
+                        <p style="color: #5D4037; line-height: 1.6;">Covering tuition and hidden costs like transportation to ensure no girl is left behind due to financial constraints.</p>
                     </div>
                     
                     <div class="fade-in" style="
-                        background-color: white;
-                        padding: 1.8rem;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                        background-color: #FFFFFF;
+                        padding: 2rem;
+                        border-radius: 16px;
+                        box-shadow: 0 4px 20px rgba(139, 69, 19, 0.1);
+                        border: 1px solid rgba(139, 69, 19, 0.1);
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
                     ">
                         <div style="
-                            background-color: #006747;
-                            color: #FFD700;
-                            width: 50px;
-                            height: 50px;
+                            background: linear-gradient(135deg, #FFD700 0%, #C8A951 100%);
+                            color: #2F4F4F;
+                            width: 60px;
+                            height: 60px;
                             border-radius: 50%;
                             display: flex;
                             align-items: center;
                             justify-content: center;
                             font-weight: bold;
-                            font-size: 1.2rem;
-                            margin-bottom: 1rem;
+                            font-size: 1.3rem;
+                            margin-bottom: 1.5rem;
+                            box-shadow: 0 4px 10px rgba(255, 213, 79, 0.3);
                         ">✓</div>
                         <h4 style="
-                            color: #006747;
-                            font-size: 1.3rem;
-                            margin-bottom: 0.8rem;
+                            color: #2F4F4F;
+                            font-size: 1.4rem;
+                            margin-bottom: 1rem;
                         ">Community Mentorship</h4>
-                        <p style="color: #2F4F4F;">Connecting students with working professionals and peers to shift mindsets and prioritize education.</p>
+                        <p style="color: #5D4037; line-height: 1.6;">Connecting students with working professionals and peers to shift mindsets, build confidence, and prioritize education.</p>
                     </div>
                     
                     <div class="slide-in-right" style="
-                        background-color: white;
-                        padding: 1.8rem;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                        background-color: #FFFFFF;
+                        padding: 2rem;
+                        border-radius: 16px;
+                        box-shadow: 0 4px 20px rgba(139, 69, 19, 0.1);
+                        border: 1px solid rgba(139, 69, 19, 0.1);
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
                     ">
                         <div style="
-                            background-color: #006747;
-                            color: #FFD700;
-                            width: 50px;
-                            height: 50px;
+                            background: linear-gradient(135deg, #D7CCC8 0%, #8B4513 100%);
+                            color: #FFFFFF;
+                            width: 60px;
+                            height: 60px;
                             border-radius: 50%;
                             display: flex;
                             align-items: center;
                             justify-content: center;
                             font-weight: bold;
-                            font-size: 1.2rem;
-                            margin-bottom: 1rem;
+                            font-size: 1.3rem;
+                            margin-bottom: 1.5rem;
+                            box-shadow: 0 4px 10px rgba(139, 69, 19, 0.3);
                         ">✓</div>
                         <h4 style="
-                            color: #006747;
-                            font-size: 1.3rem;
-                            margin-bottom: 0.8rem;
+                            color: #2F4F4F;
+                            font-size: 1.4rem;
+                            margin-bottom: 1rem;
                         ">Local Engagement</h4>
-                        <p style="color: #2F4F4F;">Partnering with governments and families to ensure long-term, sustainable impact for the entire community.</p>
+                        <p style="color: #5D4037; line-height: 1.6;">Partnering with governments, schools, and families to ensure long-term, sustainable impact for the entire community.</p>
                     </div>
                 </div>
             </div>
@@ -270,50 +362,76 @@
     <!-- Impact Section -->
     <section style="
         padding: 4rem 1rem;
-        background-color: #006747;
-        color: white;
+        background: linear-gradient(135deg, #5D4037 0%, #2E7D32 100%);
+        color: #FFFFFF;
         text-align: center;
+        border-top: 1px solid #8B4513;
+        border-bottom: 1px solid #8B4513;
     ">
         <div style="max-width: 900px; margin: 0 auto;">
             <h2 class="fade-in" style="
-                font-size: 2.2rem;
+                font-size: 2.5rem;
                 margin-bottom: 3rem;
                 color: #FFD700;
             ">Our Impact So Far</h2>
 
             <div class="stats" style="
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
                 gap: 2rem;
+                margin-bottom: 2rem;
             ">
                 <div class="scale-in" style="
-                    background-color: rgba(255, 255, 255, 0.1);
-                    padding: 2rem;
-                    border-radius: 8px;
+                    background: rgba(255, 255, 255, 0.15);
+                    padding: 2.5rem;
+                    border-radius: 20px;
                     backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    transition: transform 0.3s ease;
                 ">
                     <strong style="
                         display: block;
-                        font-size: 3rem;
+                        font-size: 3.5rem;
                         color: #FFD700;
                         margin-bottom: 0.5rem;
+                        line-height: 1;
                     ">{{ total_students }}</strong>
-                    <span style="font-size: 1.1rem;">Girls Supported</span>
+                    <span style="font-size: 1.2rem; opacity: 0.95;">Girls Supported</span>
                 </div>
                 <div class="scale-in" style="
-                    background-color: rgba(255, 255, 255, 0.1);
-                    padding: 2rem;
-                    border-radius: 8px;
+                    background: rgba(255, 255, 255, 0.15);
+                    padding: 2.5rem;
+                    border-radius: 20px;
                     backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    transition: transform 0.3s ease;
                 ">
                     <strong style="
                         display: block;
-                        font-size: 3rem;
+                        font-size: 3.5rem;
                         color: #FFD700;
                         margin-bottom: 0.5rem;
+                        line-height: 1;
                     ">{{ total_support }}</strong>
-                    <span style="font-size: 1.1rem;">Resources Mobilized</span>
+                    <span style="font-size: 1.2rem; opacity: 0.95;">Resources Mobilized</span>
                 </div>
+            </div>
+            
+            <div class="fade-in" style="
+                background: rgba(255, 255, 255, 0.1);
+                padding: 1.5rem;
+                border-radius: 16px;
+                margin-top: 2rem;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            ">
+                <p style="
+                    font-size: 1.1rem;
+                    margin: 0;
+                    color: #FFD700;
+                    font-weight: 600;
+                ">
+                    Every number represents a life transformed, a future brightened
+                </p>
             </div>
         </div>
     </section>
@@ -321,18 +439,38 @@
     <!-- Support Section -->
     <section style="
         padding: 4rem 1rem;
-        background-color: #E6E6FA;
+        background: linear-gradient(135deg, #E8F5E9 0%, #EFEBE9 100%);
         text-align: center;
+        border-bottom: 1px solid #D7CCC8;
     ">
         <div style="max-width: 700px; margin: 0 auto;">
-            <div class="fade-in">
-                <h3 style="
-                    color: #006747;
+            <div class="fade-in" style="
+                background: #FFFFFF;
+                padding: 3rem;
+                border-radius: 24px;
+                box-shadow: 0 10px 40px rgba(139, 69, 19, 0.1);
+                border: 1px solid rgba(139, 69, 19, 0.2);
+            ">
+                <div style="
+                    background: linear-gradient(135deg, #81C784, #5D4037);
+                    color: #FFFFFF;
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto 1.5rem;
                     font-size: 2rem;
-                    margin-bottom: 1.5rem;
+                ">❤️</div>
+                
+                <h3 style="
+                    color: #2F4F4F;
+                    font-size: 2.2rem;
+                    margin-bottom: 1rem;
                 ">Support the Mission</h3>
                 <p style="
-                    color: #2F4F4F;
+                    color: #5D4037;
                     font-size: 1.2rem;
                     margin-bottom: 2rem;
                     line-height: 1.7;
@@ -340,11 +478,152 @@
                     Your contribution helps keep girls learning, safe, and hopeful. 
                     Join us in lighting the path to education and empowerment.
                 </p>
-                <a href="#" class="btn primary" style="
+                <a href="{% url 'support' %}" class="btn primary" style="
                     font-size: 1.1rem;
                     padding: 1rem 2.5rem;
+                    min-width: 200px;
                 ">Support a Girl</a>
             </div>
         </div>
     </section>
+
+    <!-- Mobile-Only Custom CSS -->
+    <style>
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem !important;
+            }
+            
+            .hero p {
+                font-size: 1.1rem !important;
+                padding: 0 1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column !important;
+                gap: 1rem !important;
+                align-items: center;
+            }
+            
+            .cta-buttons .btn {
+                width: 90% !important;
+                max-width: 300px;
+                margin-right: 0 !important;
+            }
+            
+            h2 {
+                font-size: 1.8rem !important;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+            
+            .stats div {
+                padding: 1.5rem !important;
+            }
+            
+            .stats strong {
+                font-size: 2.5rem !important;
+            }
+            
+            section {
+                padding: 3rem 1rem !important;
+            }
+            
+            section > div {
+                padding: 0 0.5rem !important;
+            }
+            
+            .solution-cards {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .solution-cards > div {
+                padding: 1.5rem !important;
+                margin: 0 !important;
+            }
+            
+            .impact-number {
+                font-size: 2.5rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .support-section .btn {
+                width: 100% !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem !important;
+            }
+            
+            .hero p {
+                font-size: 1rem !important;
+            }
+            
+            section {
+                padding: 2rem 1rem !important;
+            }
+            
+            h2 {
+                font-size: 1.6rem !important;
+            }
+            
+            h3 {
+                font-size: 1.4rem !important;
+            }
+            
+            .mission-statement {
+                font-size: 1.3rem !important;
+                padding: 1.5rem !important;
+            }
+            
+            .challenge-stats {
+                padding: 1.5rem !important;
+            }
+            
+            .impact-section h2 {
+                font-size: 1.8rem !important;
+                margin-bottom: 2rem !important;
+            }
+            
+            .support-box {
+                padding: 2rem 1.5rem !important;
+            }
+        }
+        
+        /* Hover effects for desktop */
+        @media (hover: hover) and (min-width: 769px) {
+            .solution-cards > div:hover {
+                transform: translateY(-5px) !important;
+                box-shadow: 0 8px 30px rgba(139, 69, 19, 0.2) !important;
+            }
+            
+            .stats > div:hover {
+                transform: translateY(-3px) !important;
+            }
+            
+            .hero .cta-buttons .btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 103, 71, 0.2);
+            }
+        }
+        
+        /* Brown accent links */
+        .text-brown {
+            color: #8B4513;
+        }
+        
+        .text-brown:hover {
+            color: #654321;
+        }
+        
+        /* Animation delays for better sequencing */
+        .slide-in-left { animation-delay: 0.2s; }
+        .slide-in-right { animation-delay: 0.4s; }
+        .scale-in { animation-delay: 0.6s; }
+    </style>
 {% endblock %}

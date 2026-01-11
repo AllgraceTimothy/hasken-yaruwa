@@ -1,0 +1,668 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Review Mentor Application - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 80vh;
+">
+    <!-- Page Header -->
+    <div class="fade-in" style="
+        margin-bottom: 2rem;
+    ">
+        <div style="
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        ">
+            <a href="{% url 'review_mentors' %}" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: #006747;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+                border-radius: 6px;
+                background-color: #F8F9FA;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.transform='translateY(-1px)';" 
+            onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.transform='translateY(0)';">
+                ← Back to Mentor Applications
+            </a>
+            
+            <div style="flex: 1; min-width: 300px;">
+                <h1 style="
+                    color: #006747;
+                    font-size: 2rem;
+                    margin-bottom: 0.5rem;
+                ">
+                    Mentor Application Review
+                </h1>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 1rem;
+                    opacity: 0.9;
+                ">
+                    Review and make a decision for this mentor application
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Details Card -->
+    <div class="scale-in" style="
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    ">
+        <!-- Main Application Info -->
+        <div style="
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 2.5rem;
+        ">
+            <!-- Applicant Header -->
+            <div style="
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+                padding-bottom: 1.5rem;
+                border-bottom: 2px solid #E6E6FA;
+            ">
+                <div style="
+                    width: 70px;
+                    height: 70px;
+                    background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                    color: #FFD700;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2rem;
+                    font-weight: bold;
+                    box-shadow: 0 4px 8px rgba(0, 103, 71, 0.2);
+                ">
+                    {{ application.full_name|slice:":1"|upper }}
+                </div>
+                <div>
+                    <h2 style="
+                        color: #006747;
+                        font-size: 1.8rem;
+                        margin-bottom: 0.5rem;
+                    ">
+                        {{ application.full_name }}
+                    </h2>
+                    <div style="
+                        display: flex;
+                        gap: 1rem;
+                        flex-wrap: wrap;
+                    ">
+                        <span style="
+                            background-color: #E6E6FA;
+                            color: #006747;
+                            padding: 0.3rem 0.8rem;
+                            border-radius: 15px;
+                            font-size: 0.85rem;
+                            font-weight: 600;
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 0.3rem;
+                        ">
+                            <span>👨‍🏫</span>
+                            Mentor Applicant
+                        </span>
+                        <span style="
+                            background-color: #E6F0FA;
+                            color: #006747;
+                            padding: 0.3rem 0.8rem;
+                            border-radius: 15px;
+                            font-size: 0.85rem;
+                            font-weight: 600;
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 0.3rem;
+                        ">
+                            <span>📅</span>
+                            Applied {{ application.created_at|date:"M d, Y" }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Information -->
+            <div style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            ">
+                <div style="
+                    background-color: #F8F9FA;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 0.8rem;
+                        margin-bottom: 0.8rem;
+                    ">
+                        <div style="
+                            background-color: #006747;
+                            color: #FFD700;
+                            width: 36px;
+                            height: 36px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1rem;
+                        ">📧</div>
+                        <h3 style="
+                            color: #006747;
+                            font-size: 1.1rem;
+                            margin: 0;
+                        ">Contact Information</h3>
+                    </div>
+                    <div>
+                        <div style="margin-bottom: 0.5rem;">
+                            <span style="color: #2F4F4F; font-weight: 600;">Email:</span>
+                            <span style="color: #006747; margin-left: 0.5rem; font-weight: 500;">
+                                {{ application.email }}
+                            </span>
+                        </div>
+                        <div>
+                            <span style="color: #2F4F4F; font-weight: 600;">Phone:</span>
+                            <span style="color: #006747; margin-left: 0.5rem; font-weight: 500;">
+                                {{ application.phone_no|default:"Not provided" }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="
+                    background-color: #F8F9FA;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 0.8rem;
+                        margin-bottom: 0.8rem;
+                    ">
+                        <div style="
+                            background-color: #FFD700;
+                            color: #006747;
+                            width: 36px;
+                            height: 36px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1rem;
+                        ">📊</div>
+                        <h3 style="
+                            color: #006747;
+                            font-size: 1.1rem;
+                            margin: 0;
+                        ">Application Status</h3>
+                    </div>
+                    <div>
+                        <div style="margin-bottom: 0.5rem;">
+                            <span style="color: #2F4F4F; font-weight: 600;">Status:</span>
+                            <span style="color: #006747; margin-left: 0.5rem; font-weight: 500;">
+                                {% if application.is_approved %}
+                                    <span style="color: #006747; background-color: #E6F0FA; padding: 0.2rem 0.6rem; border-radius: 4px;">✓ Approved</span>
+                                {% elif application.is_rejected %}
+                                    <span style="color: #D32F2F; background-color: #FFE6E6; padding: 0.2rem 0.6rem; border-radius: 4px;">✗ Rejected</span>
+                                {% else %}
+                                    <span style="color: #FFA000; background-color: #FFF9E6; padding: 0.2rem 0.6rem; border-radius: 4px;">⏳ Pending Review</span>
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div>
+                            <span style="color: #2F4F4F; font-weight: 600;">Application ID:</span>
+                            <span style="color: #006747; margin-left: 0.5rem; font-weight: 500;">
+                                #{{ application.id|default:"0000" }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Background Section -->
+            <div style="margin-bottom: 2rem;">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.8rem;
+                    margin-bottom: 1rem;
+                ">
+                    <div style="
+                        background-color: #006747;
+                        color: #FFD700;
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.2rem;
+                        font-weight: bold;
+                    ">🎓</div>
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.3rem;
+                        margin: 0;
+                    ">Background & Experience</h3>
+                </div>
+                <div style="
+                    background-color: #F0F8F0;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    border-left: 4px solid #006747;
+                ">
+                    <p style="
+                        color: #2F4F4F;
+                        margin: 0;
+                        line-height: 1.6;
+                        font-size: 1.05rem;
+                        white-space: pre-line;
+                    ">
+                        {% if application.background %}
+                            {{ application.background }}
+                        {% else %}
+                            No background information provided.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Motivation Section -->
+            <div>
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.8rem;
+                    margin-bottom: 1rem;
+                ">
+                    <div style="
+                        background-color: #FFD700;
+                        color: #006747;
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.2rem;
+                        font-weight: bold;
+                    ">💡</div>
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.3rem;
+                        margin: 0;
+                    ">Motivation for Mentoring</h3>
+                </div>
+                <div style="
+                    background-color: #FFF9E6;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    border: 1px solid #FFE6CC;
+                ">
+                    <p style="
+                        color: #2F4F4F;
+                        margin: 0;
+                        line-height: 1.7;
+                        white-space: pre-line;
+                        font-size: 1.05rem;
+                    ">
+                        {% if application.motivation %}
+                            {{ application.motivation }}
+                        {% else %}
+                            No motivation statement provided.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Decision Form -->
+    <div class="fade-in" style="
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        padding: 2.5rem;
+        border-top: 5px solid #006747;
+    ">
+        <h3 style="
+            color: #006747;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        ">
+            <span style="color: #FFD700;">⚖️</span>
+            Mentor Decision
+        </h3>
+        
+        <form method="post" id="mentorReviewForm">
+            {% csrf_token %}
+            
+            <div style="
+                background-color: #F8F9FA;
+                padding: 1.5rem;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+            ">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.8rem;
+                    margin-bottom: 1rem;
+                ">
+                    <div style="
+                        width: 30px;
+                        height: 30px;
+                        background-color: #006747;
+                        color: white;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: bold;
+                        font-size: 0.9rem;
+                    ">!</div>
+                    <p style="color: #2F4F4F; margin: 0; font-weight: 600;">
+                        Important: Approved mentors will gain access to the mentorship platform
+                    </p>
+                </div>
+                <p style="color: #2F4F4F; margin: 0; font-size: 0.95rem; line-height: 1.5;">
+                    Please review the applicant's background and motivation carefully. Approved mentors 
+                    will be able to connect with students and participate in the mentorship program.
+                </p>
+            </div>
+            
+            <div style="
+                display: flex;
+                gap: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            ">
+                <button type="submit" 
+                        name="action" 
+                        value="approve" 
+                        style="
+                            flex: 1;
+                            min-width: 200px;
+                            background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                            color: white;
+                            border: none;
+                            padding: 1.2rem 2.5rem;
+                            border-radius: 8px;
+                            font-size: 1.1rem;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 0.8rem;
+                        " 
+                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 103, 71, 0.3)';" 
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';"
+                        onclick="return confirmMentorApprove()">
+                    <span>✓ Approve Mentor</span>
+                </button>
+                
+                <button type="submit" 
+                        name="action" 
+                        value="reject" 
+                        style="
+                            flex: 1;
+                            min-width: 200px;
+                            background-color: white;
+                            color: #D32F2F;
+                            border: 2px solid #FFE6E6;
+                            padding: 1.2rem 2.5rem;
+                            border-radius: 8px;
+                            font-size: 1.1rem;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 0.8rem;
+                        " 
+                        onmouseover="this.style.backgroundColor='#FFF0F0'; this.style.borderColor='#D32F2F'; this.style.transform='translateY(-2px)';" 
+                        onmouseout="this.style.backgroundColor='white'; this.style.borderColor='#FFE6E6'; this.style.transform='translateY(0)';"
+                        onclick="return confirmMentorReject()">
+                    <span>✗ Reject Application</span>
+                </button>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="fade-in" style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+    ">
+        <div style="
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            text-align: center;
+            border-top: 4px solid #E6E6FA;
+        ">
+            <div style="
+                font-size: 2.5rem;
+                color: #006747;
+                margin-bottom: 1rem;
+            ">📞</div>
+            <h4 style="
+                color: #006747;
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+            ">Contact Applicant</h4>
+            <p style="
+                color: #2F4F4F;
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+                line-height: 1.5;
+            ">
+                Reach out for additional information or clarification
+            </p>
+            {% if application.phone_no %}
+            <a href="tel:{{ application.phone_no }}" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background-color: #E6E6FA;
+                color: #006747;
+                padding: 0.7rem 1.2rem;
+                border-radius: 6px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.9rem;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#d9d9f0'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.backgroundColor='#E6E6FA'; this.style.transform='translateY(0)';">
+                <span>Call {{ application.phone_no }}</span>
+                <span>📱</span>
+            </a>
+            {% endif %}
+            <a href="mailto:{{ application.email }}" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background-color: #E6E6FA;
+                color: #006747;
+                padding: 0.7rem 1.2rem;
+                border-radius: 6px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.9rem;
+                transition: all 0.3s ease;
+                margin-top: 0.5rem;
+                width: 100%;
+                justify-content: center;
+            " onmouseover="this.style.backgroundColor='#d9d9f0'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.backgroundColor='#E6E6FA'; this.style.transform='translateY(0)';">
+                <span>Email {{ application.email }}</span>
+                <span>✉️</span>
+            </a>
+        </div>
+        
+        <div style="
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            text-align: center;
+            border-top: 4px solid #E6E6FA;
+        ">
+            <div style="
+                font-size: 2.5rem;
+                color: #006747;
+                margin-bottom: 1rem;
+            ">📋</div>
+            <h4 style="
+                color: #006747;
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+            ">View Next Application</h4>
+            <p style="
+                color: #2F4F4F;
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+                line-height: 1.5;
+            ">
+                Continue reviewing other pending mentor applications
+            </p>
+            <a href="{% url 'review_mentors' %}" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background-color: #006747;
+                color: white;
+                padding: 0.7rem 1.2rem;
+                border-radius: 6px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.9rem;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                <span>Next Mentor Application</span>
+                <span>→</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Confirmation -->
+<script>
+    function confirmMentorApprove() {
+        return confirm(`Are you sure you want to APPROVE this mentor application?\n\nMentor: {{ application.full_name }}\n\nThis will grant them access to the mentorship platform.`);
+    }
+    
+    function confirmMentorReject() {
+        return confirm(`Are you sure you want to REJECT this mentor application?\n\nMentor: {{ application.full_name }}\n\nThe applicant will be notified of this decision.`);
+    }
+    
+    // Form validation
+    document.getElementById('mentorReviewForm').addEventListener('submit', function(e) {
+        const action = e.submitter ? e.submitter.value : '';
+        
+        if (action === 'reject') {
+            const hasBackground = '{{ application.background|escapejs }}'.length > 10;
+            const hasMotivation = '{{ application.motivation|escapejs }}'.length > 10;
+            
+            if ((hasBackground || hasMotivation) && !confirm('This applicant provided detailed information. Are you sure you want to reject their application?')) {
+                e.preventDefault();
+            }
+        }
+    });
+</script>
+
+<style>
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .application-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem !important;
+        }
+        
+        .application-header > div:first-child {
+            margin-bottom: 1rem;
+        }
+        
+        .contact-grid {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .decision-buttons {
+            flex-direction: column;
+        }
+        
+        .decision-buttons button {
+            width: 100% !important;
+        }
+        
+        .quick-actions {
+            grid-template-columns: 1fr !important;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .application-card {
+            padding: 1.5rem !important;
+        }
+        
+        .decision-card {
+            padding: 1.5rem !important;
+        }
+        
+        h1 {
+            font-size: 1.6rem !important;
+        }
+        
+        h2 {
+            font-size: 1.4rem !important;
+        }
+    }
+    
+    /* Print styles for application review */
+    @media print {
+        .decision-card,
+        .quick-actions {
+            display: none !important;
+        }
+        
+        .application-card {
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+        }
+    }
+</style>
+{% endblock %}

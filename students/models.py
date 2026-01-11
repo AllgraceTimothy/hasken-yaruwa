@@ -1,25 +1,30 @@
 from django.db import models
-from applications.models import Application
+from accounts.models import User
+from applications.models import StudentApplication
+from mentors.models import Mentor
 
 class Student(models.Model):
+  user = models.OneToOneField(
+    User,
+    on_delete=models.CASCADE,
+    related_name='student_profile'
+  )
+
   application = models.OneToOneField(
-    Application,
+    StudentApplication,
     on_delete=models.CASCADE
   )
 
-  enrolement_date = models.DateTimeField(auto_now_add=True)
+  mentor = models.ForeignKey(
+    Mentor,
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    related_name='students',
+  )
+
+  enrollment_date = models.DateTimeField(auto_now_add=True)
   is_active = models.BooleanField(default=True)
 
   def __str__(self):
-    return self.application.full_name
-  
-class StudentSupportNote(models.Model):
-  student = models.ForeignKey(
-    'Student',
-    on_delete=models.CASCADE
-  )
-  note = models.TextField()
-  date = models.DateField(auto_now_add=True)
-
-  def __str__(self):
-    return self.student.application.full_name
+    return f"Student: {self.user.full_name}"

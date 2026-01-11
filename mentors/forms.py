@@ -1,13 +1,13 @@
 from django import forms
-from .models import Mentors
+from .models import Mentor
 
 class MentorForm(forms.ModelForm):
   class Meta:
-    model = Mentors
+    model = Mentor
     fields = [
       'full_name',
       'email',
-      'phone',
+      'phone_no',
       'background',
       'motivation',
     ]

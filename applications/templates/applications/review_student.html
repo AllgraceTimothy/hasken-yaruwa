@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Review Application - Hasken Yaruwa{% endblock %}
+{% block title %}Review Student - Hasken Yaruwa{% endblock %}
 
 {% block content %}
 <div style="
@@ -21,7 +21,7 @@
             margin-bottom: 1.5rem;
             flex-wrap: wrap;
         ">
-            <a href="{% url 'review_applications' %}" style="
+            <a href="{% url 'review_students' %}" style="
                 display: inline-flex;
                 align-items: center;
                 gap: 0.5rem;
@@ -44,14 +44,14 @@
                     font-size: 2rem;
                     margin-bottom: 0.5rem;
                 ">
-                    Application Review
+                    Review Student Application
                 </h1>
                 <p style="
                     color: #2F4F4F;
                     font-size: 1rem;
                     opacity: 0.9;
                 ">
-                    Review and make a decision for this student's application
+                    Review and make a decision for {{ application.full_name }}'s application
                 </p>
             </div>
         </div>
@@ -119,8 +119,8 @@
                             align-items: center;
                             gap: 0.3rem;
                         ">
-                            <span>📋</span>
-                            #{{ application.id|default:"0000" }}
+                            <span>📧</span>
+                            {{ application.email }}
                         </span>
                         <span style="
                             background-color: #E6F0FA;
@@ -134,7 +134,7 @@
                             gap: 0.3rem;
                         ">
                             <span>📅</span>
-                            Applied {{ application.created_at|date:"M d, Y" }}
+                            ID: #{{ application.id|default:"0000" }}
                         </span>
                     </div>
                 </div>
@@ -182,6 +182,12 @@
                                 {{ application.age }} years
                             </span>
                         </div>
+                        <div style="margin-bottom: 0.5rem;">
+                            <span style="color: #2F4F4F; font-weight: 600;">Email:</span>
+                            <span style="color: #006747; margin-left: 0.5rem; font-weight: 500;">
+                                {{ application.email }}
+                            </span>
+                        </div>
                         <div>
                             <span style="color: #2F4F4F; font-weight: 600;">Location:</span>
                             <span style="color: #006747; margin-left: 0.5rem; font-weight: 500;">
@@ -221,15 +227,15 @@
                     </div>
                     <div>
                         <div style="margin-bottom: 0.5rem;">
-                            <span style="color: #2F4F4F; font-weight: 600;">School:</span>
+                            <span style="color: #2F4F4F; font-weight: 600;">School Name:</span>
                             <span style="color: #006747; margin-left: 0.5rem; font-weight: 500;">
                                 {{ application.school_name|default:"Not specified" }}
                             </span>
                         </div>
                         <div>
-                            <span style="color: #2F4F4F; font-weight: 600;">Grade Level:</span>
+                            <span style="color: #2F4F4F; font-weight: 600;">Location:</span>
                             <span style="color: #006747; margin-left: 0.5rem; font-weight: 500;">
-                                Secondary School
+                                {{ application.location|default:"Not specified" }}
                             </span>
                         </div>
                     </div>
@@ -435,7 +441,6 @@
                 gap: 1.5rem;
                 flex-wrap: wrap;
                 justify-content: center;
-                margin-bottom: 2rem;
             ">
                 <button type="submit" 
                         name="action" 
@@ -489,41 +494,6 @@
                     <span>✗ Reject Application</span>
                 </button>
             </div>
-            
-            <!-- Optional Notes -->
-            <div style="margin-top: 2rem;">
-                <label for="review_notes" style="
-                    display: block;
-                    color: #006747;
-                    font-weight: 600;
-                    margin-bottom: 0.8rem;
-                    font-size: 1.1rem;
-                ">
-                    <span style="color: #FFD700;">📝</span>
-                    Optional Review Notes
-                </label>
-                <textarea id="review_notes" 
-                          name="review_notes" 
-                          rows="3" 
-                          placeholder="Add any notes about this application (visible to other admins)"
-                          style="
-                            width: 100%;
-                            padding: 1rem;
-                            border: 2px solid #E6E6FA;
-                            border-radius: 8px;
-                            font-size: 1rem;
-                            color: #2F4F4F;
-                            background-color: white;
-                            transition: all 0.3s ease;
-                            font-family: inherit;
-                            resize: vertical;
-                          "
-                          onfocus="this.style.borderColor='#006747'; this.style.boxShadow='0 0 0 3px rgba(0, 103, 71, 0.1)';"
-                          onblur="this.style.borderColor='#E6E6FA'; this.style.boxShadow='none';"></textarea>
-                <p style="color: #2F4F4F; font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.7;">
-                    These notes will be saved with the application record.
-                </p>
-            </div>
         </form>
     </div>
     
@@ -551,16 +521,17 @@
                 color: #006747;
                 font-size: 1.1rem;
                 margin-bottom: 0.5rem;
-            ">Need More Info?</h4>
+            ">Contact Parent</h4>
             <p style="
                 color: #2F4F4F;
                 font-size: 0.9rem;
                 margin-bottom: 1rem;
                 line-height: 1.5;
             ">
-                Contact the parent/guardian for clarification
+                Call {{ application.parent_name|default:"parent/guardian" }} for clarification
             </p>
-            <a href="tel:{{ application.parent_contact|default:'#' }}" style="
+            {% if application.parent_contact %}
+            <a href="tel:{{ application.parent_contact }}" style="
                 display: inline-flex;
                 align-items: center;
                 gap: 0.5rem;
@@ -574,9 +545,14 @@
                 transition: all 0.3s ease;
             " onmouseover="this.style.backgroundColor='#d9d9f0'; this.style.transform='translateY(-2px)';" 
             onmouseout="this.style.backgroundColor='#E6E6FA'; this.style.transform='translateY(0)';">
-                <span>Call Parent</span>
+                <span>Call {{ application.parent_contact }}</span>
                 <span>📱</span>
             </a>
+            {% else %}
+            <p style="color: #D32F2F; font-size: 0.9rem; margin: 0;">
+                No contact provided
+            </p>
+            {% endif %}
         </div>
         
         <div style="
@@ -605,7 +581,7 @@
             ">
                 Continue reviewing other pending applications
             </p>
-            <a href="{% url 'review_applications' %}" style="
+            <a href="{% url 'review_students' %}" style="
                 display: inline-flex;
                 align-items: center;
                 gap: 0.5rem;
@@ -619,7 +595,7 @@
                 transition: all 0.3s ease;
             " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
             onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
-                <span>Next Application</span>
+                <span>Back to Applications</span>
                 <span>→</span>
             </a>
         </div>
@@ -629,52 +605,16 @@
 <!-- JavaScript for Confirmation -->
 <script>
     function confirmApprove() {
-        return confirm(`Are you sure you want to APPROVE this application?\n\nStudent: {{ application.full_name }}\n\nThis will notify the student and their parent of acceptance.`);
+        return confirm(`Are you sure you want to APPROVE this application?\n\nStudent: {{ application.full_name }}\n\nThis will notify the student of acceptance.`);
     }
     
     function confirmReject() {
-        return confirm(`Are you sure you want to REJECT this application?\n\nStudent: {{ application.full_name }}\n\nThis will notify the student and their parent of rejection.`);
+        return confirm(`Are you sure you want to REJECT this application?\n\nStudent: {{ application.full_name }}\n\nThis will notify the student of rejection.`);
     }
-    
-    // Keyboard shortcuts
-    document.addEventListener('keydown', function(e) {
-        if (e.target.tagName.toLowerCase() === 'textarea') return;
-        
-        // Ctrl/Cmd + Enter to approve
-        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-            e.preventDefault();
-            if (confirmApprove()) {
-                document.querySelector('button[name="action"][value="approve"]').click();
-            }
-        }
-        
-        // Ctrl/Cmd + Backspace to reject
-        if ((e.ctrlKey || e.metaKey) && e.key === 'Backspace') {
-            e.preventDefault();
-            if (confirmReject()) {
-                document.querySelector('button[name="action"][value="reject"]').click();
-            }
-        }
-    });
-    
-    // Form validation
-    document.getElementById('reviewForm').addEventListener('submit', function(e) {
-        // Optional: Add any additional validation here
-        // For example, require notes for rejection
-        const action = e.submitter ? e.submitter.value : '';
-        const notes = document.getElementById('review_notes').value.trim();
-        
-        if (action === 'reject' && notes.length < 10) {
-            if (!confirm('You\'re rejecting this application without detailed notes. Are you sure you want to proceed?')) {
-                e.preventDefault();
-                document.getElementById('review_notes').focus();
-            }
-        }
-    });
 </script>
 
-<!-- Responsive Styles -->
 <style>
+    /* Responsive Styles */
     @media (max-width: 768px) {
         .application-header {
             flex-direction: column;
@@ -718,23 +658,6 @@
         
         h2 {
             font-size: 1.4rem !important;
-        }
-    }
-    
-    /* Print styles */
-    @media print {
-        .no-print {
-            display: none;
-        }
-        
-        .decision-card,
-        .quick-actions {
-            display: none !important;
-        }
-        
-        .application-card {
-            box-shadow: none !important;
-            border: 1px solid #ddd !important;
         }
     }
 </style>

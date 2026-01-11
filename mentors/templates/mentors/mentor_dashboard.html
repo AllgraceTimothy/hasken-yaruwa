@@ -1,0 +1,1222 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Mentor Dashboard - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 80vh;
+">
+    <!-- Welcome Header -->
+    <div class="fade-in" style="
+        background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+        border-radius: 16px;
+        padding: 2.5rem;
+        margin-bottom: 2.5rem;
+        color: white;
+        box-shadow: 0 8px 24px rgba(0, 103, 71, 0.2);
+        position: relative;
+        overflow: hidden;
+    ">
+        <div style="
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+        "></div>
+        <div style="
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 50%;
+        "></div>
+        
+        <div style="position: relative; z-index: 1;">
+            <div style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                margin-bottom: 1.5rem;
+            ">
+                <div>
+                    <h1 style="
+                        font-size: 2.2rem;
+                        margin-bottom: 0.5rem;
+                        color: #FFD700;
+                    ">
+                        👨‍🏫 Mentor Dashboard
+                    </h1>
+                    <p style="
+                        font-size: 1.1rem;
+                        opacity: 0.9;
+                        margin: 0;
+                    ">
+                        Welcome back, <strong>{{ mentor.user.full_name }}</strong>
+                    </p>
+                </div>
+                
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.8rem;
+                    background-color: rgba(255, 255, 255, 0.1);
+                    padding: 0.8rem 1.2rem;
+                    border-radius: 10px;
+                    backdrop-filter: blur(10px);
+                ">
+                    <div style="
+                        width: 40px;
+                        height: 40px;
+                        background-color: #FFD700;
+                        color: #006747;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.2rem;
+                        font-weight: bold;
+                    ">
+                        {{ mentor.user.full_name|slice:":1"|upper }}
+                    </div>
+                    <div>
+                        <div style="font-size: 0.9rem; opacity: 0.8;">Mentor ID</div>
+                        <div style="font-weight: 600; color: #FFD700;">#{{ mentor.id|default:"0000" }}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+                margin-top: 2rem;
+            ">
+                <div style="
+                    background-color: rgba(255, 255, 255, 0.15);
+                    padding: 1.5rem;
+                    border-radius: 12px;
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.transform='translateY(-5px)'; this.style.backgroundColor='rgba(255, 255, 255, 0.2)';" 
+                onmouseout="this.style.transform='translateY(0)'; this.style.backgroundColor='rgba(255, 255, 255, 0.15)';">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        margin-bottom: 1rem;
+                    ">
+                        <div style="
+                            width: 50px;
+                            height: 50px;
+                            background-color: #FFD700;
+                            color: #006747;
+                            border-radius: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.5rem;
+                            font-weight: bold;
+                        ">
+                            👥
+                        </div>
+                        <div>
+                            <div style="
+                                font-size: 0.9rem;
+                                opacity: 0.8;
+                            ">
+                                Assigned Students
+                            </div>
+                            <div style="
+                                font-size: 2.2rem;
+                                font-weight: bold;
+                                color: #FFD700;
+                            ">
+                                {{ student_count }}
+                            </div>
+                        </div>
+                    </div>
+                    <p style="
+                        margin: 0;
+                        font-size: 0.9rem;
+                        opacity: 0.9;
+                    ">
+                        Students under your mentorship
+                    </p>
+                </div>
+                
+                <div style="
+                    background-color: rgba(255, 255, 255, 0.15);
+                    padding: 1.5rem;
+                    border-radius: 12px;
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.transform='translateY(-5px)'; this.style.backgroundColor='rgba(255, 255, 255, 0.2)';" 
+                onmouseout="this.style.transform='translateY(0)'; this.style.backgroundColor='rgba(255, 255, 255, 0.15)';">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        margin-bottom: 1rem;
+                    ">
+                        <div style="
+                            width: 50px;
+                            height: 50px;
+                            background-color: #FFD700;
+                            color: #006747;
+                            border-radius: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.5rem;
+                            font-weight: bold;
+                        ">
+                            📝
+                        </div>
+                        <div>
+                            <div style="
+                                font-size: 0.9rem;
+                                opacity: 0.8;
+                            ">
+                                Recent Notes
+                            </div>
+                            <div style="
+                                font-size: 2.2rem;
+                                font-weight: bold;
+                                color: #FFD700;
+                            ">
+                                {{ recent_notes_count|default:"0" }}
+                            </div>
+                        </div>
+                    </div>
+                    <p style="
+                        margin: 0;
+                        font-size: 0.9rem;
+                        opacity: 0.9;
+                    ">
+                        Notes added in last 7 days
+                    </p>
+                </div>
+                
+                <div style="
+                    background-color: rgba(255, 255, 255, 0.15);
+                    padding: 1.5rem;
+                    border-radius: 12px;
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.transform='translateY(-5px)'; this.style.backgroundColor='rgba(255, 255, 255, 0.2)';" 
+                onmouseout="this.style.transform='translateY(0)'; this.style.backgroundColor='rgba(255, 255, 255, 0.15)';">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        margin-bottom: 1rem;
+                    ">
+                        <div style="
+                            width: 50px;
+                            height: 50px;
+                            background-color: #FFD700;
+                            color: #006747;
+                            border-radius: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.5rem;
+                            font-weight: bold;
+                        ">
+                            🎯
+                        </div>
+                        <div>
+                            <div style="
+                                font-size: 0.9rem;
+                                opacity: 0.8;
+                            ">
+                                Next Session
+                            </div>
+                            <div style="
+                                font-size: 1.5rem;
+                                font-weight: bold;
+                                color: #FFD700;
+                            ">
+                                {% if next_session %}
+                                    {{ next_session.date|date:"M d" }}
+                                {% else %}
+                                    Not Set
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <p style="
+                        margin: 0;
+                        font-size: 0.9rem;
+                        opacity: 0.9;
+                    ">
+                        {% if next_session %}
+                            With {{ next_session.student.user.full_name }}
+                        {% else %}
+                            Schedule a session
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Students Section -->
+    <div class="scale-in" style="
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        overflow: hidden;
+        margin-bottom: 2rem;
+    ">
+        <div style="
+            background-color: #F8F9FA;
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid #E6E6FA;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        ">
+            <h2 style="
+                color: #006747;
+                font-size: 1.6rem;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+            ">
+                <span style="color: #FFD700;">👥</span>
+                My Students
+            </h2>
+            
+            <div style="
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
+            ">
+                <div style="
+                    background-color: #E6F0FA;
+                    color: #006747;
+                    padding: 0.5rem 1rem;
+                    border-radius: 20px;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                ">
+                    <span>📊</span>
+                    {{ student_count }} Student{{ student_count|pluralize }}
+                </div>
+                
+                {% if students %}
+                <div style="position: relative;">
+                    <select style="
+                        padding: 0.5rem 1rem;
+                        border: 2px solid #E6E6FA;
+                        border-radius: 8px;
+                        font-size: 0.9rem;
+                        color: #2F4F4F;
+                        background-color: white;
+                        cursor: pointer;
+                        min-width: 150px;
+                        appearance: none;
+                        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23006747' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+                        background-repeat: no-repeat;
+                        background-position: right 0.7rem center;
+                        background-size: 12px;
+                    "
+                    onfocus="this.style.borderColor='#006747'; this.style.boxShadow='0 0 0 3px rgba(0, 103, 71, 0.1)';" 
+                    onblur="this.style.borderColor='#E6E6FA'; this.style.boxShadow='none';">
+                        <option value="all">All Students</option>
+                        <option value="recent">Recent Activity</option>
+                        <option value="needs_attention">Needs Attention</option>
+                        <option value="progressing">Progressing Well</option>
+                    </select>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Students Table -->
+        <div style="overflow-x: auto;">
+            {% if students %}
+            <table style="
+                width: 100%;
+                border-collapse: collapse;
+            ">
+                <thead>
+                    <tr style="
+                        background-color: #F8F9FA;
+                        border-bottom: 2px solid #E6E6FA;
+                    ">
+                        <th style="
+                            padding: 1.2rem 1.5rem;
+                            text-align: left;
+                            color: #006747;
+                            font-weight: 600;
+                            font-size: 0.95rem;
+                            white-space: nowrap;
+                        ">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span>👤</span>
+                                Student
+                            </div>
+                        </th>
+                        <th style="
+                            padding: 1.2rem 1.5rem;
+                            text-align: left;
+                            color: #006747;
+                            font-weight: 600;
+                            font-size: 0.95rem;
+                            white-space: nowrap;
+                        ">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span>📧</span>
+                                Contact
+                            </div>
+                        </th>
+                        <th style="
+                            padding: 1.2rem 1.5rem;
+                            text-align: left;
+                            color: #006747;
+                            font-weight: 600;
+                            font-size: 0.95rem;
+                            white-space: nowrap;
+                        ">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span>📝</span>
+                                Last Note
+                            </div>
+                        </th>
+                        <th style="
+                            padding: 1.2rem 1.5rem;
+                            text-align: left;
+                            color: #006747;
+                            font-weight: 600;
+                            font-size: 0.95rem;
+                            white-space: nowrap;
+                        ">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span>📅</span>
+                                Next Session
+                            </div>
+                        </th>
+                        <th style="
+                            padding: 1.2rem 1.5rem;
+                            text-align: left;
+                            color: #006747;
+                            font-weight: 600;
+                            font-size: 0.95rem;
+                            white-space: nowrap;
+                        ">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span>⚡</span>
+                                Actions
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr style="
+                        border-bottom: 1px solid #E6E6FA;
+                        transition: all 0.3s ease;
+                    " onmouseover="this.style.backgroundColor='#F8F9FA';" 
+                    onmouseout="this.style.backgroundColor='white';">
+                        <td style="
+                            padding: 1.2rem 1.5rem;
+                        ">
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="
+                                    width: 45px;
+                                    height: 45px;
+                                    background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                                    color: #FFD700;
+                                    border-radius: 50%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    font-size: 1.2rem;
+                                    font-weight: bold;
+                                ">
+                                    {{ student.user.full_name|slice:":1"|upper }}
+                                </div>
+                                <div>
+                                    <div style="
+                                        color: #006747;
+                                        font-weight: 600;
+                                        margin-bottom: 0.2rem;
+                                    ">
+                                        {{ student.user.full_name }}
+                                    </div>
+                                    {% if student.school_name %}
+                                    <div style="
+                                        color: #2F4F4F;
+                                        font-size: 0.85rem;
+                                    ">
+                                        {{ student.school_name|truncatechars:30 }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </td>
+                        <td style="
+                            padding: 1.2rem 1.5rem;
+                        ">
+                            <div>
+                                <a href="mailto:{{ student.user.email }}" style="
+                                    color: #006747;
+                                    text-decoration: none;
+                                    font-weight: 500;
+                                    margin-bottom: 0.3rem;
+                                    display: inline-block;
+                                " onmouseover="this.style.textDecoration='underline';" 
+                                onmouseout="this.style.textDecoration='none';">
+                                    {{ student.user.email }}
+                                </a>
+                                {% if student.phone_no %}
+                                <div style="
+                                    color: #2F4F4F;
+                                    font-size: 0.85rem;
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 0.3rem;
+                                ">
+                                    📱 {{ student.phone_no }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td style="
+                            padding: 1.2rem 1.5rem;
+                        ">
+                            {% with student.latest_note as note %}
+                            {% if note %}
+                            <div style="
+                                background-color: #F0F8F0;
+                                padding: 0.5rem 0.8rem;
+                                border-radius: 6px;
+                            ">
+                                <div style="
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 0.5rem;
+                                    margin-bottom: 0.3rem;
+                                ">
+                                    <span style="
+                                        background-color: #006747;
+                                        color: white;
+                                        width: 20px;
+                                        height: 20px;
+                                        border-radius: 4px;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        font-size: 0.8rem;
+                                    ">{{ note.note_type|slice:":1" }}</span>
+                                    <span style="
+                                        color: #006747;
+                                        font-weight: 600;
+                                        font-size: 0.9rem;
+                                    ">{{ note.note_type }}</span>
+                                </div>
+                                <div style="
+                                    color: #2F4F4F;
+                                    font-size: 0.85rem;
+                                    display: -webkit-box;
+                                    -webkit-line-clamp: 2;
+                                    -webkit-box-orient: vertical;
+                                    overflow: hidden;
+                                    line-height: 1.4;
+                                ">
+                                    {{ note.content|truncatechars:80 }}
+                                </div>
+                                <div style="
+                                    color: #2F4F4F;
+                                    font-size: 0.75rem;
+                                    margin-top: 0.3rem;
+                                    opacity: 0.7;
+                                ">
+                                    {{ note.created_at|date:"M d, Y" }}
+                                </div>
+                            </div>
+                            {% else %}
+                            <div style="
+                                color: #2F4F4F;
+                                font-size: 0.9rem;
+                                opacity: 0.7;
+                                text-align: center;
+                                padding: 0.5rem;
+                            ">
+                                No notes yet
+                            </div>
+                            {% endif %}
+                            {% endwith %}
+                        </td>
+                        <td style="
+                            padding: 1.2rem 1.5rem;
+                        ">
+                            {% with student.next_session as session %}
+                            {% if session %}
+                            <div style="
+                                background-color: #FFF9E6;
+                                padding: 0.5rem 0.8rem;
+                                border-radius: 6px;
+                                border-left: 3px solid #FFD700;
+                            ">
+                                <div style="
+                                    color: #006747;
+                                    font-weight: 600;
+                                    font-size: 0.9rem;
+                                    margin-bottom: 0.2rem;
+                                ">
+                                    {{ session.date|date:"M d, Y" }}
+                                </div>
+                                <div style="
+                                    color: #2F4F4F;
+                                    font-size: 0.85rem;
+                                ">
+                                    {{ session.time|time:"g:i A" }}
+                                </div>
+                            </div>
+                            {% else %}
+                            <div style="
+                                color: #2F4F4F;
+                                font-size: 0.9rem;
+                                opacity: 0.7;
+                                text-align: center;
+                                padding: 0.5rem;
+                            ">
+                                No session scheduled
+                            </div>
+                            {% endif %}
+                            {% endwith %}
+                        </td>
+                        <td style="
+                            padding: 1.2rem 1.5rem;
+                        ">
+                            <div style="
+                                display: flex;
+                                gap: 0.5rem;
+                                flex-wrap: wrap;
+                            ">
+                                <a href="{% url 'mentor_student_detail' student.id %}" style="
+                                    display: inline-flex;
+                                    align-items: center;
+                                    gap: 0.5rem;
+                                    background-color: #006747;
+                                    color: white;
+                                    padding: 0.5rem 1rem;
+                                    border-radius: 6px;
+                                    text-decoration: none;
+                                    font-weight: 600;
+                                    font-size: 0.85rem;
+                                    transition: all 0.3s ease;
+                                " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+                                onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                                    <span>👁️</span>
+                                    View
+                                </a>
+                                
+                                <a href="{% url 'create_mentor_note' student.id %}" style="
+                                    display: inline-flex;
+                                    align-items: center;
+                                    gap: 0.5rem;
+                                    background-color: #FFD700;
+                                    color: #006747;
+                                    padding: 0.5rem 1rem;
+                                    border-radius: 6px;
+                                    text-decoration: none;
+                                    font-weight: 600;
+                                    font-size: 0.85rem;
+                                    transition: all 0.3s ease;
+                                " onmouseover="this.style.backgroundColor='#e6c200'; this.style.transform='translateY(-2px)';" 
+                                onmouseout="this.style.backgroundColor='#FFD700'; this.style.transform='translateY(0)';">
+                                    <span>📝</span>
+                                    Add Note
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <!-- Empty State -->
+            <div style="
+                padding: 4rem 2rem;
+                text-align: center;
+            ">
+                <div style="
+                    font-size: 4rem;
+                    color: #E6E6FA;
+                    margin-bottom: 1.5rem;
+                ">👥</div>
+                <h3 style="
+                    color: #006747;
+                    font-size: 1.6rem;
+                    margin-bottom: 0.8rem;
+                ">
+                    No Students Assigned Yet
+                </h3>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 1rem;
+                    margin-bottom: 2rem;
+                    max-width: 500px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    line-height: 1.6;
+                ">
+                    You don't have any students assigned to you yet. Students will be assigned by administrators based on your expertise and availability.
+                </p>
+                <div style="
+                    display: flex;
+                    gap: 1rem;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                ">
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    {% if students %}
+    <div class="fade-in" style="
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        overflow: hidden;
+    ">
+        <div style="
+            background-color: #F8F9FA;
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid #E6E6FA;
+        ">
+            <h2 style="
+                color: #006747;
+                font-size: 1.6rem;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+            ">
+                <span style="color: #FFD700;">📈</span>
+                Recent Activity
+            </h2>
+        </div>
+        
+        <div style="padding: 1.5rem;">
+            <div style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 1.5rem;
+            ">
+                <!-- Recent Notes -->
+                <div style="
+                    background-color: #F8F9FA;
+                    padding: 1.5rem;
+                    border-radius: 10px;
+                ">
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.2rem;
+                        margin-bottom: 1rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    ">
+                        <span style="color: #FFD700;">📝</span>
+                        Recent Notes
+                    </h3>
+                    {% if recent_notes %}
+                    <div style="max-height: 300px; overflow-y: auto; padding-right: 0.5rem;">
+                        {% for note in recent_notes %}
+                        <div style="
+                            background-color: white;
+                            padding: 1rem;
+                            border-radius: 8px;
+                            margin-bottom: 1rem;
+                            border-left: 4px solid #006747;
+                        ">
+                            <div style="
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: flex-start;
+                                margin-bottom: 0.5rem;
+                            ">
+                                <span style="
+                                    background-color: #E6F0FA;
+                                    color: #006747;
+                                    padding: 0.3rem 0.6rem;
+                                    border-radius: 4px;
+                                    font-size: 0.8rem;
+                                    font-weight: 600;
+                                ">
+                                    {{ note.note_type }}
+                                </span>
+                                <span style="
+                                    color: #2F4F4F;
+                                    font-size: 0.8rem;
+                                ">
+                                    {{ note.created_at|timesince }} ago
+                                </span>
+                            </div>
+                            <div style="
+                                color: #2F4F4F;
+                                font-size: 0.9rem;
+                                margin-bottom: 0.5rem;
+                                line-height: 1.4;
+                            ">
+                                {{ note.content|truncatechars:120 }}
+                            </div>
+                            <div style="
+                                color: #006747;
+                                font-size: 0.85rem;
+                                font-weight: 500;
+                            ">
+                                For: {{ note.student.user.full_name }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div style="
+                        text-align: center;
+                        padding: 2rem;
+                        color: #2F4F4F;
+                        opacity: 0.7;
+                    ">
+                        No recent notes
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Upcoming Sessions -->
+                <div style="
+                    background-color: #F8F9FA;
+                    padding: 1.5rem;
+                    border-radius: 10px;
+                ">
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.2rem;
+                        margin-bottom: 1rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    ">
+                        <span style="color: #FFD700;">📅</span>
+                        Upcoming Sessions
+                    </h3>
+                    {% if upcoming_sessions %}
+                    <div style="max-height: 300px; overflow-y: auto; padding-right: 0.5rem;">
+                        {% for session in upcoming_sessions %}
+                        <div style="
+                            background-color: white;
+                            padding: 1rem;
+                            border-radius: 8px;
+                            margin-bottom: 1rem;
+                            border-left: 4px solid #FFD700;
+                        ">
+                            <div style="
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                margin-bottom: 0.5rem;
+                            ">
+                                <div style="
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 0.5rem;
+                                ">
+                                    <div style="
+                                        width: 32px;
+                                        height: 32px;
+                                        background-color: #FFD700;
+                                        color: #006747;
+                                        border-radius: 50%;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        font-weight: bold;
+                                        font-size: 0.9rem;
+                                    ">
+                                        {{ session.student.user.full_name|slice:":1"|upper }}
+                                    </div>
+                                    <div>
+                                        <div style="
+                                            color: #006747;
+                                            font-weight: 600;
+                                            font-size: 0.9rem;
+                                        ">
+                                            {{ session.student.user.full_name }}
+                                        </div>
+                                        <div style="
+                                            color: #2F4F4F;
+                                            font-size: 0.8rem;
+                                        ">
+                                            {{ session.date|date:"M d, Y" }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <span style="
+                                    background-color: #FFF9E6;
+                                    color: #006747;
+                                    padding: 0.3rem 0.6rem;
+                                    border-radius: 4px;
+                                    font-size: 0.8rem;
+                                    font-weight: 600;
+                                ">
+                                    {{ session.time|time:"g:i A" }}
+                                </span>
+                            </div>
+                            {% if session.topic %}
+                            <div style="
+                                color: #2F4F4F;
+                                font-size: 0.85rem;
+                                padding: 0.5rem;
+                                background-color: #F8F9FA;
+                                border-radius: 4px;
+                                margin-top: 0.5rem;
+                            ">
+                                Topic: {{ session.topic }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div style="
+                        text-align: center;
+                        padding: 2rem;
+                        color: #2F4F4F;
+                        opacity: 0.7;
+                    ">
+                        No upcoming sessions
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- JavaScript for Enhanced Functionality -->
+<script>
+    // Initialize tooltips and interactions
+    document.addEventListener('DOMContentLoaded', function() {
+        // Student filter functionality
+        const filterSelect = document.querySelector('select');
+        if (filterSelect) {
+            filterSelect.addEventListener('change', function() {
+                const filter = this.value;
+                const rows = document.querySelectorAll('tbody tr');
+                
+                rows.forEach(row => {
+                    if (row.cells.length < 5) return;
+                    
+                    let shouldShow = true;
+                    
+                    if (filter === 'needs_attention') {
+                        const lastNote = row.cells[2].textContent.toLowerCase();
+                        const hasNotes = !lastNote.includes('no notes yet');
+                        if (hasNotes) shouldShow = true; // Add your logic here
+                    } else if (filter === 'progressing') {
+                        // Add your logic here
+                    } else if (filter === 'recent') {
+                        // Add your logic here
+                    }
+                    
+                    row.style.display = shouldShow ? '' : 'none';
+                });
+            });
+        }
+        
+        // Auto-refresh dashboard every 5 minutes
+        setInterval(function() {
+            const refreshBtn = document.createElement('button');
+            refreshBtn.textContent = 'Refresh for latest updates?';
+            refreshBtn.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background-color: #006747;
+                color: white;
+                border: none;
+                padding: 0.8rem 1.2rem;
+                border-radius: 8px;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                font-weight: 600;
+                z-index: 100;
+            `;
+            
+            refreshBtn.addEventListener('click', function() {
+                window.location.reload();
+            });
+            
+            document.body.appendChild(refreshBtn);
+            
+            // Auto-remove after 10 seconds
+            setTimeout(() => {
+                refreshBtn.remove();
+            }, 10000);
+        }, 300000); // 5 minutes
+    });
+    
+    // Export student list
+    function exportStudentList() {
+        const rows = document.querySelectorAll('tbody tr');
+        let csv = 'Student Name,Email,School,Last Note,Next Session\n';
+        
+        rows.forEach(row => {
+            if (row.cells.length === 5) {
+                const name = row.cells[0].querySelector('div > div > div:first-child').textContent.trim();
+                const email = row.cells[1].querySelector('a').textContent.trim();
+                const school = row.cells[0].querySelector('div > div > div:last-child')?.textContent.trim() || '';
+                const lastNote = row.cells[2].textContent.trim().replace(/\n/g, ' ');
+                const nextSession = row.cells[3].textContent.trim();
+                
+                csv += `"${name}","${email}","${school}","${lastNote}","${nextSession}"\n`;
+            }
+        });
+        
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `my_students_${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+    }
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // Ctrl/Cmd + E to export
+        if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+            e.preventDefault();
+            exportStudentList();
+        }
+        
+        // Ctrl/Cmd + N to add note (if students exist)
+        if ((e.ctrlKey || e.metaKey) && e.key === 'n' && {{ students|length }} > 0) {
+            e.preventDefault();
+            const firstStudentLink = document.querySelector('a[href*="add_note"]');
+            if (firstStudentLink) {
+                window.location.href = firstStudentLink.href;
+            }
+        }
+        
+        // / to focus search (if implemented)
+        if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+            e.preventDefault();
+            const searchInput = document.querySelector('input[type="search"]');
+            if (searchInput) {
+                searchInput.focus();
+            }
+        }
+    });
+    
+    // Dashboard tips modal
+    function showDashboardTips() {
+        const tips = [
+            "💡 Schedule regular check-ins with each student",
+            "📝 Document important conversations and progress",
+            "🎯 Set clear goals for each mentoring session",
+            "📚 Share relevant resources with your students",
+            "⏰ Be punctual for scheduled sessions",
+            "🤝 Build trust through consistent support",
+            "📊 Track progress and celebrate milestones"
+        ];
+        
+        alert("Mentor Dashboard Tips:\n\n" + tips.join('\n'));
+    }
+    
+    // Show welcome message on first visit
+    if (!localStorage.getItem('mentorDashboardVisited')) {
+        setTimeout(() => {
+            showDashboardTips();
+            localStorage.setItem('mentorDashboardVisited', 'true');
+        }, 1000);
+    }
+</script>
+
+<style>
+    /* Responsive Styles */
+    @media (max-width: 1024px) {
+        .welcome-header {
+            padding: 2rem 1.5rem !important;
+        }
+        
+        .quick-stats {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+        
+        .quick-actions {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .welcome-header {
+            text-align: center;
+            padding: 1.5rem !important;
+        }
+        
+        .welcome-header > div:first-child {
+            flex-direction: column;
+            gap: 1rem !important;
+        }
+        
+        .quick-stats {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .quick-actions {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .students-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem !important;
+        }
+        
+        .recent-activity-grid {
+            grid-template-columns: 1fr !important;
+        }
+        
+        table {
+            display: block;
+        }
+        
+        th, td {
+            padding: 1rem !important;
+            font-size: 0.9rem !important;
+        }
+        
+        .action-buttons {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .action-buttons a {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .welcome-header h1 {
+            font-size: 1.8rem !important;
+        }
+        
+        .quick-stats > div {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem !important;
+        }
+        
+        .student-avatar {
+            display: none;
+        }
+        
+        .empty-state {
+            padding: 2rem 1rem !important;
+        }
+        
+        .empty-state h3 {
+            font-size: 1.4rem !important;
+        }
+    }
+    
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: #F8F9FA;
+        border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: #E6E6FA;
+        border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: #006747;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.5s ease-out;
+    }
+    
+    @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    
+    .scale-in {
+        animation: scaleIn 0.4s ease-out;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+    
+    .pulse {
+        animation: pulse 2s infinite;
+    }
+    
+    /* Print styles */
+    @media print {
+        .welcome-header,
+        .quick-actions,
+        .students-header > div:last-child,
+        .action-buttons {
+            display: none !important;
+        }
+        
+        .quick-stats,
+        .students-table {
+            break-inside: avoid;
+        }
+        
+        .students-table {
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+        }
+    }
+</style>
+{% endblock %}

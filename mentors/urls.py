@@ -2,8 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-  path('signup/', views.mentor_signup, name='mentor_signup'),
-  path('mentor_success/', views.mentor_success, name='mentor_success'),
-  path('review/', views.review_mentors, name='review_mentors'),
-  path('approve/<int:mentor_id>/', views.approve_mentor, name='approve_mentor'),
+  path('mentor-dashboard', views.mentor_dashboard, name='mentor_dashboard'),
+  path('mentor-student-details/<int:student_id>/', views.mentor_student_detail, name='mentor_student_detail'),
+  path('student/<int:student_id>/add-note/', views.create_mentor_note, name='create_mentor_note'),
 ]

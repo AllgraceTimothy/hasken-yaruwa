@@ -1,0 +1,604 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Review Mentor Applications - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: calc(100vh - 200px);
+">
+    <!-- Page Header -->
+    <div class="fade-in" style="
+        margin-bottom: 2.5rem;
+        position: relative;
+    ">
+        <div style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        ">
+            <div style="
+                display: flex;
+                align-items: center;
+                gap: 1.25rem;
+            ">
+                <div style="
+                    background: linear-gradient(135deg, #8B4513 0%, #654321 100%);
+                    color: #FFD700;
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.8rem;
+                    font-weight: bold;
+                    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.2);
+                ">👥</div>
+                <div>
+                    <h1 style="
+                        color: #2F4F4F;
+                        font-size: 2.2rem;
+                        margin: 0 0 0.25rem 0;
+                        font-weight: 700;
+                    ">
+                        Mentor Applications
+                    </h1>
+                    <p style="
+                        color: #5D4037;
+                        font-size: 1.05rem;
+                        margin: 0;
+                        opacity: 0.85;
+                    ">
+                        Review and manage pending mentor applications
+                    </p>
+                </div>
+            </div>
+            
+            <div style="
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+            ">
+                <span style="
+                    background-color: #8B4513;
+                    color: white;
+                    padding: 0.5rem 1.25rem;
+                    border-radius: 20px;
+                    font-size: 0.95rem;
+                    font-weight: 600;
+                ">
+                    {{ applications|length }} Pending
+                </span>
+            </div>
+        </div>
+ 
+    <!-- Applications List -->
+    <div class="fade-in">
+        {% if applications %}
+        <div style="
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        ">
+            <!-- Table Header -->
+            <div style="
+                display: grid;
+                grid-template-columns: 2fr 1.5fr 1fr 1fr 0.5fr;
+                gap: 1rem;
+                padding: 1.25rem 1.5rem;
+                background: linear-gradient(135deg, #8B4513 0%, #654321 100%);
+                color: white;
+                font-weight: 600;
+                font-size: 0.95rem;
+            ">
+                <div>Mentor Information</div>
+                <div>Professional Background</div>
+                <div>Contact</div>
+                <div>Date Applied</div>
+                <div>Actions</div>
+            </div>
+            
+            <!-- Applications List -->
+            <div style="max-height: 600px; overflow-y: auto;">
+                {% for app in applications %}
+                <div class="application-item" style="
+                    display: grid;
+                    grid-template-columns: 2fr 1.5fr 1fr 1fr 0.5fr;
+                    gap: 1rem;
+                    padding: 1.5rem;
+                    border-bottom: 1px solid #FFF9E6;
+                    align-items: center;
+                    transition: background-color 0.3s ease;
+                "
+                onmouseover="this.style.backgroundColor='#FAF9F6';"
+                onmouseout="this.style.backgroundColor='white';">
+                    <!-- Mentor Information -->
+                    <div>
+                        <div style="
+                            font-weight: 600;
+                            color: #2F4F4F;
+                            margin-bottom: 0.5rem;
+                            font-size: 1.1rem;
+                        ">
+                            {{ app.full_name }}
+                        </div>
+                        <div style="
+                            color: #5D4037;
+                            font-size: 0.9rem;
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            margin-bottom: 0.25rem;
+                        ">
+                            <span>🆔</span>
+                            <span>ID: #MENT{{ app.id|stringformat:"04d" }}</span>
+                        </div>
+                        <div style="
+                            color: #8B4513;
+                            font-size: 0.85rem;
+                            font-weight: 500;
+                            background-color: #FFF9E6;
+                            padding: 0.25rem 0.75rem;
+                            border-radius: 12px;
+                            display: inline-block;
+                            margin-top: 0.5rem;
+                        ">
+                            {% if app.background|length > 50 %}
+                                {{ app.background|slice:":50" }}...
+                            {% else %}
+                                {{ app.background|truncatechars:50 }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Professional Background -->
+                    <div style="
+                        color: #2F4F4F;
+                        font-size: 0.9rem;
+                        line-height: 1.4;
+                    ">
+                        {{ app.background|truncatechars:120 }}
+                    </div>
+                    
+                    <!-- Contact -->
+                    <div>
+                        <div style="
+                            color: #5D4037;
+                            font-size: 0.9rem;
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            margin-bottom: 0.5rem;
+                        ">
+                            <span>📧</span>
+                            <span>{{ app.email }}</span>
+                        </div>
+                        <div style="
+                            color: #5D4037;
+                            font-size: 0.9rem;
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                        ">
+                            <span>📱</span>
+                            <span>{{ app.phone_no }}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Date Applied -->
+                    <div>
+                        <div style="
+                            color: #5D4037;
+                            font-size: 0.9rem;
+                            font-weight: 500;
+                        ">
+                            {{ app.created_at|date:"M d, Y" }}
+                        </div>
+                        <div style="
+                            color: #5D4037;
+                            font-size: 0.8rem;
+                            opacity: 0.7;
+                        ">
+                            {{ app.created_at|date:"g:i A" }}
+                        </div>
+                    </div>
+                    
+                    <!-- Actions -->
+                    <div style="
+                        display: flex;
+                        gap: 0.5rem;
+                    ">
+                        <a href="{% url 'approve_mentor' app.id %}" style="
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                            color: white;
+                            width: 36px;
+                            height: 36px;
+                            border-radius: 8px;
+                            text-decoration: none;
+                            transition: all 0.3s ease;
+                            font-size: 1.1rem;
+                        "
+                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0, 103, 71, 0.3)';" 
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';"
+                        title="Approve mentor">
+                            👁️
+                        </a>
+                        
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+        {% else %}
+        <!-- Empty State -->
+        <div style="
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            padding: 4rem 2rem;
+            text-align: center;
+            border: 2px dashed #FFF9E6;
+        ">
+            <div style="
+                font-size: 4rem;
+                color: #FFF9E6;
+                margin-bottom: 1.5rem;
+            ">
+                👥
+            </div>
+            <h3 style="
+                color: #2F4F4F;
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+                font-weight: 600;
+            ">
+                No Pending Applications
+            </h3>
+            <p style="
+                color: #5D4037;
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+                line-height: 1.6;
+            ">
+                All mentor applications have been reviewed. New applications will appear here as they are submitted.
+            </p>
+            <a href="{% url 'admin_dashboard' %}" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background-color: #8B4513;
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+            "
+            onmouseover="this.style.backgroundColor='#654321'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.backgroundColor='#8B4513'; this.style.transform='translateY(0)';">
+                <span>←</span>
+                <span>Return to Dashboard</span>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+<style>
+    /* Animation delays */
+    .fade-in { animation-delay: 0.1s; }
+    .slide-in-up { animation-delay: 0.3s; }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: #8B4513;
+        border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: #654321;
+    }
+    
+    /* Mobile responsive design */
+    @media (max-width: 1024px) {
+        .table-header,
+        .application-item {
+            grid-template-columns: 1.5fr 1.2fr 0.8fr 0.8fr 0.5fr !important;
+            gap: 0.75rem !important;
+            padding: 1.25rem !important;
+        }
+        
+        .filter-section {
+            flex-direction: column !important;
+        }
+        
+        .filter-section > div,
+        .filter-section select {
+            min-width: 100% !important;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .table-header,
+        .application-item {
+            grid-template-columns: 1fr !important;
+            gap: 1rem !important;
+            padding: 1.5rem !important;
+        }
+        
+        .table-header {
+            display: none !important;
+        }
+        
+        .application-item {
+            border-bottom: 2px solid #FFF9E6 !important;
+        }
+        
+        .application-item > div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+        
+        .application-item > div::before {
+            content: attr(data-label);
+            font-weight: 600;
+            color: #8B4513;
+            font-size: 0.9rem;
+            min-width: 120px;
+        }
+        
+        .application-item .action-buttons {
+            justify-content: flex-end !important;
+        }
+        
+        .bulk-actions {
+            flex-direction: column !important;
+            text-align: center !important;
+        }
+        
+        .bulk-buttons {
+            justify-content: center !important;
+        }
+        
+        .table-footer {
+            flex-direction: column !important;
+            gap: 1rem !important;
+            text-align: center !important;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .page-header {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+        }
+        
+        .stats-badge {
+            align-self: flex-start !important;
+        }
+        
+        .bulk-buttons {
+            flex-direction: column !important;
+            width: 100% !important;
+        }
+        
+        .bulk-buttons button {
+            width: 100% !important;
+            justify-content: center !important;
+        }
+        
+        .action-buttons {
+            justify-content: center !important;
+        }
+        
+        .application-item .action-buttons a {
+            width: 32px !important;
+            height: 32px !important;
+            font-size: 1rem !important;
+        }
+    }
+    
+    /* Hover effects for desktop */
+    @media (hover: hover) and (min-width: 769px) {
+        .application-item:hover {
+            background-color: #FAF9F6 !important;
+        }
+        
+        input:hover,
+        select:hover {
+            border-color: #8B4513 !important;
+        }
+        
+        button:hover:not(:disabled) {
+            transform: translateY(-2px) !important;
+        }
+    }
+    
+    /* Accessibility improvements */
+    input:focus-visible,
+    select:focus-visible,
+    button:focus-visible {
+        outline: 3px solid #8B4513;
+        outline-offset: 2px;
+    }
+    
+    a:focus-visible {
+        outline: 3px solid #FFD700;
+        outline-offset: 2px;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Search functionality
+        const searchInput = document.querySelector('input[type="text"]');
+        const applicationItems = document.querySelectorAll('.application-item');
+        
+        if (searchInput && applicationItems.length > 0) {
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                
+                applicationItems.forEach(item => {
+                    const mentorName = item.querySelector('[data-label="Mentor Information"]')?.textContent.toLowerCase() || '';
+                    const background = item.querySelector('[data-label="Professional Background"]')?.textContent.toLowerCase() || '';
+                    const contact = item.querySelector('[data-label="Contact"]')?.textContent.toLowerCase() || '';
+                    
+                    if (mentorName.includes(searchTerm) || background.includes(searchTerm) || contact.includes(searchTerm)) {
+                        item.style.display = 'grid';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+        
+        // Filter functionality
+        const filterSelect = document.querySelector('select');
+        if (filterSelect && applicationItems.length > 0) {
+            filterSelect.addEventListener('change', function(e) {
+                const filterValue = e.target.value.toLowerCase();
+                
+                if (!filterValue) {
+                    // Show all if no filter selected
+                    applicationItems.forEach(item => {
+                        item.style.display = 'grid';
+                    });
+                    return;
+                }
+                
+                applicationItems.forEach(item => {
+                    const background = item.querySelector('[data-label="Professional Background"]')?.textContent.toLowerCase() || '';
+                    
+                    if (background.includes(filterValue)) {
+                        item.style.display = 'grid';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+        
+        // Select all checkbox functionality
+        const selectAllCheckbox = document.querySelector('[style*="width: 20px; height: 20px;"]');
+        const individualCheckboxes = document.querySelectorAll('.application-item [data-label]');
+        
+        if (selectAllCheckbox) {
+            selectAllCheckbox.addEventListener('click', function() {
+                const isChecked = this.style.backgroundColor === 'rgb(139, 69, 19)';
+                
+                this.style.backgroundColor = isChecked ? '' : '#8B4513';
+                this.style.borderColor = isChecked ? '#D7CCC8' : '#8B4513';
+                this.innerHTML = isChecked ? '' : '✓';
+                this.style.color = 'white';
+                this.style.display = 'flex';
+                this.style.alignItems = 'center';
+                this.style.justifyContent = 'center';
+                this.style.fontSize = '14px';
+                this.style.fontWeight = 'bold';
+                
+                // In a real implementation, you would also toggle individual checkboxes
+            });
+        }
+        
+        // Refresh button functionality
+        const refreshButton = document.querySelector('button[style*="🔄"]');
+        if (refreshButton) {
+            refreshButton.addEventListener('click', function() {
+                const button = this;
+                const originalText = button.innerHTML;
+                
+                button.innerHTML = '<span>⏳</span><span>Refreshing...</span>';
+                button.disabled = true;
+                
+                // Simulate refresh
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                    
+                    // In a real implementation, you would reload the data
+                    location.reload();
+                }, 1500);
+            });
+        }
+        
+        // Bulk action button functionality
+        const bulkButtons = document.querySelectorAll('.bulk-actions button');
+        bulkButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const action = this.textContent.trim();
+                alert(`Bulk ${action} action would be performed on selected mentors.`);
+            });
+        });
+        
+        // Add data labels for mobile view
+        if (window.innerWidth <= 768) {
+            applicationItems.forEach((item, index) => {
+                const children = item.children;
+                const labels = ['Mentor Information', 'Professional Background', 'Contact', 'Date Applied', 'Actions'];
+                
+                Array.from(children).forEach((child, childIndex) => {
+                    if (labels[childIndex]) {
+                        child.setAttribute('data-label', labels[childIndex]);
+                        
+                        // For actions column, add a class for special handling
+                        if (labels[childIndex] === 'Actions') {
+                            child.classList.add('action-buttons');
+                        }
+                    }
+                });
+            });
+        }
+        
+        // View details button functionality
+        const viewButtons = document.querySelectorAll('a[title="View details"]');
+        viewButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // In a real implementation, this would open a modal with mentor details
+                const applicationId = this.closest('.application-item').querySelector('[data-label="Mentor Information"] span:nth-child(2)')?.textContent.replace('ID: #MENT', '') || '';
+                alert(`Viewing details for mentor application #${applicationId}`);
+            });
+        });
+        
+        // Reject button functionality
+        const rejectButtons = document.querySelectorAll('a[title="Reject application"]');
+        rejectButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (confirm('Are you sure you want to reject this mentor application?')) {
+                    const applicationId = this.closest('.application-item').querySelector('[data-label="Mentor Information"] span:nth-child(2)')?.textContent.replace('ID: #MENT', '') || '';
+                    alert(`Rejecting mentor application #${applicationId}`);
+                    // In real implementation: submit reject form
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

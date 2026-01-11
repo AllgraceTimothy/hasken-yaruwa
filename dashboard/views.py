@@ -4,8 +4,8 @@ from django.db.models import Sum
 from django.contrib import messages
 
 from accounts.utils import is_admin
-from applications.models import Application
-from mentors.models import Mentors
+from applications.models import StudentApplication, MentorApplication
+from mentors.models import Mentor
 from students.models import Student
 from support.models import Support
 
@@ -15,9 +15,9 @@ def admin_dashboard(request):
     messages.error(request, 'ou are not allowed to access this page')
 
   context = {
-    'pending_applications': Application.objects.filter(status='submitted').count(),
+    'pending_applications': StudentApplication.objects.filter(status='submitted').count(),
     'approved_students': Student.objects.filter(is_active=True).count(),
-    'pending_mentors': Mentors.objects.filter(approved=False).count(),
+    'pending_mentors': MentorApplication.objects.filter(status='submitted').count(),
     'total_support': Support.objects.aggregate(
         total=Sum('amount')
     )['total'] or 0,

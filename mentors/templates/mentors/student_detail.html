@@ -1,0 +1,1443 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ student.user.full_name }} - Student Details - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 80vh;
+">
+    <!-- Page Header -->
+    <div class="fade-in" style="
+        margin-bottom: 2rem;
+    ">
+        <div style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        ">
+            <div>
+                <a href="{% url 'mentor_dashboard' %}" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    color: #006747;
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    padding: 0.5rem 1rem;
+                    border-radius: 6px;
+                    background-color: #F8F9FA;
+                    transition: all 0.3s ease;
+                    margin-bottom: 1rem;
+                " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.transform='translateY(-2px)';" 
+                onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.transform='translateY(0)';">
+                    ← Back to Dashboard
+                </a>
+                
+                <h1 style="
+                    color: #006747;
+                    font-size: 2.2rem;
+                    margin-bottom: 0.5rem;
+                ">
+                    Student Details
+                </h1>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 1rem;
+                    opacity: 0.9;
+                ">
+                    Manage and track progress for {{ student.user.full_name }}
+                </p>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div style="
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
+            ">
+                <div style="
+                    background-color: white;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                    padding: 1rem 1.5rem;
+                    min-width: 150px;
+                    border-left: 4px solid #006747;
+                ">
+                    <div style="
+                        color: #2F4F4F;
+                        font-size: 0.85rem;
+                        margin-bottom: 0.5rem;
+                        font-weight: 600;
+                    ">
+                        Total Notes
+                    </div>
+                    <div style="
+                        color: #006747;
+                        font-size: 2rem;
+                        font-weight: bold;
+                    ">
+                        {{ notes|length }}
+                    </div>
+                </div>
+                
+                <div style="
+                    background-color: white;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                    padding: 1rem 1.5rem;
+                    min-width: 150px;
+                    border-left: 4px solid #FFD700;
+                ">
+                    <div style="
+                        color: #2F4F4F;
+                        font-size: 0.85rem;
+                        margin-bottom: 0.5rem;
+                        font-weight: 600;
+                    ">
+                        Status
+                    </div>
+                    <div style="
+                        font-size: 1.1rem;
+                        font-weight: bold;
+                        color: {% if student.is_active %}#006747{% else %}#D32F2F{% endif %};
+                    ">
+                        {% if student.is_active %}
+                        <span style="color: #FFD700;">●</span> Active
+                        {% else %}
+                        <span style="color: #D32F2F;">●</span> Inactive
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Profile & Information -->
+    <div class="scale-in" style="
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    ">
+        <!-- Student Profile Card -->
+        <div style="
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 2.5rem;
+            border-top: 5px solid #006747;
+        ">
+            <!-- Student Header -->
+            <div style="
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+                padding-bottom: 1.5rem;
+                border-bottom: 2px solid #E6E6FA;
+            ">
+                <div style="
+                    width: 80px;
+                    height: 80px;
+                    background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                    color: #FFD700;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2.2rem;
+                    font-weight: bold;
+                    box-shadow: 0 4px 12px rgba(0, 103, 71, 0.2);
+                ">
+                    {{ student.user.full_name|slice:":1"|upper }}
+                </div>
+                <div style="flex: 1;">
+                    <h2 style="
+                        color: #006747;
+                        font-size: 1.8rem;
+                        margin-bottom: 0.5rem;
+                    ">
+                        {{ student.user.full_name }}
+                    </h2>
+                    <div style="
+                        display: flex;
+                        gap: 1rem;
+                        flex-wrap: wrap;
+                    ">
+                        <span style="
+                            background-color: #E6E6FA;
+                            color: #006747;
+                            padding: 0.3rem 0.8rem;
+                            border-radius: 15px;
+                            font-size: 0.85rem;
+                            font-weight: 600;
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 0.3rem;
+                        ">
+                            <span>🎓</span>
+                            Student
+                        </span>
+                        <span style="
+                            background-color: #E6F0FA;
+                            color: #006747;
+                            padding: 0.3rem 0.8rem;
+                            border-radius: 15px;
+                            font-size: 0.85rem;
+                            font-weight: 600;
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 0.3rem;
+                        ">
+                            <span>#</span>
+                            ID: {{ student.id|default:"0000" }}
+                        </span>
+                        {% if student.school_name %}
+                        <span style="
+                            background-color: #FFF9E6;
+                            color: #006747;
+                            padding: 0.3rem 0.8rem;
+                            border-radius: 15px;
+                            font-size: 0.85rem;
+                            font-weight: 600;
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 0.3rem;
+                        ">
+                            <span>🏫</span>
+                            {{ student.school_name }}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Student Information Grid -->
+            <div style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            ">
+                <!-- Contact Information -->
+                <div style="
+                    background-color: #F8F9FA;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 0.8rem;
+                        margin-bottom: 1rem;
+                    ">
+                        <div style="
+                            background-color: #006747;
+                            color: #FFD700;
+                            width: 36px;
+                            height: 36px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1rem;
+                        ">📧</div>
+                        <h3 style="
+                            color: #006747;
+                            font-size: 1.2rem;
+                            margin: 0;
+                        ">Contact Information</h3>
+                    </div>
+                    <div>
+                        <div style="
+                            margin-bottom: 0.8rem;
+                            padding: 0.8rem;
+                            background-color: white;
+                            border-radius: 6px;
+                        ">
+                            <div style="
+                                color: #2F4F4F;
+                                font-weight: 600;
+                                font-size: 0.9rem;
+                                margin-bottom: 0.3rem;
+                            ">Email Address</div>
+                            <div style="
+                                color: #006747;
+                                font-weight: 500;
+                                font-size: 1rem;
+                            ">
+                                <a href="mailto:{{ student.user.email }}" style="
+                                    color: #006747;
+                                    text-decoration: none;
+                                    transition: color 0.3s ease;
+                                " onmouseover="this.style.color='#00563a'; this.style.textDecoration='underline';" 
+                                onmouseout="this.style.color='#006747'; this.style.textDecoration='none';">
+                                    {{ student.user.email }}
+                                </a>
+                            </div>
+                        </div>
+                        
+                        {% if student.application.parent_contact %}
+                        <div style="
+                            padding: 0.8rem;
+                            background-color: white;
+                            border-radius: 6px;
+                        ">
+                            <div style="
+                                color: #2F4F4F;
+                                font-weight: 600;
+                                font-size: 0.9rem;
+                                margin-bottom: 0.3rem;
+                            ">Parent's Phone Number</div>
+                            <div style="
+                                color: #006747;
+                                font-weight: 500;
+                                font-size: 1rem;
+                            ">
+                                <a href="tel:{{ student.phone_no }}" style="
+                                    color: #006747;
+                                    text-decoration: none;
+                                " onmouseover="this.style.textDecoration='underline';" 
+                                onmouseout="this.style.textDecoration='none';">
+                                    {{ student.application.parent_contact }}
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Enrollment Details -->
+                <div style="
+                    background-color: #F8F9FA;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 0.8rem;
+                        margin-bottom: 1rem;
+                    ">
+                        <div style="
+                            background-color: #FFD700;
+                            color: #006747;
+                            width: 36px;
+                            height: 36px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1rem;
+                        ">📅</div>
+                        <h3 style="
+                            color: #006747;
+                            font-size: 1.2rem;
+                            margin: 0;
+                        ">Enrollment Details</h3>
+                    </div>
+                    <div>
+                        <div style="
+                            margin-bottom: 0.8rem;
+                            padding: 0.8rem;
+                            background-color: white;
+                            border-radius: 6px;
+                        ">
+                            <div style="
+                                color: #2F4F4F;
+                                font-weight: 600;
+                                font-size: 0.9rem;
+                                margin-bottom: 0.3rem;
+                            ">Enrollment Date</div>
+                            <div style="
+                                color: #006747;
+                                font-weight: 500;
+                                font-size: 1rem;
+                            ">
+                                {{ student.enrollment_date|date:"F d, Y" }}
+                            </div>
+                        </div>
+                        
+                        <div style="
+                            margin-bottom: 0.8rem;
+                            padding: 0.8rem;
+                            background-color: white;
+                            border-radius: 6px;
+                        ">
+                            <div style="
+                                color: #2F4F4F;
+                                font-weight: 600;
+                                font-size: 0.9rem;
+                                margin-bottom: 0.3rem;
+                            ">Account Status</div>
+                            <div style="
+                                font-size: 1rem;
+                                font-weight: 500;
+                                color: {% if student.is_active %}#006747{% else %}#D32F2F{% endif %};
+                            ">
+                                {% if student.is_active %}
+                                <span style="display: inline-flex; align-items: center; gap: 0.3rem;">
+                                    <span style="color: #006747; font-size: 1.2rem;">●</span>
+                                    Active Student
+                                </span>
+                                {% else %}
+                                <span style="display: inline-flex; align-items: center; gap: 0.3rem;">
+                                    <span style="color: #D32F2F; font-size: 1.2rem;">●</span>
+                                    Inactive Student
+                                </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        {% if student.location %}
+                        <div style="
+                            padding: 0.8rem;
+                            background-color: white;
+                            border-radius: 6px;
+                        ">
+                            <div style="
+                                color: #2F4F4F;
+                                font-weight: 600;
+                                font-size: 0.9rem;
+                                margin-bottom: 0.3rem;
+                            ">Location</div>
+                            <div style="
+                                color: #006747;
+                                font-weight: 500;
+                                font-size: 1rem;
+                            ">
+                                {{ student.location }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Additional Information -->
+                {% if student.age or student.main_challenge %}
+                <div style="
+                    background-color: #F8F9FA;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 0.8rem;
+                        margin-bottom: 1rem;
+                    ">
+                        <div style="
+                            background-color: #006747;
+                            color: #FFD700;
+                            width: 36px;
+                            height: 36px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1rem;
+                        ">ℹ️</div>
+                        <h3 style="
+                            color: #006747;
+                            font-size: 1.2rem;
+                            margin: 0;
+                        ">Additional Information</h3>
+                    </div>
+                    <div>
+                        {% if student.age %}
+                        <div style="
+                            margin-bottom: 0.8rem;
+                            padding: 0.8rem;
+                            background-color: white;
+                            border-radius: 6px;
+                        ">
+                            <div style="
+                                color: #2F4F4F;
+                                font-weight: 600;
+                                font-size: 0.9rem;
+                                margin-bottom: 0.3rem;
+                            ">Age</div>
+                            <div style="
+                                color: #006747;
+                                font-weight: 500;
+                                font-size: 1rem;
+                            ">
+                                {{ student.age }} years old
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if student.main_challenge %}
+                        <div style="
+                            padding: 0.8rem;
+                            background-color: white;
+                            border-radius: 6px;
+                            border-left: 3px solid #FFD700;
+                        ">
+                            <div style="
+                                color: #2F4F4F;
+                                font-weight: 600;
+                                font-size: 0.9rem;
+                                margin-bottom: 0.3rem;
+                                display: flex;
+                                align-items: center;
+                                gap: 0.3rem;
+                            ">
+                                <span>⚠️</span>
+                                Main Challenge
+                            </div>
+                            <div style="
+                                color: #2F4F4F;
+                                font-weight: 500;
+                                font-size: 0.95rem;
+                                line-height: 1.4;
+                            ">
+                                {{ student.main_challenge|truncatechars:150 }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Notes Section -->
+    <div class="fade-in" style="
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        overflow: hidden;
+        margin-bottom: 2rem;
+    ">
+        <div style="
+            background-color: #F8F9FA;
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid #E6E6FA;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        ">
+            <h2 style="
+                color: #006747;
+                font-size: 1.6rem;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+            ">
+                <span style="color: #FFD700;">📝</span>
+                Student Updates & Notes
+            </h2>
+            
+            <div style="
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
+            ">
+                {% if notes %}
+                <div style="
+                    background-color: #E6F0FA;
+                    color: #006747;
+                    padding: 0.5rem 1rem;
+                    border-radius: 20px;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                ">
+                    <span>{{ notes|length }}</span>
+                    Note{{ notes|length|pluralize }}
+                </div>
+                {% endif %}
+                
+                <a href="{% url 'create_mentor_note' student.id %}" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    background-color: #006747;
+                    color: white;
+                    padding: 0.6rem 1.2rem;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+                onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                    <span>+</span>
+                    Add New Note
+                </a>
+            </div>
+        </div>
+        
+        <!-- Notes Content -->
+        <div style="padding: 0;">
+            {% if notes %}
+            <div style="max-height: 600px; overflow-y: auto; padding: 0.5rem;">
+                {% for note in notes %}
+                <div style="
+                    margin: 1.5rem;
+                    padding: 1.5rem;
+                    background-color: white;
+                    border-radius: 8px;
+                    border-left: 4px solid 
+                        {% if note.note_type == 'progress' %}#006747
+                        {% elif note.note_type == 'challenge' %}#D32F2F
+                        {% elif note.note_type == 'achievement' %}#FFD700
+                        {% else %}#E6E6FA{% endif %};
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';" 
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.05)';">
+                    <!-- Note Header -->
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: flex-start;
+                        margin-bottom: 1rem;
+                        flex-wrap: wrap;
+                        gap: 1rem;
+                    ">
+                        <div>
+                            <div style="
+                                display: flex;
+                                align-items: center;
+                                gap: 0.8rem;
+                                margin-bottom: 0.5rem;
+                            ">
+                                <span style="
+                                    background-color: 
+                                        {% if note.note_type == 'progress' %}#E6F0FA
+                                        {% elif note.note_type == 'challenge' %}#FFE6E6
+                                        {% elif note.note_type == 'achievement' %}#FFF9E6
+                                        {% else %}#F8F9FA{% endif %};
+                                    color: 
+                                        {% if note.note_type == 'progress' %}#006747
+                                        {% elif note.note_type == 'challenge' %}#D32F2F
+                                        {% elif note.note_type == 'achievement' %}#FFA000
+                                        {% else %}#2F4F4F{% endif %};
+                                    padding: 0.3rem 0.8rem;
+                                    border-radius: 20px;
+                                    font-size: 0.85rem;
+                                    font-weight: 600;
+                                    display: inline-flex;
+                                    align-items: center;
+                                    gap: 0.3rem;
+                                ">
+                                    <span>
+                                        {% if note.note_type == 'progress' %}📈
+                                        {% elif note.note_type == 'challenge' %}⚠️
+                                        {% elif note.note_type == 'achievement' %}🏆
+                                        {% else %}📝{% endif %}
+                                    </span>
+                                    {{ note.get_note_type_display }}
+                                </span>
+                                
+                                {% if note.is_visible_to_student %}
+                                <span style="
+                                    background-color: #E6F0FA;
+                                    color: #006747;
+                                    padding: 0.2rem 0.6rem;
+                                    border-radius: 4px;
+                                    font-size: 0.75rem;
+                                    font-weight: 600;
+                                    display: inline-flex;
+                                    align-items: center;
+                                    gap: 0.2rem;
+                                ">
+                                    <span>👁️</span>
+                                    Visible to Student
+                                </span>
+                                {% else %}
+                                <span style="
+                                    background-color: #F8F9FA;
+                                    color: #2F4F4F;
+                                    padding: 0.2rem 0.6rem;
+                                    border-radius: 4px;
+                                    font-size: 0.75rem;
+                                    font-weight: 600;
+                                    display: inline-flex;
+                                    align-items: center;
+                                    gap: 0.2rem;
+                                ">
+                                    <span>🔒</span>
+                                    Mentor Only
+                                </span>
+                                {% endif %}
+                            </div>
+                            
+                            {% if note.title %}
+                            <h3 style="
+                                color: #006747;
+                                font-size: 1.2rem;
+                                margin: 0;
+                                font-weight: 600;
+                            ">
+                                {{ note.title }}
+                            </h3>
+                            {% endif %}
+                        </div>
+                        
+                        <div style="
+                            text-align: right;
+                            min-width: 150px;
+                        ">
+                            <div style="
+                                color: #2F4F4F;
+                                font-size: 0.85rem;
+                                font-weight: 600;
+                                margin-bottom: 0.3rem;
+                            ">
+                                {{ note.created_at|date:"F d, Y" }}
+                            </div>
+                            <div style="
+                                color: #2F4F4F;
+                                font-size: 0.8rem;
+                                opacity: 0.8;
+                            ">
+                                {{ note.created_at|time:"g:i A" }}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Note Content -->
+                    <div style="
+                        color: #2F4F4F;
+                        line-height: 1.6;
+                        margin-bottom: 1.5rem;
+                        white-space: pre-line;
+                        font-size: 0.95rem;
+                    ">
+                        {{ note.content }}
+                    </div>
+                    
+                    <!-- Note Footer -->
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding-top: 1rem;
+                        border-top: 1px solid #E6E6FA;
+                        flex-wrap: wrap;
+                        gap: 1rem;
+                    ">
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.8rem;
+                        ">
+                            <div style="
+                                width: 32px;
+                                height: 32px;
+                                background-color: #E6E6FA;
+                                color: #006747;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 0.9rem;
+                                font-weight: bold;
+                            ">
+                                {{ note.author.full_name|slice:":1"|upper }}
+                            </div>
+                            <div>
+                                <div style="
+                                    color: #006747;
+                                    font-weight: 600;
+                                    font-size: 0.9rem;
+                                ">
+                                    {{ note.author.full_name }}
+                                </div>
+                                <div style="
+                                    color: #2F4F4F;
+                                    font-size: 0.8rem;
+                                    opacity: 0.8;
+                                ">
+                                    Your Student
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <!-- Empty State -->
+            <div style="
+                padding: 4rem 2rem;
+                text-align: center;
+            ">
+                <div style="
+                    font-size: 4rem;
+                    color: #E6E6FA;
+                    margin-bottom: 1.5rem;
+                ">📝</div>
+                <h3 style="
+                    color: #006747;
+                    font-size: 1.6rem;
+                    margin-bottom: 0.8rem;
+                ">
+                    No Notes Yet
+                </h3>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 1rem;
+                    margin-bottom: 2rem;
+                    max-width: 500px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    line-height: 1.6;
+                ">
+                    No updates have been added by the student yet
+                </p>
+
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Mentor Actions & Quick Links -->
+    <div class="fade-in" style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+    ">
+        <!-- Quick Actions Card -->
+        <div style="
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 2rem;
+            border-top: 5px solid #FFD700;
+        ">
+            <h3 style="
+                color: #006747;
+                font-size: 1.4rem;
+                margin-bottom: 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+            ">
+                <span style="color: #FFD700;">⚡</span>
+                Quick Actions
+            </h3>
+            
+            <div style="
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            ">
+                <a href="{% url 'create_mentor_note' student.id %}" style="
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    background-color: #F8F9FA;
+                    color: #006747;
+                    padding: 1rem 1.2rem;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.transform='translateX(5px)';" 
+                onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.transform='translateX(0)';">
+                    <div style="
+                        background-color: #006747;
+                        color: #FFD700;
+                        width: 36px;
+                        height: 36px;
+                        border-radius: 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.2rem;
+                    ">+</div>
+                    <div>
+                        <div style="font-size: 1rem;">Add New Note</div>
+                        <div style="font-size: 0.85rem; color: #2F4F4F; opacity: 0.8;">Document progress or feedback</div>
+                    </div>
+                </a>
+                
+                <a href="#" style="
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    background-color: #F8F9FA;
+                    color: #006747;
+                    padding: 1rem 1.2rem;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.transform='translateX(5px)';" 
+                onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.transform='translateX(0)';">
+                    <div style="
+                        background-color: #FFD700;
+                        color: #006747;
+                        width: 36px;
+                        height: 36px;
+                        border-radius: 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.2rem;
+                    ">📅</div>
+                    <div>
+                        <div style="font-size: 1rem;">Schedule Session</div>
+                        <div style="font-size: 0.85rem; color: #2F4F4F; opacity: 0.8;">Plan next mentoring session</div>
+                    </div>
+                </a>
+                
+                <a href="#" style="
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    background-color: #F8F9FA;
+                    color: #006747;
+                    padding: 1rem 1.2rem;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.transform='translateX(5px)';" 
+                onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.transform='translateX(0)';">
+                    <div style="
+                        background-color: #006747;
+                        color: #FFD700;
+                        width: 36px;
+                        height: 36px;
+                        border-radius: 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.2rem;
+                    ">📊</div>
+                    <div>
+                        <div style="font-size: 1rem;">Generate Report</div>
+                        <div style="font-size: 0.85rem; color: #2F4F4F; opacity: 0.8;">Create progress report</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Student Summary Card -->
+        <div style="
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 2rem;
+            border-top: 5px solid #006747;
+        ">
+            <h3 style="
+                color: #006747;
+                font-size: 1.4rem;
+                margin-bottom: 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+            ">
+                <span style="color: #FFD700;">📊</span>
+                Student Summary
+            </h3>
+            
+            <div style="
+                background-color: #F8F9FA;
+                padding: 1.5rem;
+                border-radius: 8px;
+                margin-bottom: 1.5rem;
+            ">
+                <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 1rem;
+                ">
+                    <div style="
+                        color: #2F4F4F;
+                        font-weight: 600;
+                        font-size: 0.95rem;
+                    ">Mentoring Duration</div>
+                    <div style="
+                        background-color: #E6F0FA;
+                        color: #006747;
+                        padding: 0.3rem 0.6rem;
+                        border-radius: 4px;
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                    ">
+                        {% now "Y" as current_year %}
+                        {{ student.enrollment_date|timesince }}
+                    </div>
+                </div>
+                
+                <div style="
+                    color: #2F4F4F;
+                    font-size: 0.9rem;
+                    line-height: 1.5;
+                    margin-bottom: 1rem;
+                ">
+                    {% if student.personal_story %}
+                        {{ student.personal_story|truncatechars:200 }}
+                    {% else %}
+                        No personal story available.
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Notes Summary -->
+            <div>
+                <h4 style="
+                    color: #006747;
+                    font-size: 1.1rem;
+                    margin-bottom: 1rem;
+                ">Notes Summary</h4>
+                
+                <div style="
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 0.5rem;
+                    text-align: center;
+                ">
+                    <div style="
+                        background-color: #E6F0FA;
+                        padding: 0.8rem;
+                        border-radius: 6px;
+                    ">
+                        <div style="
+                            color: #006747;
+                            font-size: 1.5rem;
+                            font-weight: bold;
+                            margin-bottom: 0.3rem;
+                        ">
+                            {{ progress_notes|default:"0" }}
+                        </div>
+                        <div style="
+                            color: #2F4F4F;
+                            font-size: 0.8rem;
+                            font-weight: 600;
+                        ">Progress</div>
+                    </div>
+                    
+                    <div style="
+                        background-color: #FFF9E6;
+                        padding: 0.8rem;
+                        border-radius: 6px;
+                    ">
+                        <div style="
+                            color: #006747;
+                            font-size: 1.5rem;
+                            font-weight: bold;
+                            margin-bottom: 0.3rem;
+                        ">
+                            {{ achievement_notes|default:"0" }}
+                        </div>
+                        <div style="
+                            color: #2F4F4F;
+                            font-size: 0.8rem;
+                            font-weight: 600;
+                        ">Achievements</div>
+                    </div>
+                    
+                    <div style="
+                        background-color: #FFE6E6;
+                        padding: 0.8rem;
+                        border-radius: 6px;
+                    ">
+                        <div style="
+                            color: #006747;
+                            font-size: 1.5rem;
+                            font-weight: bold;
+                            margin-bottom: 0.3rem;
+                        ">
+                            {{ challenge_notes|default:"0" }}
+                        </div>
+                        <div style="
+                            color: #2F4F4F;
+                            font-size: 0.8rem;
+                            font-weight: 600;
+                        ">Challenges</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Enhanced Functionality -->
+<script>
+    // Note management functions
+    function editNote(noteId) {
+        if (confirm('Edit this note?')) {
+            // In a real implementation, this would navigate to an edit page
+            // window.location.href = `/notes/${noteId}/edit/`;
+            alert('Edit functionality would navigate to edit page in a real implementation.');
+        }
+    }
+    
+    function deleteNote(noteId, noteTitle) {
+        if (confirm(`Are you sure you want to delete "${noteTitle}"?\n\nThis action cannot be undone.`)) {
+            // In a real implementation, this would make an API call
+            // fetch(`/api/notes/${noteId}/`, { method: 'DELETE' })
+            //   .then(() => location.reload());
+            
+            // Simulate deletion
+            const noteElement = document.querySelector(`[data-note-id="${noteId}"]`);
+            if (noteElement) {
+                noteElement.style.opacity = '0.5';
+                noteElement.style.pointerEvents = 'none';
+                
+                setTimeout(() => {
+                    noteElement.remove();
+                    updateNoteCount();
+                    showToast('Note deleted successfully', 'success');
+                }, 300);
+            }
+        }
+    }
+    
+    function updateNoteCount() {
+        const noteCount = document.querySelectorAll('.note-item').length;
+        const countElement = document.querySelector('.note-count span');
+        if (countElement) {
+            countElement.textContent = noteCount;
+        }
+    }
+    
+    // Filter notes by type
+    function filterNotes(type) {
+        const notes = document.querySelectorAll('.note-item');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        
+        // Update active filter button
+        filterButtons.forEach(btn => {
+            btn.style.backgroundColor = btn.dataset.type === type ? '#006747' : '#F8F9FA';
+            btn.style.color = btn.dataset.type === type ? 'white' : '#006747';
+        });
+        
+        // Show/hide notes
+        notes.forEach(note => {
+            if (type === 'all' || note.dataset.type === type) {
+                note.style.display = 'block';
+                setTimeout(() => {
+                    note.style.opacity = '1';
+                    note.style.transform = 'translateY(0)';
+                }, 50);
+            } else {
+                note.style.opacity = '0';
+                note.style.transform = 'translateY(-10px)';
+                setTimeout(() => {
+                    note.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+    
+    // Toast notification function
+    function showToast(message, type = 'info') {
+        const toast = document.createElement('div');
+        toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: ${type === 'success' ? '#006747' : type === 'error' ? '#D32F2F' : '#FFD700'};
+            color: ${type === 'success' || type === 'error' ? 'white' : '#006747'};
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        `;
+        
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+    
+    // Auto-refresh notes
+    let autoRefreshInterval;
+    
+    function startAutoRefresh(interval = 300000) { // 5 minutes
+        autoRefreshInterval = setInterval(() => {
+            if (document.hasFocus()) {
+                showToast('Checking for new notes...', 'info');
+                // In a real implementation, this would fetch new notes
+                // fetch('/api/notes/').then(updateNotes);
+            }
+        }, interval);
+    }
+    
+    function stopAutoRefresh() {
+        clearInterval(autoRefreshInterval);
+    }
+    
+    // Start auto-refresh when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add data attributes to notes for filtering
+        const notes = document.querySelectorAll('.note-item');
+        notes.forEach((note, index) => {
+            note.dataset.noteId = index;
+            // In a real implementation, use actual note type from data
+            note.dataset.type = 'progress'; // This would come from your data
+        });
+        
+        // Start auto-refresh
+        startAutoRefresh();
+    });
+    
+    // Stop auto-refresh when page is hidden
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            stopAutoRefresh();
+        } else {
+            startAutoRefresh();
+        }
+    });
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // N to add new note
+        if (e.key === 'n' && !e.ctrlKey && !e.metaKey) {
+            e.preventDefault();
+            window.location.href = "{% url 'create_mentor_note' student.id %}";
+        }
+        
+        // Escape to go back
+        if (e.key === 'Escape') {
+            window.history.back();
+        }
+        
+        // Ctrl/Cmd + F to filter (if filters were implemented)
+        if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+            e.preventDefault();
+            document.querySelector('.filter-btn')?.focus();
+        }
+    });
+    
+    // Print student details
+    function printStudentDetails() {
+        const printContent = document.querySelector('.scale-in').innerHTML + 
+                           document.querySelector('.notes-section').innerHTML;
+        const originalContent = document.body.innerHTML;
+        
+        document.body.innerHTML = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>{{ student.user.full_name }} - Student Details - Hasken Yaruwa</title>
+                <style>
+                    body { font-family: Arial, sans-serif; padding: 20px; }
+                    .print-header { 
+                        background-color: #006747; 
+                        color: white; 
+                        padding: 20px; 
+                        border-radius: 5px;
+                        margin-bottom: 20px;
+                    }
+                    .print-title { 
+                        font-size: 24px; 
+                        margin-bottom: 5px; 
+                    }
+                    .print-date { 
+                        font-size: 12px; 
+                        opacity: 0.9; 
+                    }
+                    .note { 
+                        page-break-inside: avoid;
+                        margin-bottom: 20px;
+                        padding: 15px;
+                        border-left: 4px solid #006747;
+                        background-color: #f9f9f9;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="print-header">
+                    <div class="print-title">{{ student.user.full_name }} - Student Details</div>
+                    <div class="print-date">Generated on ${new Date().toLocaleDateString()} by {{ mentor.user.full_name }}</div>
+                </div>
+                ${printContent}
+            </body>
+            </html>
+        `;
+        
+        window.print();
+        document.body.innerHTML = originalContent;
+        window.location.reload();
+    }
+</script>
+
+<style>
+    /* Responsive Styles */
+    @media (max-width: 1024px) {
+        .student-info-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+        
+        .mentor-actions-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .page-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem !important;
+        }
+        
+        .student-info-grid {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .notes-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem !important;
+        }
+        
+        .note-header {
+            flex-direction: column;
+            text-align: left;
+            gap: 1rem !important;
+        }
+        
+        .note-footer {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem !important;
+        }
+        
+        .note-actions {
+            justify-content: center;
+        }
+        
+        .quick-stats {
+            justify-content: center;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .student-profile-card,
+        .notes-card,
+        .quick-actions-card {
+            padding: 1.5rem !important;
+        }
+        
+        .student-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 1.5rem !important;
+        }
+        
+        .student-avatar {
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 1.8rem !important;
+        }
+        
+        h2 {
+            font-size: 1.6rem !important;
+        }
+        
+        .summary-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+    
+    /* Scrollbar Styling for Notes */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: #F8F9FA;
+        border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: #E6E6FA;
+        border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: #006747;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.5s ease-out;
+    }
+    
+    @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    
+    .scale-in {
+        animation: scaleIn 0.4s ease-out;
+    }
+    
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+    
+    /* Note item animations */
+    .note-item {
+        animation: fadeIn 0.3s ease-out;
+    }
+    
+    /* Print styles */
+    @media print {
+        .page-header a,
+        .quick-actions-card,
+        .note-actions,
+        .notes-header a {
+            display: none !important;
+        }
+        
+        .student-profile-card,
+        .notes-card {
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+            page-break-inside: avoid;
+        }
+        
+        .notes-container {
+            max-height: none !important;
+            overflow: visible !important;
+        }
+    }
+</style>
+{% endblock %}

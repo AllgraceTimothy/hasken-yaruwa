@@ -1,0 +1,965 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ student.user.full_name }} - Student Details - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 80vh;
+">
+    <!-- Page Header -->
+    <div class="fade-in" style="
+        margin-bottom: 2rem;
+    ">
+        <div style="
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        ">
+            <a href="{% url 'active_students' %}" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: #006747;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+                border-radius: 6px;
+                background-color: #F8F9FA;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.transform='translateY(-1px)';" 
+            onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.transform='translateY(0)';">
+                ← Back to Students
+            </a>
+            
+            <div style="flex: 1; min-width: 300px;">
+                <h1 style="
+                    color: #006747;
+                    font-size: 2rem;
+                    margin-bottom: 0.5rem;
+                ">
+                    Student Details
+                </h1>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 1rem;
+                    opacity: 0.9;
+                ">
+                    Manage {{ student.user.full_name }}'s profile and mentor assignment
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Profile Card -->
+    <div class="scale-in" style="
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    ">
+        <!-- Student Information -->
+        <div style="
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 2.5rem;
+            border-top: 5px solid #006747;
+        ">
+            <!-- Student Header -->
+            <div style="
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+                padding-bottom: 1.5rem;
+                border-bottom: 2px solid #E6E6FA;
+            ">
+                <div style="
+                    width: 80px;
+                    height: 80px;
+                    background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                    color: #FFD700;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2.2rem;
+                    font-weight: bold;
+                    box-shadow: 0 4px 12px rgba(0, 103, 71, 0.2);
+                ">
+                    {{ student.user.full_name|slice:":1"|upper }}
+                </div>
+                <div style="flex: 1;">
+                    <h2 style="
+                        color: #006747;
+                        font-size: 1.8rem;
+                        margin-bottom: 0.5rem;
+                    ">
+                        {{ student.user.full_name }}
+                    </h2>
+                    <div style="
+                        display: flex;
+                        gap: 1rem;
+                        flex-wrap: wrap;
+                    ">
+                        <span style="
+                            background-color: #E6E6FA;
+                            color: #006747;
+                            padding: 0.3rem 0.8rem;
+                            border-radius: 15px;
+                            font-size: 0.85rem;
+                            font-weight: 600;
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 0.3rem;
+                        ">
+                            <span>🎓</span>
+                            Student
+                        </span>
+                        <span style="
+                            background-color: #E6F0FA;
+                            color: #006747;
+                            padding: 0.3rem 0.8rem;
+                            border-radius: 15px;
+                            font-size: 0.85rem;
+                            font-weight: 600;
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 0.3rem;
+                        ">
+                            <span>#</span>
+                            ID: {{ student.id|default:"0000" }}
+                        </span>
+                        {% if student.application.school_name %}
+                        <span style="
+                            background-color: #FFF9E6;
+                            color: #006747;
+                            padding: 0.3rem 0.8rem;
+                            border-radius: 15px;
+                            font-size: 0.85rem;
+                            font-weight: 600;
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 0.3rem;
+                        ">
+                            <span>🏫</span>
+                            {{ student.application.school_name }}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Student Information Grid -->
+            <div style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            ">
+                <!-- Personal Information -->
+                <div style="
+                    background-color: #F8F9FA;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 0.8rem;
+                        margin-bottom: 1rem;
+                    ">
+                        <div style="
+                            background-color: #006747;
+                            color: #FFD700;
+                            width: 36px;
+                            height: 36px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1rem;
+                        ">👤</div>
+                        <h3 style="
+                            color: #006747;
+                            font-size: 1.2rem;
+                            margin: 0;
+                        ">Personal Information</h3>
+                    </div>
+                    <div>
+                        <div style="
+                            margin-bottom: 0.8rem;
+                            padding: 0.8rem;
+                            background-color: white;
+                            border-radius: 6px;
+                        ">
+                            <div style="
+                                color: #2F4F4F;
+                                font-weight: 600;
+                                font-size: 0.9rem;
+                                margin-bottom: 0.3rem;
+                            ">Email Address</div>
+                            <div style="
+                                color: #006747;
+                                font-weight: 500;
+                                font-size: 1rem;
+                            ">
+                                <a href="mailto:{{ student.user.email }}" style="
+                                    color: #006747;
+                                    text-decoration: none;
+                                    transition: color 0.3s ease;
+                                " onmouseover="this.style.color='#00563a'; this.style.textDecoration='underline';" 
+                                onmouseout="this.style.color='#006747'; this.style.textDecoration='none';">
+                                    {{ student.user.email }}
+                                </a>
+                            </div>
+                        </div>
+                        
+                        {% if student.application.age %}
+                        <div style="
+                            margin-bottom: 0.8rem;
+                            padding: 0.8rem;
+                            background-color: white;
+                            border-radius: 6px;
+                        ">
+                            <div style="
+                                color: #2F4F4F;
+                                font-weight: 600;
+                                font-size: 0.9rem;
+                                margin-bottom: 0.3rem;
+                            ">Age</div>
+                            <div style="
+                                color: #006747;
+                                font-weight: 500;
+                                font-size: 1rem;
+                            ">
+                                {{ student.application.age }} years old
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if student.application.location %}
+                        <div style="
+                            padding: 0.8rem;
+                            background-color: white;
+                            border-radius: 6px;
+                        ">
+                            <div style="
+                                color: #2F4F4F;
+                                font-weight: 600;
+                                font-size: 0.9rem;
+                                margin-bottom: 0.3rem;
+                            ">Location</div>
+                            <div style="
+                                color: #006747;
+                                font-weight: 500;
+                                font-size: 1rem;
+                            ">
+                                {{ student.application.location }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Mentor Assignment -->
+                <div style="
+                    background-color: #F8F9FA;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 0.8rem;
+                        margin-bottom: 1rem;
+                    ">
+                        <div style="
+                            background-color: #FFD700;
+                            color: #006747;
+                            width: 36px;
+                            height: 36px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1rem;
+                        ">👨‍🏫</div>
+                        <h3 style="
+                            color: #006747;
+                            font-size: 1.2rem;
+                            margin: 0;
+                        ">Mentor Assignment</h3>
+                    </div>
+                    
+                    <div style="
+                        margin-bottom: 1.5rem;
+                        padding: 1rem;
+                        background-color: white;
+                        border-radius: 6px;
+                        border: 2px solid;
+                    ">
+                        <div style="
+                            color: #2F4F4F;
+                            font-weight: 600;
+                            font-size: 0.9rem;
+                            margin-bottom: 0.8rem;
+                        ">Current Mentor</div>
+                        
+                        {% if student.mentor %}
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 1rem;
+                        ">
+                            <div style="
+                                width: 50px;
+                                height: 50px;
+                                background-color: #E6F0FA;
+                                color: #006747;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 1.5rem;
+                                font-weight: bold;
+                            ">
+                                {{ student.mentor.user.full_name|slice:":1"|upper }}
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="
+                                    color: #006747;
+                                    font-weight: 600;
+                                    font-size: 1.1rem;
+                                    margin-bottom: 0.2rem;
+                                ">
+                                    {{ student.mentor.user.full_name }}
+                                </div>
+                                <div style="
+                                    color: #2F4F4F;
+                                    font-size: 0.9rem;
+                                ">
+                                    <a href="mailto:{{ student.mentor.user.email }}" style="
+                                        color: #006747;
+                                        text-decoration: none;
+                                    " onmouseover="this.style.textDecoration='underline';" 
+                                    onmouseout="this.style.textDecoration='none';">
+                                        {{ student.mentor.user.email }}
+                                    </a>
+                                </div>
+                            </div>
+                            <div style="
+                                background-color: #E6F0FA;
+                                color: #006747;
+                                padding: 0.3rem 0.6rem;
+                                border-radius: 4px;
+                                font-size: 0.85rem;
+                                font-weight: 600;
+                            ">
+                                ✓ Assigned
+                            </div>
+                        </div>
+                        {% else %}
+                        <div style="
+                            text-align: center;
+                            padding: 1.5rem;
+                        ">
+                            <div style="
+                                font-size: 3rem;
+                                color: #FFF9E6;
+                                margin-bottom: 1rem;
+                            ">👨‍🏫</div>
+                            <div style="
+                                color: #FFA000;
+                                font-weight: 600;
+                                font-size: 1.1rem;
+                                margin-bottom: 0.5rem;
+                            ">
+                                No Mentor Assigned
+                            </div>
+                            <p style="
+                                color: #2F4F4F;
+                                font-size: 0.9rem;
+                                margin: 0;
+                            ">
+                                This student doesn't have a mentor yet.
+                            </p>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- Additional Information -->
+            {% if student.application.main_challenge or student.application.personal_story %}
+            <div style="
+                background-color: #F8F9FA;
+                padding: 1.5rem;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+            ">
+                <h3 style="
+                    color: #006747;
+                    font-size: 1.3rem;
+                    margin-bottom: 1rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.8rem;
+                ">
+                    <span style="color: #FFD700;">📝</span>
+                    Application Information
+                </h3>
+                
+                {% if student.application.main_challenge %}
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="
+                        color: #2F4F4F;
+                        font-weight: 600;
+                        font-size: 1rem;
+                        margin-bottom: 0.5rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    ">
+                        <span>⚠️</span>
+                        Main Challenge
+                    </div>
+                    <div style="
+                        background-color: white;
+                        padding: 1rem;
+                        border-radius: 6px;
+                        border-left: 4px solid #FFD700;
+                    ">
+                        <p style="
+                            color: #2F4F4F;
+                            margin: 0;
+                            line-height: 1.6;
+                            white-space: pre-line;
+                        ">
+                            {{ student.application.main_challenge }}
+                        </p>
+                    </div>
+                </div>
+                {% endif %}
+                
+                {% if student.application.personal_story %}
+                <div>
+                    <div style="
+                        color: #2F4F4F;
+                        font-weight: 600;
+                        font-size: 1rem;
+                        margin-bottom: 0.5rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    ">
+                        <span>📖</span>
+                        Personal Story
+                    </div>
+                    <div style="
+                        background-color: white;
+                        padding: 1rem;
+                        border-radius: 6px;
+                        border: 1px solid #E6E6FA;
+                    ">
+                        <p style="
+                            color: #2F4F4F;
+                            margin: 0;
+                            line-height: 1.6;
+                            white-space: pre-line;
+                        ">
+                            {{ student.application.personal_story }}
+                        </p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Assign Mentor Form -->
+    <div class="fade-in" style="
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        padding: 2.5rem;
+        border-top: 5px solid #FFD700;
+    ">
+        <h3 style="
+            color: #006747;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        ">
+            <span style="color: #FFD700;">👨‍🏫</span>
+            {% if student.mentor %}
+                Change Mentor
+            {% else %}
+                Assign a Mentor
+            {% endif %}
+        </h3>
+        
+        <form method="post" id="assignMentorForm">
+            {% csrf_token %}
+            
+            {% if student.mentor %}
+            <div style="
+                background-color: #FFF9E6;
+                padding: 1.5rem;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+                border-left: 4px solid #FFD700;
+            ">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.8rem;
+                    margin-bottom: 0.8rem;
+                ">
+                    <div style="
+                        background-color: #FFD700;
+                        color: #006747;
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: bold;
+                        font-size: 0.9rem;
+                    ">!</div>
+                    <p style="color: #2F4F4F; margin: 0; font-weight: 600;">
+                        Current Mentor: {{ student.mentor.user.full_name }}
+                    </p>
+                </div>
+                <p style="color: #2F4F4F; margin: 0; font-size: 0.95rem; line-height: 1.5;">
+                    Selecting a new mentor will replace the current mentor assignment.
+                </p>
+            </div>
+            {% endif %}
+            
+            <!-- Mentor Selection -->
+            <div style="margin-bottom: 2rem;">
+                <label for="mentorSelect" style="
+                    display: block;
+                    color: #006747;
+                    font-weight: 600;
+                    margin-bottom: 0.8rem;
+                    font-size: 1.1rem;
+                ">
+                    <span style="color: #FFD700;">↓</span>
+                    Select a Mentor
+                </label>
+                
+                {% if mentors %}
+                <div style="position: relative;">
+                    <select id="mentorSelect" 
+                            name="mentor" 
+                            required 
+                            style="
+                                width: 100%;
+                                padding: 1rem 1.5rem;
+                                border: 2px solid #E6E6FA;
+                                border-radius: 8px;
+                                font-size: 1rem;
+                                color: #2F4F4F;
+                                background-color: white;
+                                cursor: pointer;
+                                transition: all 0.3s ease;
+                                appearance: none;
+                                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23006747' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+                                background-repeat: no-repeat;
+                                background-position: right 1rem center;
+                                background-size: 16px;
+                            "
+                            onfocus="this.style.borderColor='#006747'; this.style.boxShadow='0 0 0 3px rgba(0, 103, 71, 0.1)';" 
+                            onblur="this.style.borderColor='#E6E6FA'; this.style.boxShadow='none';">
+                        <option value="" disabled selected>Choose a mentor...</option>
+                        {% for mentor in mentors %}
+                            <option value="{{ mentor.id }}" 
+                                    {% if student.mentor and student.mentor.id == mentor.id %}selected{% endif %}
+                                    data-email="{{ mentor.user.email }}"
+                                    data-background="{% if mentor.background %}{{ mentor.background|truncatechars:100 }}{% endif %}">
+                                {{ mentor.user.full_name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <!-- Mentor Preview -->
+                <div id="mentorPreview" style="
+                    margin-top: 1.5rem;
+                    background-color: #F8F9FA;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        margin-bottom: 1rem;
+                    ">
+                        <div id="mentorAvatar" style="
+                            width: 50px;
+                            height: 50px;
+                            background-color: #E6F0FA;
+                            color: #006747;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.5rem;
+                            font-weight: bold;
+                        ">M</div>
+                        <div>
+                            <div id="mentorName" style="
+                                color: #006747;
+                                font-weight: 600;
+                                font-size: 1.2rem;
+                                margin-bottom: 0.2rem;
+                            "></div>
+                            <div id="mentorEmail" style="
+                                color: #2F4F4F;
+                                font-size: 0.9rem;
+                            "></div>
+                        </div>
+                    </div>
+                    <div id="mentorBackground" style="
+                        color: #2F4F4F;
+                        font-size: 0.95rem;
+                        line-height: 1.5;
+                    "></div>
+                </div>
+                
+                {% else %}
+                <div style="
+                    background-color: #FFF9E6;
+                    padding: 2rem;
+                    border-radius: 8px;
+                    text-align: center;
+                ">
+                    <div style="
+                        font-size: 3rem;
+                        color: #FFE6CC;
+                        margin-bottom: 1rem;
+                    ">👨‍🏫</div>
+                    <h4 style="
+                        color: #006747;
+                        font-size: 1.2rem;
+                        margin-bottom: 0.5rem;
+                    ">
+                        No Available Mentors
+                    </h4>
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 1rem;
+                        margin-bottom: 1.5rem;
+                    ">
+                        There are currently no approved mentors available for assignment.
+                    </p>
+                    <a href="{% url 'review_mentors' %}" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        background-color: #006747;
+                        color: white;
+                        padding: 0.7rem 1.2rem;
+                        border-radius: 6px;
+                        text-decoration: none;
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                        transition: all 0.3s ease;
+                    " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+                    onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                        <span>➕</span>
+                        Review Mentor Applications
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+            
+            {% if mentors %}
+            <div style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+            ">
+                <div style="
+                    background-color: #F8F9FA;
+                    padding: 1rem;
+                    border-radius: 8px;
+                    flex: 1;
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 0.8rem;
+                        margin-bottom: 0.5rem;
+                    ">
+                        <div style="
+                            width: 24px;
+                            height: 24px;
+                            background-color: #006747;
+                            color: white;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-weight: bold;
+                            font-size: 0.8rem;
+                        ">!</div>
+                        <p style="color: #2F4F4F; margin: 0; font-weight: 600; font-size: 0.9rem;">
+                            Important: The student will be notified of this assignment
+                        </p>
+                    </div>
+                </div>
+                
+                <button type="submit" 
+                        style="
+                            background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                            color: white;
+                            border: none;
+                            padding: 1rem 2.5rem;
+                            border-radius: 8px;
+                            font-size: 1.1rem;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            display: flex;
+                            align-items: center;
+                            gap: 0.8rem;
+                        " 
+                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 103, 71, 0.3)';" 
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';"
+                        onclick="return confirmMentorAssignment()">
+                    <span>✓</span>
+                    {% if student.mentor %}
+                        Change Mentor
+                    {% else %}
+                        Assign Mentor
+                    {% endif %}
+                </button>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="fade-in" style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+    ">
+        <div style="
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            text-align: center;
+            border-top: 4px solid #E6E6FA;
+        ">
+            <div style="
+                font-size: 2.5rem;
+                color: #006747;
+                margin-bottom: 1rem;
+            ">📧</div>
+            <h4 style="
+                color: #006747;
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+            ">Contact Student</h4>
+            <p style="
+                color: #2F4F4F;
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+                line-height: 1.5;
+            ">
+                Send an email to {{ student.user.full_name }}
+            </p>
+            <a href="mailto:{{ student.user.email }}" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background-color: #E6E6FA;
+                color: #006747;
+                padding: 0.7rem 1.2rem;
+                border-radius: 6px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.9rem;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#d9d9f0'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.backgroundColor='#E6E6FA'; this.style.transform='translateY(0)';">
+                <span>Email {{ student.user.email|truncatechars:20 }}</span>
+                <span>✉️</span>
+            </a>
+        </div>
+
+</div>
+
+<!-- JavaScript -->
+<script>
+    // Mentor selection preview
+    const mentorSelect = document.getElementById('mentorSelect');
+    const mentorPreview = document.getElementById('mentorPreview');
+    const mentorName = document.getElementById('mentorName');
+    const mentorEmail = document.getElementById('mentorEmail');
+    const mentorBackground = document.getElementById('mentorBackground');
+    const mentorAvatar = document.getElementById('mentorAvatar');
+    
+    if (mentorSelect) {
+        mentorSelect.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            if (selectedOption.value) {
+                // Update preview
+                mentorName.textContent = selectedOption.textContent;
+                mentorEmail.textContent = selectedOption.dataset.email;
+                mentorBackground.textContent = selectedOption.dataset.background || 'No background information available.';
+                mentorAvatar.textContent = selectedOption.textContent.charAt(0).toUpperCase();
+                
+                // Show preview
+                mentorPreview.style.display = 'block';
+            } else {
+                mentorPreview.style.display = 'none';
+            }
+        });
+        
+        // Trigger change on page load if a mentor is already selected
+        if (mentorSelect.value) {
+            mentorSelect.dispatchEvent(new Event('change'));
+        }
+    }
+    
+    // Confirmation functions
+    function confirmMentorAssignment() {
+        const action = '{{ student.mentor }}' ? 'change' : 'assign';
+        const mentorName = mentorSelect ? mentorSelect.options[mentorSelect.selectedIndex].textContent : 'selected mentor';
+        
+        if (action === 'change') {
+            return confirm(`Are you sure you want to CHANGE the mentor for ${studentName}?\n\nCurrent Mentor: {{ student.mentor.user.full_name }}\nNew Mentor: ${mentorName}\n\nThe student will be notified of this change.`);
+        } else {
+            return confirm(`Are you sure you want to ASSIGN ${mentorName} as mentor for ${studentName}?\n\nThe student will be notified of this assignment.`);
+        }
+    }
+    
+    function confirmRemoveMentor() {
+        return confirm(`Are you sure you want to REMOVE {{ student.mentor.user.full_name }} as mentor for ${studentName}?\n\nThis action cannot be undone.`);
+    }
+    
+    // Student name variable for confirmation dialogs
+    const studentName = '{{ student.user.full_name }}';
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // Escape key to go back
+        if (e.key === 'Escape') {
+            window.history.back();
+        }
+    });
+</script>
+
+<style>
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .student-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 1.5rem !important;
+        }
+        
+        .student-avatar {
+            margin: 0 auto;
+        }
+        
+        .info-grid {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .mentor-info {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .form-actions {
+            flex-direction: column;
+            gap: 1rem !important;
+        }
+        
+        .form-actions button {
+            width: 100%;
+        }
+        
+        .quick-actions {
+            grid-template-columns: 1fr !important;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .student-card,
+        .assign-mentor-card {
+            padding: 1.5rem !important;
+        }
+        
+        h1 {
+            font-size: 1.6rem !important;
+        }
+        
+        h2 {
+            font-size: 1.4rem !important;
+        }
+        
+        .student-badges {
+            justify-content: center;
+        }
+    }
+    
+    /* Animation for mentor preview */
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    #mentorPreview {
+        animation: slideIn 0.3s ease-out;
+    }
+    
+    /* Custom select styling */
+    select:focus {
+        outline: none;
+    }
+    
+    /* Print styles */
+    @media print {
+        .assign-mentor-card,
+        .quick-actions,
+        .form-actions button {
+            display: none !important;
+        }
+        
+        .student-card {
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+        }
+    }
+</style>
+{% endblock %}
