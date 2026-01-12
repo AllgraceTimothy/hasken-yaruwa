@@ -16,7 +16,7 @@ def mentor_dashboard(request):
 
   students = Student.objects.filter(
     mentor=mentor,
-    is_active=True
+    user__is_active=True
   ).select_related('user')
 
   return render(
@@ -41,7 +41,7 @@ def mentor_student_detail(request, student_id):
     Student,
     id=student_id,
     mentor=mentor,
-    is_active=True
+    user__is_active=True
   )
 
   notes = ProgressNote.objects.filter(
@@ -67,7 +67,7 @@ def create_mentor_note(request, student_id):
     Student,
     id=student_id,
     mentor=mentor,
-    is_active=True
+    user__is_active=True
   )
 
   if request.method == 'POST':

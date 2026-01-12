@@ -4,7 +4,7 @@ from support.models import Support
 from django.db.models import Sum
 
 def home(request):
-  total_students = Student.objects.filter(is_active=True).count()
+  total_students = Student.objects.filter(user__is_active=True).count()
   total_support = Support.objects.aggregate(
     total=Sum('amount')
   )['total'] or 0

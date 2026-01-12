@@ -16,7 +16,7 @@ def admin_dashboard(request):
 
   context = {
     'pending_applications': StudentApplication.objects.filter(status='submitted').count(),
-    'approved_students': Student.objects.filter(is_active=True).count(),
+    'approved_students': Student.objects.filter(user__is_active=True).count(),
     'pending_mentors': MentorApplication.objects.filter(status='submitted').count(),
     'total_support': Support.objects.aggregate(
         total=Sum('amount')
