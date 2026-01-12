@@ -33,7 +33,7 @@ def student_details(request, student_id):
   student = get_object_or_404(
     Student.objects.select_related('user', 'mentor'),
     id=student_id,
-    is_active=True
+    user__is_active=True
   )
 
   mentors = Mentor.objects.filter(
@@ -68,7 +68,7 @@ def student_dashboard(request):
   student = get_object_or_404(
     Student,
     user=request.user,
-    is_active=True
+    user__is_active=True
   )
 
   mentor = student.mentor
@@ -95,7 +95,7 @@ def create_student_note(request):
     messages.error(request, "Access denied.")
     return redirect('home')
 
-  student = get_object_or_404(Student, user=request.user, is_active=True)
+  student = get_object_or_404(Student, user=request.user, user__is_active=True)
 
   mentor = student.mentor
   if not mentor:

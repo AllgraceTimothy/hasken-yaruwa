@@ -97,7 +97,7 @@ def approve_student(request, application_id):
       send_mail(
         subject='Your Student Application has been accepted',
         message=(
-          f"Hello {user.get_full_name() or user.email},\n\n"
+          f"Hello {user.full_name},\n\n"
           "Your application has been approved.\n"
           "Please click the link below to set your password and activate your account:\n\n"
           f"{set_password_url}\n\n"
@@ -190,7 +190,7 @@ def approve_mentor(request, application_id):
       send_mail(
         subject='Your Mentor Application has been accepted',
         message=(
-          f"Hello {user.get_full_name() or user.email},\n\n"
+          f"Hello {user.full_name},\n\n"
           "Your application has been approved.\n"
           "Please click the link below to set your password and activate your account:\n\n"
           f"{set_password_url}\n\n"
