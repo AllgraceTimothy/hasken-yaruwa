@@ -89,17 +89,15 @@ def approve_student(request, application_id):
       uid = urlsafe_base64_encode(force_bytes(user.pk))
       token = default_token_generator.make_token(user)
 
-      set_password_url = request.build_absolute_uri(
-        reverse(
-          'set_password',
-          kwargs={'uidb64': uid, 'token':token}
-        )
-      )
+      set_password_url = f"{settings.SITE_URL}{reverse(
+        'set_password',
+        kwargs={'uidb64': uid, 'token': token}
+      )}"
 
       send_mail(
         subject='Your Student Application has been accepted',
         message=(
-          f"Hello {user.full_name},\n\n"
+          f"Hello {user.get_full_name() or user.email},\n\n"
           "Your application has been approved.\n"
           "Please click the link below to set your password and activate your account:\n\n"
           f"{set_password_url}\n\n"
@@ -184,17 +182,15 @@ def approve_mentor(request, application_id):
       uid = urlsafe_base64_encode(force_bytes(user.pk))
       token = default_token_generator.make_token(user)
 
-      set_password_url = request.build_absolute_uri(
-        reverse(
-          'set_password',
-          kwargs={'uidb64': uid, 'token':token}
-        )
-      )
+      set_password_url = f"{settings.SITE_URL}{reverse(
+        'set_password',
+        kwargs={'uidb64': uid, 'token': token}
+      )}"
 
       send_mail(
         subject='Your Mentor Application has been accepted',
         message=(
-          f"Hello {user.full_name},\n\n"
+          f"Hello {user.get_full_name() or user.email},\n\n"
           "Your application has been approved.\n"
           "Please click the link below to set your password and activate your account:\n\n"
           f"{set_password_url}\n\n"

@@ -24,7 +24,14 @@ load_dotenv(BASE_DIR / ".env")
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'unsafe-secret')
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get(
+    'ALLOWED_HOSTS',
+).split(',')
+
+SITE_URL = os.environ.get(
+    'SITE_URL',
+    'http://localhost:8000'
+)
 
 # Custom User Model
 AUTH_USER_MODEL = 'accounts.User'
