@@ -1,0 +1,1182 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Success Stories - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 80vh;
+">
+    <!-- Page Header -->
+    <div class="fade-in" style="
+        text-align: center;
+        margin-bottom: 3rem;
+    ">
+        <div style="
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+            color: #FFD700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 103, 71, 0.2);
+        ">
+            🌟
+        </div>
+        
+        <h1 style="
+            color: #006747;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        ">
+            Success Stories
+        </h1>
+        <p style="
+            color: #2F4F4F;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+            opacity: 0.9;
+        ">
+            Meet some of the incredible students whose lives have been transformed through our mentorship program. Their journeys inspire us every day.
+        </p>
+        
+        <!-- Quick Stats -->
+        <div style="
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        ">
+            <div style="
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                padding: 1rem 2rem;
+                min-width: 150px;
+            ">
+                <div style="
+                    color: #006747;
+                    font-size: 2rem;
+                    font-weight: bold;
+                ">
+                    {{ stories|length }}
+                </div>
+                <div style="
+                    color: #2F4F4F;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                ">
+                    Stories Shared
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <!-- Success Stories Grid -->
+    {% if stories %}
+    <div class="scale-in" style="
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+    ">
+        {% for story in stories %}
+        <article class="story-card" style="
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border-top: 5px solid #FFD700;
+            position: relative;
+        " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)';" 
+        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)';">
+            
+            <!-- Featured Image or Gradient -->
+            {% if story.featured_image %}
+            <div style="
+                height: 200px;
+                overflow: hidden;
+            ">
+                <img src="{{ story.featured_image.url }}" 
+                     alt="{{ story.title }}"
+                     style="
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        transition: all 0.3s ease;
+                     "
+                     onmouseover="this.style.transform='scale(1.05)';"
+                     onmouseout="this.style.transform='scale(1)';">
+            </div>
+            {% else %}
+            <div style="
+                height: 140px;
+                background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                overflow: hidden;
+            ">
+                <div style="
+                    position: absolute;
+                    top: -50px;
+                    right: -50px;
+                    width: 150px;
+                    height: 150px;
+                    background: rgba(255, 215, 0, 0.1);
+                    border-radius: 50%;
+                "></div>
+                <div style="
+                    position: absolute;
+                    bottom: -80px;
+                    left: -80px;
+                    width: 200px;
+                    height: 200px;
+                    background: rgba(255, 215, 0, 0.05);
+                    border-radius: 50%;
+                "></div>
+                <div style="
+                    font-size: 4rem;
+                    color: #FFD700;
+                    position: relative;
+                    z-index: 1;
+                ">🌟</div>
+            </div>
+            {% endif %}
+            
+            <!-- Content -->
+            <div style="
+                padding: 1.5rem;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            ">
+                <!-- Student Name & Year -->
+                <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 1rem;
+                    flex-wrap: wrap;
+                    gap: 0.5rem;
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    ">
+                        <div style="
+                            width: 40px;
+                            height: 40px;
+                            background-color: #E6F0FA;
+                            color: #006747;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.2rem;
+                            font-weight: bold;
+                        ">
+                            {{ story.student_name|slice:":1"|upper }}
+                        </div>
+                        <div>
+                            <div style="
+                                color: #006747;
+                                font-weight: 600;
+                                font-size: 1rem;
+                            ">
+                                {{ story.student_name }}
+                            </div>
+                            {% if story.student_location %}
+                            <div style="
+                                color: #2F4F4F;
+                                font-size: 0.8rem;
+                                opacity: 0.7;
+                            ">
+                                {{ story.student_location }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    {% if story.graduation_year %}
+                    <span style="
+                        background-color: #FFF9E6;
+                        color: #006747;
+                        padding: 0.3rem 0.8rem;
+                        border-radius: 20px;
+                        font-size: 0.8rem;
+                        font-weight: 600;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.3rem;
+                    ">
+                        <span>🎓</span>
+                        Class of {{ story.graduation_year }}
+                    </span>
+                    {% endif %}
+                </div>
+                
+                <!-- Title -->
+                <h2 style="
+                    margin: 0 0 1rem 0;
+                    line-height: 1.4;
+                ">
+                    <a href="{% url 'success_detail' story.id %}" style="
+                        color: #006747;
+                        text-decoration: none;
+                        font-size: 1.3rem;
+                        font-weight: 600;
+                        transition: color 0.3s ease;
+                    " onmouseover="this.style.color='#00563a'; this.style.textDecoration='underline';" 
+                    onmouseout="this.style.color='#006747'; this.style.textDecoration='none';">
+                        {{ story.title }}
+                    </a>
+                </h2>
+                
+                <!-- Achievement Badges -->
+                {% if story.achievements.all %}
+                <div style="
+                    display: flex;
+                    gap: 0.5rem;
+                    flex-wrap: wrap;
+                    margin-bottom: 1rem;
+                ">
+                    {% for achievement in story.achievements.all|slice:":3" %}
+                    <span style="
+                        background-color: #F0F8F0;
+                        color: #006747;
+                        padding: 0.2rem 0.6rem;
+                        border-radius: 4px;
+                        font-size: 0.8rem;
+                        font-weight: 600;
+                    ">
+                        {{ achievement.name }}
+                    </span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <!-- Story Excerpt -->
+                <div style="
+                    color: #2F4F4F;
+                    font-size: 0.95rem;
+                    line-height: 1.6;
+                    margin-bottom: 1.5rem;
+                    flex: 1;
+                ">
+                    {{ story.story|truncatewords:35 }}
+                </div>
+                
+                <!-- Read More Link -->
+                <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding-top: 1rem;
+                    border-top: 1px solid #E6E6FA;
+                ">
+                    <a href="{% url 'success_detail' story.id %}" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        color: #006747;
+                        text-decoration: none;
+                        font-weight: 600;
+                        font-size: 0.95rem;
+                        transition: all 0.3s ease;
+                    " onmouseover="this.style.color='#00563a'; this.style.gap='0.8rem';" 
+                    onmouseout="this.style.color='#006747'; this.style.gap='0.5rem';">
+                        <span>Read Full Story</span>
+                        <span>→</span>
+                    </a>
+                    
+                    <!-- Quote Icon -->
+                    <span style="
+                        color: #E6E6FA;
+                        font-size: 1.5rem;
+                    ">❝</span>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    
+    <!-- Pagination -->
+    {% if stories.has_other_pages %}
+    <div style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 3rem;
+    ">
+        {% if stories.has_previous %}
+        <a href="?page={{ stories.previous_page_number }}{% if request.GET.year %}&year={{ request.GET.year }}{% endif %}" style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #F8F9FA;
+            color: #006747;
+            border: 2px solid #E6E6FA;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.borderColor='#006747';" 
+        onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.borderColor='#E6E6FA';">
+            ←
+        </a>
+        {% endif %}
+        
+        {% for i in stories.paginator.page_range %}
+            {% if stories.number == i %}
+            <span style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                background-color: #006747;
+                color: white;
+                border-radius: 8px;
+                font-weight: 600;
+            ">{{ i }}</span>
+            {% elif i > stories.number|add:'-3' and i < stories.number|add:'3' %}
+            <a href="?page={{ i }}{% if request.GET.year %}&year={{ request.GET.year }}{% endif %}" style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                background-color: #F8F9FA;
+                color: #006747;
+                border: 2px solid #E6E6FA;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.borderColor='#006747';" 
+            onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.borderColor='#E6E6FA';">
+                {{ i }}
+            </a>
+            {% endif %}
+        {% endfor %}
+        
+        {% if stories.has_next %}
+        <a href="?page={{ stories.next_page_number }}{% if request.GET.year %}&year={{ request.GET.year }}{% endif %}" style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #F8F9FA;
+            color: #006747;
+            border: 2px solid #E6E6FA;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.borderColor='#006747';" 
+        onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.borderColor='#E6E6FA';">
+            →
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    {% else %}
+    <!-- Empty State -->
+    <div class="scale-in" style="
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        padding: 4rem 2rem;
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+    ">
+        <div style="
+            font-size: 4rem;
+            color: #E6E6FA;
+            margin-bottom: 1.5rem;
+        ">🌟</div>
+        <h2 style="
+            color: #006747;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        ">
+            Stories Coming Soon
+        </h2>
+        <p style="
+            color: #2F4F4F;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        ">
+            We're collecting inspiring success stories from our students. Check back soon to read about their incredible journeys and achievements!
+        </p>
+        <div style="
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        ">
+            <a href="{% url 'home' %}" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background-color: #006747;
+                color: white;
+                padding: 0.8rem 1.5rem;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.95rem;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                <span>🏠</span>
+                Return Home
+            </a>
+            
+            <a href="{% url 'blog_list' %}" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background-color: #FFD700;
+                color: #006747;
+                padding: 0.8rem 1.5rem;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.95rem;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#e6c200'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.backgroundColor='#FFD700'; this.style.transform='translateY(0)';">
+                <span>📚</span>
+                Read Our Blog
+            </a>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Call to Action - Share Your Story -->
+    <div class="fade-in" style="
+        background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+        border-radius: 16px;
+        padding: 3rem;
+        margin-top: 3rem;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    ">
+        <div style="
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+        "></div>
+        <div style="
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 50%;
+        "></div>
+        
+        <div style="position: relative; z-index: 1; text-align: center;">
+            <div style="
+                width: 60px;
+                height: 60px;
+                background-color: #FFD700;
+                color: #006747;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.8rem;
+                font-weight: bold;
+                margin: 0 auto 1.5rem;
+            ">
+                ✨
+            </div>
+            
+            <h2 style="
+                font-size: 2rem;
+                margin-bottom: 1rem;
+                color: #FFD700;
+            ">
+                Share Your Story
+            </h2>
+            <p style="
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+                opacity: 0.9;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+                line-height: 1.6;
+            ">
+                Are you a student with an inspiring journey? We'd love to feature your story and inspire others!
+            </p>
+            
+            <div style="
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+            ">
+
+                
+                <a href="mailto:stories@haskenyaruwa.org" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    background-color: rgba(255,255,255,0.1);
+                    color: white;
+                    padding: 0.8rem 2rem;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
+                    border: 2px solid rgba(255,255,255,0.2);
+                " onmouseover="this.style.backgroundColor='rgba(255,255,255,0.2)'; this.style.transform='translateY(-2px)';" 
+                onmouseout="this.style.backgroundColor='rgba(255,255,255,0.1)'; this.style.transform='translateY(0)';">
+                    <span>📧</span>
+                    Contact Us
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Featured Success Stats -->
+    <div class="fade-in" style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 3rem;
+    ">
+        <div style="
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 2rem;
+            text-align: center;
+            border-top: 4px solid #006747;
+        ">
+            <div style="
+                font-size: 2.5rem;
+                color: #006747;
+                margin-bottom: 1rem;
+            ">🎓</div>
+            <h3 style="
+                color: #006747;
+                font-size: 1.2rem;
+                margin-bottom: 0.5rem;
+            ">Higher Education</h3>
+            <p style="
+                color: #2F4F4F;
+                font-size: 0.95rem;
+                line-height: 1.5;
+            ">
+                Our students have gained admission to top universities worldwide
+            </p>
+        </div>
+        
+        <div style="
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 2rem;
+            text-align: center;
+            border-top: 4px solid #FFD700;
+        ">
+            <div style="
+                font-size: 2.5rem;
+                color: #FFD700;
+                margin-bottom: 1rem;
+            ">💼</div>
+            <h3 style="
+                color: #006747;
+                font-size: 1.2rem;
+                margin-bottom: 0.5rem;
+            ">Career Success</h3>
+            <p style="
+                color: #2F4F4F;
+                font-size: 0.95rem;
+                line-height: 1.5;
+            ">
+                Graduates are thriving in diverse professional fields
+            </p>
+        </div>
+        
+        <div style="
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 2rem;
+            text-align: center;
+            border-top: 4px solid #006747;
+        ">
+            <div style="
+                font-size: 2.5rem;
+                color: #006747;
+                margin-bottom: 1rem;
+            ">🤝</div>
+            <h3 style="
+                color: #006747;
+                font-size: 1.2rem;
+                margin-bottom: 0.5rem;
+            ">Community Impact</h3>
+            <p style="
+                color: #2F4F4F;
+                font-size: 0.95rem;
+                line-height: 1.5;
+            ">
+                Many return to mentor and support the next generation
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Story Submission Modal -->
+<div id="storyModal" style="
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+">
+    <div style="
+        background-color: white;
+        border-radius: 16px;
+        padding: 2rem;
+        max-width: 500px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        animation: scaleIn 0.3s ease;
+    ">
+        <div style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        ">
+            <h3 style="
+                color: #006747;
+                font-size: 1.5rem;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            ">
+                <span>✨</span>
+                Share Your Story
+            </h3>
+            <button onclick="closeStoryModal()" style="
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                cursor: pointer;
+                color: #2F4F4F;
+                padding: 0.5rem;
+                line-height: 1;
+            ">&times;</button>
+        </div>
+        
+        <form id="storyForm" onsubmit="submitStory(event)">
+            <div style="margin-bottom: 1.5rem;">
+                <label style="
+                    display: block;
+                    color: #006747;
+                    font-weight: 600;
+                    margin-bottom: 0.5rem;
+                ">
+                    Your Name *
+                </label>
+                <input type="text" required
+                       style="
+                            width: 100%;
+                            padding: 0.8rem 1rem;
+                            border: 2px solid #E6E6FA;
+                            border-radius: 8px;
+                            font-size: 0.95rem;
+                            color: #2F4F4F;
+                            transition: all 0.3s ease;
+                            box-sizing: border-box;
+                       "
+                       onfocus="this.style.borderColor='#006747'; this.style.boxShadow='0 0 0 3px rgba(0, 103, 71, 0.1)';"
+                       onblur="this.style.borderColor='#E6E6FA'; this.style.boxShadow='none';">
+            </div>
+            
+            <div style="margin-bottom: 1.5rem;">
+                <label style="
+                    display: block;
+                    color: #006747;
+                    font-weight: 600;
+                    margin-bottom: 0.5rem;
+                ">
+                    Email Address *
+                </label>
+                <input type="email" required
+                       style="
+                            width: 100%;
+                            padding: 0.8rem 1rem;
+                            border: 2px solid #E6E6FA;
+                            border-radius: 8px;
+                            font-size: 0.95rem;
+                            color: #2F4F4F;
+                            transition: all 0.3s ease;
+                            box-sizing: border-box;
+                       "
+                       onfocus="this.style.borderColor='#006747'; this.style.boxShadow='0 0 0 3px rgba(0, 103, 71, 0.1)';"
+                       onblur="this.style.borderColor='#E6E6FA'; this.style.boxShadow='none';">
+            </div>
+            
+            
+            <div style="margin-bottom: 1.5rem;">
+                <label style="
+                    display: block;
+                    color: #006747;
+                    font-weight: 600;
+                    margin-bottom: 0.5rem;
+                ">
+                    Your Story *
+                </label>
+                <textarea required
+                          rows="6"
+                          placeholder="Share your journey, achievements, and how the program impacted your life..."
+                          style="
+                            width: 100%;
+                            padding: 1rem;
+                            border: 2px solid #E6E6FA;
+                            border-radius: 8px;
+                            font-size: 0.95rem;
+                            color: #2F4F4F;
+                            font-family: inherit;
+                            transition: all 0.3s ease;
+                            resize: vertical;
+                            box-sizing: border-box;
+                          "
+                          onfocus="this.style.borderColor='#006747'; this.style.boxShadow='0 0 0 3px rgba(0, 103, 71, 0.1)';"
+                          onblur="this.style.borderColor='#E6E6FA'; this.style.boxShadow='none';"></textarea>
+            </div>
+            
+            <div style="margin-bottom: 1.5rem;">
+                <label style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.8rem;
+                    cursor: pointer;
+                ">
+                    <input type="checkbox" required style="width: 18px; height: 18px;">
+                    <span style="color: #2F4F4F; font-size: 0.9rem;">
+                        I agree to share my story and photos on the website
+                    </span>
+                </label>
+            </div>
+            
+            <button type="submit" 
+                    style="
+                        width: 100%;
+                        background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                        color: white;
+                        border: none;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    "
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 103, 71, 0.3)';" 
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                Submit Story
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // Filter and search functionality
+    const yearFilter = document.getElementById('yearFilter');
+    const sortFilter = document.getElementById('sortFilter');
+    const searchInput = document.getElementById('searchInput');
+    const storyCards = document.querySelectorAll('.story-card');
+    
+    function filterStories() {
+        const selectedYear = yearFilter?.value;
+        const searchTerm = searchInput?.value.toLowerCase();
+        
+        storyCards.forEach(card => {
+            let showCard = true;
+            
+            // Year filter
+            if (selectedYear) {
+                const yearElement = card.querySelector('.class-year');
+                if (yearElement && !yearElement.textContent.includes(selectedYear)) {
+                    showCard = false;
+                }
+            }
+            
+            // Search filter
+            if (showCard && searchTerm) {
+                const title = card.querySelector('h2 a').textContent.toLowerCase();
+                const student = card.querySelector('.student-name').textContent.toLowerCase();
+                const story = card.querySelector('.story-excerpt').textContent.toLowerCase();
+                
+                if (!title.includes(searchTerm) && !student.includes(searchTerm) && !story.includes(searchTerm)) {
+                    showCard = false;
+                }
+            }
+            
+            card.style.display = showCard ? 'flex' : 'none';
+        });
+        
+        // Update visible count
+        const visibleCount = Array.from(storyCards).filter(c => c.style.display !== 'none').length;
+        if (visibleCount === 0) {
+            showNoResultsMessage();
+        } else {
+            hideNoResultsMessage();
+        }
+    }
+    
+    function showNoResultsMessage() {
+        let messageDiv = document.getElementById('noResultsMessage');
+        if (!messageDiv) {
+            messageDiv = document.createElement('div');
+            messageDiv.id = 'noResultsMessage';
+            messageDiv.style.cssText = `
+                text-align: center;
+                padding: 2rem;
+                background-color: #F8F9FA;
+                border-radius: 8px;
+                margin: 2rem 0;
+                color: #006747;
+            `;
+            messageDiv.innerHTML = `
+                <span style="font-size: 2rem;">🔍</span>
+                <h3 style="color: #006747; margin: 1rem 0;">No Stories Found</h3>
+                <p style="color: #2F4F4F;">Try adjusting your filters or search terms.</p>
+            `;
+            document.querySelector('.story-grid').after(messageDiv);
+        }
+    }
+    
+    function hideNoResultsMessage() {
+        const messageDiv = document.getElementById('noResultsMessage');
+        if (messageDiv) {
+            messageDiv.remove();
+        }
+    }
+    
+    // Sort functionality
+    function sortStories() {
+        const sortBy = sortFilter?.value;
+        const grid = document.querySelector('.story-grid');
+        const cards = Array.from(storyCards);
+        
+        cards.sort((a, b) => {
+            if (sortBy === 'recent') {
+                return 0; // Already sorted by date
+            } else if (sortBy === 'oldest') {
+                return 0; // Reverse date sort
+            } else if (sortBy === 'alphabetical') {
+                const titleA = a.querySelector('h2 a').textContent;
+                const titleB = b.querySelector('h2 a').textContent;
+                return titleA.localeCompare(titleB);
+            }
+        });
+        
+        cards.forEach(card => grid.appendChild(card));
+    }
+    
+    // Event listeners
+    yearFilter?.addEventListener('change', filterStories);
+    sortFilter?.addEventListener('change', function() {
+        sortStories();
+        filterStories();
+    });
+    searchInput?.addEventListener('input', filterStories);
+    
+    // Modal functions
+    function openStorySubmission() {
+        document.getElementById('storyModal').style.display = 'flex';
+    }
+    
+    function closeStoryModal() {
+        document.getElementById('storyModal').style.display = 'none';
+    }
+    
+    // Submit story form
+    function submitStory(e) {
+        e.preventDefault();
+        showToast('Thank you for sharing your story! We\'ll review it soon.', 'success');
+        closeStoryModal();
+        e.target.reset();
+    }
+    
+    // Toast notification
+    function showToast(message, type = 'info') {
+        const toast = document.createElement('div');
+        toast.innerHTML = message;
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: ${type === 'success' ? '#006747' : type === 'error' ? '#D32F2F' : '#FFD700'};
+            color: ${type === 'success' || type === 'error' ? 'white' : '#006747'};
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1001;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        `;
+        
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+    
+    // Close modal on outside click
+    document.getElementById('storyModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeStoryModal();
+        }
+    });
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // Escape to close modal
+        if (e.key === 'Escape') {
+            closeStoryModal();
+        }
+        
+        // / to focus search
+        if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+            e.preventDefault();
+            searchInput?.focus();
+        }
+    });
+    
+    // Lazy load images
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.classList.add('loaded');
+                    }
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+        
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+</script>
+
+<style>
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .page-header h1 {
+            font-size: 2rem !important;
+        }
+        
+        .page-header p {
+            font-size: 1rem !important;
+        }
+        
+        .stats-container {
+            gap: 1rem !important;
+        }
+        
+        .stats-container > div {
+            min-width: 120px !important;
+            padding: 0.8rem 1rem !important;
+        }
+        
+        .filter-bar {
+            flex-direction: column;
+            align-items: stretch !important;
+        }
+        
+        .filter-bar > div:first-child {
+            justify-content: stretch;
+        }
+        
+        .filter-bar select,
+        .filter-bar input {
+            width: 100%;
+        }
+        
+        .filter-bar input {
+            max-width: none !important;
+        }
+        
+        .story-grid {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .cta-section {
+            padding: 2rem !important;
+        }
+        
+        .cta-section h2 {
+            font-size: 1.6rem !important;
+        }
+        
+        .feature-stats-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .page-header h1 {
+            font-size: 1.8rem !important;
+        }
+        
+        .story-card h2 a {
+            font-size: 1.2rem !important;
+        }
+        
+        .student-info {
+            flex-direction: column;
+            align-items: flex-start !important;
+            gap: 0.5rem !important;
+        }
+        
+        .class-badge {
+            align-self: flex-start;
+        }
+        
+        .cta-section h2 {
+            font-size: 1.4rem !important;
+        }
+        
+        .cta-buttons {
+            flex-direction: column;
+        }
+        
+        .cta-buttons a {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.5s ease-out;
+    }
+    
+    @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    
+    .scale-in {
+        animation: scaleIn 0.4s ease-out;
+    }
+    
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+    
+    @keyframes shimmer {
+        0% { background-position: -200px 0; }
+        100% { background-position: 200px 0; }
+    }
+    
+    /* Loading animation for images */
+    .loading-shimmer {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200px 100%;
+        animation: shimmer 1.5s infinite;
+    }
+    
+    /* Story card hover effect */
+    .story-card {
+        transition: all 0.3s ease;
+    }
+    
+    .story-card:hover img {
+        transform: scale(1.05);
+    }
+    
+    /* Print styles */
+    @media print {
+        .filter-bar,
+        .cta-section,
+        .feature-stats-grid,
+        .story-card .read-more {
+            display: none !important;
+        }
+        
+        .story-card {
+            break-inside: avoid;
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+        }
+        
+        .page-header {
+            page-break-after: avoid;
+        }
+    }
+</style>
+{% endblock %}

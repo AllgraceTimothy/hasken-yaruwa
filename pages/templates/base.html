@@ -526,6 +526,9 @@
                             <li><a href="{% url 'student_application' %}" {% if 'apply' in request.path %}class="active-link"{% endif %}>Apply</a></li>
                             <li><a href="{% url 'mentor_application' %}" {% if 'mentor' in request.path %}class="active-link"{% endif %}>Become a Mentor</a></li>
                         {% endif %}
+                        <li><a href="{% url 'blog_list' %}">Blog</a></li>
+                        <li><a href="{% url 'success_list' %}">Success Stories</a></li>
+                        <li><a href="{% url 'impact_page' %}">Impact</a></li>
                     </ul>
                     
                     {% if user.is_authenticated %}
@@ -581,7 +584,15 @@
             {% endif %}
             
             <li><a href="{% url 'support' %}" {% if 'support' in request.path %}class="active-link"{% endif %}>Support the Mission</a></li>
-            
+            <li><a href="{% url 'blog_list' %}">Blog</a></li>
+
+            <li><a href="{% url 'success_list' %}">
+            Success Stories
+            </a></li>
+
+            <li><a href="{% url 'impact_page' %}">
+            Impact
+            </a></li>
             {% if user.is_authenticated %}
                 <li style="border-bottom: none; margin-top: 2rem;">
                     <div style="margin-bottom: 1rem;">

@@ -18,10 +18,12 @@ def active_students(request):
     user__is_active=True,
   ).select_related('user', 'mentor')
 
+  assigned_students = students.filter(mentor__isnull=False).count()
+
   return render(
     request,
     'students/active_students.html',
-    {'students': students}
+    {'students': students, 'assigned_students': assigned_students}
   )
 
 @login_required

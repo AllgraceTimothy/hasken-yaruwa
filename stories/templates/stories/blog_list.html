@@ -1,0 +1,859 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Blog - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 80vh;
+">
+    <!-- Page Header -->
+    <div class="fade-in" style="
+        text-align: center;
+        margin-bottom: 3rem;
+    ">
+        <div style="
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+            color: #FFD700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 103, 71, 0.2);
+        ">
+            📚
+        </div>
+        
+        <h1 style="
+            color: #006747;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        ">
+            Our Blog
+        </h1>
+        <p style="
+            color: #2F4F4F;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        ">
+            Insights, updates, and inspiring stories from our community
+        </p>
+        
+
+    <!-- Blog Posts Grid -->
+    {% if posts %}
+    <div class="scale-in" style="
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+    ">
+        {% for post in posts %}
+        <article class="blog-card" style="
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border-top: 5px solid {% if post.category == 'stories' %}#FFD700{% elif post.category == 'news' %}#006747{% elif post.category == 'events' %}#2196F3{% else %}#E6E6FA{% endif %};
+        " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)';" 
+        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)';">
+            
+            <!-- Featured Image (if available) -->
+            {% if post.featured_image %}
+            <div style="
+                height: 200px;
+                overflow: hidden;
+                position: relative;
+            ">
+                <img src="{{ post.featured_image.url }}" 
+                     alt="{{ post.title }}"
+                     style="
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        transition: all 0.3s ease;
+                     "
+                     onmouseover="this.style.transform='scale(1.05)';"
+                     onmouseout="this.style.transform='scale(1)';">
+            </div>
+            {% else %}
+            <div style="
+                height: 140px;
+                background: linear-gradient(135deg, {% if post.category == 'stories' %}#FFF9E6{% elif post.category == 'news' %}#E6F0FA{% elif post.category == 'events' %}#E3F2FD{% else %}#F8F9FA{% endif %} 0%, white 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 3rem;
+                color: {% if post.category == 'stories' %}#FFD700{% elif post.category == 'news' %}#006747{% elif post.category == 'events' %}#2196F3{% else %}#2F4F4F{% endif %};
+            ">
+                {% if post.category == 'stories' %}📖
+                {% elif post.category == 'news' %}📰
+                {% elif post.category == 'events' %}🎉
+                {% elif post.category == 'updates' %}📋
+                {% else %}📝{% endif %}
+            </div>
+            {% endif %}
+            
+            <div style="
+                padding: 1.5rem;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            ">
+                <!-- Category & Date -->
+                <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 1rem;
+                    flex-wrap: wrap;
+                    gap: 0.5rem;
+                ">
+                    <span style="
+                        background-color: {% if post.category == 'stories' %}#FFF9E6
+                                        {% elif post.category == 'news' %}#E6F0FA
+                                        {% elif post.category == 'events' %}#E3F2FD
+                                        {% elif post.category == 'updates' %}#F0F8F0
+                                        {% else %}#F8F9FA{% endif %};
+                        color: {% if post.category == 'stories' %}#FFA000
+                              {% elif post.category == 'news' %}#006747
+                              {% elif post.category == 'events' %}#2196F3
+                              {% elif post.category == 'updates' %}#006747
+                              {% else %}#2F4F4F{% endif %};
+                        padding: 0.3rem 0.8rem;
+                        border-radius: 20px;
+                        font-size: 0.8rem;
+                        font-weight: 600;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.3rem;
+                    ">
+                        <span>
+                            {% if post.category == 'stories' %}📖
+                            {% elif post.category == 'news' %}📰
+                            {% elif post.category == 'events' %}🎉
+                            {% elif post.category == 'updates' %}📋
+                            {% else %}📝{% endif %}
+                        </span>
+                        {{ post.get_category_display }}
+                    </span>
+                    
+                    <span style="
+                        color: #2F4F4F;
+                        font-size: 0.85rem;
+                        opacity: 0.7;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.3rem;
+                    ">
+                        <span>📅</span>
+                        {{ post.created_at|date:"M d, Y" }}
+                    </span>
+                </div>
+                
+                <!-- Title -->
+                <h2 style="
+                    margin: 0 0 1rem 0;
+                    line-height: 1.4;
+                ">
+                    <a href="{% url 'blog_detail' post.slug %}" style="
+                        color: #006747;
+                        text-decoration: none;
+                        font-size: 1.4rem;
+                        font-weight: 600;
+                        transition: color 0.3s ease;
+                    " onmouseover="this.style.color='#00563a'; this.style.textDecoration='underline';" 
+                    onmouseout="this.style.color='#006747'; this.style.textDecoration='none';">
+                        {{ post.title }}
+                    </a>
+                </h2>
+                
+                <!-- Author & Read More -->
+                <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding-top: 1rem;
+                    border-top: 1px solid #E6E6FA;
+                    flex-wrap: wrap;
+                    gap: 1rem;
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    ">
+                        {% if post.author %}
+                        <div style="
+                            width: 32px;
+                            height: 32px;
+                            background-color: #E6E6FA;
+                            color: #006747;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 0.9rem;
+                            font-weight: bold;
+                        ">
+                            {{ post.author.full_name|slice:":1"|upper }}
+                        </div>
+                        <div style="
+                            color: #2F4F4F;
+                            font-size: 0.9rem;
+                        ">
+                            {{ post.author.full_name }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <a href="{% url 'blog_detail' post.slug %}" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        background-color: #006747;
+                        color: white;
+                        padding: 0.5rem 1.2rem;
+                        border-radius: 6px;
+                        text-decoration: none;
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                        transition: all 0.3s ease;
+                    " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+                    onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                        <span>Read More</span>
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    
+    <!-- Pagination -->
+    {% if posts.has_other_pages %}
+    <div style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 3rem;
+    ">
+        {% if posts.has_previous %}
+        <a href="?page={{ posts.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}" style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #F8F9FA;
+            color: #006747;
+            border: 2px solid #E6E6FA;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.borderColor='#006747';" 
+        onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.borderColor='#E6E6FA';">
+            ←
+        </a>
+        {% endif %}
+        
+        {% for i in posts.paginator.page_range %}
+            {% if posts.number == i %}
+            <span style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                background-color: #006747;
+                color: white;
+                border-radius: 8px;
+                font-weight: 600;
+            ">{{ i }}</span>
+            {% elif i > posts.number|add:'-3' and i < posts.number|add:'3' %}
+            <a href="?page={{ i }}{% if selected_category %}&category={{ selected_category }}{% endif %}" style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                background-color: #F8F9FA;
+                color: #006747;
+                border: 2px solid #E6E6FA;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.borderColor='#006747';" 
+            onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.borderColor='#E6E6FA';">
+                {{ i }}
+            </a>
+            {% endif %}
+        {% endfor %}
+        
+        {% if posts.has_next %}
+        <a href="?page={{ posts.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}" style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #F8F9FA;
+            color: #006747;
+            border: 2px solid #E6E6FA;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.borderColor='#006747';" 
+        onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.borderColor='#E6E6FA';">
+            →
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    {% else %}
+    <!-- Empty State -->
+    <div class="scale-in" style="
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        padding: 4rem 2rem;
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+    ">
+        <div style="
+            font-size: 4rem;
+            color: #E6E6FA;
+            margin-bottom: 1.5rem;
+        ">📚</div>
+        <h2 style="
+            color: #006747;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        ">
+            No Blog Posts Yet
+        </h2>
+        <p style="
+            color: #2F4F4F;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        ">
+            We're working on creating engaging content for you. Check back soon for updates, stories, and insights from our community!
+        </p>
+        <div style="
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        ">
+            <a href="{% url 'home' %}" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background-color: #006747;
+                color: white;
+                padding: 0.8rem 1.5rem;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.95rem;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                <span>🏠</span>
+                Return Home
+            </a>
+            
+            <a href="#" onclick="showNotification()" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background-color: #FFD700;
+                color: #006747;
+                padding: 0.8rem 1.5rem;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.95rem;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#e6c200'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.backgroundColor='#FFD700'; this.style.transform='translateY(0)';">
+                <span>🔔</span>
+                Get Notified
+            </a>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Newsletter Signup -->
+    <div class="fade-in" style="
+        background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+        border-radius: 16px;
+        padding: 3rem;
+        margin-top: 3rem;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    ">
+        <div style="
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+        "></div>
+        <div style="
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 50%;
+        "></div>
+        
+        <div style="position: relative; z-index: 1;">
+            <div style="
+                text-align: center;
+                max-width: 600px;
+                margin: 0 auto;
+            ">
+                <div style="
+                    width: 60px;
+                    height: 60px;
+                    background-color: #FFD700;
+                    color: #006747;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.8rem;
+                    font-weight: bold;
+                    margin: 0 auto 1.5rem;
+                ">
+                    ✉️
+                </div>
+                
+                <h2 style="
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                    color: #FFD700;
+                ">
+                    Never Miss a Post
+                </h2>
+                <p style="
+                    font-size: 1.1rem;
+                    margin-bottom: 2rem;
+                    opacity: 0.9;
+                    line-height: 1.6;
+                ">
+                    Subscribe to our newsletter and get the latest stories, updates, and news delivered straight to your inbox.
+                </p>
+                
+                <form id="newsletterForm" style="
+                    display: flex;
+                    gap: 1rem;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                ">
+                    <input type="email" 
+                           placeholder="Enter your email address" 
+                           required
+                           style="
+                                flex: 1;
+                                min-width: 250px;
+                                padding: 1rem 1.5rem;
+                                border: none;
+                                border-radius: 50px;
+                                font-size: 1rem;
+                                color: #2F4F4F;
+                                background-color: white;
+                                transition: all 0.3s ease;
+                           "
+                           onfocus="this.style.boxShadow='0 0 0 3px rgba(255, 215, 0, 0.3)';">
+                    
+                    <button type="submit" 
+                            style="
+                                background-color: #FFD700;
+                                color: #006747;
+                                border: none;
+                                padding: 1rem 2rem;
+                                border-radius: 50px;
+                                font-size: 1rem;
+                                font-weight: 600;
+                                cursor: pointer;
+                                transition: all 0.3s ease;
+                                display: flex;
+                                align-items: center;
+                                gap: 0.5rem;
+                            "
+                            onmouseover="this.style.backgroundColor='#e6c200'; this.style.transform='translateY(-2px)';" 
+                            onmouseout="this.style.backgroundColor='#FFD700'; this.style.transform='translateY(0)';">
+                        <span>Subscribe</span>
+                        <span>→</span>
+                    </button>
+                </form>
+                
+                <p style="
+                    font-size: 0.85rem;
+                    margin-top: 1rem;
+                    opacity: 0.7;
+                ">
+                    We respect your privacy. Unsubscribe at any time.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Enhanced Functionality -->
+<script>
+    // Search functionality
+    function searchPosts() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const posts = document.querySelectorAll('.blog-card');
+        let foundCount = 0;
+        
+        posts.forEach(post => {
+            const title = post.querySelector('h2 a').textContent.toLowerCase();
+            const content = post.querySelector('div > div:last-child div:nth-child(3)').textContent.toLowerCase();
+            const category = post.querySelector('span:first-child').textContent.toLowerCase();
+            
+            if (title.includes(searchTerm) || content.includes(searchTerm) || category.includes(searchTerm)) {
+                post.style.display = 'flex';
+                foundCount++;
+            } else {
+                post.style.display = 'none';
+            }
+        });
+        
+        // Show search results message
+        const existingMessage = document.getElementById('searchResultsMessage');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.id = 'searchResultsMessage';
+        messageDiv.style.cssText = `
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: #F8F9FA;
+            border-radius: 8px;
+            color: #006747;
+            font-weight: 600;
+        `;
+        
+        if (foundCount === 0) {
+            messageDiv.innerHTML = `
+                <span>🔍</span>
+                No posts found matching "${searchTerm}". 
+                <a href="#" onclick="clearSearch()" style="color: #006747; font-weight: 700; text-decoration: underline;">Clear search</a>
+            `;
+            document.querySelector('.blog-posts-grid').prepend(messageDiv);
+        } else {
+            messageDiv.innerHTML = `
+                <span>🔍</span>
+                Found ${foundCount} post${foundCount !== 1 ? 's' : ''} matching "${searchTerm}"
+            `;
+            document.querySelector('.blog-posts-grid').prepend(messageDiv);
+        }
+    }
+    
+    // Clear search
+    function clearSearch() {
+        document.getElementById('searchInput').value = '';
+        const posts = document.querySelectorAll('.blog-card');
+        posts.forEach(post => {
+            post.style.display = 'flex';
+        });
+        document.getElementById('searchResultsMessage').remove();
+    }
+    
+    // Newsletter subscription
+    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = this.querySelector('input[type="email"]').value;
+        
+        // Show success message
+        const button = this.querySelector('button');
+        const originalText = button.innerHTML;
+        button.innerHTML = '<span>✓</span> Subscribed!';
+        button.style.backgroundColor = '#006747';
+        button.style.color = 'white';
+        button.disabled = true;
+        
+        showToast(`Thanks for subscribing! Check your inbox for confirmation.`, 'success');
+        
+        // Reset after 3 seconds
+        setTimeout(() => {
+            button.innerHTML = originalText;
+            button.style.backgroundColor = '#FFD700';
+            button.style.color = '#006747';
+            button.disabled = false;
+            this.reset();
+        }, 3000);
+    });
+    
+    // Toast notification
+    function showToast(message, type = 'info') {
+        const toast = document.createElement('div');
+        toast.innerHTML = message;
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: ${type === 'success' ? '#006747' : type === 'error' ? '#D32F2F' : '#FFD700'};
+            color: ${type === 'success' || type === 'error' ? 'white' : '#006747'};
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        `;
+        
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+    
+    // Get notified button
+    function showNotification() {
+        showToast('🔔 We\'ll notify you when new posts are published!', 'info');
+    }
+    
+    // Category filter animation
+    const filterButtons = document.querySelectorAll('.category-filter');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            filterButtons.forEach(btn => {
+                btn.style.transform = 'scale(1)';
+            });
+            this.style.transform = 'scale(0.95)';
+        });
+    });
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // / to focus search
+        if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+            e.preventDefault();
+            document.getElementById('searchInput').focus();
+        }
+        
+        // Escape to clear search
+        if (e.key === 'Escape') {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput === document.activeElement) {
+                clearSearch();
+            }
+        }
+    });
+    
+    // Lazy load images
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.add('loaded');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+        
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+</script>
+
+<style>
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .blog-header h1 {
+            font-size: 2rem !important;
+        }
+        
+        .blog-header p {
+            font-size: 1rem !important;
+        }
+        
+        .category-filters {
+            gap: 0.5rem !important;
+        }
+        
+        .category-filters a {
+            font-size: 0.85rem !important;
+            padding: 0.5rem 1rem !important;
+        }
+        
+        .blog-posts-grid {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .newsletter-section {
+            padding: 2rem !important;
+        }
+        
+        .newsletter-section h2 {
+            font-size: 1.6rem !important;
+        }
+        
+        .pagination {
+            gap: 0.3rem !important;
+        }
+        
+        .pagination a,
+        .pagination span {
+            width: 35px !important;
+            height: 35px !important;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .blog-header {
+            padding: 0 !important;
+        }
+        
+        .search-container input {
+            padding: 0.8rem 1rem !important;
+        }
+        
+        .search-container button {
+            position: relative !important;
+            transform: none !important;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+        
+        .blog-card h2 a {
+            font-size: 1.2rem !important;
+        }
+        
+        .newsletter-section {
+            padding: 1.5rem !important;
+        }
+        
+        .newsletter-form {
+            flex-direction: column;
+        }
+        
+        .newsletter-form input,
+        .newsletter-form button {
+            width: 100%;
+        }
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.5s ease-out;
+    }
+    
+    @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    
+    .scale-in {
+        animation: scaleIn 0.4s ease-out;
+    }
+    
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+    
+    /* Blog card hover effect */
+    .blog-card {
+        transition: all 0.3s ease;
+    }
+    
+    .blog-card:hover img {
+        transform: scale(1.05);
+    }
+    
+    /* Category filter active state */
+    .category-filter-active {
+        background-color: #006747 !important;
+        color: white !important;
+        border-color: #006747 !important;
+    }
+    
+    /* Loading state for images */
+    img {
+        transition: all 0.3s ease;
+    }
+    
+    img.loaded {
+        opacity: 1;
+    }
+    
+    img:not([src]) {
+        opacity: 0;
+    }
+    
+    /* Print styles */
+    @media print {
+        .category-filters,
+        .search-container,
+        .newsletter-section,
+        .pagination {
+            display: none !important;
+        }
+        
+        .blog-card {
+            break-inside: avoid;
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+        }
+        
+        .blog-posts-grid {
+            display: block !important;
+        }
+        
+        .blog-card {
+            margin-bottom: 2rem;
+        }
+    }
+</style>
+{% endblock %}

@@ -143,7 +143,7 @@
                                     margin-bottom: 0.5rem;
                                     font-size: 0.95rem;
                                 ">
-                                    Full Name *
+                                    Full Name
                                 </label>
                                 {{ form.full_name }}
                                 <div style="margin-top: 0.25rem;">
@@ -163,7 +163,7 @@
                                         margin-bottom: 0.5rem;
                                         font-size: 0.95rem;
                                     ">
-                                        Email Address *
+                                        Email Address
                                     </label>
                                     {{ form.email }}
                                     <div style="margin-top: 0.25rem;">
@@ -231,7 +231,7 @@
                                 margin-bottom: 0.5rem;
                                 font-size: 0.95rem;
                             ">
-                                Professional/Educational Background *
+                                Professional/Educational Background
                             </label>
                             {{ form.background }}
                             <div style="margin-top: 0.25rem;">
@@ -279,7 +279,7 @@
                                 margin-bottom: 0.5rem;
                                 font-size: 0.95rem;
                             ">
-                                Why do you want to be a mentor? *
+                                Why do you want to be a mentor?
                             </label>
                             {{ form.motivation }}
                             <div style="margin-top: 0.25rem;">
@@ -943,7 +943,7 @@
                 const counter = document.createElement('div');
                 counter.className = 'char-counter';
                 counter.style.fontSize = '0.85rem';
-                counter.style.color = '#8B4513';
+                counter.style.color = '#228B22';
                 counter.style.marginTop = '0.25rem';
                 counter.style.textAlign = 'right';
                 counter.innerHTML = '0 words';
@@ -954,13 +954,7 @@
                     const words = this.value.trim().split(/\s+/).filter(word => word.length > 0);
                     const wordCount = words.length;
                     counter.textContent = wordCount + ' words';
-                    
-                    if (wordCount < minWords) {
-                        counter.style.color = '#D32F2F';
-                        counter.innerHTML = wordCount + ' words (minimum ' + minWords + ' words)';
-                    } else {
-                        counter.style.color = '#8B4513';
-                    }
+
                 });
             }
             

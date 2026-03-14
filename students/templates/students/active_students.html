@@ -125,13 +125,7 @@
                         margin: 0;
                         text-align: center;
                     ">
-                        {% with assigned=students|length|add:"0" %}
-                            {% for student in students %}
-                                {% if student.mentor %}
-                                    {{ forloop.counter }}
-                                {% endif %}
-                            {% endfor %}
-                        {% endwith %}
+                        {{ assigned_students }}
                     </p>
                 </div>
             </div>

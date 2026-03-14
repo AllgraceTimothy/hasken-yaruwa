@@ -1,0 +1,1074 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ story.title }} - Success Story - Hasken Yaruwa{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 80vh;
+">
+    <!-- Navigation -->
+    <div class="fade-in" style="
+        margin-bottom: 2rem;
+    ">
+        <a href="{% url 'success_list' %}" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #006747;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            background-color: #F8F9FA;
+            transition: all 0.3s ease;
+        " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.transform='translateY(-2px)';" 
+        onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.transform='translateY(0)';">
+            ← Back to Success Stories
+        </a>
+    </div>
+
+    <!-- Success Story Header -->
+    <div class="scale-in" style="
+        background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+        border-radius: 16px 16px 0 0;
+        padding: 2.5rem;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    ">
+        <div style="
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+        "></div>
+        <div style="
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 50%;
+        "></div>
+        
+        <div style="position: relative; z-index: 1;">
+            <div style="
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                margin-bottom: 1.5rem;
+                flex-wrap: wrap;
+            ">
+                <div style="
+                    width: 80px;
+                    height: 80px;
+                    background-color: #FFD700;
+                    color: #006747;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2.2rem;
+                    font-weight: bold;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                ">
+                    {{ story.student_name|slice:":1"|upper }}
+                </div>
+                <div>
+                    <h1 style="
+                        color: #FFD700;
+                        font-size: 2.2rem;
+                        margin-bottom: 0.5rem;
+                    ">
+                        {{ story.title }}
+                    </h1>
+                    <div style="
+                        display: flex;
+                        gap: 1rem;
+                        flex-wrap: wrap;
+                    ">
+                        <span style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            font-size: 1.1rem;
+                        ">
+                            <span style="color: #FFD700;">👤</span>
+                            {{ story.student_name }}
+                        </span>
+                        
+                        {% if story.graduation_year %}
+                        <span style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            font-size: 1.1rem;
+                        ">
+                            <span style="color: #FFD700;">🎓</span>
+                            Class of {{ story.graduation_year }}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Card -->
+    <div class="scale-in" style="
+        background-color: white;
+        border-radius: 0 0 16px 16px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        border-bottom: 5px solid #FFD700;
+    ">
+        <!-- Achievement Badges -->
+        {% if story.achievements.all %}
+        <div style="
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #E6E6FA;
+        ">
+            {% for achievement in story.achievements.all %}
+            <span style="
+                background-color: #FFF9E6;
+                color: #006747;
+                padding: 0.5rem 1rem;
+                border-radius: 30px;
+                font-size: 0.9rem;
+                font-weight: 600;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+            ">
+                <span style="color: #FFD700;">🏆</span>
+                {{ achievement.name }}
+            </span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <!-- Student Photo -->
+        {% if story.photo %}
+        <div style="
+            float: right;
+            margin: 0 0 1.5rem 1.5rem;
+            max-width: 300px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 4px solid #FFD700;
+        ">
+            <img src="{{ story.photo.url }}" 
+                 alt="{{ story.student_name }}"
+                 style="
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                    transition: all 0.3s ease;
+                 "
+                 onmouseover="this.style.transform='scale(1.05)';"
+                 onmouseout="this.style.transform='scale(1)';">
+        </div>
+        {% endif %}
+        
+        <!-- Student Quote (if available) -->
+        {% if story.quote %}
+        <div style="
+            background-color: #F8F9FA;
+            border-left: 4px solid #FFD700;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            position: relative;
+        ">
+            <span style="
+                position: absolute;
+                top: -10px;
+                left: 20px;
+                font-size: 3rem;
+                color: #FFD700;
+                opacity: 0.3;
+            ">❝</span>
+            <p style="
+                color: #2F4F4F;
+                font-size: 1.2rem;
+                margin: 0 0 0.5rem 0;
+                line-height: 1.6;
+                position: relative;
+                z-index: 1;
+            ">
+                {{ story.quote }}
+            </p>
+            <p style="
+                color: #006747;
+                font-weight: 600;
+                margin: 0;
+                text-align: right;
+            ">
+                — {{ story.student_name }}
+            </p>
+        </div>
+        {% endif %}
+        
+        <!-- Full Story Content -->
+        <div style="
+            color: #2F4F4F;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            white-space: pre-line;
+        ">
+            {{ story.story|linebreaks }}
+        </div>
+        
+        <!-- Timeline (if available) -->
+        {% if story.timeline %}
+        <div style="
+            background-color: #F8F9FA;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        ">
+            <h3 style="
+                color: #006747;
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            ">
+                <span style="color: #FFD700;">📅</span>
+                Journey Timeline
+            </h3>
+            <div style="
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            ">
+                {{ story.timeline|linebreaks }}
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Mentor Note (if available) -->
+        {% if story.mentor_note %}
+        <div style="
+            background-color: #E6F0FA;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-left: 4px solid #006747;
+        ">
+            <h3 style="
+                color: #006747;
+                font-size: 1.2rem;
+                margin-bottom: 0.8rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            ">
+                <span>👨‍🏫</span>
+                Note from Mentor
+            </h3>
+            <p style="
+                color: #2F4F4F;
+                font-size: 1rem;
+                line-height: 1.6;
+                margin: 0;
+                font-style: italic;
+            ">
+                "{{ story.mentor_note }}"
+            </p>
+            {% if story.mentor_name %}
+            <p style="
+                color: #006747;
+                font-weight: 600;
+                margin-top: 0.8rem;
+                text-align: right;
+            ">
+                — {{ story.mentor_name }}, Mentor
+            </p>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        <!-- Current Status / Where Are They Now -->
+        {% if story.current_status %}
+        <div style="
+            background-color: #FFF9E6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid #FFE6CC;
+        ">
+            <h3 style="
+                color: #006747;
+                font-size: 1.2rem;
+                margin-bottom: 0.8rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            ">
+                <span style="color: #FFD700;">📍</span>
+                Where Are They Now
+            </h3>
+            <p style="
+                color: #2F4F4F;
+                font-size: 1rem;
+                line-height: 1.6;
+                margin: 0;
+            ">
+                {{ story.current_status }}
+            </p>
+        </div>
+        {% endif %}
+        
+        <!-- Share & Connect Section -->
+        <div style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 2px solid #E6E6FA;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        ">
+            <div style="
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
+            ">
+                <button onclick="shareOnTwitter()" style="
+                    width: 40px;
+                    height: 40px;
+                    background-color: #F8F9FA;
+                    color: #1DA1F2;
+                    border: none;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.2rem;
+                " onmouseover="this.style.backgroundColor='#1DA1F2'; this.style.color='white'; this.style.transform='translateY(-2px)';" 
+                onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.color='#1DA1F2'; this.style.transform='translateY(0)';">
+                    𝕏
+                </button>
+                
+                <button onclick="shareOnFacebook()" style="
+                    width: 40px;
+                    height: 40px;
+                    background-color: #F8F9FA;
+                    color: #4267B2;
+                    border: none;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.2rem;
+                " onmouseover="this.style.backgroundColor='#4267B2'; this.style.color='white'; this.style.transform='translateY(-2px)';" 
+                onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.color='#4267B2'; this.style.transform='translateY(0)';">
+                    f
+                </button>
+                
+                <button onclick="shareOnLinkedIn()" style="
+                    width: 40px;
+                    height: 40px;
+                    background-color: #F8F9FA;
+                    color: #0077B5;
+                    border: none;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.2rem;
+                " onmouseover="this.style.backgroundColor='#0077B5'; this.style.color='white'; this.style.transform='translateY(-2px)';" 
+                onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.color='#0077B5'; this.style.transform='translateY(0)';">
+                    in
+                </button>
+                
+                <button onclick="copyLink()" style="
+                    width: 40px;
+                    height: 40px;
+                    background-color: #006747;
+                    color: white;
+                    border: none;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.2rem;
+                " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+                onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                    🔗
+                </button>
+            </div>
+            
+            <div style="
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
+            ">
+                <a href="{% url 'success_list' %}" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    background-color: #006747;
+                    color: white;
+                    padding: 0.7rem 1.2rem;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+                onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                    <span>📚</span>
+                    More Stories
+                </a>
+                
+                <button onclick="printStory()" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    background-color: #FFD700;
+                    color: #006747;
+                    padding: 0.7rem 1.2rem;
+                    border-radius: 8px;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    cursor: pointer;
+                    border: none;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.backgroundColor='#e6c200'; this.style.transform='translateY(-2px)';" 
+                onmouseout="this.style.backgroundColor='#FFD700'; this.style.transform='translateY(0)';">
+                    <span>🖨️</span>
+                    Print Story
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Success Stories -->
+    {% if related_stories %}
+    <div class="fade-in" style="
+        margin-top: 3rem;
+    ">
+        <h2 style="
+            color: #006747;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        ">
+            <span style="color: #FFD700;">🌟</span>
+            More Inspiring Stories
+        </h2>
+        
+        <div style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        ">
+            {% for related in related_stories %}
+            <a href="{% url 'success_detail' related.id %}" style="
+                text-decoration: none;
+                background-color: white;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                overflow: hidden;
+                transition: all 0.3s ease;
+                border-top: 4px solid #FFD700;
+            " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)';" 
+            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)';">
+                {% if related.photo %}
+                <div style="
+                    height: 140px;
+                    overflow: hidden;
+                ">
+                    <img src="{{ related.photo.url }}" 
+                         alt="{{ related.student_name }}"
+                         style="
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            transition: all 0.3s ease;
+                         "
+                         onmouseover="this.style.transform='scale(1.05)';"
+                         onmouseout="this.style.transform='scale(1)';">
+                </div>
+                {% else %}
+                <div style="
+                    height: 100px;
+                    background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #FFD700;
+                    font-size: 2.5rem;
+                ">
+                    🌟
+                </div>
+                {% endif %}
+                <div style="padding: 1.2rem;">
+                    <h3 style="
+                        color: #006747;
+                        font-size: 1.1rem;
+                        margin: 0 0 0.5rem 0;
+                    ">
+                        {{ related.title|truncatechars:60 }}
+                    </h3>
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    ">
+                        <span style="
+                            color: #2F4F4F;
+                            font-size: 0.9rem;
+                        ">
+                            {{ related.student_name }}
+                        </span>
+                        {% if related.graduation_year %}
+                        <span style="
+                            background-color: #FFF9E6;
+                            color: #006747;
+                            padding: 0.2rem 0.6rem;
+                            border-radius: 4px;
+                            font-size: 0.75rem;
+                            font-weight: 600;
+                        ">
+                            '{{ related.graduation_year|slice:"-2:" }}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Call to Action -->
+    <div class="fade-in" style="
+        text-align: center;
+        margin-top: 3rem;
+        padding: 2rem;
+        background-color: #F8F9FA;
+        border-radius: 12px;
+    ">
+        <h3 style="
+            color: #006747;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        ">
+            Inspired by {{ story.student_name }}'s journey?
+        </h3>
+        <div style="
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        ">
+            <a href="{% url 'student_application' %}" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background-color: #006747;
+                color: white;
+                padding: 0.8rem 1.5rem;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.95rem;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                <span>✨</span>
+                Start Your Journey
+            </a>
+            
+            <a href="#" onclick="openShareModal()" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background-color: #FFD700;
+                color: #006747;
+                padding: 0.8rem 1.5rem;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.95rem;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#e6c200'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.backgroundColor='#FFD700'; this.style.transform='translateY(0)';">
+                <span>📤</span>
+                Share This Story
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Share Modal -->
+<div id="shareModal" style="
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+">
+    <div style="
+        background-color: white;
+        border-radius: 16px;
+        padding: 2rem;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        animation: scaleIn 0.3s ease;
+    ">
+        <h3 style="
+            color: #006747;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        ">
+            <span>📤</span>
+            Share This Story
+        </h3>
+        
+        <div style="
+            margin-bottom: 1.5rem;
+        ">
+            <input type="text" 
+                   id="shareLink" 
+                   value="{{ request.build_absolute_uri }}"
+                   readonly
+                   style="
+                        width: 100%;
+                        padding: 0.8rem 1rem;
+                        border: 2px solid #E6E6FA;
+                        border-radius: 8px;
+                        font-size: 0.9rem;
+                        color: #2F4F4F;
+                        background-color: #F8F9FA;
+                        box-sizing: border-box;
+                   ">
+        </div>
+        
+        <div style="
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        ">
+            <button onclick="shareOnTwitter()" style="
+                background-color: #F8F9FA;
+                color: #1DA1F2;
+                border: 2px solid #E6E6FA;
+                padding: 0.8rem;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#1DA1F2'; this.style.color='white'; this.style.borderColor='#1DA1F2';" 
+            onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.color='#1DA1F2'; this.style.borderColor='#E6E6FA';">
+                𝕏 Twitter
+            </button>
+            
+            <button onclick="shareOnFacebook()" style="
+                background-color: #F8F9FA;
+                color: #4267B2;
+                border: 2px solid #E6E6FA;
+                padding: 0.8rem;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#4267B2'; this.style.color='white'; this.style.borderColor='#4267B2';" 
+            onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.color='#4267B2'; this.style.borderColor='#E6E6FA';">
+                f Facebook
+            </button>
+            
+            <button onclick="shareOnLinkedIn()" style="
+                background-color: #F8F9FA;
+                color: #0077B5;
+                border: 2px solid #E6E6FA;
+                padding: 0.8rem;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#0077B5'; this.style.color='white'; this.style.borderColor='#0077B5';" 
+            onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.color='#0077B5'; this.style.borderColor='#E6E6FA';">
+                in LinkedIn
+            </button>
+            
+            <button onclick="copyLinkFromModal()" style="
+                background-color: #006747;
+                color: white;
+                border: none;
+                padding: 0.8rem;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#00563a';" 
+            onmouseout="this.style.backgroundColor='#006747';">
+                🔗 Copy Link
+            </button>
+        </div>
+        
+        <button onclick="closeShareModal()" style="
+            width: 100%;
+            background-color: #F8F9FA;
+            color: #2F4F4F;
+            border: 2px solid #E6E6FA;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        " onmouseover="this.style.backgroundColor='#E6E6FA';" 
+        onmouseout="this.style.backgroundColor='#F8F9FA';">
+            Close
+        </button>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // Share functions
+    function shareOnTwitter() {
+        const url = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent("Inspiring success story: {{ story.title }} from {{ story.student_name }}");
+        window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+    }
+    
+    function shareOnFacebook() {
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+    }
+    
+    function shareOnLinkedIn() {
+        const url = encodeURIComponent(window.location.href);
+        const title = encodeURIComponent("{{ story.title }}");
+        const summary = encodeURIComponent("Inspiring success story from {{ story.student_name }}");
+        window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}&summary=${summary}`, '_blank');
+    }
+    
+    function copyLink() {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+            showToast('Link copied to clipboard!', 'success');
+        }).catch(() => {
+            openShareModal();
+        });
+    }
+    
+    function copyLinkFromModal() {
+        const linkInput = document.getElementById('shareLink');
+        linkInput.select();
+        document.execCommand('copy');
+        showToast('Link copied to clipboard!', 'success');
+        closeShareModal();
+    }
+    
+    // Share modal
+    function openShareModal() {
+        document.getElementById('shareModal').style.display = 'flex';
+    }
+    
+    function closeShareModal() {
+        document.getElementById('shareModal').style.display = 'none';
+    }
+    
+    // Toast notification
+    function showToast(message, type = 'info') {
+        const toast = document.createElement('div');
+        toast.innerHTML = message;
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: ${type === 'success' ? '#006747' : type === 'error' ? '#D32F2F' : '#FFD700'};
+            color: ${type === 'success' || type === 'error' ? 'white' : '#006747'};
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1001;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        `;
+        
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+    
+    // Print story
+    function printStory() {
+        window.print();
+    }
+    
+    // Close modal on outside click
+    document.getElementById('shareModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeShareModal();
+        }
+    });
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // Escape to close modal
+        if (e.key === 'Escape') {
+            closeShareModal();
+        }
+        
+        // Left arrow to go back
+        if (e.key === 'ArrowLeft' && !e.ctrlKey && !e.metaKey) {
+            window.history.back();
+        }
+        
+        // P to print
+        if (e.key === 'p' && !e.ctrlKey && !e.metaKey) {
+            e.preventDefault();
+            printStory();
+        }
+    });
+</script>
+
+<style>
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .story-header {
+            padding: 1.5rem !important;
+        }
+        
+        .story-header h1 {
+            font-size: 1.8rem !important;
+        }
+        
+        .story-header > div {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem !important;
+        }
+        
+        .student-avatar {
+            margin: 0 auto;
+        }
+        
+        .main-content {
+            padding: 1.5rem !important;
+        }
+        
+        .student-photo {
+            float: none !important;
+            margin: 0 auto 1.5rem !important;
+            max-width: 100% !important;
+        }
+        
+        .share-section {
+            flex-direction: column;
+            align-items: center !important;
+            gap: 1rem !important;
+        }
+        
+        .share-buttons {
+            justify-content: center;
+        }
+        
+        .action-buttons {
+            width: 100%;
+        }
+        
+        .action-buttons a,
+        .action-buttons button {
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .related-stories-grid {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .cta-section {
+            padding: 1.5rem !important;
+        }
+        
+        .cta-section h3 {
+            font-size: 1.2rem !important;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .story-header h1 {
+            font-size: 1.5rem !important;
+        }
+        
+        .quote-section p {
+            font-size: 1rem !important;
+        }
+        
+        .story-content {
+            font-size: 1rem !important;
+        }
+        
+        .achievement-badge {
+            font-size: 0.8rem !important;
+            padding: 0.3rem 0.8rem !important;
+        }
+        
+        .share-section {
+            gap: 0.8rem !important;
+        }
+        
+        .share-buttons {
+            gap: 0.5rem !important;
+        }
+        
+        .share-buttons button {
+            width: 35px !important;
+            height: 35px !important;
+            font-size: 1rem !important;
+        }
+        
+        .action-buttons {
+            flex-direction: column;
+        }
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.5s ease-out;
+    }
+    
+    @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    
+    .scale-in {
+        animation: scaleIn 0.4s ease-out;
+    }
+    
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+    
+    /* Story content styling */
+    .story-content p {
+        margin-bottom: 1.5rem;
+    }
+    
+    .story-content h2 {
+        color: #006747;
+        font-size: 1.6rem;
+        margin: 2rem 0 1rem;
+    }
+    
+    .story-content h3 {
+        color: #006747;
+        font-size: 1.3rem;
+        margin: 1.5rem 0 1rem;
+    }
+    
+    .story-content ul,
+    .story-content ol {
+        margin: 1rem 0 1.5rem 1.5rem;
+    }
+    
+    .story-content li {
+        margin-bottom: 0.5rem;
+    }
+    
+    .story-content blockquote {
+        background-color: #F8F9FA;
+        border-left: 4px solid #006747;
+        padding: 1rem 1.5rem;
+        margin: 1.5rem 0;
+        font-style: italic;
+        color: #2F4F4F;
+        border-radius: 0 8px 8px 0;
+    }
+    
+    /* Print styles */
+    @media print {
+        .navigation,
+        .share-section,
+        .related-stories,
+        .cta-section,
+        .share-modal {
+            display: none !important;
+        }
+        
+        .story-header {
+            background: none !important;
+            color: black !important;
+            padding: 1rem 0 !important;
+        }
+        
+        .story-header h1 {
+            color: #006747 !important;
+        }
+        
+        .main-content {
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+        }
+        
+        .student-photo {
+            max-width: 200px !important;
+        }
+        
+        a {
+            text-decoration: none !important;
+            color: black !important;
+        }
+    }
+</style>
+{% endblock %}
