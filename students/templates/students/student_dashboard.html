@@ -91,7 +91,7 @@
                     </div>
                     <div>
                         <div style="font-size: 0.9rem; opacity: 0.8;">Student ID</div>
-                        <div style="font-weight: 600; color: #FFD700;">#{{ student.id|default:"0000" }}</div>
+                        <div style="font-weight: 600; color: #FFD700;">#ST 00{{ student.id|default:"0000" }}</div>
                     </div>
                 </div>
             </div>
@@ -144,7 +144,7 @@
                                 font-weight: bold;
                                 color: #FFD700;
                             ">
-                                {{ notes|length }}
+                                {{ my_updates|length }}
                             </div>
                         </div>
                     </div>
@@ -198,7 +198,7 @@
                                 font-weight: bold;
                                 color: #FFD700;
                             ">
-                                {{ mentor_notes_count|default:"0" }}
+                                {{ notes|length|default:"0" }}
                             </div>
                         </div>
                     </div>
@@ -211,67 +211,6 @@
                     </p>
                 </div>
                 
-                <div style="
-                    background-color: rgba(255, 255, 255, 0.15);
-                    padding: 1.5rem;
-                    border-radius: 12px;
-                    backdrop-filter: blur(10px);
-                    border: 1px solid rgba(255, 255, 255, 0.2);
-                    transition: all 0.3s ease;
-                " onmouseover="this.style.transform='translateY(-5px)'; this.style.backgroundColor='rgba(255, 255, 255, 0.2)';" 
-                onmouseout="this.style.transform='translateY(0)'; this.style.backgroundColor='rgba(255, 255, 255, 0.15)';">
-                    <div style="
-                        display: flex;
-                        align-items: center;
-                        gap: 1rem;
-                        margin-bottom: 1rem;
-                    ">
-                        <div style="
-                            width: 50px;
-                            height: 50px;
-                            background-color: #FFD700;
-                            color: #006747;
-                            border-radius: 12px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            font-size: 1.5rem;
-                            font-weight: bold;
-                        ">
-                            📅
-                        </div>
-                        <div>
-                            <div style="
-                                font-size: 0.9rem;
-                                opacity: 0.8;
-                            ">
-                                Next Session
-                            </div>
-                            <div style="
-                                font-size: 1.5rem;
-                                font-weight: bold;
-                                color: #FFD700;
-                            ">
-                                {% if next_session %}
-                                    {{ next_session.date|date:"M d" }}
-                                {% else %}
-                                    Not Set
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                    <p style="
-                        margin: 0;
-                        font-size: 0.9rem;
-                        opacity: 0.9;
-                    ">
-                        {% if next_session %}
-                            With {{ mentor.user.full_name }}
-                        {% else %}
-                            Schedule a session
-                        {% endif %}
-                    </p>
-                </div>
             </div>
         </div>
     </div>
@@ -450,27 +389,6 @@
                         <span>✉️</span>
                         Message Mentor
                     </a>
-                    
-                    <a href="#" style="
-                        display: inline-flex;
-                        align-items: center;
-                        gap: 0.5rem;
-                        background-color: #FFD700;
-                        color: #006747;
-                        padding: 0.7rem 1.2rem;
-                        border-radius: 8px;
-                        text-decoration: none;
-                        font-weight: 600;
-                        font-size: 0.9rem;
-                        transition: all 0.3s ease;
-                        flex: 1;
-                        min-width: 150px;
-                        justify-content: center;
-                    " onmouseover="this.style.backgroundColor='#e6c200'; this.style.transform='translateY(-2px)';" 
-                    onmouseout="this.style.backgroundColor='#FFD700'; this.style.transform='translateY(0)';">
-                        <span>📅</span>
-                        Schedule Session
-                    </a>
                 </div>
                 {% else %}
                 <!-- No Mentor State -->
@@ -544,6 +462,7 @@
             </div>
             
             <!-- Submit Update Card -->
+             {% if mentor %}
             <div style="
                 background-color: white;
                 border-radius: 12px;
@@ -637,6 +556,7 @@
                     </ul>
                 </div>
             </div>
+            {% endif %}
         </div>
         
         <!-- Right Column: Recent Updates -->
@@ -753,10 +673,15 @@
                                         gap: 0.3rem;
                                     ">
                                         <span>
-                                            {% if note.note_type == 'progress' %}📈
-                                            {% elif note.note_type == 'achievement' %}🏆
+                                            {% if note.note_type == 'weekly_checkin' %}📅
                                             {% elif note.note_type == 'challenge' %}⚠️
-                                            {% elif note.note_type == 'question' %}❓
+                                            {% elif note.note_type == 'academic' %}🎓
+                                            {% elif note.note_type == 'financial' %}💰
+                                            {% elif note.note_type == 'personal' %}🌱
+                                            {% elif note.note_type == 'attendance' %}🧑‍🏫
+                                            {% elif note.note_type == 'goal' %}🎯
+                                            {% elif note.note_type == 'milestone' %}🏆
+                                            {% elif note.note_type == 'admin' %}⚙️
                                             {% else %}📝{% endif %}
                                         </span>
                                         {{ note.get_note_type_display }}

@@ -109,7 +109,7 @@
                         font-weight: bold;
                         color: {% if student.is_active %}#006747{% else %}#D32F2F{% endif %};
                     ">
-                        {% if student.is_active %}
+                        {% if student.user.is_active %}
                         <span style="color: #FFD700;">●</span> Active
                         {% else %}
                         <span style="color: #D32F2F;">●</span> Inactive
@@ -383,7 +383,7 @@
                                 font-weight: 500;
                                 color: {% if student.is_active %}#006747{% else %}#D32F2F{% endif %};
                             ">
-                                {% if student.is_active %}
+                                {% if student.user.is_active %}
                                 <span style="display: inline-flex; align-items: center; gap: 0.3rem;">
                                     <span style="color: #006747; font-size: 1.2rem;">●</span>
                                     Active Student
@@ -638,45 +638,20 @@
                                     gap: 0.3rem;
                                 ">
                                     <span>
-                                        {% if note.note_type == 'progress' %}📈
+                                        {% if note.note_type == 'weekly_checkin' %}📅
                                         {% elif note.note_type == 'challenge' %}⚠️
-                                        {% elif note.note_type == 'achievement' %}🏆
+                                        {% elif note.note_type == 'academic' %}🎓
+                                        {% elif note.note_type == 'financial' %}💰
+                                        {% elif note.note_type == 'personal' %}🌱
+                                        {% elif note.note_type == 'attendance' %}🧑‍🏫
+                                        {% elif note.note_type == 'goal' %}🎯
+                                        {% elif note.note_type == 'milestone' %}🏆
+                                        {% elif note.note_type == 'admin' %}⚙️
                                         {% else %}📝{% endif %}
                                     </span>
                                     {{ note.get_note_type_display }}
                                 </span>
                                 
-                                {% if note.is_visible_to_student %}
-                                <span style="
-                                    background-color: #E6F0FA;
-                                    color: #006747;
-                                    padding: 0.2rem 0.6rem;
-                                    border-radius: 4px;
-                                    font-size: 0.75rem;
-                                    font-weight: 600;
-                                    display: inline-flex;
-                                    align-items: center;
-                                    gap: 0.2rem;
-                                ">
-                                    <span>👁️</span>
-                                    Visible to Student
-                                </span>
-                                {% else %}
-                                <span style="
-                                    background-color: #F8F9FA;
-                                    color: #2F4F4F;
-                                    padding: 0.2rem 0.6rem;
-                                    border-radius: 4px;
-                                    font-size: 0.75rem;
-                                    font-weight: 600;
-                                    display: inline-flex;
-                                    align-items: center;
-                                    gap: 0.2rem;
-                                ">
-                                    <span>🔒</span>
-                                    Mentor Only
-                                </span>
-                                {% endif %}
                             </div>
                             
                             {% if note.title %}
@@ -871,66 +846,6 @@
                         <div style="font-size: 0.85rem; color: #2F4F4F; opacity: 0.8;">Document progress or feedback</div>
                     </div>
                 </a>
-                
-                <a href="#" style="
-                    display: flex;
-                    align-items: center;
-                    gap: 1rem;
-                    background-color: #F8F9FA;
-                    color: #006747;
-                    padding: 1rem 1.2rem;
-                    border-radius: 8px;
-                    text-decoration: none;
-                    font-weight: 600;
-                    transition: all 0.3s ease;
-                " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.transform='translateX(5px)';" 
-                onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.transform='translateX(0)';">
-                    <div style="
-                        background-color: #FFD700;
-                        color: #006747;
-                        width: 36px;
-                        height: 36px;
-                        border-radius: 8px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-size: 1.2rem;
-                    ">📅</div>
-                    <div>
-                        <div style="font-size: 1rem;">Schedule Session</div>
-                        <div style="font-size: 0.85rem; color: #2F4F4F; opacity: 0.8;">Plan next mentoring session</div>
-                    </div>
-                </a>
-                
-                <a href="#" style="
-                    display: flex;
-                    align-items: center;
-                    gap: 1rem;
-                    background-color: #F8F9FA;
-                    color: #006747;
-                    padding: 1rem 1.2rem;
-                    border-radius: 8px;
-                    text-decoration: none;
-                    font-weight: 600;
-                    transition: all 0.3s ease;
-                " onmouseover="this.style.backgroundColor='#E6E6FA'; this.style.transform='translateX(5px)';" 
-                onmouseout="this.style.backgroundColor='#F8F9FA'; this.style.transform='translateX(0)';">
-                    <div style="
-                        background-color: #006747;
-                        color: #FFD700;
-                        width: 36px;
-                        height: 36px;
-                        border-radius: 8px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-size: 1.2rem;
-                    ">📊</div>
-                    <div>
-                        <div style="font-size: 1rem;">Generate Report</div>
-                        <div style="font-size: 0.85rem; color: #2F4F4F; opacity: 0.8;">Create progress report</div>
-                    </div>
-                </a>
             </div>
         </div>
         
@@ -990,89 +905,14 @@
                     line-height: 1.5;
                     margin-bottom: 1rem;
                 ">
-                    {% if student.personal_story %}
-                        {{ student.personal_story|truncatechars:200 }}
+                    {% if student.application.personal_story %}
+                        {{ student.application.personal_story|truncatechars:200 }}
                     {% else %}
                         No personal story available.
                     {% endif %}
                 </div>
             </div>
-            
-            <!-- Notes Summary -->
-            <div>
-                <h4 style="
-                    color: #006747;
-                    font-size: 1.1rem;
-                    margin-bottom: 1rem;
-                ">Notes Summary</h4>
-                
-                <div style="
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 0.5rem;
-                    text-align: center;
-                ">
-                    <div style="
-                        background-color: #E6F0FA;
-                        padding: 0.8rem;
-                        border-radius: 6px;
-                    ">
-                        <div style="
-                            color: #006747;
-                            font-size: 1.5rem;
-                            font-weight: bold;
-                            margin-bottom: 0.3rem;
-                        ">
-                            {{ progress_notes|default:"0" }}
-                        </div>
-                        <div style="
-                            color: #2F4F4F;
-                            font-size: 0.8rem;
-                            font-weight: 600;
-                        ">Progress</div>
-                    </div>
-                    
-                    <div style="
-                        background-color: #FFF9E6;
-                        padding: 0.8rem;
-                        border-radius: 6px;
-                    ">
-                        <div style="
-                            color: #006747;
-                            font-size: 1.5rem;
-                            font-weight: bold;
-                            margin-bottom: 0.3rem;
-                        ">
-                            {{ achievement_notes|default:"0" }}
-                        </div>
-                        <div style="
-                            color: #2F4F4F;
-                            font-size: 0.8rem;
-                            font-weight: 600;
-                        ">Achievements</div>
-                    </div>
-                    
-                    <div style="
-                        background-color: #FFE6E6;
-                        padding: 0.8rem;
-                        border-radius: 6px;
-                    ">
-                        <div style="
-                            color: #006747;
-                            font-size: 1.5rem;
-                            font-weight: bold;
-                            margin-bottom: 0.3rem;
-                        ">
-                            {{ challenge_notes|default:"0" }}
-                        </div>
-                        <div style="
-                            color: #2F4F4F;
-                            font-size: 0.8rem;
-                            font-weight: 600;
-                        ">Challenges</div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>

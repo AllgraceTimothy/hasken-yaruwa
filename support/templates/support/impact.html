@@ -1,3 +1,4 @@
+<!-- support/templates/support/impact.html -->
 {% extends "base.html" %}
 {% load static %}
 
@@ -52,6 +53,69 @@
         </p>
     </div>
 
+    <!-- Custom Impact Metrics from Database -->
+    {% if metrics %}
+    <div class="scale-in" style="
+        background: linear-gradient(135deg, #006747 0%, #00563a 100%);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        color: white;
+    ">
+        <h2 style="
+            color: #FFD700;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        ">
+            <span>🎯</span>
+            Key Impact Metrics
+        </h2>
+        <div style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        ">
+            {% for metric in metrics %}
+            <div style="
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                border-radius: 12px;
+                padding: 1.5rem;
+                text-align: center;
+                border: 1px solid rgba(255, 215, 0, 0.2);
+            ">
+                <div style="
+                    font-size: 2.5rem;
+                    font-weight: bold;
+                    color: #FFD700;
+                    margin-bottom: 0.5rem;
+                ">
+                    {{ metric.value }}{% if metric.title == 'Retention Rate' %} %{% endif %}
+                </div>
+                <div style="
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    margin-bottom: 0.5rem;
+                ">
+                    {{ metric.title }}
+                </div>
+                {% if metric.description %}
+                <div style="
+                    font-size: 0.9rem;
+                    opacity: 0.8;
+                ">
+                    {{ metric.description }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
     <!-- Key Metrics Dashboard -->
     <div class="scale-in" style="
         background: linear-gradient(135deg, #006747 0%, #00563a 100%);
@@ -91,7 +155,7 @@
                 gap: 0.8rem;
             ">
                 <span>📈</span>
-                Key Metrics
+                Financial Overview
             </h2>
             
             <div style="
@@ -141,7 +205,7 @@
                                 font-weight: bold;
                                 color: #FFD700;
                             ">
-                                {{ total_support_received|default:"0" }}
+                                ₦{{ total_support_received|floatformat:2|default:"0" }}
                             </div>
                         </div>
                     </div>
@@ -197,7 +261,7 @@
                                 font-weight: bold;
                                 color: #FFD700;
                             ">
-                                {{ total_value_distributed|default:"0" }}
+                                ₦{{ total_value_distributed|floatformat:2|default:"0" }}
                             </div>
                         </div>
                     </div>
@@ -326,14 +390,14 @@
         </div>
     </div>
 
-    <!-- Resource Distribution -->
+    <!-- Resource Distribution Charts -->
     <div class="fade-in" style="
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
         margin-bottom: 3rem;
     ">
-        <!-- Distribution Chart -->
+        <!-- Distribution by Count -->
         <div style="
             background-color: white;
             border-radius: 16px;
@@ -350,11 +414,12 @@
                 gap: 0.8rem;
             ">
                 <span style="color: #FFD700;">📊</span>
-                Resource Distribution
+                Resource Distribution (Count)
             </h2>
             
             {% if resource_distribution %}
-                <!-- Progress Bars -->
+                <!-- Calculate total for percentages -->
+                {% with total_count=resource_distribution|length %}
                 <div style="
                     display: flex;
                     flex-direction: column;
@@ -374,34 +439,37 @@
                             ">
                                 <span style="
                                     background-color: 
-                                        {% if item.resource_type == 'books' %}#E6F0FA
-                                        {% elif item.resource_type == 'uniforms' %}#FFF9E6
-                                        {% elif item.resource_type == 'scholarships' %}#F0F8F0
-                                        {% elif item.resource_type == 'tuition' %}#E6E6FA
-                                        {% elif item.resource_type == 'materials' %}#FFE6E6
+                                        {% if item.resource_type == 'scholarship' %}#E6F0FA
+                                        {% elif item.resource_type == 'laptop' %}#F0F8F0
+                                        {% elif item.resource_type == 'books' %}#FFF9E6
+                                        {% elif item.resource_type == 'transport' %}#FFE6E6
+                                        {% elif item.resource_type == 'internet' %}#E6E6FA
+                                        {% elif item.resource_type == 'training' %}#F0E6FF
                                         {% else %}#F8F9FA{% endif %};
                                     color: #006747;
-                                    width: 24px;
-                                    height: 24px;
+                                    width: 32px;
+                                    height: 32px;
                                     border-radius: 50%;
                                     display: flex;
                                     align-items: center;
                                     justify-content: center;
-                                    font-size: 0.8rem;
+                                    font-size: 1rem;
                                 ">
-                                    {% if item.resource_type == 'books' %}📚
-                                    {% elif item.resource_type == 'uniforms' %}👔
-                                    {% elif item.resource_type == 'scholarships' %}🎓
-                                    {% elif item.resource_type == 'tuition' %}💰
-                                    {% elif item.resource_type == 'materials' %}✏️
-                                    {% else %}📦{% endif %}
+                                    {% if item.resource_type == 'scholarship' %}🎓
+                                    {% elif item.resource_type == 'laptop' %}💻
+                                    {% elif item.resource_type == 'books' %}📚
+                                    {% elif item.resource_type == 'transport' %}🚌
+                                    {% elif item.resource_type == 'internet' %}🌐
+                                    {% elif item.resource_type == 'training' %}🧑‍🏫
+                                    {% else %}📦
+                                    {% endif %}
                                 </span>
                                 <span style="
                                     color: #006747;
                                     font-weight: 600;
-                                    font-size: 0.95rem;
+                                    font-size: 1rem;
                                 ">
-                                    {{ item.get_resource_type_display }}
+                                    {{ item.get_resource_type_display|default:item.resource_type|title }}
                                 </span>
                             </div>
                             <span style="
@@ -420,24 +488,30 @@
                             overflow: hidden;
                             position: relative;
                         ">
+                            {% with max_count=resource_distribution.0.count %}
                             <div style="
                                 height: 100%;
-                                width: {% widthratio item.count resource_distribution.0.count 100 %}%;
+                                width: {% widthratio item.count max_count 100 %}%;
                                 background: linear-gradient(90deg, 
-                                    {% if item.resource_type == 'books' %}#006747
-                                    {% elif item.resource_type == 'uniforms' %}#FFD700
-                                    {% elif item.resource_type == 'scholarships' %}#006747
-                                    {% elif item.resource_type == 'tuition' %}#006747
+                                    {% if item.resource_type == 'scholarship' %}#006747
+                                    {% elif item.resource_type == 'laptop' %}#28a745
+                                    {% elif item.resource_type == 'books' %}#ffc107
+                                    {% elif item.resource_type == 'transport' %}#fd7e14
+                                    {% elif item.resource_type == 'internet' %}#6f42c1
+                                    {% elif item.resource_type == 'training' %}#20c997
                                     {% else %}#006747{% endif %} 0%, 
-                                    {% if item.resource_type == 'books' %}#00563a
-                                    {% elif item.resource_type == 'uniforms' %}#e6c200
-                                    {% elif item.resource_type == 'scholarships' %}#00563a
+                                    {% if item.resource_type == 'scholarship' %}#00563a
+                                    {% elif item.resource_type == 'laptop' %}#218838
+                                    {% elif item.resource_type == 'books' %}#e0a800
+                                    {% elif item.resource_type == 'transport' %}#dc6c12
+                                    {% elif item.resource_type == 'internet' %]#59339d
+                                    {% elif item.resource_type == 'training' %]#17a589
                                     {% else %}#00563a{% endif %} 100%);
                                 border-radius: 8px;
                                 transition: width 0.5s ease;
                             "></div>
+                            {% endwith %}
                             
-                            <!-- Icon inside bar -->
                             <span style="
                                 position: absolute;
                                 right: 10px;
@@ -448,36 +522,13 @@
                                 font-weight: 600;
                                 text-shadow: 0 1px 2px rgba(0,0,0,0.2);
                             ">
-                                {{ item.count }} units
+                                {{ item.count }} unit{{ item.count|pluralize }}
                             </span>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
-                
-                <!-- Total Summary -->
-                <div style="
-                    margin-top: 2rem;
-                    padding: 1rem;
-                    background-color: #F8F9FA;
-                    border-radius: 8px;
-                    text-align: center;
-                ">
-                    <div style="
-                        color: #2F4F4F;
-                        font-size: 0.95rem;
-                        margin-bottom: 0.5rem;
-                    ">
-                        Total Resources Distributed
-                    </div>
-                    <div style="
-                        color: #006747;
-                        font-size: 2rem;
-                        font-weight: bold;
-                    ">
-                        {{ total_resources|default:"0" }}
-                    </div>
-                </div>
+                {% endwith %}
             {% else %}
                 <!-- Empty State -->
                 <div style="
@@ -500,7 +551,7 @@
             {% endif %}
         </div>
         
-        <!-- Distribution Pie Chart (Visual) -->
+        <!-- Distribution by Value -->
         <div style="
             background-color: white;
             border-radius: 16px;
@@ -516,81 +567,216 @@
                 align-items: center;
                 gap: 0.8rem;
             ">
-                <span style="color: #FFD700;">🥧</span>
-                Distribution Breakdown
+                <span style="color: #FFD700;">💰</span>
+                Distribution by Value
             </h2>
             
-            {% if resource_distribution %}
+            {% if value_distribution %}
             <div style="
                 display: flex;
                 flex-direction: column;
-                align-items: center;
-                gap: 2rem;
+                gap: 1.5rem;
             ">
-                <!-- Simple Pie Chart Representation -->
-                <div style="
-                    position: relative;
-                    width: 200px;
-                    height: 200px;
-                    border-radius: 50%;
-                    background: conic-gradient(
-                        {% for item in resource_distribution %}
-                            {% if item.resource_type == 'books' %}#006747 {% widthratio item.count total_resources 360 %}deg
-                            {% elif item.resource_type == 'uniforms' %}#FFD700 {% widthratio item.count total_resources 360 %}deg
-                            {% elif item.resource_type == 'scholarships' %}#00563a {% widthratio item.count total_resources 360 %}deg
-                            {% else %}#E6E6FA {% widthratio item.count total_resources 360 %}deg{% endif %}
-                            {% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                    );
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                    margin: 0 auto;
-                "></div>
-                
-                <!-- Legend -->
-                <div style="
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                    gap: 1rem;
-                    width: 100%;
-                ">
-                    {% for item in resource_distribution %}
+                {% for item in value_distribution %}
+                {% if item.total_value %}
+                <div>
                     <div style="
                         display: flex;
-                        align-items: center;
-                        gap: 0.8rem;
-                        padding: 0.8rem;
-                        background-color: #F8F9FA;
-                        border-radius: 8px;
+                        justify-content: space-between;
+                        margin-bottom: 0.5rem;
                     ">
                         <div style="
-                            width: 20px;
-                            height: 20px;
-                            border-radius: 4px;
-                            background-color: 
-                                {% if item.resource_type == 'books' %}#006747
-                                {% elif item.resource_type == 'uniforms' %}#FFD700
-                                {% elif item.resource_type == 'scholarships' %}#00563a
-                                {% else %}#E6E6FA{% endif %};
-                        "></div>
-                        <div style="flex: 1;">
-                            <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                        ">
+                            <span style="
+                                background-color: 
+                                    {% if item.resource_type == 'scholarship' %}#E6F0FA
+                                    {% elif item.resource_type == 'laptop' %}#F0F8F0
+                                    {% elif item.resource_type == 'books' %}#FFF9E6
+                                    {% elif item.resource_type == 'transport' %}#FFE6E6
+                                    {% elif item.resource_type == 'internet' %}#E6E6FA
+                                    {% elif item.resource_type == 'training' %}#F0E6FF
+                                    {% else %}#F8F9FA{% endif %};
+                                color: #006747;
+                                width: 32px;
+                                height: 32px;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 1rem;
+                            ">
+                                {% if item.resource_type == 'scholarship' %}🎓
+                                {% elif item.resource_type == 'laptop' %}💻
+                                {% elif item.resource_type == 'books' %}📚
+                                {% elif item.resource_type == 'transport' %}🚌
+                                {% elif item.resource_type == 'internet' %}🌐
+                                {% elif item.resource_type == 'training' %}🧑‍🏫
+                                {% else %}📦
+                                {% endif %}
+                            </span>
+                            <span style="
                                 color: #006747;
                                 font-weight: 600;
-                                font-size: 0.9rem;
+                                font-size: 1rem;
                             ">
-                                {{ item.get_resource_type_display }}
-                            </div>
-                            <div style="
-                                color: #2F4F4F;
-                                font-size: 0.8rem;
-                            ">
-                                {{ item.count }} units 
-                                ({% widthratio item.count total_resources 100 %}%)
-                            </div>
+                                {{ item.get_resource_type_display|default:item.resource_type|title }}
+                            </span>
                         </div>
+                        <span style="
+                            color: #28a745;
+                            font-weight: bold;
+                            font-size: 1.1rem;
+                        ">
+                            ₦{{ item.total_value|floatformat:2 }}
+                        </span>
                     </div>
-                    {% endfor %}
+                    
+                    <!-- Value Progress Bar -->
+                    <div style="
+                        height: 8px;
+                        background-color: #F8F9FA;
+                        border-radius: 4px;
+                        overflow: hidden;
+                    ">
+                        {% with max_value=value_distribution.0.total_value %}
+                        <div style="
+                            height: 100%;
+                            width: {% widthratio item.total_value max_value 100 %}%;
+                            background: linear-gradient(90deg, #28a745, #20c997);
+                            border-radius: 4px;
+                            transition: width 0.5s ease;
+                        "></div>
+                        {% endwith %}
+                    </div>
                 </div>
+                {% endif %}
+                {% endfor %}
+                
+                <!-- Total Value Summary -->
+                <div style="
+                    margin-top: 1.5rem;
+                    padding: 1rem;
+                    background-color: #F8F9FA;
+                    border-radius: 8px;
+                    text-align: center;
+                ">
+                    <div style="
+                        color: #2F4F4F;
+                        font-size: 0.95rem;
+                        margin-bottom: 0.5rem;
+                    ">
+                        Total Value Distributed
+                    </div>
+                    <div style="
+                        color: #006747;
+                        font-size: 2rem;
+                        font-weight: bold;
+                    ">
+                        ₦{{ total_value_distributed|floatformat:2|default:"0" }}
+                    </div>
+                </div>
+            </div>
+            {% else %}
+                <div style="
+                    text-align: center;
+                    padding: 3rem;
+                ">
+                    <div style="
+                        font-size: 3rem;
+                        color: #E6E6FA;
+                        margin-bottom: 1rem;
+                    ">💰</div>
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 1rem;
+                        margin: 0;
+                    ">
+                        No value distribution data available yet.
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Recent Support and Allocations -->
+    <div class="fade-in" style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 3rem;
+    ">
+        <!-- Recent Support Received -->
+        <div style="
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 2rem;
+            border-top: 5px solid #006747;
+        ">
+            <h2 style="
+                color: #006747;
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+            ">
+                <span style="color: #FFD700;">📥</span>
+                Recent Support Received
+            </h2>
+            
+            {% if recent_support %}
+            <div style="
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            ">
+                {% for support in recent_support %}
+                <div style="
+                    padding: 1rem;
+                    background-color: #F8F9FA;
+                    border-radius: 8px;
+                    border-left: 4px solid #FFD700;
+                ">
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 0.5rem;
+                    ">
+                        <span style="
+                            font-weight: 600;
+                            color: #006747;
+                        ">
+                            {{ support.source }}
+                        </span>
+                        <span style="
+                            color: #28a745;
+                            font-weight: bold;
+                        ">
+                            ₦{{ support.amount|floatformat:2 }}
+                        </span>
+                    </div>
+                    {% if support.description %}
+                    <p style="
+                        color: #2F4F4F;
+                        font-size: 0.9rem;
+                        margin: 0.5rem 0;
+                    ">
+                        {{ support.description|truncatechars:100 }}
+                    </p>
+                    {% endif %}
+                    <div style="
+                        font-size: 0.8rem;
+                        color: #666;
+                    ">
+                        Received: {{ support.date_received|date:"F j, Y" }}
+                    </div>
+                </div>
+                {% endfor %}
             </div>
             {% else %}
             <div style="
@@ -601,40 +787,30 @@
                     font-size: 3rem;
                     color: #E6E6FA;
                     margin-bottom: 1rem;
-                ">🥧</div>
+                ">📥</div>
                 <p style="
                     color: #2F4F4F;
                     font-size: 1rem;
                     margin: 0;
                 ">
-                    No breakdown data available yet.
+                    No recent support entries.
                 </p>
             </div>
             {% endif %}
         </div>
-    </div>
-
-    <!-- Recent Allocations Timeline -->
-    <div class="fade-in" style="
-        background-color: white;
-        border-radius: 16px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        padding: 2rem;
-        margin-bottom: 3rem;
-        border-top: 5px solid #006747;
-    ">
+        
+        <!-- Recent Allocations -->
         <div style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 2rem;
+            border-top: 5px solid #FFD700;
         ">
             <h2 style="
                 color: #006747;
                 font-size: 1.8rem;
-                margin: 0;
+                margin-bottom: 1.5rem;
                 display: flex;
                 align-items: center;
                 gap: 0.8rem;
@@ -644,216 +820,157 @@
             </h2>
             
             {% if recent_allocations %}
-            <span style="
-                background-color: #E6F0FA;
-                color: #006747;
-                padding: 0.5rem 1rem;
-                border-radius: 20px;
-                font-size: 0.9rem;
-                font-weight: 600;
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-            ">
-                <span>🔄</span>
-                Last {{ recent_allocations|length }} allocations
-            </span>
-            {% endif %}
-        </div>
-        
-        {% if recent_allocations %}
-        <div style="
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        ">
-            {% for allocation in recent_allocations %}
             <div style="
                 display: flex;
-                align-items: center;
-                gap: 1.5rem;
-                padding: 1.2rem;
-                background-color: #F8F9FA;
-                border-radius: 8px;
-                border-left: 4px solid 
-                    {% if allocation.resource_type == 'books' %}#006747
-                    {% elif allocation.resource_type == 'uniforms' %}#FFD700
-                    {% elif allocation.resource_type == 'scholarships' %}#006747
-                    {% else %}#E6E6FA{% endif %};
-                transition: all 0.3s ease;
-            " onmouseover="this.style.transform='translateX(5px)'; this.style.backgroundColor='#F0F8F0';" 
-            onmouseout="this.style.transform='translateX(0)'; this.style.backgroundColor='#F8F9FA';">
-                
-                <!-- Icon -->
+                flex-direction: column;
+                gap: 1rem;
+            ">
+                {% for allocation in recent_allocations %}
                 <div style="
-                    width: 50px;
-                    height: 50px;
-                    background-color: 
-                        {% if allocation.resource_type == 'books' %}#E6F0FA
-                        {% elif allocation.resource_type == 'uniforms' %}#FFF9E6
-                        {% elif allocation.resource_type == 'scholarships' %}#F0F8F0
-                        {% else %}#F8F9FA{% endif %};
-                    color: #006747;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 1.5rem;
+                    padding: 1rem;
+                    background-color: #F8F9FA;
+                    border-radius: 8px;
+                    border-left: 4px solid 
+                        {% if allocation.resource_type == 'scholarship' %}#006747
+                        {% elif allocation.resource_type == 'laptop' %}#28a745
+                        {% elif allocation.resource_type == 'books' %}#ffc107
+                        {% elif allocation.resource_type == 'transport' %}#fd7e14
+                        {% elif allocation.resource_type == 'internet' %}#6f42c1
+                        {% elif allocation.resource_type == 'training' %}#20c997
+                        {% else %}#E6E6FA{% endif %};
                 ">
-                    {% if allocation.resource_type == 'books' %}📚
-                    {% elif allocation.resource_type == 'uniforms' %}👔
-                    {% elif allocation.resource_type == 'scholarships' %}🎓
-                    {% elif allocation.resource_type == 'tuition' %}💰
-                    {% elif allocation.resource_type == 'materials' %}✏️
-                    {% else %}📦{% endif %}
-                </div>
-                
-                <!-- Content -->
-                <div style="flex: 1;">
                     <div style="
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
-                        flex-wrap: wrap;
-                        gap: 0.5rem;
-                        margin-bottom: 0.3rem;
+                        margin-bottom: 0.5rem;
                     ">
-                        <span style="
-                            color: #006747;
-                            font-weight: 600;
-                            font-size: 1rem;
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
                         ">
-                            {{ allocation.get_resource_type_display }}
-                        </span>
+                            <span style="
+                                font-size: 1.2rem;
+                            ">
+                                {% if allocation.resource_type == 'scholarship' %}🎓
+                                {% elif allocation.resource_type == 'laptop' %}💻
+                                {% elif allocation.resource_type == 'books' %}📚
+                                {% elif allocation.resource_type == 'transport' %}🚌
+                                {% elif allocation.resource_type == 'internet' %}🌐
+                                {% elif allocation.resource_type == 'training' %}🧑‍🏫
+                                {% else %}📦
+                                {% endif %}
+                            </span>
+                            <span style="
+                                font-weight: 600;
+                                color: #006747;
+                            ">
+                                {{ allocation.get_resource_type_display }}
+                            </span>
+                        </div>
                         <span style="
                             color: #2F4F4F;
                             font-size: 0.85rem;
-                            display: flex;
-                            align-items: center;
-                            gap: 0.3rem;
                         ">
-                            <span>📅</span>
-                            {{ allocation.created_at|date:"M d, Y" }}
+                            {{ allocation.date_allocated|date:"M d, Y" }}
                         </span>
                     </div>
                     
                     <div style="
-                        display: flex;
-                        align-items: center;
-                        gap: 0.8rem;
-                        flex-wrap: wrap;
+                        margin-bottom: 0.5rem;
                     ">
                         <span style="
-                            display: flex;
-                            align-items: center;
-                            gap: 0.3rem;
-                            color: #2F4F4F;
+                            color: #006747;
+                            font-weight: 500;
                         ">
-                            <span>👤</span>
-                            <a href="#" style="
-                                color: #006747;
-                                text-decoration: none;
-                                font-weight: 500;
-                            " onmouseover="this.style.textDecoration='underline';" 
-                            onmouseout="this.style.textDecoration='none';">
-                                {{ allocation.student.user.full_name }}
-                            </a>
+                            {{ allocation.student.user.get_full_name|default:allocation.student.user.full_name }}
                         </span>
-                        
-                        {% if allocation.mentor %}
+                        {% if allocation.support_source %}
                         <span style="
-                            display: flex;
-                            align-items: center;
-                            gap: 0.3rem;
-                            color: #2F4F4F;
+                            color: #666;
                             font-size: 0.9rem;
                         ">
-                            <span>👨‍🏫</span>
-                            via {{ allocation.mentor.user.full_name }}
+                            via {{ allocation.support_source.source }}
                         </span>
                         {% endif %}
                     </div>
                     
-                    <!-- Resource Details -->
                     <div style="
-                        margin-top: 0.5rem;
+                        display: flex;
+                        gap: 1rem;
                         font-size: 0.9rem;
-                        color: #2F4F4F;
                     ">
-                        {{ allocation.details|default:"Resource allocated to support student's education." }}
+                        {% if allocation.quantity > 1 %}
+                        <span style="color: #666;">
+                            Quantity: {{ allocation.quantity }}
+                        </span>
+                        {% endif %}
+                        {% if allocation.value %}
+                        <span style="color: #28a745;">
+                            Value: ₦{{ allocation.value|floatformat:2 }}
+                        </span>
+                        {% endif %}
                     </div>
+                    
+                    {% if allocation.notes %}
+                    <p style="
+                        color: #666;
+                        font-size: 0.85rem;
+                        margin: 0.5rem 0 0 0;
+                        font-style: italic;
+                    ">
+                        {{ allocation.notes|truncatechars:75 }}
+                    </p>
+                    {% endif %}
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
-        
-        <!-- View All Link -->
-        <div style="
-            text-align: center;
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid #E6E6FA;
-        ">
-            <a href="#" style="
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-                color: #006747;
-                text-decoration: none;
-                font-weight: 600;
-                font-size: 0.95rem;
-                transition: all 0.3s ease;
-            " onmouseover="this.style.color='#00563a'; this.style.gap='0.8rem';" 
-            onmouseout="this.style.color='#006747'; this.style.gap='0.5rem';">
-                <span>View All Allocations</span>
-                <span>→</span>
-            </a>
-        </div>
-        
-        {% else %}
-        <!-- Empty State -->
-        <div style="
-            text-align: center;
-            padding: 3rem;
-        ">
+            
+            {% else %}
             <div style="
-                font-size: 3rem;
-                color: #E6E6FA;
-                margin-bottom: 1rem;
-            ">⏱️</div>
-            <h3 style="
-                color: #006747;
-                font-size: 1.4rem;
-                margin-bottom: 0.5rem;
+                text-align: center;
+                padding: 3rem;
             ">
-                No Recent Allocations
-            </h3>
-            <p style="
-                color: #2F4F4F;
-                font-size: 1rem;
-                margin-bottom: 1.5rem;
-            ">
-                There haven't been any resource allocations yet.
-            </p>
-            <a href="{% url 'admin:index' %}" style="
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-                background-color: #006747;
-                color: white;
-                padding: 0.8rem 1.5rem;
-                border-radius: 8px;
-                text-decoration: none;
-                font-weight: 600;
-                font-size: 0.95rem;
-                transition: all 0.3s ease;
-            " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
-            onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
-                <span>➕</span>
-                Add Allocation
-            </a>
+                <div style="
+                    font-size: 3rem;
+                    color: #E6E6FA;
+                    margin-bottom: 1rem;
+                ">⏱️</div>
+                <h3 style="
+                    color: #006747;
+                    font-size: 1.4rem;
+                    margin-bottom: 0.5rem;
+                ">
+                    No Recent Allocations
+                </h3>
+                <p style="
+                    color: #2F4F4F;
+                    font-size: 1rem;
+                    margin-bottom: 1.5rem;
+                ">
+                    There haven't been any resource allocations yet.
+                </p>
+                <a href="{% url 'admin:index' %}" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    background-color: #006747;
+                    color: white;
+                    padding: 0.8rem 1.5rem;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 0.95rem;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.backgroundColor='#00563a'; this.style.transform='translateY(-2px)';" 
+                onmouseout="this.style.backgroundColor='#006747'; this.style.transform='translateY(0)';">
+                    <span>➕</span>
+                    Add Allocation
+                </a>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
     </div>
 
     <!-- Impact Stories Preview -->
@@ -942,27 +1059,50 @@
     </div>
 </div>
 
-<!-- JavaScript for Enhanced Interactivity -->
 <script>
+    // Helper function to get resource type display name
+    function getResourceTypeDisplay(type) {
+        const types = {
+            'scholarship': 'Scholarship',
+            'laptop': 'Laptop',
+            'books': 'Books',
+            'transport': 'Transport Support',
+            'internet': 'Internet Access',
+            'training': 'Training Program',
+            'other': 'Other Support'
+        };
+        return types[type] || type;
+    }
+    
     // Animate numbers on scroll
     function animateNumbers() {
         const numberElements = document.querySelectorAll('.stat-number');
         numberElements.forEach(element => {
-            const target = parseInt(element.textContent.replace(/[^0-9]/g, ''));
-            let current = 0;
-            const increment = target / 50;
-            
-            const updateNumber = () => {
-                if (current < target) {
-                    current += increment;
-                    element.textContent = Math.round(current).toLocaleString();
-                    requestAnimationFrame(updateNumber);
-                } else {
-                    element.textContent = target.toLocaleString();
-                }
-            };
-            
-            updateNumber();
+            const target = parseFloat(element.textContent.replace(/[^0-9.-]+/g, ''));
+            if (!isNaN(target)) {
+                let current = 0;
+                const increment = target / 50;
+                
+                const updateNumber = () => {
+                    if (current < target) {
+                        current += increment;
+                        if (Number.isInteger(target)) {
+                            element.textContent = Math.round(current).toLocaleString();
+                        } else {
+                            element.textContent = '₦' + current.toFixed(2).toLocaleString();
+                        }
+                        requestAnimationFrame(updateNumber);
+                    } else {
+                        if (Number.isInteger(target)) {
+                            element.textContent = target.toLocaleString();
+                        } else {
+                            element.textContent = '₦' + target.toFixed(2).toLocaleString();
+                        }
+                    }
+                };
+                
+                updateNumber();
+            }
         });
     }
     
@@ -971,15 +1111,12 @@
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('animated');
-                if (entry.target.classList.contains('stat-card')) {
-                    animateNumbers();
-                }
             }
         });
     }, { threshold: 0.5 });
     
     // Observe elements
-    document.querySelectorAll('.stat-card, .distribution-item').forEach(el => {
+    document.querySelectorAll('.scale-in, .fade-in').forEach(el => {
         observer.observe(el);
     });
     
@@ -991,9 +1128,14 @@
         csv += `Students Supported,{{ students_supported }}\n`;
         csv += `Total Allocations,{{ total_allocations }}\n\n`;
         
-        csv += 'Resource Type,Count\n';
+        csv += 'Resource Type,Count,Total Value\n';
         {% for item in resource_distribution %}
-        csv += `{{ item.get_resource_type_display }},{{ item.count }}\n`;
+        csv += `{{ item.resource_type }},{{ item.count }},`;
+        {% for value_item in value_distribution %}
+        {% if value_item.resource_type == item.resource_type %}
+        csv += `{{ value_item.total_value }}\n`;
+        {% endif %}
+        {% endfor %}
         {% endfor %}
         
         const blob = new Blob([csv], { type: 'text/csv' });
@@ -1077,50 +1219,61 @@
 </script>
 
 <style>
+    /* Animation Keyframes */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes scaleIn {
+        from { transform: scale(0.95); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+    
+    @keyframes slideIn {
+        from { transform: translateX(100%); }
+        to { transform: translateX(0); }
+    }
+    
+    @keyframes slideOut {
+        from { transform: translateX(0); }
+        to { transform: translateX(100%); }
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.6s ease-out;
+    }
+    
+    .scale-in {
+        animation: scaleIn 0.5s ease-out;
+    }
+    
     /* Responsive Styles */
     @media (max-width: 1024px) {
-        .distribution-grid {
+        .fade-in[style*="grid-template-columns: 1fr 1fr"] {
             grid-template-columns: 1fr !important;
-        }
-        
-        .metrics-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
         }
     }
     
     @media (max-width: 768px) {
-        .metrics-grid {
+        .scale-in[style*="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))"] {
             grid-template-columns: 1fr !important;
         }
         
-        .metrics-dashboard {
+        .scale-in {
             padding: 1.5rem !important;
         }
         
-        .metrics-dashboard h2 {
+        .scale-in h2 {
             font-size: 1.5rem !important;
         }
         
-        .distribution-chart {
+        .fade-in[style*="padding: 2rem"] {
             padding: 1.5rem !important;
         }
         
-        .distribution-chart h2 {
+        .fade-in h2 {
             font-size: 1.5rem !important;
-        }
-        
-        .timeline-item {
-            flex-direction: column;
-            text-align: center;
-            gap: 1rem !important;
-        }
-        
-        .timeline-icon {
-            margin: 0 auto;
-        }
-        
-        .export-button {
-            display: none !important;
         }
     }
     
@@ -1133,59 +1286,21 @@
             font-size: 1rem !important;
         }
         
-        .stat-card {
-            padding: 1rem !important;
-        }
-        
-        .stat-card > div {
-            flex-direction: column;
-            text-align: center;
-            gap: 0.5rem !important;
-        }
-        
-        .stat-icon {
-            margin: 0 auto;
-        }
-        
-        .stat-value {
-            font-size: 1.8rem !important;
-        }
-        
-        .progress-bar span {
-            font-size: 0.8rem !important;
-        }
-        
-        .legend-item {
-            padding: 0.5rem !important;
-        }
-        
-        .impact-stories {
+        .scale-in[style*="padding: 2.5rem"] {
             padding: 1.5rem !important;
         }
         
-        .impact-stories h2 {
+        .fade-in[style*="padding: 2.5rem"] {
+            padding: 1.5rem !important;
+        }
+        
+        .fade-in h2 {
+            font-size: 1.3rem !important;
+        }
+        
+        [style*="font-size: 2rem"] {
             font-size: 1.5rem !important;
         }
-    }
-    
-    /* Animation for number counting */
-    @keyframes countUp {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .stat-number {
-        animation: countUp 0.5s ease-out;
-    }
-    
-    /* Progress bar animation */
-    .progress-bar {
-        transition: width 0.5s ease;
-    }
-    
-    /* Export button animation */
-    .export-button {
-        transition: all 0.3s ease;
     }
     
     /* Print styles */
@@ -1195,20 +1310,21 @@
             display: none !important;
         }
         
-        .metrics-dashboard,
-        .distribution-chart,
-        .timeline {
+        .scale-in,
+        .fade-in {
             box-shadow: none !important;
             border: 1px solid #ddd !important;
             page-break-inside: avoid;
+            break-inside: avoid;
         }
         
-        .progress-bar {
-            background: #ddd !important;
+        [style*="background: linear-gradient(135deg, #006747"] {
+            background: #f8f9fa !important;
+            color: black !important;
         }
         
-        .progress-bar div {
-            background: #006747 !important;
+        [style*="color: #FFD700"] {
+            color: #006747 !important;
         }
     }
 </style>

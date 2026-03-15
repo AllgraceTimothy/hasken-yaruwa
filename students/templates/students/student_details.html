@@ -590,7 +590,7 @@
                             <option value="{{ mentor.id }}" 
                                     {% if student.mentor and student.mentor.id == mentor.id %}selected{% endif %}
                                     data-email="{{ mentor.user.email }}"
-                                    data-background="{% if mentor.background %}{{ mentor.background|truncatechars:100 }}{% endif %}">
+                                    data-background="{% if mentor.application.background %}{{ mentor.application.background|truncatechars:100 }}{% endif %}">
                                 {{ mentor.user.full_name }}
                             </option>
                         {% endfor %}

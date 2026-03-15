@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.db.models import Sum, Count
-from .models import Support, ResourceAllocation
+from .models import Support, ResourceAllocation, ImpactMetric
 
 
 def impact_page(request):
+    # IMPACT METRICES
+    metrics = ImpactMetric.objects.all().order_by("order")
+
     # TOTAL SUPPORT RECEIVED
     total_support_received = Support.objects.aggregate(
         total=Sum("amount")
@@ -56,6 +59,7 @@ def impact_page(request):
 
 
     context = {
+        "metrics": metrics,
         "total_support_received": total_support_received,
         "total_allocations": total_allocations,
         "total_value_distributed": total_value_distributed,

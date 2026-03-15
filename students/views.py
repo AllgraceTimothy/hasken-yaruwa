@@ -78,8 +78,12 @@ def student_dashboard(request):
   notes = ProgressNote.objects.filter(
     student=student,
     author=mentor.user,
-    is_visible_to_student=True
-  ).select_related('author')[:10]
+  ).select_related('author')[:10] if mentor else ProgressNote.objects.none()
+
+  my_updates = ProgressNote.objects.filter(
+    author=student.user,
+    mentor=mentor,
+  ) if mentor else ProgressNote.objects.none()
 
   return render(
     request,
@@ -87,7 +91,8 @@ def student_dashboard(request):
     {
       'student': student,
       'mentor': mentor,
-      'notes': notes
+      'notes': notes,
+      'my_updates': my_updates,
     }
   )
 

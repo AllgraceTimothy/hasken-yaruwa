@@ -509,10 +509,6 @@
                 <!-- Desktop Navigation -->
                 <div class="desktop-nav">
                     <ul>
-                        <li><a href="{% url 'home' %}" {% if request.path == '/' %}class="active-link"{% endif %}>Home</a></li>
-                        <li><a href="{% url 'about' %}" {% if 'about' in request.path %}class="active-link"{% endif %}>About</a></li>
-                        <li><a href="{% url 'support' %}" {% if 'support' in request.path %}class="active-link"{% endif %}>Support</a></li>
-                        
                         {% if user.is_authenticated %}
                             {% if user.role == 'admin' %}
                                 <li><a href="{% url 'admin_dashboard' %}" {% if 'dashboard' in request.path %}class="active-link"{% endif %}>Admin Dashboard</a></li>
@@ -523,12 +519,16 @@
                             {% endif %}
                         {% else %}
                             <!-- Show application links only when NOT logged in -->
+                             <li><a href="{% url 'home' %}" {% if request.path == '/' %}class="active-link"{% endif %}>Home</a></li>
+                             <li><a href="{% url 'about' %}" {% if 'about' in request.path %}class="active-link"{% endif %}>About</a></li>
+                              <li><a href="{% url 'support' %}" {% if 'support' in request.path %}class="active-link"{% endif %}>Support</a></li>
                             <li><a href="{% url 'student_application' %}" {% if 'apply' in request.path %}class="active-link"{% endif %}>Apply</a></li>
                             <li><a href="{% url 'mentor_application' %}" {% if 'mentor' in request.path %}class="active-link"{% endif %}>Become a Mentor</a></li>
+                            <li><a href="{% url 'blog_list' %}">Blog</a></li>
+                            <li><a href="{% url 'success_list' %}">Success Stories</a></li>
+                            <li><a href="{% url 'impact_page' %}">Impact</a></li>
                         {% endif %}
-                        <li><a href="{% url 'blog_list' %}">Blog</a></li>
-                        <li><a href="{% url 'success_list' %}">Success Stories</a></li>
-                        <li><a href="{% url 'impact_page' %}">Impact</a></li>
+
                     </ul>
                     
                     {% if user.is_authenticated %}
@@ -566,8 +566,7 @@
         </div>
         
         <ul>
-            <li><a href="{% url 'home' %}" {% if request.path == '/' %}class="active-link"{% endif %}>Home</a></li>
-            <li><a href="{% url 'about' %}" {% if 'about' in request.path %}class="active-link"{% endif %}>About Us</a></li>
+
             
             {% if user.is_authenticated %}
                 {% if user.role == 'admin' %}
@@ -579,20 +578,16 @@
                 {% endif %}
             {% else %}
                 <!-- Show application links only when NOT logged in -->
+                <li><a href="{% url 'home' %}" {% if request.path == '/' %}class="active-link"{% endif %}>Home</a></li>
+                <li><a href="{% url 'about' %}" {% if 'about' in request.path %}class="active-link"{% endif %}>About Us</a></li>
                 <li><a href="{% url 'student_application' %}" {% if 'apply' in request.path %}class="active-link"{% endif %}>Apply for Support</a></li>
                 <li><a href="{% url 'mentor_application' %}" {% if 'mentor' in request.path %}class="active-link"{% endif %}>Become a Mentor</a></li>
+                <li><a href="{% url 'support' %}" {% if 'support' in request.path %}class="active-link"{% endif %}>Support the Mission</a></li>
+                <li><a href="{% url 'blog_list' %}">Blog</a></li>
+                <li><a href="{% url 'success_list' %}">Success Stories</a></li>
+                <li><a href="{% url 'impact_page' %}">Impact</a></li>
             {% endif %}
-            
-            <li><a href="{% url 'support' %}" {% if 'support' in request.path %}class="active-link"{% endif %}>Support the Mission</a></li>
-            <li><a href="{% url 'blog_list' %}">Blog</a></li>
 
-            <li><a href="{% url 'success_list' %}">
-            Success Stories
-            </a></li>
-
-            <li><a href="{% url 'impact_page' %}">
-            Impact
-            </a></li>
             {% if user.is_authenticated %}
                 <li style="border-bottom: none; margin-top: 2rem;">
                     <div style="margin-bottom: 1rem;">
